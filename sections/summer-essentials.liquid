@@ -1,0 +1,477 @@
+{% liquid assign counter = 0 %}
+
+{% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'product_card' %}
+    {% assign counter = counter | plus: 1 %}
+  {% endcase %}
+{% endfor %}
+
+{%-capture count_class-%}
+  {% if counter == 1%}
+    image-75
+  {% elsif counter == 2%}
+    image-50
+  {% elsif counter == 3%}
+    image-25
+  {% elsif counter == 0%}
+    image-100
+  {% endif %}
+{% endcapture %}
+
+{%-capture card_counter -%}
+    {% if counter > 3%}
+      enable
+    {% endif %}
+{% endcapture %}
+  
+<div class="{{ section.id }} summer-essentials">
+	<div class="summer-essentials-background-image">
+		<img 
+			loading="lazy" 
+			width="100%"
+			height="100%"
+			src="{{ section.settings.background_image | image_url: width: section.settings.background_image.width }}" 
+		>
+	</div>
+	<div class="summer-essentials-content-container-wrapper">
+		<div 
+			class="summer-essentials-content-container" 
+			reverse-display="{{ section.settings.reverse_display }}"
+		>
+			<div class="left summer-essentials-content-image">
+				<img 
+					loading="lazy" 
+					width="{{ section.settings.left_image.width }}"
+					height="{{ section.settings.left_image.height }}"
+					src="{{ section.settings.left_image | image_url: width: section.settings.left_image.width }}"
+				>
+			</div>
+			<div class="right">
+				<div class="ss-product-nav-buttons">
+					<div class="ss-nav-btn ss-products-swiper-prev">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+							<path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="#B5161C" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</div>
+					<div class="ss-nav-btn ss-products-swiper-next">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+							<path d="M8.625 12L13 8L8.625 4M13 8L3 8" stroke="#B5161C" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</div>
+				</div>
+				<div class="summer-essentials-container">
+					<div id="ssProductsSwiperContainer" class="summer-essentials-content {{ count_class | strip }} swiper-wrapper">
+						{% for block in section.blocks %}
+							{% case block.type %}
+								{% when 'product_card' %}
+								<div class="product_card swiper-slide">
+									{% render 'essentials-card',  
+										product_data: block.settings.product_data, 
+										size_variant: block.settings.size_variant,
+										button_text: block.settings.button_text
+										button_link: block.settings.button_link
+									%}
+								</div>
+							{% endcase %}
+						{% endfor %} 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+              
+{% if section.blocks.size >= 2 %}
+  <style>
+	.{{ section.id }}.summer-essentials .right .ss-product-nav-buttons {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+    .{{ section.id }}.summer-essentials .right .ss-product-nav-buttons div {
+      	display: flex;
+		width: 100%;
+		height: 100%;
+    }
+
+	.{{ section.id }}.summer-essentials .right .ss-products-swiper-next.swiper-button-disabled,
+	.{{ section.id }}.summer-essentials .right .ss-products-swiper-prev.swiper-button-disabled{
+	   opacity: 1;
+   	}
+	
+    .{{ section.id }}.summer-essentials .summer-essentials-content{
+		display: flex !important;
+    }
+	
+    @media(max-width: 767px){
+		.{{ section.id }}.summer-essentials .product-card-v2 .product-card-images{
+			aspect-ratio: 1 / 1.25;
+		}
+		.{{ section.id }}.summer-essentials .summer-essentials-content--image{
+			aspect-ratio: unset;
+		}
+		.{{ section.id }}.summer-essentials .swiper-slide{
+			max-width: unset;
+		}
+
+		{% comment %} .{{ section.id }}.summer-essentials .right .ss-product-nav-buttons {
+			display: none;
+		} {% endcomment %}
+		
+    }
+
+  </style>
+  <script>
+    new Swiper(".{{ section.id }} .summer-essentials-container", {
+      slidesPerView: 1.3,
+      slidesPerGroupAuto: true,
+      spaceBetween: 24,
+      breakpoints: {
+        500: {
+          slidesPerView: 1.3, // the number of slides to show at once
+          slidesPerGroup: 5, // the number of slider groups to show at once
+        },
+        768: {
+          slidesPerView: 3,
+          slidesPerGroup: 2,
+        },
+      },
+      navigation: {
+        nextEl: ".ss-products-swiper-next",
+        prevEl: ".ss-products-swiper-prev",
+      }
+    });
+
+  </script>
+{% endif %}
+
+<script src="{{ 'product-card-eye-candy.js' | asset_url }}" async></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const swiperContainer = document.querySelector('#ssProductsSwiperContainer');
+	
+    if(window.innerWidth > 768 && swiperContainer.children.length <= 2){
+      document.querySelector('.ss-products-swiper-next').style.display = 'none';
+      document.querySelector('.ss-products-swiper-prev').style.display = 'none';
+    }
+  });
+</script>
+
+
+
+
+<style>
+	.{{ section.id }}.summer-essentials .ss-nav-btn {
+		transition: border 500ms ease-in-out;
+		border: 1px solid transparent;
+	}
+
+	.{{ section.id }}.summer-essentials .ss-nav-btn:hover {
+		border: 1px solid #B5161C;
+	}
+
+	.{{ section.id }}.summer-essentials .right .ss-product-nav-buttons {
+		width: 100%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 10;
+		padding: 0;
+	}
+
+	.{{ section.id }}.summer-essentials .right .ss-product-nav-buttons div {
+		z-index: 2;
+		cursor: pointer;
+		background: var(--white_color);
+		box-shadow: 0 2px 2px 1px #0000001a;
+		border-radius: 100%;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		display: flex;
+	}
+
+	.summer-essentials * {
+		cursor: unset;
+	}
+
+	.summer-essentials {
+		position: relative;
+		width: 100%;
+		height: 556px;
+		overflow: hidden;
+	}
+
+	.summer-essentials-background-image{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+	}
+	.summer-essentials-background-image img{
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	  
+	.left.summer-essentials-content-image{
+		position: relative;
+		width: 33%;
+		height: auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.left.summer-essentials-content-image img{
+		object-fit: contain;
+		border: 2px solid #B5161C;
+	}
+
+	
+	.summer-essentials-content-container-wrapper{
+		width: 100%;
+		height: 100%;
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.summer-essentials-container {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		max-width: 840px;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.right{
+		width: 1140px;
+		height: 100%;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.summer-essentials-content-container{
+		display: flex;
+		width: 100%;
+		height: 100%;
+		padding: 80px 40px;
+		gap: 50px;
+	}
+	  
+	.summer-essentials-content-container[reverse-display="enable"]{
+		flex-direction: row-reverse;
+	}
+	  
+	.summer-essentials-content {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		width: 100%;
+	}
+	  
+	.summer-essentials-content--image-banner {
+		width: 100%;
+		transform-origin: left;
+	}
+	  
+	span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+		background: #352B27;
+	}
+	  
+	span.swiper-pagination-bullet {
+		background: transparent;
+		border: 1px solid #352B27;
+		opacity: 1;
+	}
+	  
+	.ec-swiper-pagination {
+		position: absolute;
+		bottom: 16px !important;
+		z-index: 9;
+		display: flex;
+		justify-content: center;
+	}
+	
+	@media(max-width: 1440px) {
+		.summer-essentials-content-container {
+			gap: 23px;
+		}
+		.summer-essentials-content-image {
+			width: 31%;
+		}
+	}
+
+	@media(max-width: 1024px) {
+		
+	}
+
+	@media(max-width: 767px) {
+		.{{ section.id }}{
+			padding: 0;
+		}
+
+		.{{ section.id }}.summer-essentials .right .ss-products-swiper-next.swiper-button-disabled,
+		.{{ section.id }}.summer-essentials .right .ss-products-swiper-prev.swiper-button-disabled{
+			opacity: 1;
+		}
+
+		.summer-essentials {
+		  	height: 658px;
+		}
+	  
+		.summer-essentials-content {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.summer-essentials-background-image img{
+			width: 100%;
+			height: 100%;
+		}
+	  
+
+		.left.summer-essentials-content-image{
+			width: 100%;
+			height: auto;
+		}
+		.left.summer-essentials-content-image img{
+			width: 100%;
+			height: auto;
+			object-fit: cover;
+		}
+		.summer-essentials-content-container-wrapper{
+			padding: 60px 0;
+		}
+		.summer-essentials-container{
+		 	width: 100%;
+		}
+	  
+		.summer-essentials-content-container{
+			flex-direction: column;
+			padding: 0 16px;
+			gap: 0;
+		}
+	  
+		.summer-essentials-content-container .product-card-images {
+		  	aspect-ratio: 1 / 1;
+		}
+
+
+		.right{
+			width: 100%;
+			margin-top: 50px;
+		}
+	}
+	
+</style>
+
+
+
+
+{% schema %}
+{
+  "name": "Sunnies Summer Essentials",
+  "tag": "section",
+  "class": "sunnies-summer-essentials",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Image or video (Desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Image or video (Mobile)"
+    },
+		{
+			"type": "image_picker",
+			"id": "left_image",
+			"label": "Left Image"
+		},
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text Position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" },
+        { "value": "top-right", "label": "Top Right" },
+        { "value": "top-center", "label": "Top Center" },
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "bottom-left", "label": "Bottom Left" },
+        { "value": "bottom-center", "label": "Bottom Center" },
+        { "value": "bottom-right", "label": "Bottom Right" }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+		{
+			"type":"product_card",
+			"name":"Product Card",
+			"settings":[
+				{
+					"type":"product",
+					"id":"product_data",
+					"label":"Product"
+				},
+				{
+					"type":"text",
+					"id":"product_variant",
+					"label":"Product Variant"
+				},
+				{
+					"type": "text",
+					"id": "button_text",
+					"label": "Button Text",
+				},
+				{
+					"type": "url",
+					"id": "button_link",
+					"label": "Button Link",
+				}
+			]
+		}
+  ],
+  "presets": [
+    {
+      "name": "Sunnies Summer Essentials",
+      "blocks": [
+		{
+			"type":"product_card"
+		},
+		{
+			"type":"product_card"
+		},
+		{
+			"type":"product_card"
+		},
+      ]
+    }
+  ]
+}
+{% endschema %}

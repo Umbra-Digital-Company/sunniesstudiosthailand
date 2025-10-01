@@ -1,0 +1,365 @@
+{% if section.settings.show_banner %}
+  <div
+    class="header-banner-v2"
+    style="
+      padding: {{ section.settings.banner_padding }}px;
+      background-color: {{ section.settings.banner_bg }};
+      color: {{ section.settings.banner_text_color }};
+      text-align: {{ section.settings.banner_text_align }};
+    "
+  >
+    <div class="header-banner-v2__header">
+      <h1>{{ section.settings.banner_header }}</h1>
+      <p>{{ section.settings.banner_subtext }}</p>
+    </div>
+  </div>
+{% endif %}
+
+<div class="header-banner-v2__carousel">
+  <div class="header-carousel-swiper swiper">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide">
+          <div class="header-carousel-item" style="margin-right: 4px;">
+            {% if block.settings.image != blank %}
+              <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.title | escape }}">
+            {% endif %}
+            <div class="header-carousel-content">
+              <div class="header-carousel-item_cta">
+                {% if block.settings.hc_icon != blank %}
+                  <img src="{{ block.settings.hc_icon | img_url: 'master' }}" alt="{{ block.settings.hc_icon | escape }}" width="177" height="24" />
+                {% else %}
+                  <div style="width:177px;height:24px;"></div>
+                {% endif %}
+                <span class="carousel-item-price">{{ block.settings.hc_price }}</span>
+              </div>
+              <p class="carousel-title">{{ block.settings.hc_subtext }}</p>
+              <a href="{{ block.settings.hc_cta_link }}" class="carousel-cta">{{ block.settings.hc_cta_label }}</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="header-carousel-navigation">
+      <div class="header-carousel-prev">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="#352B27" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div class="header-carousel-next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8.625 12L13 8L8.625 4M13 8L3 8" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+    </div>
+</div>
+
+<style>
+    .header-banner-v2__header, .header-banner-v2__header h1, .header-banner-v2__header p {
+        margin: 0;
+        padding: 0
+    }
+    .header-banner-v2__header h1 {
+        font-family: 'Radio Grotesk';
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 150%
+    }
+    .header-banner-v2__header p {
+        font-family: 'Radio Grotesk';
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px
+    }
+    .header-banner-v2__header {
+        display: flex;
+        flex-direction: column;
+        gap: 16px
+    }
+    .header-banner-v2 {
+        margin: 40px 40px 0 40px
+    }
+  /* Carousel */
+  .header-banner-v2__carousel {
+    position: relative;
+    margin: 12px 40px 0
+  }
+  .header-carousel-swiper .swiper-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+  }
+  .header-carousel-item img {
+    object-fit: cover;
+    aspect-ratio: 1
+  }
+  .carousel-title {
+    font-weight: bold;
+    margin-bottom: 4px
+  }
+  .carousel-subtext {
+    font-size: 13px;
+    color: #666
+  }
+  .header-carousel-navigation {
+    padding: 0
+  }
+  {% if section.blocks.size <= 4 %}
+    .header-banner-v2__carousel .swiper {
+      /* Should be hidden */
+      overflow: visible 
+    }
+    /* .header-carousel-navigation {
+      display: none !important
+    } */
+    {% else %}
+    .header-banner-v2__carousel .swiper {
+      overflow: visible
+    }
+  {% endif %}
+  /* Optional */
+  .header-carousel-navigation .swiper-button-lock {
+    opacity: 0 !important
+  }
+  /* End */
+  .header-carousel-prev {
+    margin-left: -25px
+  }
+  .header-carousel-next {
+    margin-right: -25px
+  }
+  .header-carousel-content {
+    padding: 16px 16px 0
+  }
+  .header-carousel-item_cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+  }
+  .header-carousel-item_cta img {
+    object-fit: contain;
+    width: 100%;
+    max-height: 24px;
+    min-height: 18px;
+    margin: 0
+  }
+  @media(min-width: 1620px) {
+    .header-carousel-item_cta img {
+      max-height: 30px;
+    }
+  }
+  .header-carousel-item_cta img {}
+  span.carousel-item-price {
+    text-align: right;
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+    width: 100%;
+    align-items: center;
+    padding-top: 4px
+  }
+  span.carousel-item-price s {
+    color: #AEAAA9;
+  }
+  .carousel-item-price, .carousel-title, .carousel-cta {
+    font-family: 'Radio Grotesk';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #352B27;
+    margin: 0
+  }
+  .carousel-title {
+    margin-top: 12px;
+    margin-bottom: 32px
+  }
+  .carousel-cta {
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #352B27
+  }
+  @media (max-width: 768px) {
+    .header-banner-v2 {
+      margin: 24px 16px 0 16px
+    }
+    .header-banner-v2__carousel {
+      margin: 12px 16px 0;
+    }
+  }
+  /* Navigation arrows */
+    .header-carousel-navigation {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      transform: translateY(-50%);
+    }
+    
+    .header-carousel-prev,
+    .header-carousel-next {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #FFFFFF;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .header-carousel-prev:hover,
+    .header-carousel-next:hover {
+      background-color: #F5F5F5;
+      border: 1px solid #352B27;
+    }
+</style>
+
+{% schema %}
+{
+  "name": "Header with carousel",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Show Banner",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "banner_header",
+      "label": "Header Text",
+      "default": "Welcome to our store!"
+    },
+    {
+      "type": "text",
+      "id": "banner_subtext",
+      "label": "Subtext",
+      "default": "Enjoy shopping with us."
+    },
+    {
+      "type": "range",
+      "id": "banner_padding",
+      "label": "Padding (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "banner_text_align",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "banner_bg",
+      "label": "Background Color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "banner_text_color",
+      "label": "Text Color",
+      "default": "#222222"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "carousel_item",
+      "name": "Carousel Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "hc_icon",
+          "label": "Icon Image (177x24px)"
+        },
+        {
+          "type": "text",
+          "id": "hc_price",
+          "label": "Price",
+          "default": "P1,700"
+        },
+        {
+          "type": "text",
+          "id": "hc_subtext",
+          "label": "Subtext",
+          "default": "For lenses that darken the sun"
+        },
+        {
+          "type": "text",
+          "id": "hc_cta_label",
+          "label": "CTA Text",
+          "default": "Customize your glasses"
+        },
+        {
+          "type": "url",
+          "id": "hc_cta_link",
+          "label": "CTA Link"
+        }
+      ]
+    }
+  ],
+    "presets": [
+        {
+        "name": "Header with carousel"
+        }
+    ]
+}
+{% endschema %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var blockCount = {{ section.blocks.size }};
+    var navPrev = document.querySelector('.header-carousel-prev');
+    var navNext = document.querySelector('.header-carousel-next');
+
+    if (window.headerCarouselSwiper && typeof window.headerCarouselSwiper.destroy === 'function') {
+      window.headerCarouselSwiper.destroy(true, true);
+    }
+
+    window.headerCarouselSwiper = new Swiper('.header-carousel-swiper', {
+      slidesPerView: 4,
+      spaceBetween: 0,
+      effect: "slide",
+      navigation: {
+        nextEl: '.header-carousel-next',
+        prevEl: '.header-carousel-prev',
+      },
+      breakpoints: {
+        0: { slidesPerView: 1.2 },
+        769: { slidesPerView: 2 },
+        1025: { slidesPerView: 4 }
+      }
+    });
+
+    function updateNavVisibility() {
+      if (!navPrev || !navNext) return;
+      if (blockCount > 4 && window.innerWidth >= 1025) {
+        navPrev.style.display = 'flex';
+        navNext.style.display = 'flex';
+      } else {
+        navPrev.style.display = 'none';
+        navNext.style.display = 'none';
+      }
+    }
+
+    window.addEventListener('resize', updateNavVisibility);
+  });
+</script>

@@ -1,0 +1,271 @@
+<swymcs-custom-wishlist
+  id="swymcs-custom-wishlist-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  class="swymcs-custom-wishlist"
+  data-sectionId="{{ section.id }}"
+  data-settings="{{ section.settings | json | escape }}"
+>
+  <div class="swym-base-container" class="swymcs-hide-container">
+      <div class="swym-options-wrapper">
+        <div>
+          <ul>
+            <li><a href="#" class="wishlist-active">Wishlist</a></li>
+            {% if customer %}
+            <li><a href="{{section.settings.account_info_link}}">Account Information</a></li>
+            <li><a href="{{section.settings.order_history_link}}">Order History</a></li>
+            <li><a href="{{section.settings.prescriptions_link}}">Prescriptions</a></li>
+            <li><a href="/account/logout">Logout</a></li>
+            {% else %}
+            <li><a href="/account/login">Login</a></li>
+          {% endif %}
+          </ul>
+        </div>
+      </div>
+    
+      <div class="swym-options-wrapper-mobile">
+        <ul>
+          {% if customer %}
+            <li>
+              <span>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 6L0.999999 5.99999M0.999999 5.99999L5.25 1.99999M0.999999 5.99999L5.375 10" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <a href="/account/logout">My Account</a></li>
+          {% else %}
+            <li>
+              <span>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 6L0.999999 5.99999M0.999999 5.99999L5.25 1.99999M0.999999 5.99999L5.375 10" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <a href="/account/login">My Account</a>
+              </li>
+          {% endif %}
+        </ul>
+      </div>
+
+    <div class="swym-product-list-wrapper">
+      <div id="swym-wishlist-empty" class="swymcs-hide-container">
+        <div id="swymcs-wishlist-title" class="swymcs-wishlist-title">
+          {{ section.settings.swym_wishlist_title }}
+          <span id="swymcs-total-products" class="swymcs-total-products">(0)</span>
+        </div>
+
+        {% comment %} <div class="swym-sorting-wrapper" onclick="this.classList.toggle('active')">
+          <label for="sorting-dropdown">Sort by</label>
+          <select id="sorting-dropdown">
+            <option value="featured">Featured </option>
+            <option value="price-low-high">Price: Low to High </option>
+            <option value="price-high-low">Price: High to Low </option>
+            <option value="name-asc">Name: A to Z </option>
+            <option value="name-desc">Name: Z to A </option>
+          </select>
+        </div> {% endcomment %}
+      </div>
+        
+      <div class="swymcs-wishlist-body">
+        <div id="swymcs-wishlist-loader" class="swymcs-hide-container">
+          <svg class="spinner" viewBox="0 0 50 50">
+            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+          </svg>
+        </div>
+
+        <div id="swymcs-wishlist-container" class="swymcs-hide-container">
+          <div id="swymcs-wishlist-items-container"></div>
+        </div>
+
+        <div id="swymcs-empty-wishlist-container" class="swymcs-hide-container">
+          <div class="cart-widget__empty">
+            <h2 class="cart__empty-text-h2">Your wishlist is empty.</h2>
+            <p class="cart__empty-text-p">
+              You haven’t added anything to your wishlist yet. 
+              <a href="{{section.settings.favorites_link}}" 
+              style="text-decoration: underline; color: #352b27;">
+                <a href="{{section.settings.collection_header_url}}" style="text-decoration: underline; color: #352b27;">{{section.settings.collection_header_text}}</a>
+              </a>
+            </p>
+            {% render 'section-categories-2024-a' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</swymcs-custom-wishlist>
+<script defer src="{{ 'swym-function.js' |  asset_url }}"></script>
+
+{% render 'swym-styles' %}
+
+{% schema %}
+{
+  "name": "Wishlist",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Side Menu Links"
+    },
+    {
+      "type": "url",
+      "id": "account_info_link",
+      "label": "Account info url"
+    },
+    {
+      "type": "url",
+      "id": "order_history_link",
+      "label": "Order history url"
+    },
+    {
+      "type": "url",
+      "id": "prescriptions_link",
+      "label": "Prescriptions url"
+    },
+    {
+      "type": "header",
+      "content": "Categories Settings"
+    },
+    {
+      "type": "text",
+      "id": "collection_header_text",
+      "label": "Link Text"
+    },
+    {
+      "type": "url",
+      "id": "collection_header_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "text",
+      "id": "title-heading",
+      "label": "Header",
+      "default": "New In"
+    },
+    {
+      "type": "header",
+      "content": "Wishlist Settings"
+    },
+    {
+      "type": "color",
+      "id": "swym_wishlist_primary_button_color",
+      "label": "Wishlist primary button background color",
+      "default": "#352b27"
+    },
+    {
+      "type": "color",
+      "id": "swym_wishlist_primary_button_text_color",
+      "label": "Wishlist primary button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "swym_wishlist_title",
+      "label": "Wishlist Title",
+      "default": "My Wishlist"
+    },
+    {
+      "type": "font_picker",
+      "id": "swym_wishlist_font",
+      "label": "Wishlist font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "checkbox",
+      "id": "swym_wishlist_show_variant",
+      "label": "Show variant",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "swym_wishlist_show_price",
+      "label": "Show price",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "swym_wishlist_show_addtocart",
+      "label": "Show Add To Cart Button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "swym_wishlist_show_delete_item",
+      "label": "Show Remove wishlist",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "swym_wishlist_item_cta_addtocart",
+      "label": "Button label Add to cart",
+      "default": "Add to bag"
+    },
+    {
+      "type": "text",
+      "id": "swym_wishlist_item_cta_addingtocart",
+      "label": "Button label Adding to cart",
+      "default": "Adding to bag"
+    },
+    {
+      "type": "text",
+      "id": "swym_wishlist_item_cta_addedtocart",
+      "label": "Button label Added to cart",
+      "default": "Added to bag"
+    },
+    {
+      "type": "text",
+      "id": "swym_wishlist_item_cta_unavailable",
+      "label": "Button label unavailable",
+      "default": "Unavailable"
+    },
+    {
+      "type": "header",
+      "content": "Empty Wishlist"
+    },
+    {
+      "type": "text",
+      "id": "swym_wishlist_empty_description",
+      "label": "Wishlist Empty Description",
+      "default": "Your wishlist is empty."
+    },
+    {
+      "type": "text",
+      "id": "swym_wishlist_empty_action_button_cta",
+      "label": "Wishlist Empty Action Button CTA",
+      "default": "Discover the Collection Now"
+    },
+    {
+      "type": "url",
+      "id": "favorites_link",
+      "label": "Browse your favorites link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_block",
+      "name": "Category Block",
+      "settings": [
+        {
+          "type": "url",
+          "id": "category_media",
+          "label": "Category Block Image/Video",
+          "info": "only .mp4 format for video"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA Text"
+        },
+        {
+          "type": "url",
+          "id": "category_link",
+          "label": "Category Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Wishlist"
+    }
+  ]
+}
+{% endschema %}

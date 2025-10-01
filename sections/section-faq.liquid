@@ -1,0 +1,183 @@
+{%- assign _section = section.settings -%}
+{%- assign section_contact_text = _section.contact_text -%}
+{%- assign section_contact_url = _section.contact_url -%}
+
+{% if section.blocks.size > 0 and template.suffix == 'faq-landing' %}
+    <nav class="nav-sidebar">
+        <ul>
+            {%- for block in section.blocks -%}
+                {%- assign _block = block.settings -%}
+                {%- assign block_title = _block.title -%}
+                {%- assign block_page_url = _block.page_url -%}
+
+                <li {% if page.url == block_page_url %} class="current" {% endif %}>
+                    <a href="{{block_page_url}}">{{block_title}}</a>
+                </li>
+            {%- endfor -%}
+        </ul>
+    </nav><!-- /.nav-sidebar -->
+
+    {% comment %} {% if section_contact_url != blank %} 
+        <a class="btn-contact" href="mailto:{{section_contact_url}}">{{section_contact_text}}</a><!-- /.btn-contact -->
+    {% endif %}{% endcomment %}
+{% endif %}
+
+{% if section.blocks.size > 0 and template.suffix == 'faq' %}
+    <section class="section-faq">
+        <div class="shell">
+            <div class="section__inner">
+                <header class="section__head">
+                    <div class="section__head-entry">
+                        {{page.content}}
+                    </div>
+                </header>
+
+                <div class="search-container-faqs"> 
+                    {% render 'form-search', type: 'page', placeholder: 'What can we help you with?' %}
+                </div>
+
+                <div class="section__body">
+                    <ul class="list-faq">
+                        {%- for block in section.blocks -%}
+                            {%- assign _block = block.settings -%}
+                            {%- assign block_title = _block.title -%}
+                            {%- assign block_page_url = _block.page_url -%}
+                            {%- assign block_background_color = _block.background_color -%}
+                            {%- assign block_text_color = _block.text_color -%}
+                            {% assign bg_color = block_background_color | split: ',' | first %}
+                            {% assign bg_color_hover = block_background_color | split: ',' | last %}
+
+                            <li class="list-faq-item" onmouseout="this.style.backgroundColor='{{bg_color}}'" onmouseover="this.style.backgroundColor='{{bg_color_hover}}'" style="background-color: {{bg_color}};">
+                                <p style="color: {{block_text_color}};">{{block_title}}</p> 
+                                <a href="{{block_page_url}}" class="faqs_arrow"></a> 
+                            </li>
+                        {%- endfor -%}
+                    </ul>
+                </div>
+
+                {% comment %} {% if section_contact_url != blank %} 
+                    <div class="section__actions">
+                        <a class="btn-contact" href="mailto:{{section_contact_url}}">{{section_contact_text}}</a>
+                    </div><!-- /.section__actions -->
+                {% endif %} {% endcomment %}
+                
+            </div><!-- /.section__inner -->
+        </div><!-- /.shell -->
+    </section><!-- /.section-faq -->
+{% endif %}
+
+
+{% schema %}
+{
+    "name": "Faq",
+    "settings": [
+        {
+            "type": "text",
+            "id": "contact_text",
+            "label": "Button text"
+        },
+        {
+            "type": "url",
+            "id": "contact_url",
+            "label": "Button url"
+        }
+    ],
+    "max_blocks": 50,
+    "blocks": [
+        {
+            "type": "faq",
+            "name": "FAQ",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "url",
+                    "id": "page_url",
+                    "label": "Page url"
+                },
+                {
+                    "type": "select",
+                    "id": "background_color",
+                    "label": "Block background color",
+                    "options": [
+                        {
+                            "value": "#D36327,#BE5923",
+                            "label": "#D36327(Piper)"
+                        },
+                        {
+                            "value": "#F0DBD5,#D7C4BF",
+                            "label": "#F0DBD5(Pot Pourri)"
+                        },
+                        {
+                            "value": "#BAD2D8,#A7BDC2",
+                            "label": "#BAD2D8(Jungle Mist)"
+                        },
+                        {
+                            "value": "#054A70,#044264",
+                            "label": "#054A70(Regal Blue)"
+                        },
+                        {
+                            "value": "#E8C560,#D1B156",
+                            "label": "#E8C560(Confetti)"
+                        },
+                        {
+                            "value": "#9BA17B,#8B916E",
+                            "label": "#9BA17B(Sage)"
+                        },
+                        {
+                            "value": "#352B27,#6C6662",
+                            "label": "#352B27(Cocoa Brown)"
+                        },
+                        {
+                            "value": "#B3A89B",
+                            "label": "#B3A89B(Napa)"
+                        },
+                        {
+                            "value": "#F4EFE6",
+                            "label": "#F4EFE6(Dawn Pink)"
+                        },
+                        {
+                            "value": "#EADFCD,#D3C9B8",
+                            "label": "#EADFCD(Stark White)"
+                        },
+                        {
+                            "value": "#D7D6D0,#C1C1BB",
+                            "label": "#D7D6D0(Quill Gray)"
+                        },
+                        {
+                            "value": "#EFEFEC,#D6D6D3",
+                            "label": "#EFEFEC(Desert Storm)"
+                        },
+                        {
+                            "value": "#352b27",
+                            "label": "#352b27(Dark Brown)"
+                        },
+                        {
+                            "value": "#ffffff",
+                            "label": "#ffffff(White)"
+                        }
+                    ]
+                },
+                {
+                    "type": "select",
+                    "id": "text_color",
+                    "label": "Text Color",
+                    "options": [
+                        {
+                            "value": "#ffffff",
+                            "label": "White"
+                        },
+                        {
+                            "value": "#352b27",
+                            "label": "Black"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

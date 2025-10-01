@@ -1,0 +1,183 @@
+.section-about-banner {
+  position: relative;
+  color: #fff;
+  padding: 38px 0;
+}
+
+.section-about-banner .section__inner {
+  height: 316px;
+  width: 100%;
+  display: table;
+  text-align: center;
+}
+
+.section-about-banner .section__inner.extra-small {
+  height: 401px;
+  padding: 33px 0;
+}
+
+.section-about-banner .section__inner.extra-small h1 {
+  font-size: 28px;
+}
+
+.section-about-banner .section__inner.extra-small .btn-intro--cta {
+  margin-top: 15px;
+  font-size: 14px;
+  padding: 12px 12px 9px;
+}
+
+.section-about-banner .section__inner.small {
+  height: 600px;
+  padding: 53px 0;
+}
+
+.section-about-banner .section__inner.small h1 {
+  font-size: 36px;
+}
+
+.section-about-banner .section__inner.small .btn-intro--cta {
+  margin-top: 18px;
+  font-size: 15px;
+  padding: 15px 15px 12px;
+}
+
+.section-about-banner .section__inner.large {
+  height: 1002px;
+  padding: 123px 0;
+}
+
+.section-about-banner .section__inner.extra-large {
+  height: 1203px;
+  padding: 143px 0;
+}
+
+.section-about-banner .section__image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.section-about-banner--black {
+  color: #352b27;
+}
+
+.section-about-banner .section__inner.small {
+  height: 600px;
+  padding: 53px 0;
+}
+
+.section-about-banner .section__inner.small h1 {
+  font-size: 36px;
+}
+
+.section-about-banner .section__inner.small .btn-intro--cta {
+  margin-top: 18px;
+  font-size: 15px;
+  padding: 15px 15px 12px;
+}
+
+.section-about-banner .section__inner.large {
+  height: 1002px;
+  padding: 123px 0;
+}
+
+.section-about-banner .section__inner.extra-large {
+  height: 1203px;
+  padding: 143px 0;
+}
+
+.section-about-banner .section__content.desktop {
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+}
+.section-about-banner .section__content.mobile{
+  position: relative;
+  vertical-align: middle;
+  display: none;
+}
+
+.section-about-banner .section__content h1 {
+  margin: 0;
+  text-transform: capitalize;
+  font-family: 'Radio Grotesk';
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 42.5px;
+  letter-spacing: -0.02em;
+
+}
+
+
+@media (max-width: 1023px) {
+  .section-about-banner .section__content h1 {
+    font-size: 30px;
+  }
+
+  .section-about-banner .section__inner {
+    padding: 52px 0;
+    /* height: 596px; */
+  }
+
+  .section-about-banner .section__inner.extra-small {
+    height: 298px;
+    padding: 18px 0;
+  }
+
+  .section-about-banner .section__inner.extra-small h1 {
+    font-size: 16px;
+  }
+
+  .section-about-banner .section__inner.small {
+    height: 447px;
+    padding: 25px 0;
+  }
+
+  .section-about-banner .section__inner.small h1 {
+    font-size: 20px;
+  }
+
+  .section-about-banner .section__inner.large {
+    height: 740px;
+    padding: 62px 0;
+  }
+
+  .section-about-banner .section__inner.extra-large {
+    height: 885px;
+    padding: 72px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .section-about-banner .section__content.desktop {
+    display: none;
+  }
+  .section-about-banner .section__content.mobile {
+    display: table-cell;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .section-about-banner .section__content.mobile h1 {
+    position: absolute;
+    max-width: 300px;
+    font-size: 28px;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 150%);
+  }
+
+  #progressives-guide .section-about-banner .section__content.mobile h1 {
+    max-width: initial;
+    text-align: left;
+  }
+  .section-about-banner{
+    height: 300px;
+  }
+}
+

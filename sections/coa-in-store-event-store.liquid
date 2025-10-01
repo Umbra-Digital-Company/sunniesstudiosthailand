@@ -1,0 +1,219 @@
+{% comment %} {% liquid
+  assign store = page.metafields.event.event.value.store_details.value
+  assign products = store.products | split: ", "
+  assign coordinates = store.coordinates | remove: "[" | remove: "]" | split: ", "
+  assign lat = coordinates | last
+  assign lng = coordinates | first
+  assign business_hours = store.business_hours_text_format | split: ", "
+  assign enable_store_appointment = store.enable_store_appointment
+  assign store_code = store.store_code 
+%} {% endcomment %}
+{% liquid
+  assign store_experience = page.metafields.event.store_experience.value
+  assign lat = page.metafields.accentuate.latitude
+  assign lng = page.metafields.accentuate.longitude
+  assign address = page.metafields.accentuate.address
+%}
+
+{% if section.settings.store_address != blank or section.settings.store_hours != blank %}
+  <div class="coa-in-store-event-store">
+  <div class="coa-in-store-event-store__map">
+    <div class="coa-in-store-event-store__map-container">
+    {% comment %}
+      {% render 'google-map' with lat: lat, lng: lng, tooltip_heading: store.name, tooltip_body: store.address %}
+    {% endcomment %}
+    {% render 'google-map' with lat: lat, lng: lng, tooltip_body: address.html %}
+  </div>
+  </div>
+  <div class="coa-in-store-event-store__info">
+    <h2>{{ section.settings.heading }}</h2>
+    <div class="coa-in-store-event-store__address-hours">
+      <div>
+        <h3>Address</h3>
+        <div>
+          {% comment %}
+            {{ store.address }}
+          {% endcomment %}
+          {{ section.settings.store_address }}
+        </div>
+      </div>
+      <div>
+        <h3>Hours</h3>
+        <time>{{ section.settings.store_hours }}</time>
+        {% comment %}
+          {% for business_hour in business_hours %}
+            {% assign business_hour_day = business_hour | split: "::" | first %}
+            {% assign business_hour_time = business_hour | split: "::" | last %}
+            <time>{{ business_hour_day }} {{ business_hour_time }}</time>
+          {% endfor %}
+        {% endcomment %}
+      </div>
+    </div>
+    <div>
+      <h3>What you'll find</h3>
+      <ul>
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'store_experience' %}
+              {% if store_experience contains block.settings.label %}
+                <li><img src="{{ block.settings.icon | image_url }}">{{ block.settings.label }}</li>
+              {% endif %}
+          {% endcase %}
+        {% endfor %}
+        {% comment %}
+          {% for product in products  %}
+            <li><img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/MicrosoftTeams-image_50.png?v=1673504827">{{ product }}</li>
+          {% endfor %}
+        {% endcomment %}
+      </ul>
+    </div>
+    <a href="{{ section.settings.store_btn_link }}" class="btn btn-primary">{{ section.settings.store_btn_text }}</a>
+    {% comment %}
+      {% unless enable_store_appointment == blank or enable_store_appointment == false %}
+        <a href="https://sunnieshomeoptical.com/process/booking/clean_appointment_session.php?shopifyStoreCode={{ store.store_code }}" target="_blank" class="btn btn-primary">Book store appointment</a>
+      {% endunless %}
+    {% endcomment %}
+  </div>
+</div>
+{% endif %}
+<style>
+  .coa-in-store-event-store {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+  }
+  .coa-in-store-event-store__map {
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+    height: 0;
+  }
+  .coa-in-store-event-store__map .section__map, .coa-in-store-event-store__map .map {
+    height: 100%;
+  }
+  .coa-in-store-event-store__map-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .coa-in-store-event-store__info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 60px 16px;
+    align-items: baseline;
+  }
+  .coa-in-store-event-store__info > h2 {
+    font-family: 'AT Surt Medium';
+    font-size: 28px;
+  }
+  
+  .coa-in-store-event-store__address-hours {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .coa-in-store-event-store__info h3 {
+    font-family: 'AT-Surt-Semibold';
+    font-size: 14px;
+    line-height: 100%;
+  }
+  .coa-in-store-event-store__info h3 + div, .coa-in-store-event-store__info h3 + time, .coa-in-store-event-store__info h3 + ul {
+    margin-top: 8px;
+  }
+  .coa-in-store-event-store__info time {
+    display: block;
+  }
+  .coa-in-store-event-store__info ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .coa-in-store-event-store__info ul > li {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .coa-in-store-event-store__info ul > li > img {
+    height: 24px;
+    width: 24px;
+    object-fit: contain;
+  }
+  @media only screen and (min-width: 769px) {
+    .coa-in-store-event-store {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 0 100px;
+    }
+    .coa-in-store-event-store__info {
+      grid-column-start: 1;
+      grid-row-start: 1;
+    }
+    .coa-in-store-event-store, .coa-in-store-event-store__info h3 {
+      font-size: 16px;
+    }
+    .coa-in-store-event-store__info > h2  {
+      font-size: 40px;
+    }
+    .coa-in-store-event-store__address-hours {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+{% schema %}
+  {
+    "name": "COA In-store Event Store",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Store Details"
+      },
+      {
+        "type": "richtext",
+        "id": "store_address",
+        "label": "Store Address"
+      },
+      {
+        "type": "text",
+        "id": "store_hours",
+        "label": "Store Hours"
+      },
+      {
+        "type": "text",
+        "id": "store_btn_text",
+        "label": "Store Button Text",
+        "default": "Book in-store eye exam"
+      },
+      {
+        "type": "url",
+        "id": "store_btn_link",
+        "label": "Store Button Link"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Store Experience",
+        "type": "store_experience",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Label"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "COA In-store Event Store"
+      }
+    ]
+  }
+{% endschema %}

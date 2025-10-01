@@ -1,0 +1,156 @@
+{%- assign _section = section.settings -%}
+{%- assign introKvPc = _section['page_intro_bg-pc'] %}
+{%- assign introKvMobile = _section['page_intro_bg-mobile'] %}
+{%- assign introTtl = _section.page_intro_title %}
+{%- assign introDescription = _section.page_intro_description %}
+
+<section class="guarantee">
+  <figure class="guarantee__kv">
+    <img class="desktop-only" src="{{introKvPc | image_url}}" alt="">
+    <img class="mobile-only" src="{{introKvMobile | image_url}}" alt="">
+  </figure>
+  <div class="guarantee__inner">
+    <div class="guarantee__introContent">
+      <div class="guarantee__intro">
+        <div class="guarantee__introTitle">
+          <h1 class="guarantee__introTitleText">
+            <img src="{{introTtl | image_url}}" alt="">
+          </h1>
+          <div class="guarantee__introDescription">{{ introDescription }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="content__dynamic">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+<style>
+  .guarantee__kv {
+  	width: 100%;
+  }
+  .guarantee__kv .desktop-only {
+  	display: block;
+  }
+  .guarantee__kv .mobile-only {
+  	display: none;
+  }
+  .guarantee__kv img {
+  	width: 100%;
+  	height: auto;
+  }
+  .guarantee__inner {
+  	padding-top: 116px;
+  	max-width: 608px;
+  	margin: 0 auto;
+  	width: 100%;
+  }
+  .guarantee__introTitleText {
+      margin: 0 0 40px;
+  	width: 363px;
+  }
+  .guarantee__introDescription {
+  	padding-bottom: 60px;
+  	border-bottom: 1px solid #B3A89B;
+  }
+  .guarantee__introDescription p {
+  	color: #352B27;
+  	line-height: 1.5;
+  	font-family: 'Radio Grotesk';
+  }
+  .content__dynamic {
+  	padding-bottom: 24px;
+  }
+  .content__dynamic * {
+  	line-height: 1.5;
+  	color: #352B27;
+  	font-family: 'Radio Grotesk';
+  }
+  .content__dynamic h2 {
+  	font-size: 32px;
+  	margin: 60px 0 24px;
+  }
+  .content__dynamic p {
+  	font-size: 16px;
+  	margin: 16px 0;
+  }
+  .content__dynamic ul {
+  	margin: 16px 0;
+  	padding-inline-start: 25px;
+  }
+  .content__dynamic ul + ul {
+  	margin: -16px 0 16px;
+  	margin-left: 25px;
+  	padding-inline-start: 25px;
+  }
+
+  @media only screen and (max-width: 767px) {
+  	.guarantee__kv .desktop-only {
+  		display: none;
+  	}
+  	.guarantee__kv .mobile-only {
+  		display: block;
+  	}
+  	.guarantee__kv {
+  		height: auto;
+  	}
+
+  	.guarantee__inner {
+  		padding-top: 60px;
+  		width: 76.15%;
+  	}
+  	.guarantee__introTitleText {
+  		width: 242px;
+  		margin: 0 0 40px;
+  	}
+  	.guarantee__introDescription p{
+  		font-size: 14px;
+  	}
+  	.content__dynamic {
+  		padding-bottom: 60px;
+  	}
+  	.content__dynamic h2 {
+  		font-size: 28px;
+  		margin: 60px 0 40px;
+  	}
+  	.content__dynamic p {
+  		font-size: 14px;
+  	}
+  	.content__dynamic ul {
+  		font-size: 14px;
+  	}
+  	.content__dynamic ul + ul {
+  		font-size: 14px;
+  	}
+
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Guarantee",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "page_intro_bg-pc",
+      "label": "Intro Background (Desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "page_intro_bg-mobile",
+      "label": "Intro Background (Mobile)"
+    },
+    {
+      "type": "image_picker",
+      "id": "page_intro_title",
+      "label": "Page Intro Title"
+    },
+    {
+      "type": "richtext",
+      "id": "page_intro_description",
+      "label": "Page Intro Description"
+    }
+  ]
+}
+{% endschema %}

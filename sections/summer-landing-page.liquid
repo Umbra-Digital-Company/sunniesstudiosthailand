@@ -1,0 +1,999 @@
+<section class="banner">
+  <div class="banner__media--desktop">
+    {% if section.settings.banner-video-desktop != blank %}
+      {{ section.settings.banner-video-desktop | video_tag: autoplay: 'true', loop: 'true' }}
+    {% else %}
+      <img src="{{ section.settings.banner-image-desktop | image_url }}" />
+    {% endif %}
+  </div>
+  <div class="banner__media--mobile">
+    {% if section.settings.banner-video-mobile != blank %}
+      {{ section.settings.banner-video-mobile | video_tag: autoplay: 'true', loop: 'true' }}
+    {% else %}
+      <img src="{{ section.settings.banner-image-mobile| image_url }}" />
+    {% endif %}
+  </div>
+  <div class="banner__description">
+    <h2>{{ section.settings.banner-heading }}</h2>
+    <h3>{{ section.settings.banner-subheading }}</h3>
+  </div>
+</section>
+
+<section class="section-one">
+  {{ section.settings.section-one-image | image_url: width: 1200 | image_tag }}
+  <div class="section-one__text">
+    {{ section.settings.section-one-text }}
+  </div>
+  <div id="interview-modal-trigger" class="section-one__play-trigger">
+    <img src="{{ 'play-icon.svg' | asset_url }}" />
+    <span>Watch the interview</span>
+  </div>
+  
+  <div id="interview-modal" class="interview-modal">
+    <div class="interview-modal__content">
+      <div class="interview-modal__media-wrapper">
+        {{ section.settings.section-one-interview-video-mobile | video_tag: controls: true, class: "interview-video--mobile" }}
+        {{ section.settings.section-one-interview-video-desktop | video_tag: controls: true, class: "interview-video--desktop" }}
+      <div
+      <span id="interview-modal-close" class="interview-modal__close"><img src="{{ 'close-icon-white.svg' | asset_url }}" /></span>
+    </div>
+  </div>
+</section>
+
+<section class="section-two">
+  <div class="section-two__media-wrapper">
+    {{ section.settings.section-two-video-mobile | video_tag: autoplay: 'true', loop: 'true', class: "section-two__video--mobile" }}
+    {{ section.settings.section-two-video-desktop | video_tag: autoplay: 'true', loop: 'true', class: "section-two__video--desktop" }} 
+  </div>
+</section>
+
+{% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'block_a' %}
+      <section class="block-a {% if block.settings.block-a-right-side-media == true %} row {% else %}row-reverse{% endif %}">
+        <div class="block-a__description" style="background-color: {{ block.settings.block-a-text-bg-color }}; color: {{ block.settings.block-a-text-color }}">
+          {% if block.settings.block-a-icon != blank  %}
+            <div class="block-a__description-icon {{ block.settings.block-a-icon-alignment }}">
+              <img src="{{ block.settings.block-a-icon | image_url }}" />
+            </div>
+          {% endif %}
+          <h3>{{ block.settings.block-a-text-title }}</h3>
+          <div class="block-a__text">
+            {{ block.settings.block-a-text }}
+          </div>
+        </div>
+        <div class="block-a__media">
+          {% if block.settings.block-a-video-desktop  %}
+          {{ block.settings.block-a-video-desktop | video_tag: autoplay: 'true', loop: 'true', class: 'block-a__video--desktop' }}
+          {% else %}
+            <img src="{{  block.settings.block-a-image-desktop | image_url }}" class="block-a__image--desktop" />
+          {% endif %}
+          
+          {% if block.settings.block-a-video-mobile  %}
+            {{ block.settings.block-a-video-mobile | video_tag: autoplay: 'true', loop: 'true', class: 'block-a__video--mobile' }}
+          {% else %}
+            <img src="{{ block.settings.block-a-image-mobile | image_url }}" class="block-a__image--mobile" />
+          {% endif %}
+          {% if block.settings.block-a-tag-label != blank %}
+            <a class="tag-link" href="{{ block.settings.block-a-tag-link }}" target="_blank">
+            {{ block.settings.block-a-tag-label }}
+            </a>
+          {% endif %}
+        </div>
+      </section>
+  {% endcase %}
+{% endfor %}
+
+<section class="section-seven">
+  <div class="section-seven__media">
+    <img src="{{ section.settings.section-seven-image-desktop | image_url }}" class="section-seven__image--desktop" />
+    <img src="{{ section.settings.section-seven-image-mobile | image_url }}" class="section-seven__image--mobile" />
+    {% if section.settings.section-seven-tag-label != blank %}
+      <a class="tag-link" href="{{ section.settings.section-seven-tag-link }}">
+      {{ section.settings.section-seven-tag-label }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section-eight">
+  <div class="section-eight__description">
+    <div class="section-eight__text">
+      {% if section.settings.section-eight-icon-top != blank  %}<img src="{{ section.settings.section-eight-icon-top | image_url }}" />{% endif %}
+        {{ section.settings.section-eight-text }}
+      {% if section.settings.section-eight-icon-bottom != blank  %}<img src="{{ section.settings.section-eight-icon-bottom | image_url }}" />{% endif %}
+    </div>
+  </div>
+  <div class="section-eight__media">
+    <img src="{{ section.settings.section-eight-image-desktop | image_url }}" class="section-eight__image--desktop" />
+    <img src="{{ section.settings.section-eight-image-mobile | image_url }}" class="section-eight__image--mobile" />
+    {% if section.settings.section-eight-tag-label != blank %}
+      <a class="tag-link" href="{{ section.settings.section-eight-tag-link }}">
+      {{ section.settings.section-eight-tag-label }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section-nine">
+  <div class="section-nine__media">
+    <img src="{{ section.settings.section-nine-image-desktop | image_url }}" class="section-nine__image--desktop" />
+    <img src="{{ section.settings.section-nine-image-mobile | image_url }}" class="section-nine__image--mobile" />
+    {% if section.settings.section-nine-tag-label != blank %}
+      <a class="tag-link" href="{{ section.settings.section-nine-tag-link }}">
+      {{ section.settings.section-nine-tag-label }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section-ten">
+  <div class="section-ten__media">
+    <img src="{{ section.settings.section-ten-image-desktop | image_url }}" class="section-ten__image--desktop" />
+    <img src="{{ section.settings.section-ten-image-mobile | image_url }}" class="section-ten__image--mobile" />
+    {% if section.settings.section-ten-media-icon  %}
+      <img class="section-ten__media-icon" src={{ section.settings.section-ten-media-icon | image_url }} />
+    {% endif %}
+    <ul class="section-ten__media-text">
+      {%  assign section_ten_text_list_arr = section.settings.section-ten-text-list | split: "," %}
+      {% for text_item in section_ten_text_list_arr %}
+        {% assign text_item_arr = text_item | split: "::"  %}
+        <li><span>{{ text_item_arr | first }}</span><span>{{ text_item_arr | last }}</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<style>
+  section .bss_pl_img {
+    visibility: hidden;
+  }
+  .tag-link {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    display: inline-block;
+    padding: 12px 16px;
+    background-color: #E2F485;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    color: #0C1D74;
+    border: 1.5px solid transparent;
+  }
+  .tag-link:hover {
+    color: #0C1D76;
+    border-color: #0C1D76;
+  }
+  
+  .banner {
+    height: calc(100vw * 1.253);
+    width: 100%;
+    position: relative;
+  }
+  .banner img, .banner video {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .banner__media--mobile {
+    height: 100%;
+    width: 100%;
+  }
+  .banner__media--desktop {
+    display: none;
+    height: 100%;
+    width: 100%;
+  }
+  .banner__description {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    bottom: 40px;
+    padding: 0 16px;
+    width: 100%;
+    color: white;
+    text-align: center;
+  }
+  .banner__description > h2 {
+    font-family: Champion;
+    font-size: 40px;
+    line-height: 100%;
+  }
+  .banner__description > h3 {
+    font-family: Champion;
+    font-size: 16px;
+    line-height: 100%;
+  }
+
+  .section-one__text p:empty:after, 
+  .section-two__text p:empty:after, 
+  .section-three__text p:empty:after, 
+  .section-four__text p:empty:after, 
+  .section-five__text p:empty:after, 
+  .section-six__text p:empty:after, 
+  .section-seven__text p:empty:after, 
+  .section-eight__text p:empty:after, 
+  .section-nine__text p:empty:after, 
+  .section-ten__text p:empty:after {
+    content: " "
+  }
+  
+  .section-one {
+    padding: 0 16px;
+    margin: 60px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+  }
+  .section-one > img {
+    height: 180px;
+    object-fit: contain;
+  }
+  .section-one__text {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-align: center;
+  }
+  .section-one__play-trigger {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    cursor: pointer;
+  }
+  .section-one__play-trigger > span {
+    font-family: 'AT Surt Medium';
+    font-size: 14px;
+    text-decoration: underline;
+  }
+  
+  .interview-modal {
+    display: none;
+    position: fixed;
+    z-index: 60; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4); 
+  }
+  .interview-modal__content {
+    background-color: #fefefe;
+    margin: auto;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+  }
+  .interview-modal__close {
+    background-color: rgba(0,0,0, 0.3);
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    border-radius: 100%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .interview-modal__close > img {
+    height: 14px;
+    width: 14px;
+  }
+  .interview-modal video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: black;
+    position: absolute;
+  }
+  .interview-modal__media-wrapper {
+    height: 100%;
+    width: 100%;
+  }
+  .interview-video--desktop {
+    display: none;
+  }
+
+  .section-two__media-wrapper {
+    width: 100%;
+    padding-bottom: 177.78%;
+    position: relative;
+  }
+  .section-two__media-wrapper > video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .section-two__video--desktop {
+    display: none;
+  }
+
+  .section-three, .section-four, .section-five, .section-six, .section-eight {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .section-three__media, .section-four__media, .section-five__media, .section-seven__media, .section-eight__media, .section-nine__media, .section-ten__media  {
+    position: relative;
+  }
+  .section-three__media > img, .section-four__media > img, .section-five__media > img, .section-six__media > img, .section-six__media > video, .section-seven__media > img, .section-eight__media > img, .section-nine__media > img, .section-ten__media > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .section-three__image--desktop, .section-four__image--desktop, .section-five__image--desktop, .section-six__image--desktop, .section-six__video--desktop, .section-seven__image--desktop, .section-eight__image--desktop, .section-nine__image--desktop, .section-ten__image--desktop {
+    display: none;
+  }
+  .section-three__description, .section-four__description, .section-five__description, .section-six__description {
+    padding: 0 16px 32px;
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+  }
+  .section-three__description {
+    align-items: center;
+    background-color: #EAC55F;
+    color: #0C1D74;
+  }
+  .section-three__description > img {
+    margin-top: 100px;
+    height: 100px;
+  }
+  .section-three__text {
+    margin-top: 40px;
+  }
+  .section-three__text, .section-four__text, .section-five__text, .section-six__text {
+    margin-top: 14px;
+    text-align: left;
+  }
+  .section-three__text > p, .section-four__text > p, .section-five__text > p, .section-six__text > p {
+    white-space: break-spaces;
+  }
+  
+  .section-four__description {
+    align-items: start;
+    background-color: #5C9EBF;
+    color: white;
+  }
+  .section-four__description > img, .section-five__description > img, .section-six__description > img {
+    margin-top: 100px;
+    height: 60px;
+  }
+  .section-four__description > h3, .section-five__description > h3, .section-six__description > h3 {
+    font-family: 'AT-Surt-Semibold';
+    font-size: 14px;
+    margin-top: 40px;
+  }
+  
+  .section-five__description {
+    align-items: start;
+    color: #5C9EBF;
+  }
+  
+  .section-six__description {
+    align-items: start;
+    color: #0C1D74;
+    background-color: #E2F485;
+  }
+  .section-six__video--mobile {
+    display: block;
+  }
+
+  .section-eight {
+    padding: 16px;
+  }
+  .section-eight__description {
+    padding: 100px 0;
+  }
+  .section-eight__text {
+    position: relative;
+  } 
+  .section-eight__text > img:first-child {
+    position: absolute;
+    top: -112px;
+    right: 0;
+  }
+  .section-eight__text > img:last-child {
+    position: absolute;
+    bottom: -34px;
+    left: -12px;
+  }
+  .section-eight__text {
+    font-family: 'PPE-Editorial';
+    font-size: 32px;
+    padding: 40px 0;
+    border-top: 1px solid #0C1D74;
+    border-bottom: 1px solid #0C1D74;
+    color: #0C1D74;
+    line-height: 120%; 
+  }
+
+  .section-ten__media {
+    padding-bottom: 150%;
+  }
+  .section-ten__image--desktop, .section-ten__image--mobile {
+    position: absolute;
+  }
+  .section-ten__media > .section-ten__media-icon {
+    position: absolute;
+    height: 100px;
+    width: max-content;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+    object-fit: contain;
+  }
+  .section-ten__media-text {
+    font-size: 14px;
+    font-family: 'Radio Grotesk';
+    position: absolute;
+    bottom: 0;
+    color: white;
+    list-style: none;
+    width: 100%;
+    padding: 24px 16px;
+  }
+  .section-ten__media-text > li {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  .section-ten__media-text > li > span:first-child {
+    font-family: 'AT-Surt-Semibold';
+    width: 50%;
+    text-align: right;
+  }
+  .section-ten__media-text > li > span:last-child {   
+    width: 50%;
+  }
+
+  
+  @media only screen and (min-width: 769px){
+    .banner {
+      height: 100vh;
+      width: 100%;
+    }
+    .banner__media--desktop {
+      display: block;
+    }
+    .banner__media--mobile {
+      display: none;
+    }
+    .banner__description {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 100px;
+      align-items: baseline;
+      bottom: 100px;
+    }
+     .banner__description > h2 {
+      font-size: 50px;
+    }
+    .banner__description > h3 {
+      font-size: 28px;
+    }
+
+    .section-one {
+      margin: 100px 0;
+      gap: 40px;
+    }
+    .section-one > img {
+      height: 300px;
+    }
+    .section-one__text {
+      font-size: 16px;
+      max-width: 600px;
+    }
+    .interview-modal {
+      padding-top: 60px;
+    }
+    .interview-modal__content {
+      max-width: 1024px;
+      height: auto;
+    }
+    .interview-modal__media-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+    .interview-video--desktop {
+      display: block;
+    }
+    .interview-video--mobile {
+      display: none;
+    }
+
+    .section-two, .section-three, .section-four, .section-five, .section-six, .section-seven, .section-eight, .section-nine, .section-ten {
+      max-width: 2000px;
+      margin: 0 auto;
+    }
+    .section-two__media-wrapper {
+      padding-bottom: 56.25%;
+    }
+    .section-two__video--desktop {
+      display: block;
+    }
+    .section-two__video--mobile {
+      display: none;
+    }
+
+    
+    .section-three, .section-five {
+      flex-direction: row; 
+    }
+    .section-three__description, .section-four__description, .section-five__description, .section-six__description, .section-eight__description {
+      width: 50%;
+      justify-content: end;
+      padding: 0 40px 40px;
+    }
+    .section-three__text {
+      margin-top: 80px;
+    }
+    .section-three__text, .section-four__text, .section-five__text, .section-six__text {
+      column-count: 2;
+    }
+    .section-three__media, .section-four__media, .section-five__media, .section-six__media, .section-eight__media {
+      width: 50%;
+    }
+    .section-three__image--desktop, .section-four__image--desktop, .section-five__image--desktop, .section-six__image--desktop, .section-six__video--desktop, .section-seven__image--desktop, .section-eight__image--desktop, .section-nine__image--desktop, .section-ten__image--desktop {
+      display: block;
+    }
+    .section-three__image--mobile, .section-four__image--mobile, .section-five__image--mobile, .section-six__image--mobile, .section-six__video--mobile, .section-seven__image--mobile, .section-eight__image--mobile, .section-nine__image--mobile, .section-ten__image--mobile {
+      display: none;
+    }
+
+    .section-four, .section-six, .section-eight {
+      flex-direction: row-reverse; 
+    }
+    .section-four__description > h3, .section-five__description > h3, .section-six__description > h3 {
+      margin-top: 60px;
+    }
+
+    .section-eight {
+      padding: 60px;
+    }
+    .section-eight__description {
+      display: flex;
+      align-items: center;
+      padding: 0 60px;
+    }
+    .section-eight__text {
+      padding: 60px;
+      font-family: 'PPE-Editorial';
+      font-style: normal;
+    }
+
+    .section-ten__media {
+      padding-bottom: 66.67%;
+    }
+    .section-ten__media-text {
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .section-ten__media > .section-ten__media-icon {
+      height: 150px;
+    }
+  }
+  @media only screen and (min-width: 1201px){
+    .section-eight__text {
+      font-size: 48px;
+    }
+  }
+
+   
+  .block-a__text p:empty:after {
+    content: " "
+  }
+  .block-a {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .block-a__media {
+    position: relative;
+  }
+  .block-a__media > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .block-a__image--desktop, .block-a__video--desktop {
+    display: none;
+  }
+  .block-a__description {
+    padding: 0 16px 32px;
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+  }
+  .block-a__text {
+    margin-top: 14px;
+    text-align: left;
+  }
+  .block-a__text > p {
+    white-space: break-spaces;
+  }
+  
+  .block-a__description {
+    background-color: #5C9EBF;
+    color: white;
+  }
+  .block-a__description > h3 {
+    font-family: 'AT-Surt-Semibold';
+    font-size: 14px;
+    margin-top: 40px;
+  }
+  .block-a__description-icon {
+    display: flex;
+    margin-top: 100px;
+    width: 140px;
+    object-fit: contain;
+    width: 100%;
+  }
+  .block-a__description-icon.left {
+    justify-content: start;
+  }
+  .block-a__description-icon.center {
+    justify-content: center;
+  }
+  .block-a__description-icon.right {
+    justify-content: end;
+  }
+  .block-a__media > img, .block-a__media > video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media only screen and (min-width: 769px){
+    .block-a {
+      max-width: 2000px;
+      margin: 0 auto;
+    }
+    .block-a.row {
+      flex-direction: row;
+    }
+    .block-a.row-reverse {
+      flex-direction: row-reverse;
+    }
+    .block-a__description {
+      width: 50%;
+      justify-content: end;
+      padding: 0 40px 40px;
+    }
+    .block-a__text {
+      column-count: 2;
+    }
+    .block-a__media {
+      width: 50%;
+    }
+    .block-a__image--desktop, .block-a__video--desktop {
+      display: block;
+    }
+    .block-a__image--mobile, .block-a__video--mobile  {
+      display: none;
+    }
+    .block-a__description > h3 {
+      margin-top: 60px;
+    }
+  }
+</style>
+<script>
+  $(document).ready(function() {
+    const interviewModal = $("#interview-modal")
+    const interviewModalTrigger = $("#interview-modal-trigger")
+    const interViewModalClose = $("#interview-modal-close")
+    const interviewVideoMobile = $(".interview-video--mobile")
+    const interviewVideosDesktop = $(".interview-video--desktop")
+    
+    interviewModalTrigger.click(function(){
+      interviewModal.show()     
+    })
+    interViewModalClose.click(function(){
+      interviewVideoMobile.trigger('pause');
+      interviewVideosDesktop.trigger('pause');
+      interviewModal.hide()     
+    })
+  });
+</script>
+{% schema %}
+  {
+    "name": "Summer Landing Page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Banner"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner-image-desktop",
+        "label": "Main Image Banner (Desktop)"
+      },
+      {
+        "type": "video",
+        "id": "banner-video-desktop",
+        "label": "Main Video Banner (Desktop)",
+        "info": "Overrides Main Image Banner (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner-image-mobile",
+        "label": "Main Image Banner (Mobile)"
+      },
+      {
+        "type": "video",
+        "id": "banner-video-mobile",
+        "label": "Main Video Banner (Mobile)",
+        "info": "Overrides Main Image Banner (Mobile)"
+      },
+      {
+        "type": "text",
+        "id": "banner-heading",
+        "label": "Banner Heading"
+      },
+      {
+        "type": "text",
+        "id": "banner-subheading",
+        "label": "Banner Subheading"
+      },
+      {
+        "type": "header",
+        "content": "Section 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-one-image",
+        "label": "Image"
+      },
+      {
+        "type": "richtext",
+        "id": "section-one-text",
+        "label": "Text"
+      },
+      {
+        "type": "video",
+        "id": "section-one-interview-video-desktop",
+        "label": "Interview Video (Desktop)"
+      },
+      {
+        "type": "video",
+        "id": "section-one-interview-video-mobile",
+        "label": "Interview Video (Mobile)"
+      },
+      {
+        "type": "header",
+        "content": "Section 2"
+      },
+      {
+        "type": "video",
+        "id": "section-two-video-desktop",
+        "label": "Video (Desktop)"
+      },
+      {
+        "type": "video",
+        "id": "section-two-video-mobile",
+        "label": "Video (Mobile)"
+      },
+      {
+        "type": "header",
+        "content": "Section 7"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-seven-image-desktop",
+        "label": "Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-seven-image-mobile",
+        "label": "Image (Mobile)"
+      },
+      {
+        "type": "url",
+        "id": "section-seven-tag-link",
+        "label": "Tag Link"
+      },
+      {
+        "type": "text",
+        "id": "section-seven-tag-label",
+        "label": "Tag Label"
+      },
+      {
+        "type": "header",
+        "content": "Section 8"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-eight-icon-top",
+        "label": "Icon Top"
+      },
+      {
+        "type": "richtext",
+        "id": "section-eight-text",
+        "label": "Text"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-eight-icon-bottom",
+        "label": "Icon Bottom"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-eight-image-desktop",
+        "label": "Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-eight-image-mobile",
+        "label": "Image (Mobile)"
+      },
+      {
+        "type": "url",
+        "id": "section-eight-tag-link",
+        "label": "Tag Link"
+      },
+      {
+        "type": "text",
+        "id": "section-eight-tag-label",
+        "label": "Tag Label"
+      },
+      {
+        "type": "header",
+        "content": "Section 9"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-nine-image-desktop",
+        "label": "Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-nine-image-mobile",
+        "label": "Image (Mobile)"
+      },
+      {
+        "type": "url",
+        "id": "section-nine-tag-link",
+        "label": "Tag Link"
+      },
+      {
+        "type": "text",
+        "id": "section-nine-tag-label",
+        "label": "Tag Label"
+      },
+      {
+        "type": "header",
+        "content": "Section 10"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-ten-media-icon",
+        "label": "Icon"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-ten-image-desktop",
+        "label": "Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-ten-image-mobile",
+        "label": "Image (Mobile)"
+      },
+      {
+        "type": "textarea",
+        "id": "section-ten-text-list",
+        "label": "Texts"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "block_a",
+        "name": "Block A",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "block-a-icon",
+            "label": "Icon"
+          },
+          {
+            "type": "select",
+            "id": "block-a-icon-alignment",
+            "label": "Icon alignment",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "center",
+                "label": "Center"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ],
+            "default": "left"
+          },
+          {
+            "type": "text",
+            "id": "block-a-text-title",
+            "label": "Text (Title)"
+          },
+          {
+            "type": "richtext",
+            "id": "block-a-text",
+            "label": "Text"
+          },
+          {
+            "type": "color",
+            "id": "block-a-text-color",
+            "label": "Text Color"
+          },
+          {
+            "type": "color",
+            "id": "block-a-text-bg-color",
+            "label": "Text Background Color"
+          },
+          {
+            "type": "checkbox",
+            "id": "block-a-right-side-media",
+            "label": "Right side media"
+          },
+          {
+            "type": "image_picker",
+            "id": "block-a-image-desktop",
+            "label": "Image (Desktop)"
+          },
+          {
+            "type": "video",
+            "id": "block-a-video-desktop",
+            "label": "Video (Desktop)",
+            "info": "Overrides Image (Desktop)"
+          },
+          {
+            "type": "image_picker",
+            "id": "block-a-image-mobile",
+            "label": "Image (Mobile)"
+          },
+          {
+            "type": "video",
+            "id": "block-a-video-mobile",
+            "label": "Video (Mobile)",
+            "info": "Overrides Image (Mobile)"
+          },
+          {
+            "type": "url",
+            "id": "block-a-tag-link",
+            "label": "Tag Link"
+          },
+          {
+            "type": "text",
+            "id": "block-a-tag-label",
+            "label": "Tag Label"
+          }
+        ]
+      }
+    ],
+        "presets": [
+            {
+            "name": "Summer Landing Page",
+            "category": "Landing Page"
+            }
+        ]
+  }
+{% endschema %}

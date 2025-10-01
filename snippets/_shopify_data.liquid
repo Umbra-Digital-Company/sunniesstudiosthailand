@@ -1,0 +1,21 @@
+<script type="application/ld+json" id="ShopifyData">
+  {
+    "product": {{ product | json }},
+    "customer": {%- if customer -%}
+      {
+        "email": "{{customer.email}}",
+        "id": "{{customer.id}}"
+      }{%- else -%}{}{% endif %},
+    "images": [
+      {%- for image in product.images -%}
+        {%- assign color = image.alt | split: '::' | first | downcase -%}
+        {%- assign alt = image.alt | split: '::' | last -%}
+        {
+          "color": "{{ color }}",
+          "alt": "{{ alt | strip }}",
+          "url": "{{ image.src | img_url: '900x' }}"
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  }
+</script>

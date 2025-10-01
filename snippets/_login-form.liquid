@@ -1,0 +1,49 @@
+    <div class="login_header_wrapper">
+      <h1>Log In</h1>
+      <p>Hi there! Sign in to access your Sunnies Studios account for a better shopping experience.​</p>
+    </div>
+
+{% form 'customer_login' %}
+  <input type="hidden" name="checkout_url" value="/collections/all" class="js-redirect"/>
+
+  <p class="label-set">{{ 'customer.login.email' | t }}</p>
+  <div class="form-element">
+    {% comment %} <label for="CustomerEmail">{{ 'customer.login.email' | t }}</label> {% endcomment %}
+    <input type="email"
+          name="customer[email]"
+          id="CustomerEmail"
+          class="{% if form.errors contains 'email' %}input-error{% endif %}"
+          spellcheck="false"
+          autocomplete="off"
+          autocapitalize="off"
+          autofocus>
+  </div>
+
+  {% if form.password_needed %}
+  <p class="label-set">{{ 'customer.login.password' | t }}</p>
+    <div class="form-element">
+      {% comment %} <label for="CustomerPassword">{{ 'customer.login.password' | t }}</label> {% endcomment %}
+      <input type="password"
+            name="customer[password]"
+            id="CustomerPassword"
+            class="{% if form.errors contains 'password' %}input-error{% endif %}">
+            {% render 'fa-eye' %}
+    </div>
+  {% endif %}
+
+  <input type="submit" class="btn btn--lightbrown js-account-submit" value="{{ 'customer.login.sign_in' | t }}">
+
+  {% if form.password_needed %}
+  <div class="forgot-password-container">
+    <div class="forgot-wrapper">
+      <a href="#recover" class="Login__link" data-recover-toggle>{{ 'customer.login.forgot_password' | t }}</a>
+      </div>
+    </div>
+  {% endif %}
+{% endform %}
+
+  <div class="create-account-wrapper">
+    <h4>Don’t have an account yet?</h4>
+    <p>Sign up to save your prescription records and manage your orders.​</p>
+    <a href="/account/register">{{ 'customer.forms.register' | t }}</a>
+  </div>

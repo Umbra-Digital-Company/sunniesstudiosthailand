@@ -1,0 +1,100 @@
+{%- assign _section = section.settings -%}
+{%- assign section_title = _section.title -%}
+
+{%- if section.blocks.size > 0 -%}
+	<section class="section-2-blocks">
+		<div class="shell">
+
+			<div class="section__body">
+				<div class="blocks-2">
+					<div class="blocks-2__items">
+						{%- for block in section.blocks -%}
+						  {%- assign _block = block.settings -%}
+						  {%- assign block_image = _block.image -%}
+                      	  {%- assign block_image_mobile = _block.image_mobile -%}
+						  {%- assign block_title = _block.title -%}
+						  {%- assign block_url = _block.url -%}
+                      	  {%- assign block_btn = _block.btntext -%}
+                      	  {%- assign new_window = _block.new_window -%}
+                      	  {%- assign new_window_value = '' -%}
+                      	  {%- if new_window -%}
+                              {%- assign new_window_value = '_blank' -%}
+                          {%- endif -%} 	
+						  <div class="blocks-2__item">
+                              {%- if block_title != blank -%}
+								  	<h2>{{block_title}}</h2>
+								{%- endif -%}
+							  <div class="block-2">
+                                <div class="block__cta"><a class="btn" href="{{block_url}}" target="{{new_window_value}}">{{ block_btn }}</a></div>
+                                {%- if block_image != blank -%}
+                                	<div class="section__image--desktop">
+                                		<img data-src="{{block_image | img_url: '900x'}}" style="margin-bottom: 25px;" class="lazyload" />
+                                	</div>
+                                {%- endif -%}
+
+                                {%- if block_image_mobile != blank -%}
+                                	<div class="section__image--mobile">
+                                		<img data-src="{{block_image_mobile | img_url: '600x'}}" style="margin-bottom: 25px;" class="lazyload" />
+                               		</div>  
+                                {%- endif -%}
+							  </div><!-- /.block-2 -->
+						  </div><!-- /.blocks-2__item -->
+						{%- endfor -%}
+					</div><!-- /.blocks-2__items -->
+				</div><!-- /.blocks-2 -->
+			</div><!-- /.section__body -->
+		</div><!-- /.shell -->
+	</section><!-- /.section-2-blocks -->
+{%- endif -%}
+
+{% schema %}
+{
+	"name": "2 Blocks section",
+	"max_blocks": 2,
+	"blocks": [
+		{
+			"type": "block",
+			"name": "Block",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+                    "type": "image_picker",
+                    "id": "image_mobile",
+                    "label": "Image mobile"
+                },
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title"
+				},
+                {
+                  "id": "btntext",
+                  "type": "text",
+                  "label": "Button text",
+                  "default": "Book Now"
+                },
+                {
+                  "id": "url",
+                  "type": "url",
+                  "label": "Button URL"
+                },
+				{
+                  "type": "checkbox",
+                  "id": "new_window",
+                  "label": "Open this link in a new window",
+                  "default": false
+                }
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "2 Blocks section"
+		}
+	]
+}
+{% endschema %}

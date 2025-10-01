@@ -1,0 +1,62 @@
+{{ 'appointment-cancel.css' | asset_url | stylesheet_tag }}
+<script>
+        $("#MainContent").css({ marginTop:$(".header").height() });
+  console.log( $(".header").height() );
+  
+    $(window).on("scroll", function (evt) {
+  const scrollY = evt.currentTarget.scrollY;
+
+    if (scrollY >= 1) {
+        $(".header").css({position:"fixed", background:'white'});
+        $("#MainContent").css({ marginTop:$(".header").height()});
+    } else {
+        $(".header").css({position:"relative"});
+        $("#MainContent").css({marginTop:"0px"});
+    }
+});
+  
+  $(window).on("load", function (evt) {
+    
+        $("#MainContent").css({ marginTop:$(".header").height()});
+});
+</script>
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+
+<div class="appointment-cancel">
+  <h3>
+    Cancellation Confirmed
+  </h3>
+  <div class="cancel-description">
+    Your store appointment has been cancelled.
+  </div>
+  <div class="appointment-detail-wrapper">
+    <div class="appointment-detail-location">
+      <p>Store Location</p>
+      <div></div>
+    </div>
+    <div class="appointment-detail-date">
+      <p>Date</p>
+      <div></div>
+    </div>
+    <div class="appointment-detail-time">
+      <p>Time</p>
+      <div></div>
+    </div>
+  </div>
+
+  <div class="cancel">Need to reschedule? <a href="/pages/store-appointment">Book a new appointment</a></div>
+</div>
+
+{{ 'appointment-cancel.js' | asset_url | script_tag }}
+{% schema %}{
+  "name": "Appointment Cancel",
+  "presets": [
+    {
+      "name": "Appointment Cancel"
+    }
+  ]
+}
+{% endschema %}

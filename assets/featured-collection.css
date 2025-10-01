@@ -1,0 +1,26 @@
+.featured-collection-products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0 0 0;
+}
+
+.featured-collection-products .product-card {
+  flex: 40%;
+}
+
+@media (min-width: 1024px) {
+  .featured-collection-products {
+    width: 50%;
+    height: 100%;
+    gap: 24px;
+  }
+
+  .img-right .featured-collection-products {
+    margin: 0 24px 0 0;
+  }
+
+  .img-left .featured-collection-products {
+    margin: 0 0 0 24px;
+  }
+}

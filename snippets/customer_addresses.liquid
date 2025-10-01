@@ -1,0 +1,13 @@
+<div class="Addresses">
+  <h2 class="Customer__module-title Addresses__title">{{"Addresses" | upcase }}</h2>
+  {% if customer.addresses_count > 0 %}
+    {% for address in customer.addresses %}
+      {% render 'customer_address', address: address %}
+    {% endfor %}
+  {% else %}
+    <p class="Addresses__none">You have no saved addresses.</p>
+  {% endif %}
+
+  {% render 'customer_new_address_form' %}
+  <button type="button" class="Addresses__add btn btn--lightbrown js-add-address">ADD ADDRESS</button>
+</div>

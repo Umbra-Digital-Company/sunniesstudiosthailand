@@ -1,0 +1,403 @@
+{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  capture is_mobile_outside_text
+    if section.settings.mobile_content_position == 'outside-text'
+      echo "true"
+    else
+      echo "false"
+    endif
+  endcapture
+
+  capture bottom_left
+    if section.settings.mobile_content_position == 'bottom-left'
+      echo "true"
+    else
+      echo "false"
+    endif
+  endcapture
+
+  capture mobile_content_alignment
+    if section.settings.mobile_content_position == 'middle-center'
+      echo "center"
+    elsif section.settings.mobile_content_position == 'top-center'
+      echo "flex-start"
+    elsif section.settings.mobile_content_position == 'bottom-left'
+      echo "flex-end"
+    else
+      echo "flex-end"
+    endif
+  endcapture
+
+  capture desktop_content_items_alignment
+    if section.settings.desktop_content_position == 'middle-left' or section.settings.desktop_content_position == 'middle-center' or section.settings.desktop_content_position == 'middle-right'
+      echo "center"
+    elsif section.settings.desktop_content_position == 'bottom-left' or section.settings.desktop_content_position == 'bottom-center' or section.settings.desktop_content_position == 'bottom-right'
+      echo "flex-end"
+    else
+      echo "center"
+    endif
+  endcapture
+
+  capture desktop_content_justify_alignment
+    if section.settings.desktop_content_position == 'middle-left' or section.settings.desktop_content_position == 'bottom-left'
+      echo "flex-start"
+    elsif section.settings.desktop_content_position == 'middle-center' or section.settings.desktop_content_position == 'bottom-center'
+      echo "center"
+    elsif section.settings.desktop_content_position == 'middle-right' or section.settings.desktop_content_position == 'bottom-right'
+      echo "flex-end"
+    else
+      echo "end"
+    endif
+  endcapture
+
+  capture text_direction
+    if section.settings.desktop_content_position == 'middle-left' or section.settings.desktop_content_position == 'bottom-left'
+      echo "left"
+    elsif section.settings.desktop_content_position == 'middle-center' or section.settings.desktop_content_position == 'bottom-center'
+      echo "center"
+    elsif section.settings.desktop_content_position == 'middle-right' or section.settings.desktop_content_position == 'bottom-right'
+      echo "right"
+    else
+      echo "end"
+    endif
+  endcapture
+
+  capture desktop_inner_content_alignment
+    if desktop_content_justify_alignment == "center"
+      echo "true"
+    else
+      echo "false"
+    endif
+  endcapture
+%}
+
+<div class='hidden-text' style="display: block; visibility: hidden; height: 0px; width: 0px; ">{{ page_description }}</div>
+<div class="image-banner {% if section.settings.banner_type == 'standard' %}{% else %}basic{% endif %}">
+  {% if section.settings.banner_desktop contains '.mp4' or section.settings.banner_desktop contains '.mov'%}
+    <video class="section-video-banner bg-banner-desktop" autoplay loop muted playsinline>
+      <source src="{{ section.settings.banner_desktop }}" type="video/mp4">
+    </video>
+  {% else %}
+    <img
+      class="section-image-banner bg-banner-desktop"
+      src="{{ section.settings.banner_desktop }}"
+      loading="lazy"
+    >
+  {% endif %}
+  {% if section.settings.banner_mobile contains '.mp4' or section.settings.banner_mobile contains '.mov' %}
+    <video class="section-video-banner bg-banner-mobile" autoplay loop muted playsinline>
+      <source src="{{ section.settings.banner_mobile }}" type="video/mp4">
+    </video>
+  {% else %}
+    <img class="section-image-banner bg-banner-mobile" src="{{ section.settings.banner_mobile }}" loading="lazy">
+  {% endif %}
+  <div
+    class="image-banner-content-wrapper"
+    style="
+      --mobile_content_alignment: {{ mobile_content_alignment }};
+      --desktop_content_items_alignment: {{ desktop_content_items_alignment }};
+      --text_direction: {{ text_direction }};
+      --desktop_content_justify_alignment: {{ desktop_content_justify_alignment }};
+    "
+    data-is-outside-text="{{ is_mobile_outside_text }}"
+  >
+    <div
+      class="image-banner-content"
+      data-is-outside-text="{{ is_mobile_outside_text }}"
+      data-inner-content-center="{{ desktop_inner_content_alignment }}"
+    >
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'heading' -%}
+            <h2 class="image-banner-heading" data-is-black="{{ section.settings.is_content_dark }}">
+              {{ block.settings.heading | escape }}
+            </h2>
+          {%- when 'text' -%}
+            <p
+              class="image-banner-sub-copy"
+              data-is-black="{{ section.settings.is_content_dark }}"
+              style="display:{% if block.settings.text %}inline-block{% else %}none{% endif %}"
+            >
+              {{ block.settings.text | escape }}
+            </p>
+          {%- when 'buttons' -%}
+            <div class="image-banner-buttons" data-is-disabled="{{ section.settings.is_cta_disabled }}">
+              {% if block.settings.button_link != blank %}
+                <a
+                  href="{{ block.settings.button_link }}?source={{ page_title | handle }}"
+                  class="image-banner-button"
+                  data-cta-type="{{ section.settings.section_cta_type }}"
+                >
+                  {{- block.settings.button_label | escape -}}
+                </a>
+              {% elsif block.settings.button_on_click != blank %}
+                <button
+                  class="image-banner-button"
+                  data-cta-type="{{ section.settings.section_cta_type }}"
+                  onclick="{{ block.settings.button_on_click }}"
+                >
+                  {{- block.settings.button_label | escape -}}
+                </button>
+              {% endif %}
+              {% if block.settings.button_label_secondary != '' %}
+                <a
+                  href="{{ block.settings.button_link_secondary }}"
+                  class="image-banner-button"
+                  data-cta-type="{{ section.settings.section_cta_type }}"
+                >
+                  {{- block.settings.button_label_secondary | escape -}}
+                </a>
+              {% endif %}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+<style>
+  @font-face {
+    font-family: heading-custom-font;
+    src: url({{section.settings.heading_custom_font}});
+  }
+  .image-banner-heading {
+    font-family: heading-custom-font, 'AT Surt Medium'
+  }
+
+{% if section.settings.mobile_content_position == 'bottom-left' %}
+@media(max-width: 767px){
+    .image-banner-content{
+      align-items: flex-start;
+    }
+  .image-banner-sub-copy{
+    text-align: left;
+    padding-left: 0;
+  }
+}  
+  @media(min-width: 421px) and (max-width: 767px){
+    .image-banner-content{
+      
+    margin-left: 16px;
+    }
+  }
+{% endif %}
+
+
+{% if section.settings.mobile_content_position == 'top-center' %}
+.wrapper:has(#top-bar-container) .image-banner-content-wrapper{
+    padding-top: 90px;
+  
+}
+  .image-banner-content-wrapper {
+    padding-top: 90px;
+    }
+  
+{% endif %}
+  
+</style>
+{% schema %}
+{
+  "name": "Image Banner V2",
+  "tag": "section",
+  "class": "image-banner",
+  "settings": [
+    {
+      "type":"select",
+      "id":"banner_type",
+      "label":"Banner Type",
+      "options":[
+        {
+          "value":"basic",
+          "label":"Basic"
+        },
+        {
+          "value":"standard",
+          "label":"Standard"
+        }
+      ],
+      "default":"standard"
+    },
+    
+    {
+      "type": "url",
+      "id": "banner_desktop",
+      "label": "Image or video (Desktop)"
+    },
+    {
+      "type": "url",
+      "id": "banner_mobile",
+      "label": "Image or video (Mobile)"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "value": "middle-left",
+          "label": "t:sections.image-banner.settings.desktop_content_position.option1.label"
+        },
+        {
+          "value": "middle-center",
+          "label": "t:sections.image-banner.settings.desktop_content_position.option2.label"
+        },
+        {
+          "value": "middle-right",
+          "label": "t:sections.image-banner.settings.desktop_content_position.option3.label"
+        },
+        {
+          "value": "bottom-left",
+          "label": "t:sections.image-banner.settings.desktop_content_position.option4.label"
+        },
+        {
+          "value": "bottom-center",
+          "label": "t:sections.image-banner.settings.desktop_content_position.option5.label"
+        },
+        {
+          "value": "bottom-right",
+          "label": "t:sections.image-banner.settings.desktop_content_position.option6.label"
+        }
+      ],
+      "default": "middle-center",
+      "label": "t:sections.image-banner.settings.desktop_content_position.label"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_position",
+      "options": [
+        {
+          "value": "bottom-center",
+          "label": "t:sections.image-banner.settings.mobile_content_position.option1.label"
+        },
+        {
+          "value": "middle-center",
+          "label": "t:sections.image-banner.settings.mobile_content_position.option2.label"
+        },
+        {
+          "value": "top-center",
+          "label": "t:sections.image-banner.settings.mobile_content_position.option3.label"
+        },
+        {
+          "value": "bottom-left",
+          "label": "t:sections.image-banner.settings.mobile_content_position.option5.label"
+        },
+        {
+          "value": "outside-text",
+          "label": "t:sections.image-banner.settings.mobile_content_position.option4.label"
+        }
+      ],
+      "default": "middle-center",
+      "label": "t:sections.image-banner.settings.mobile_content_position.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_content_dark",
+      "label": "Dark Content"
+    },
+    {
+      "type": "select",
+      "id": "section_cta_type",
+      "label": "Button Type",
+      "default": "black",
+      "options": [
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white-light-bg",
+          "label": "White - Light BG"
+        },
+        {
+          "value": "white-black-bg",
+          "label": "White - Black BG"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "is_cta_disabled",
+      "label": "Is Button Disabled"
+    },
+    {
+      "type": "url",
+      "id": "heading_custom_font",
+      "label": "Heading Custom Font URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.image-banner.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Image banner",
+          "label": "t:sections.image-banner.blocks.heading.settings.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.image-banner.blocks.text.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:sections.image-banner.blocks.text.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "t:sections.image-banner.blocks.banner_button.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link",
+          "default": "/"
+        },
+        {
+          "type": "textarea",
+          "id": "button_on_click",
+          "label": "Button On Click"
+        },
+        {
+          "type": "text",
+          "id": "button_label_secondary",
+          "label": "Button Label Secondary"
+        },
+        {
+          "type": "url",
+          "id": "button_link_secondary",
+          "label": "Button Link Secondary",
+          "default": "/"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Banner V2",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "buttons"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

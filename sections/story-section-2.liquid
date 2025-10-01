@@ -1,0 +1,109 @@
+<section class="story-section">
+  <h3 class="story-section-title">{{ section.settings.title }}</h3>
+  <div class="story-section-main">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when "story_text" %}
+          <div class="story-text">{{ block.settings.story_text}}</div>
+        {% when "story_image" %}
+          <figure class="story-image">
+            <img class="desktop" src="{{ block.settings.story_image | img_url: 'master' }}" alt="image">
+            <img class="mobile" src="{{ block.settings.story_image_mobile | img_url: 'master' }}" alt="image">
+          </figure>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  .story-section {
+    max-width: 720px;
+    margin: 100px auto 0;
+  }
+
+  .story-section-title {
+    margin-bottom: 24px;
+  }
+
+  .story-text p {
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .story-image {
+    padding-top: 16px;
+  }
+
+  .story-image img.desktop {
+    display: block;
+  }
+
+  .story-image img.mobile {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .story-image img.desktop {
+      display: none;
+    }
+
+    .story-image img.mobile {
+      display: block;
+    }
+
+    .story-section {
+      margin-top: 40px;
+    }
+
+    .story-section-title,
+    .story-text {
+      margin: 0 16px 24px;
+    }
+
+    .story-section-title {
+      font-size: 24px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Story Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story_text",
+      "name": "Story text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "story_text",
+          "label": "Story text"
+        }
+      ]
+    },
+    {
+      "type": "story_image",
+      "name": "Story image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "story_image",
+          "label": "Story image"
+        },
+        {
+          "type": "image_picker",
+          "id": "story_image_mobile",
+          "label": "Story image (mobile)"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

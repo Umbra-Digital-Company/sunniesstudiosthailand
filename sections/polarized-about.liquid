@@ -1,0 +1,290 @@
+<div class="polarized-about">
+  <div class="polarized-about__texts">
+    <div class="polarized-about__title">{{ section.settings.title }}</div>
+    <div class="polarized-about__body">{{ section.settings.body }}</div>
+    <p class="polarized-about__instruction">Hover on the image to learn more. </p>
+  </div>
+  <div class="polarized-about__dropdown-list">
+    <div class="polarized-about__dropdown-list-item">
+      <div class="polarized-about__dropdown-image">
+        <img src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/Web_lenses-02_1.png?v=1669268548" alt="Unique Optical Quality" />
+      </div>
+      <div class="polarized-about__dropdown-content">
+        <div class="polarized-about__dropdown-title">
+          <span class="polarized-about__dropdown-icon">
+            <img class="polarized-about__dropdown-icon-horizontal" />
+            <img class="polarized-about__dropdown-icon-vertical" />
+          </span>
+          <h3 class="polarized-about__dropdown-text">
+            Unique Optical Quality
+          </h3>
+        </div>
+        <p class="polarized-about__dropdown-body">
+          Nylon lenses guarantee a 70% higher ABBE value* compared to polycarbonate and glass lenses, resulting in better optical performance for physical activities
+        </p>
+      </div>
+    </div>
+    <div class="polarized-about__dropdown-list-item">
+      <div class="polarized-about__dropdown-image">
+        <img src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/Web_lenses-03_1.png?v=1669268548" alt="BPA-Free" />
+      </div>
+      <div class="polarized-about__dropdown-content">
+        <div class="polarized-about__dropdown-title">
+          <span class="polarized-about__dropdown-icon">
+            <img class="polarized-about__dropdown-icon-horizontal" />
+            <img class="polarized-about__dropdown-icon-vertical" />
+          </span>
+          <h3 class="polarized-about__dropdown-text">
+            BPA-Free
+          </h3>
+        </div>
+        <p class="polarized-about__dropdown-body">
+          Nylon is BPA-free, eliminating a chemical substance linked to numerous health hazards
+        </p>
+      </div>
+    </div>
+    <div class="polarized-about__dropdown-list-item">
+      <div class="polarized-about__dropdown-image">
+         <img src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/Web_lenses-04_1.png?v=1669268548" alt="Impact Resistant" />
+      </div>
+      <div class="polarized-about__dropdown-content">
+        <div class="polarized-about__dropdown-title">
+          <span class="polarized-about__dropdown-icon">
+            <img class="polarized-about__dropdown-icon-horizontal" />
+            <img class="polarized-about__dropdown-icon-vertical" />
+          </span>
+          <h3 class="polarized-about__dropdown-text">
+            Impact Resistant
+          </h3>
+        </div>
+        <p class="polarized-about__dropdown-body">
+          Pliable nylon lenses guarantee greater impact resistance compared to other materials
+        </p>
+      </div>
+    </div>
+    <div class="polarized-about__dropdown-list-item">
+      <div class="polarized-about__dropdown-image">
+         <img src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/Web_lenses-05_1.png?v=1669268548" alt="Responsibly made" />
+      </div>
+      <div class="polarized-about__dropdown-content">
+        <div class="polarized-about__dropdown-title">
+          <span class="polarized-about__dropdown-icon">
+            <img class="polarized-about__dropdown-icon-horizontal" />
+            <img class="polarized-about__dropdown-icon-vertical" />
+          </span>
+          <h3 class="polarized-about__dropdown-text">
+            Responsibly made
+          </h3>
+        </div>
+        <p class="polarized-about__dropdown-body">
+          Nylon lenses are more sustainably-produced compared to polycarbonate lenses, reducing environmental impact
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Polarized About",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "richtext",
+        "id": "body",
+        "label": "Body"
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  .polarized-about {
+    padding: 0 16px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: auto;
+    color:  #352B27
+  }
+  .polarized-about__title  {
+    font-family: 'AT Surt Medium';
+    font-size: 28px;
+    text-align: center;
+    line-height: 120%;
+  }
+  .polarized-about__body  {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    margin-top: 24px;
+    text-align: center;
+  }
+  .polarized-about__body p:not(:first-child) {
+    margin-top: 28px;
+  }
+  .polarized-about__instruction {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .polarized-about__instruction:before {
+    content: url('https://cdn.shopify.com/s/files/1/0268/4141/5798/files/pointer.png?v=1669268548');
+    margin-right: 11px;
+  }
+  .polarized-about__dropdown-list  {
+    max-width: 196px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 28px;
+  }
+  .polarized-about__dropdown-list-item  {
+    margin-top: 24px;
+  }
+  .polarized-about__dropdown-content {
+    height: 22px;
+    max-height: 22px;
+    overflow: hidden;
+    transition: height 0.3s, max-height 0.3s;
+    transition-timing-function: ease-out;
+    margin-top: 12px;
+    margin-left: 12px;
+  }
+  .polarized-about__dropdown-title  {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .polarized-about__dropdown-body {
+    opacity: 0;
+    transition: opacity 0.3s;
+    transition-timing-function: ease-out;
+  }
+  .polarized-about__dropdown-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .polarized-about__dropdown-icon img {
+    position: absolute;
+  }
+  .polarized-about__dropdown-icon-horizontal {
+    content: url('https://cdn.shopify.com/s/files/1/0268/4141/5798/files/dash-icon.svg?v=1669268549');
+  }
+  .polarized-about__dropdown-icon-vertical {
+    content: url('https://cdn.shopify.com/s/files/1/0268/4141/5798/files/dash-icon.svg?v=1669268549');
+    transform: rotate(90deg);
+    transition: transform 0.3s;
+  }
+  .polarized-about__dropdown-text  {
+    font-family: 'AT Surt Medium';
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 120%;
+  }
+  .polarized-about__dropdown-body  {
+    font-family: 'Radio Grotesk';
+    font-size: 11px;
+    margin-top: 12px;
+  }
+  /* On active (Mobile) */
+  .polarized-about__dropdown-content.active {
+    max-height: 150px;
+    height: 100%;
+  }
+  .polarized-about__dropdown-content.active .polarized-about__dropdown-body {
+    display: block;
+    opacity: 1;
+  }
+  .polarized-about__dropdown-content.active .polarized-about__dropdown-icon-vertical {
+    transform: rotate(180deg)
+  }
+  @media only screen and (min-width: 1200px) {
+    .polarized-about {
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+    }
+    .polarized-about__title  {
+      font-size: 32px;
+      text-align: start;
+    }
+    .polarized-about__body  {
+      font-size: 16px;
+      margin-top: 24px;
+      text-align: start;
+    }
+    .polarized-about__body p:not(:first-child) {
+      margin-top: 32px;
+    }
+    .polarized-about__instruction {
+      font-size: 16px;
+      margin-top: 28px;
+      justify-content: start;
+      align-items: center;
+    }
+    .polarized-about__dropdown-list  {
+      max-width: 100%;
+      margin-top: 0;
+    }
+    .polarized-about__dropdown-list-item  {
+      margin-top: -12px;
+    }
+    .polarized-about__dropdown-title  {
+      margin-top: 0;
+      gap: 16px;
+    }
+    .polarized-about__dropdown-icon {
+      margin-bottom: 2px;
+    }
+    .polarized-about__dropdown-text  {
+      font-size: 16px;
+    }
+    .polarized-about__dropdown-body  {
+      font-size: 14px;
+      margin-top: 16px;
+    }
+    .polarized-about__dropdown-list-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 35px;
+    }
+    .polarized-about__dropdown-content {
+      max-height: 100%;
+      margin-left: 0;
+    }
+    /* On hover (Desktop) */
+    .polarized-about__dropdown-content:hover {
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .polarized-about__dropdown-content:hover .polarized-about__dropdown-body {
+      display: block;
+      opacity: 1;
+    }
+    .polarized-about__dropdown-content:hover .polarized-about__dropdown-icon-vertical {
+      transform: rotate(180deg)
+    }
+  }
+</style>
+
+<script>
+  $('.polarized-about__dropdown-content').click(function(){
+   $(this).toggleClass('active');
+   $(`.polarized-about__dropdown-content`).not(this).removeClass('active'); 
+  })
+  $('.polarized-about__dropdown-image').click(function(){
+   $(`.polarized-about__dropdown-content`).removeClass('active'); 
+  })
+
+</script>

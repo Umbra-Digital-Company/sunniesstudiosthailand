@@ -1,0 +1,79 @@
+.scroll-down-intro-banner-container {
+  min-height: calc(100vh - 100px);
+  max-height: calc(100vh - 100px);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-down-intro-banner-container #anti-rad-banner-content {
+  display: flex;
+  cursor: pointer;
+  margin: 0 0 120px 0;
+}
+
+.scroll-down-intro-banner-container #anti-rad-banner-content span {
+  color: #fff;
+  font-size: 16px;
+  font-family: 'Radio Grotesk';
+  margin: 0 12px 0 0;
+  font-weight: bold;
+}
+
+.scroll-down-intro-banner-container #anti-rad-banner-content {
+  margin: 0 0 60px 0;
+}
+
+.scroll-down-hero-banner-img-desktop,
+.scroll-down-hero-banner-img-mobile {
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.scroll-down-hero-banner-img-desktop img,
+.scroll-down-hero-banner-img-mobile img {
+  width: 100%;
+}
+
+.scroll-down-hero-banner-img-mobile img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.scroll-down-hero-banner-img-desktop {
+  display: none;
+}
+
+.scroll-down-hero-banner-content {
+  display: flex;
+  cursor: pointer;
+  margin: 0 0 60px 0;
+}
+
+.scroll-down-hero-banner-content span {
+  color: #fff;
+  font-size: 16px;
+  font-family: "AT-Surt-SemiBold";
+  margin: 0 12px 0 0;
+}
+
+@media (min-width: 768px) {
+  .scroll-down-hero-banner-img-desktop {
+    display: block;
+  }
+
+  .scroll-down-hero-banner-img-mobile {
+    display: none;
+  }
+}

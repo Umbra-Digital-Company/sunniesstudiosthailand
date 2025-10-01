@@ -1,0 +1,1746 @@
+{% assign tint_classes = "light-onyx,light-canyon,light-moss,light-lemon,light-mandarin,light-sakura,light-ocean" | split: "," %}
+{% assign medium_classes = "medium-onyx,medium-canyon,medium-moss,medium-lemon,medium-mandarin,medium-sakura,medium-ocean" | split: "," %}
+{% assign dark_classes = "dark-onyx,dark-canyon,dark-moss,dark-lemon,dark-mandarin,dark-sakura,dark-ocean" | split: "," %}
+{% assign metafields = "tint_rx_light,tint_rx_medium,tint_rx_dark" | split: "," %}
+
+<div class="toggle-prescription"></div>
+<div class="new-toggle-prescription">
+  <input id="new-prescription-objects" type="hidden"
+  data-object = '
+  [
+    {
+       "Single Vision":  {
+        "vision": "Single Vision",
+        "reading": {
+          {% assign collection_handle_rx_single_vision_reading = 'rx_single_vision_reading_lens_upgrades' %}
+          {% for product in collections[collection_handle_rx_single_vision_reading].products  %}
+            {% if forloop.last == true %}
+              {% if product.handle == 'reading-screen_safe' %}
+                {% assign item_screen_safe_title = product.title %}
+                "Screen Safe": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0002' %}
+                        {% assign sv_scs_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% elsif product.handle == 'reading-sun_adaptive' %}
+                {% assign item_sun_adaptive_title = product.title %}
+                "Sun Adaptive": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0003' %}
+                        {% assign sv_sa_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% elsif product.handle == 'reading-sunplusscreen' %}
+                {% assign item_sunplusscreen_title = product.title %}
+                "Sun + Screen": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0045' %}
+                        {% assign sv_sus_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% elsif product.handle == 'reading-airlens' %}
+                {% assign item_airlens_title = product.title %}
+                "AirLens": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0004' %}
+                        {% assign sv_al_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "title": "{{product.title}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "title": "{{product.title}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% elsif product.handle == 'reading-ultrathin' %}
+                {% assign item_ultrathin = product.title %}
+                "Ultrathin": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0006' %}
+                        {% assign sv_ul_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "title": "{{product.title}}","lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "title": "{{product.title}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% elsif product.handle == 'reading-tints_rx' %}
+                {% assign item_tints = product.title %}
+                "Tints Rx": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0036' %}
+                        {% assign sv_tints_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% elsif product.handle == 'reading-classic' %}
+                {% assign item_classic = product.title %}
+                "Classic": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0001' %}
+                        {% assign sv_css_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% endif %}
+            {% else %}
+              {% if product.handle == 'reading-screen_safe' %}
+                {% assign item_screen_safe_title = product.title %}
+                "Screen Safe": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0002' %}
+                        {% assign sv_scs_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% elsif product.handle == 'reading-sun_adaptive' %}
+                {% assign item_sun_adaptive_title = product.title %}
+                "Sun Adaptive": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0003' %}
+                        {% assign sv_sa_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% elsif product.handle == 'reading-sunplusscreen' %}
+                {% assign item_sunplusscreen_title = product.title %}
+                "Sun + Screen": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0045' %}
+                        {% assign sv_sus_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% elsif product.handle == 'reading-airlens' %}
+                {% assign item_airlens_title = product.title %}
+                "AirLens": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0004' %}
+                        {% assign sv_al_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "title": "{{product.title}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "title": "{{product.title}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% elsif product.handle == 'reading-ultrathin' %}
+                {% assign item_ultrathin = product.title %}
+                "Ultrathin": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0006' %}
+                        {% assign sv_ul_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "title": "{{product.title}}","lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "title": "{{product.title}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% elsif product.handle == 'reading-tints_rx' %}
+                {% assign item_tints = product.title %}
+                "Tints Rx": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0036' %}
+                        {% assign sv_tints_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% elsif product.handle == 'reading-classic' %}
+                {% assign item_classic = product.title %}
+                "Classic": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if prod_sku == 'ML0001' %}
+                        {% assign sv_css_price = prod_price %}
+                      {% endif %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% endif %}
+            {% endif %}
+
+          {% endfor %}
+        },
+        "distance": {
+          {% assign collection_handle_rx_single_vision_distance = 'rx_single_vision_distance_lens_upgrades' %}
+          {% for product in collections[collection_handle_rx_single_vision_distance].products %}
+            {% if forloop.last == true %}
+              {% if product.handle == 'distance-screen_safe' %}
+                "Screen Safe": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% elsif product.handle == 'distance-airlens' %}
+                "AirLens": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% elsif product.handle == 'distance-ultrathin' %}
+                "Ultrathin": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% elsif product.handle == 'distance-sunplusscreen' %}
+                "Sun + Screen": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% elsif product.handle == 'distance-sun_adaptive' %}
+                "Sun Adaptive": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% elsif product.handle == 'distance-tints_rx' %}
+                "Tints Rx": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% elsif product.handle == 'distance-classic' %}
+                "Classic": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ]
+              {% endif %}
+            {% else %}
+              {% if product.handle == 'distance-screen_safe' %}
+                "Screen Safe": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% elsif product.handle == 'distance-airlens' %}
+                "AirLens": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% elsif product.handle == 'distance-ultrathin' %}
+                "Ultrathin": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% elsif product.handle == 'distance-sunplusscreen' %}
+                "Sun + Screen": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% elsif product.handle == 'distance-sun_adaptive' %}
+                "Sun Adaptive": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% elsif product.handle == 'distance-tints_rx' %}
+                "Tints Rx": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% elsif product.handle == 'distance-classic' %}
+                "Classic": [
+                  {% for n_variant in product.variants %}
+                    {% assign prod_id = n_variant.id %}
+                    {% assign prod_ttl = n_variant.title %}
+                    {% assign prod_sku = n_variant.sku %}
+                    {% assign prod_price = n_variant.price %}
+                      {% if forloop.last == true %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                      {% else %}
+                        {"id": "{{prod_id}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                      {% endif %}
+                  {% endfor %}
+                ],
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        }
+      },
+      "Bifocal":  {
+        "vision": "Bifocal",
+        {% assign collection_handle_rx_bifocal = 'rx_bifocal_lens_upgrades' %}
+        {% for product in collections[collection_handle_rx_bifocal].products %}
+          {% if forloop.last == true %}
+            {% if product.handle == 'bifocal-kryptok' %}
+              {% assign item_kryptok = product.title %}
+              "Kryptok": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0025' %}
+                      {% assign bfc_kt_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ]
+            {% elsif product.handle == 'bifocal-flat_top' %}
+              {% assign item_flat_top = product.title %}
+              "Flat Top": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0046' %}
+                      {% assign bfc_ft_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ]
+            {% elsif product.handle == 'bifocal-kryptok_sun_adapative' %}
+              {% assign item_kryptok_sun_adaptive = product.title %}
+              "Kryptok Sun Adaptive": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0026' %}
+                      {% assign bfc_ktsa_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ]
+            {% elsif product.handle == 'bifocal-flat_top_sun_adaptive' %}
+              {% assign item_flat_top_sun_adaptive = product.title %}
+              "Flat Top Sun Adaptive": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0028' %}
+                      {% assign bfc_ftsa_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ]
+            {% endif %}
+          {% else %}
+            {% if product.handle == 'bifocal-kryptok' %}
+              {% assign item_kryptok = product.title %}
+              "Kryptok": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0025' %}
+                      {% assign bfc_kt_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ],
+            {% elsif product.handle == 'bifocal-flat_top' %}
+              {% assign item_flat_top = product.title %}
+              "Flat Top": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0046' %}
+                      {% assign bfc_ft_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ],
+            {% elsif product.handle == 'bifocal-kryptok_sun_adapative' %}
+              {% assign item_kryptok_sun_adaptive = product.title %}
+              "Kryptok Sun Adaptive": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0026' %}
+                      {% assign bfc_ktsa_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ],
+            {% elsif product.handle == 'bifocal-flat_top_sun_adaptive' %}
+              {% assign item_flat_top_sun_adaptive = product.title %}
+              "Flat Top Sun Adaptive": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0028' %}
+                      {% assign bfc_ftsa_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ],
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      },
+      "Progressive":  {
+        "vision": "Progressive",
+        {% assign collection_handle_rx_progressive = 'rx_progressive_lens_upgrades' %}
+        {% for product in collections[collection_handle_rx_progressive].products %}
+          {% if forloop.last == true %}
+            {% if product.handle == 'progressive-sun_adaptive' %}
+              "Sun Adaptive": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0030' %}
+                      {% assign prs_sa_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ]
+            {% elsif product.handle == 'progressive-ultrathin' %}
+              "Ultrathin": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0033' %}
+                      {% assign prs_ul_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ]
+            {% elsif product.handle == 'progressive-airlens' %}
+              "AirLens": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0031' %}
+                      {% assign prs_al_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ]
+            {% elsif product.handle == 'progressive-classic' %}
+              "Classic": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0029' %}
+                      {% assign prs_css_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ]
+            {% endif %}
+          {% else %}
+            {% if product.handle == 'progressive-sun_adaptive' %}
+              "Sun Adaptive": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0030' %}
+                      {% assign prs_sa_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ],
+            {% elsif product.handle == 'progressive-ultrathin' %}
+              "Ultrathin": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0033' %}
+                      {% assign prs_ul_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ],
+            {% elsif product.handle == 'progressive-airlens' %}
+              "AirLens": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0031' %}
+                      {% assign prs_al_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ],
+            {% elsif product.handle == 'progressive-classic' %}
+              "Classic": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0029' %}
+                      {% assign prs_css_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ],
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      },
+      "Non-prescription":  {
+        "vision": "Non-prescription",
+        {% assign collection_handle_rx_non_prescription = 'rx_non_prescription_lens_upgrades' %}
+        {% for product in collections[collection_handle_rx_non_prescription].products %}
+          {% if forloop.last == true %}
+            {% if product.handle == 'nonprescription-screen_safe' %}
+              "Screen Safe": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0002' %}
+                      {% assign np_bl_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ]
+            {% elsif product.handle == 'nonprescription-sun_adaptive' %}
+              "Sun Adaptive": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0003' %}
+                      {% assign np_sa_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ]
+            {% elsif product.handle == 'nonprescription-sunpluscreen' %}
+              "Sun + Screen": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0045' %}
+                      {% assign np_sd_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ]
+            {% elsif product.handle == 'nonprescription-tints_rx' %}
+              "Tints Rx": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0036' %}
+                      {% assign np_tints_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ]
+            {% elsif product.handle == 'nonprescription-classic' %}
+              "Classic": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0001' %}
+                      {% assign np_css_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ]
+            {% endif %}
+          {% else %}
+            {% if product.handle == 'nonprescription-screen_safe' %}
+              "Screen Safe": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0002' %}
+                      {% assign np_bl_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ],
+            {% elsif product.handle == 'nonprescription-sun_adaptive' %}
+              "Sun Adaptive": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0003' %}
+                      {% assign np_sa_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ],
+            {% elsif product.handle == 'nonprescription-sunpluscreen' %}
+              "Sun + Screen": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0045' %}
+                      {% assign np_sd_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ],
+            {% elsif product.handle == 'nonprescription-tints_rx' %}
+              "Tints Rx": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0036' %}
+                      {% assign np_tints_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ],
+            {% elsif product.handle == 'nonprescription-classic' %}
+              "Classic": [
+                {% for n_variant in product.variants %}
+                  {% assign prod_id = n_variant.id %}
+                  {% assign prod_ttl = n_variant.title %}
+                  {% assign prod_sku = n_variant.sku %}
+                  {% assign prod_price = n_variant.price %}
+                    {% if prod_sku == 'ML0001' %}
+                      {% assign np_css_price = prod_price %}
+                    {% endif %}
+                    {% if forloop.last == true %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" }
+                    {% else %}
+                      {"id": "{{prod_id}}", "lens_upgrade": "{{product.title}}", "lens_name": "{{prod_ttl}}", "sku": "{{prod_sku}}", "price": "{{prod_price | divided_by: 100}}" },
+                    {% endif %}
+                {% endfor %}
+              ],
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      }
+    }
+  ]
+'
+>
+  <section class="new-prescription-body">
+    <div class="new-prescription-error" id="new-prescription-error">
+      <div class="new-prescription-error-content-inner">
+        <div class="prescription-close-btn"><span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_306_98688)">
+            <path d="M1.33301 1.33398L14.6663 14.6673M14.6663 1.33398L1.33301 14.6673" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_306_98688">
+            <rect width="16" height="16" fill="white"/>
+            </clipPath>
+            </defs>
+          </svg>
+        </span></div>
+        <p class="new-prescription-error-title" id="error-title"></p>
+        <p class="new-prescription-error-content" id="error-content"></p>
+        <div class="error-content-btn" id="error-btn-wrapper">
+        </div>
+      </div>
+    </div>
+
+    <div class="new-prescription-close-btn">
+      <span class="new-prescription-close-btn-span"></span>
+    </div>
+    <div class="new-prescription-left">
+      <figure class="new-prescription-img">
+        {% unless product.metafields.media.tint_rx_light == blank and product.metafields.media.tint_rx_medium == blank and product.metafields.media.tint_rx_dark == blank %}
+          <div class="lens-tint-image tint-desktop">
+            {% for metafield in metafields %}
+              {% assign tint_class = "" %}
+          
+              {% if metafield == "tint_rx_light" %}
+                {% assign tint_class = tint_classes %}
+              {% elsif metafield == "tint_rx_medium" %}
+                {% assign tint_class = medium_classes %}
+              {% elsif metafield == "tint_rx_dark" %}
+                {% assign tint_class = dark_classes %}
+              {% endif %}
+          
+              {% if product.metafields.media[metafield] %}
+                {% for image in product.metafields.media[metafield].value %}
+                  <img src="{{ image | img_url: 'master' }}"
+                       class="{{ tint_class[forloop.index0] }}"
+                       data-index="{{ forloop.index }}"
+                       style="display: none;"
+                       >
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+
+          </div>
+        {% endunless %}
+        <img src="{{ product.selected_or_first_available_variant.image | img_url: 'master' }}">
+      </figure>
+      <div class="new-prescription-data">
+        <div class="new-prescription-group">
+          <label class="new-prescription-label" for="frame">Frame</label>
+          <input type="hidden" name="properties[frame]" value="{{current_variant.option1}}">
+          <input type="hidden" name="product-current-variant" value="{{current_variant.id}}">
+          <p class="new-prescription-text">
+            <span id="frame-title">{{ product.title }} in {{current_variant.option1}}</span>
+            <span id="frame-price"></span>
+          </p>
+        </div>
+        <div class="new-prescription-group" id="new-prescription-vision">
+          <label class="new-prescription-label" for="visiontype">Vision type</label>
+          <p class="new-prescription-text">
+            <span class="new-prescription-text-type"></span>
+          </p>
+        </div>
+        <div class="new-prescription-group" id="new-prescription-lens-upgrade">
+          <label class="new-prescription-label" for="lensupgrade">Lens upgrade</label>
+          <p class="new-prescription-text">
+            <span class="new-prescription-text-type" style="text-transform: capitalize;"></span>
+            <span class="new-prescription-text-price"></span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="new-prescription-right">
+      <div class="new-prescription-pre-bg">
+        <div class="new-prescription-right-tracker" id="js-new-prescription-tracker"></div>
+      </div>
+
+      <div class="new-prescription-step is-active new-prescription-vision-type" id="select-vision-step01"
+        data-stepname="singlevision" data-step="1">
+        <div class="new-prescription-right-inner">
+          <div class="new-prescription-right-label">
+            <p class="new-prescription-right-title u-pcDb">Select your vision type</p>
+            <p class="new-prescription-right-title u-spDb">Select your vision type</p>
+          </div>
+          <div class="new-prescription-right-data">
+
+            <div
+              class="new-prescription-right-data-item"
+              data-name="Single vision"
+              data-price="{{current_variant.price | divided_by: 100}}"
+              data-target="lens-upgrade-step02"
+              data-step="select-step01">
+              <div class="new-prescription-right-data-flex">
+                <p class="new-prescription-right-data-label">Single vision</p>
+                <p class="new-prescription-right-data-price"></p>
+              </div>
+              <p class="new-prescription-right-data-text">Near-sighted or far-sighted? These lenses can
+                help you see better at either distances</p>
+            </div>
+
+            <div
+              class="new-prescription-right-data-item"
+              data-name="Bifocal"
+              data-price="{{current_variant.price | divided_by: 100}}"
+              data-target="bifocal-step02"
+              data-step="select-step01">
+              <div class="new-prescription-right-data-flex">
+                <p class="new-prescription-right-data-label">Bifocal</p>
+                <p class="new-prescription-right-data-price"></p>
+              </div>
+              <p class="new-prescription-right-data-text">Correct both near and distance vision with one
+                pair​</p>
+            </div>
+
+            <div
+              class="new-prescription-right-data-item"
+              data-name="Progressive"
+              data-price="{{current_variant.price | divided_by: 100}}"
+              data-target="progressive-step02"
+              data-step="select-step01">
+              <div class="new-prescription-right-data-flex">
+                <p class="new-prescription-right-data-label">Progressive</p>
+                <p class="new-prescription-right-data-price"></p>
+              </div>
+              <p class="new-prescription-right-data-text">See clearly and transition from near to far with
+                one seamless pair — no need to switch between glasses!</p>
+            </div>
+
+            <div class="new-prescription-right-data-item" data-name="Non-prescription" data-price="{{current_variant.price | divided_by: 100}}"
+              data-target="non-prescription-step02" data-step="select-step01">
+              <div class="new-prescription-right-data-flex">
+                <p class="new-prescription-right-data-label">Non-prescription</p>
+                <p class="new-prescription-right-data-price"></p>
+              </div>
+              <p class="new-prescription-right-data-text">Style and protection without prescription</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="new-prescription-step new-prescription-Lens-type" data-stepname="Lens Upgrade" data-step="2"
+        id="lens-upgrade-step02">
+        <div class="new-prescription-back-btn" data-target="select-vision-step01">
+          <div class="new-prescription-back-btn-item">
+            <span class="new-prescription-back-btn-span-arrow"></span>
+          </div>
+        </div>
+        <div class="new-prescription-right-inner">
+          <div class="new-prescription-right-label">
+            <p class="new-prescription-right-title u-pcDb">Select your lens upgrade</p>
+            <p class="new-prescription-right-title u-spDb">Select your lens upgrade</p>
+          </div>
+          <div class="new-prescription-right-data">
+
+            {% for product in collections[collection_handle_rx_single_vision_reading].products %}
+              <div
+                class="new-prescription-right-data-item"
+                data-name="{{ product.title }}"
+
+                {% if product.handle == "reading-screen_safe" %}
+                  data-price="{{ sv_scs_price | divided_by: 100 }}"
+                {% elsif product.handle == "reading-sun_adaptive" %}
+                  data-price="{{ sv_sa_price | divided_by: 100 }}"
+                {% elsif product.handle == "reading-sunplusscreen" %}
+                  data-price="{{ sv_sus_price | divided_by: 100 }}"
+                {% elsif product.handle == "reading-airlens" %}
+                  data-price="{{ sv_al_price | divided_by: 100 }}"
+                {% elsif product.handle == "reading-ultrathin" %}
+                  data-price="{{ sv_ul_price | divided_by: 100 }}"
+                {% elsif product.handle == "reading-tints_rx" %}
+                  data-price="{{ sv_tints_price | divided_by: 100 }}"
+                {% elsif product.handle == "reading-classic" %}
+                  data-price="{{ sv_css_price | divided_by: 100 }}"
+                {% endif %}
+
+                {% if product.handle != "reading-tints_rx" %}
+                  data-target="add-your-prescription-step3"
+                {% elsif product.handle == "reading-tints_rx" %}
+                  data-target="select-tints-step3"
+                {% endif %}
+
+                data-step="select-step02-03">
+                <div class="new-prescription-right-data-flex">
+                  <p class="new-prescription-right-data-label">{{ product.title }}</p>
+
+                    <p class="new-prescription-right-data-price">
+
+                    {% if product.handle == "reading-screen_safe" %}
+                      {% if sv_scs_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ sv_scs_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% elsif product.handle == "reading-sun_adaptive" %}
+                      {% if sv_sa_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ sv_sa_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% elsif product.handle == "reading-sunplusscreen" %}
+                      {% if sv_sus_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ sv_sus_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% elsif product.handle == "reading-airlens" %}
+                      {% if sv_al_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ sv_al_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% elsif product.handle == "reading-ultrathin" %}
+                      {% if sv_ul_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ sv_ul_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% elsif product.handle == "reading-tints_rx" %}
+                      {% if sv_tints_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ sv_tints_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% elsif product.handle == "reading-classic" %}
+                      {% if sv_css_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ sv_css_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% endif %}
+                  </p>
+
+                </div>
+                <div class="new-prescription-right-data-text"> {{ product.description }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="new-prescription-step new-prescription-Lens-type" data-stepname="Bifocal" data-step="2"
+        id="bifocal-step02">
+        <div class="new-prescription-back-btn" data-target="select-vision-step01">
+          <div class="new-prescription-back-btn-item">
+            <span class="new-prescription-back-btn-span-arrow"></span>
+          </div>
+        </div>
+        <div class="new-prescription-right-inner">
+          <div class="new-prescription-right-label">
+            <p class="new-prescription-right-title u-pcDb">Select your lens upgrade</p>
+            <p class="new-prescription-right-title u-spDb">Select your lens upgrade</p>
+          </div>
+          <div class="new-prescription-right-data">
+
+            {% for product in collections[collection_handle_rx_bifocal].products %}
+              <div
+                class="new-prescription-right-data-item"
+                data-name="{{ product.title }}"
+
+                {% if product.handle == "bifocal-kryptok" %}
+                  data-price="{{ bfc_kt_price | divided_by: 100 }}"
+                {% elsif product.handle == "bifocal-flat_top" %}
+                  data-price="{{ bfc_ft_price | divided_by: 100 }}"
+                {% elsif product.handle == "bifocal-kryptok_sun_adapative" %}
+                  data-price="{{ bfc_ktsa_price | divided_by: 100 }}"
+                {% elsif product.handle == "bifocal-flat_top_sun_adaptive" %}
+                  data-price="{{ bfc_ftsa_price | divided_by: 100 }}"
+                {% endif %}
+
+                data-target="add-your-prescription-step3"
+                data-step="select-step02-03">
+                <div class="new-prescription-right-data-flex">
+                  <p class="new-prescription-right-data-label">{{ product.title }}</p>
+
+                  <p class="new-prescription-right-data-price">
+                    {% if product.handle == "bifocal-kryptok" %}
+                      {% if bfc_kt_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ bfc_kt_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% elsif product.handle == "bifocal-flat_top" %}
+                      {% if bfc_ft_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ bfc_ft_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% elsif product.handle == "bifocal-kryptok_sun_adapative" %}
+                      {% if bfc_ktsa_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ bfc_ktsa_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% elsif product.handle == "bifocal-flat_top_sun_adaptive" %}
+                      {% if bfc_ftsa_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ bfc_ftsa_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% endif %}
+                  </p>
+
+                </div>
+                <div class="new-prescription-right-data-text">
+                  {{ product.description }}
+                </div>
+              </div>
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+
+      <div class="new-prescription-step new-prescription-Lens-type" data-stepname="Progressive" id="progressive-step02"
+        data-step="2">
+        <div class="new-prescription-back-btn" data-target="select-vision-step01">
+          <div class="new-prescription-back-btn-item">
+            <span class="new-prescription-back-btn-span-arrow"></span>
+          </div>
+        </div>
+        <div class="new-prescription-right-inner">
+          <div class="new-prescription-right-label">
+            <p class="new-prescription-right-title u-pcDb">Select your lens upgrade</p>
+            <p class="new-prescription-right-title u-spDb">Select your lens upgrade</p>
+          </div>
+          <div class="new-prescription-right-data">
+
+            {% for product in collections[collection_handle_rx_progressive].products %}
+              <div
+                class="new-prescription-right-data-item"
+                data-name="{{ product.title }}"
+
+                {% if product.handle == "progressive-sun_adaptive" %}
+                  data-price="{{ prs_sa_price | divided_by: 100 }}"
+                {% elsif product.handle == "progressive-ultrathin" %}
+                  data-price="{{ prs_ul_price | divided_by: 100 }}"
+                {% elsif product.handle == "progressive-airlens" %}
+                  data-price="{{ prs_al_price | divided_by: 100 }}"
+                {% elsif product.handle == "progressive-classic" %}
+                  data-price="{{ prs_css_price | divided_by: 100 }}"
+                {% endif %}
+
+                data-target="add-your-prescription-step3"
+                data-step="select-step02-03">
+                <div class="new-prescription-right-data-flex">
+                  <p class="new-prescription-right-data-label">{{ product.title }}</p>
+                  <p class="new-prescription-right-data-price">
+                    {% if product.handle == "progressive-sun_adaptive" %}
+                      {% if prs_sa_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ prs_sa_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% elsif product.handle == "progressive-ultrathin" %}
+                      {% if prs_ul_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ prs_ul_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% elsif product.handle == "progressive-airlens" %}
+                      {% if prs_al_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ prs_al_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% elsif product.handle == "progressive-classic" %}
+                      {% if prs_css_price == 000 %}
+                        Free
+                      {% else %}
+                        + ${{ prs_css_price | money_without_currency | remove: '.00' }}
+                      {% endif %}
+                    {% endif %}
+                  </p>
+                </div>
+                <div class="new-prescription-right-data-text">
+                  {{ product.description }}
+                </div>
+              </div>
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+
+      <div class="new-prescription-step new-prescription-Lens-type" data-stepname="None Prescription"
+        id="non-prescription-step02" data-step="2">
+        <div class="new-prescription-back-btn" data-target="select-vision-step01">
+          <div class="new-prescription-back-btn-item">
+            <span class="new-prescription-back-btn-span-arrow"></span>
+          </div>
+        </div>
+        <div class="new-prescription-right-inner">
+          <div class="new-prescription-right-label">
+            <p class="new-prescription-right-title u-pcDb"> Select your lens upgrade</p>
+            <p class="new-prescription-right-title u-spDb"> Select your lens upgrade</p>
+          </div>
+          <div class="new-prescription-right-data">
+
+            {% for product in collections[collection_handle_rx_non_prescription].products %}
+              <div
+                class="new-prescription-right-data-item"
+                data-name="{{ product.title }}"
+
+                {% if product.handle == "nonprescription-screen_safe" %}
+                  data-price="{{ np_bl_price | divided_by: 100 }}"
+                {% elsif product.handle == "nonprescription-sun_adaptive" %}
+                  data-price="{{ np_sa_price | divided_by: 100 }}"
+                {% elsif product.handle == "nonprescription-sunpluscreen" %}
+                  data-price="{{ np_sd_price | divided_by: 100 }}"
+                {% elsif product.handle == "nonprescription-tints_rx" %}
+                  data-price="{{ np_tints_price | divided_by: 100 }}"
+                {% elsif product.handle == "nonprescription-classic" %}
+                  data-price="{{ np_css_price | divided_by: 100 }}"
+                {% endif %}
+
+                data-target="add-your-prescription-step3"
+                data-step="select-step02-03">
+              <div class="new-prescription-right-data-flex">
+                <p class="new-prescription-right-data-label">{{ product.title }}</p>
+                <p class="new-prescription-right-data-price">
+                  {% if product.handle == "nonprescription-screen_safe" %}
+                    {% if np_bl_price == 000 %}
+                      Free
+                    {% else %}
+                      + ${{ np_bl_price | money_without_currency | remove: '.00' }}
+                    {% endif %}
+                  {% elsif product.handle == "nonprescription-sun_adaptive" %}
+                    {% if np_sa_price == 000 %}
+                      Free
+                    {% else %}
+                      + ${{ np_sa_price | money_without_currency | remove: '.00' }}
+                    {% endif %}
+                  {% elsif product.handle == "nonprescription-sunpluscreen" %}
+                    {% if np_sd_price == 000 %}
+                      Free
+                    {% else %}
+                      + ${{ np_sd_price | money_without_currency | remove: '.00' }}
+                    {% endif %}
+                  {% elsif product.handle == "nonprescription-tints_rx" %}
+                    {% if np_tints_price == 000 %}
+                      Free
+                    {% else %}
+                      + ${{ np_tints_price | money_without_currency | remove: '.00' }}
+                    {% endif %}
+                  {% elsif product.handle == "nonprescription-classic" %}
+                    {% if np_css_price == 000 %}
+                      Free
+                    {% else %}
+                      + ${{ np_css_price | money_without_currency | remove: '.00' }}
+                    {% endif %}
+                  {% endif %}
+                </p>
+              </div>
+              <div class="new-prescription-right-data-text">
+                {{ product.description }}
+              </div>
+            </div>
+          {% endfor %}
+
+          </div>
+        </div>
+      </div>
+
+      <div class="new-prescription-step new-prescription-lens-type" data-stepname="add-your-prescription" id="add-your-prescription-step3" data-step="3">
+        <div class="new-prescription-back-btn" data-target="select-vision-step01">
+          <div class="new-prescription-back-btn-item">
+            <span class="new-prescription-back-btn-span-arrow"></span>
+          </div>
+        </div>
+        <div class="new-prescription-right-inner">
+          <div class="new-prescription-right-label">
+            <p class="new-prescription-right-title u-pcDb">Add your prescription</p>
+            <p class="new-prescription-right-title u-spDb">Add your prescription</p>
+          </div>
+          <div class="new-prescription-right-data">
+
+            <div class="new-prescription-btn-tab tab-btn is-active" id="tab-btns">
+              <div class="new-prescription-btn-tab-item">
+                <button class="new-prescription-btn-step3" id="search-prescription-records"
+                  data-target="search-records">
+                  Select from your past records
+                </button>
+                <button class="new-prescription-btn-step3" id="add-prescription" data-target="add-new-prescription">
+                  Add a new prescription
+                </button>
+              </div>
+            </div>
+
+            <div class="new-prescription-btn-tab tab-find-records" id="search-records">
+              <form class="new-prescription-form" id="find-records-form">
+                <div class="new-prescription-form-group" style="margin-bottom: 24px">
+                  <label class="new-prescription-form-label" for="email">Enter the email address you used in your last purchase</label>
+                  <input class="new-prescription-form-input" type="email" name="email" id="find-email" placeholder="">
+                  <p class="new-prescription-form-error">
+                    <span class="new-prescription-form-error-icon">!</span> Please provide a valid email address
+                  </p>
+                </div>
+                <div class="new-prescription-form-group btn-form">
+                  <button class="new-prescription-form-btn-find-records" id="find-records-btn">Find my records</button>
+                </div>
+                {% comment %} <div id="find-records-additional-info">
+                  <p>Need help with your prescription?</p>
+                  <p>
+                    <a href="http://m.me/107519864279819" target="_blank">Consult our doctors virtually</a>
+                    or
+                    <a href="/pages/prescription-guide-how-to-read-my-prescription" target="_blank">read our prescription guide.</a>
+                  </p>
+                </div> {% endcomment %}
+                <div class="new-prescription-form-results">
+                  <div class="new-prescription-form-results-loader">
+                    <div id="grab-prescription-loader"></div>
+                  </div>
+                  <div class="new-prescription-form-results-data">
+                  </div>
+                  {% comment %} <div class="new-prescription-notes-form">
+                    <label for="user-note">Additional information (optional)</label>
+                    <textarea name="note" form="cart" id="user-note"></textarea>
+                  </div> {% endcomment %}
+                </div>
+              </form>
+            </div>
+
+            <div class="new-prescription-btn-tab tab-new-prescription" id="add-new-prescription">
+              <form action="" class="new-prescription-form" id="add-new-prescription-form">
+                <div class="new-prescription-form-group">
+                  <label class="new-prescription-form-label-disabled">Your prescription</label>
+                  <div class="new-prescription-form-table add-data">
+                  </div>
+                  {% comment %} <p class="new-prescription-form-table-caption">
+                    Hey there, need help reading your prescription?
+                    <a href="/pages/prescription-guide-how-to-read-my-prescription" class="new-prescription-form-table-link" target="_blank"
+                      rel="noopener noreferrer">Read our guide here</a>
+                  </p> {% endcomment %}
+                </div>
+              </form>
+            </div>
+              {% comment %} <div class="cart-product-upsell">
+                {%- render 'prescription-upsell' -%}
+              </div> {% endcomment %}
+              <div class="new-prescription-notes-form">
+                <label for="user-note" style="justify-content: start !important;">Additional information (optional)</label>
+                <textarea name="note" form="cart" id="user-note"></textarea>
+              </div>  
+          </div>
+        </div>
+      </div>
+
+      <div class="new-prescription-step new-prescription-tints-select" data-stepname="tints-select"
+        id="select-tints-step3" data-step="3">
+        <div class="new-prescription-back-btn" data-target="">
+          <div class="new-prescription-back-btn-item">
+            <span class="new-prescription-back-btn-span-arrow"></span>
+          </div>
+        </div>
+        <div class="new-prescription-right-inner">
+          <div class="new-prescription-right-label">
+            <p class="new-prescription-right-title u-pcDb">Select your lens upgrade</p>
+            <p class="new-prescription-right-title u-spDb">Select your lens upgrade</p>
+          </div>
+          
+          <div class="lens-upgrade">
+            <span class="tint-rx-clr">Tint strength</span>
+        
+            <div class="tint-options">
+                <label tintrx-data-value="Light"
+                  class="tint_rx_label {% if product.metafields.media.tint_rx_light == blank %}disabled{% endif %}">
+                    Light
+                </label>
+                <label tintrx-data-value="Medium"
+                  class="tint_rx_label {% if product.metafields.media.tint_rx_medium == blank %}disabled{% endif %}">
+                    Medium
+                </label>
+                <label tintrx-data-value="Dark"
+                  class="tint_rx_label {% if product.metafields.media.tint_rx_dark == blank %}disabled{% endif %}">
+                    Dark
+                </label>
+            </div>
+        </div>
+        
+        <!-- Only show the image container if a metafield is not blank -->
+
+          <div class="new-prescription-right-data">
+            <span class="prescription-lens-clr">Color</span>
+            {% assign tints = "Onyx,tint_onyx.png,Best for UV protection;Canyon,tint_canyon.png,Good for variable everyday conditions;Moss,tint_moss.png,Evens out color perception;Lemon,tint_lemon.png,Adds clarity in low light conditions;Mandarin,tint_mandarin.png,Lends itself to blue light protection;Sakura,tint_sakura.png,Offers reduced eye strain;Ocean,tint_ocean.png,Helps to reduce glare" | split: ";" %}
+            
+            {% for tint in tints %}
+              {% assign tint_details = tint | split: "," %}
+              <div class="prescription-lens-{{ tint_details[0] | downcase }}">
+                <div class="new-prescription-right-data-item new-prescription-right-tints" data-tints="{{ tint_details[0] }}">
+                  <div class="new-prescription-right-data-tints">
+                    <div class="new-prescription-right-data-tints-color">
+                      {{ tint_details[1] | asset_url | img_tag }}
+                    </div>
+                    <div class="new-prescription-right-data-tints-content">
+                      <p class="new-prescription-right-data-tints-name">{{ tint_details[0] }}</p>
+                      <p class="new-prescription-right-data-tints-desc">{{ tint_details[2] }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="lens-tint-image tint-mobile">
+                  <img id="tint-image-mobile-{{ tint_details[0] | downcase }}" src="" style="display:none;" alt="{{ tint_details[0] }}" />
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="new-prescription-step new-prescription-mobile-selection-review" data-stepname="mobile-selection-review" id="mobile-selection-review" data-step="4">
+        <div class="new-prescription-back-btn" data-target="">
+          <div class="new-prescription-back-btn-item">
+            <span class="new-prescription-back-btn-span-arrow"></span>
+          </div>
+        </div>
+        <div class="new-prescription-mobile-selection-review-content"></div>
+      </div>
+
+      <div class="prescription-message-guide-a">Hey there, need help reading  your prescription? <a href="/pages/prescription-guide-how-to-read-my-prescription" class="new-prescription-form-table-link" target="_blank"
+      rel="noopener noreferrer"> Read our guide here</a></div>
+      <div class="prescription-message-guide-b">Need help with your prescription?
+        <a href="http://m.me/107519864279819" target="_blank">Consult our doctors virtually</a>
+        or
+        <a href="/pages/how-to-read-my-prescription" target="_blank">read our prescription guide.</a>
+      </div>
+      <div class="new-prescription-right-subtotal" id="new-prescription-subtotal">
+        <div class="new-prescription-right-subtotal-inner">
+          <div class="new-prescription-right-subtotal-temp"></div>
+          <div class="new-prescription-right-subtotal-flex">
+            <p class="new-prescription-right-subtotal-text">Subtotal</p>
+            <p class="new-prescription-right-subtotal-text new-prescription-subtotal-amount" id="new-prescription-subtotal-amount"></p>
+          </div>
+          <div class="new-prescription-right-subtotal-btn">
+            <button class="new-prescription-right-subtotal-btn-next" id="new-prescription-btn-next" data-current-step="">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="new-prescription-added-to-bag">
+      <div class="added-to-bag-icon">
+        {% comment %}<image id="added-to-bag-desktop" src="{{ 'filled-checkmark-desktop.svg' | asset_url }}" />
+        <image id="added-to-bag-mobile" src="{{ 'filled-checkmark-mobile.svg' | asset_url }}" />{% endcomment %}
+        <div id="added-to-bag-loading-spinner"></div>
+      </div> 
+      <p id="added-to-bag-label">Your prescription glasses have been added to your bag!</p>
+      <a class="prescription-proceed" href="/cart">Proceed to bag</a>
+      <a class="prescription-shopping"href="/">Continue shopping</a>
+    </div>
+
+  </section>
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+    const tintRxImages = [
+      'tint-image-mobile-onyx', 'tint-image-mobile-canyon', 'tint-image-mobile-moss',
+      'tint-image-mobile-lemon', 'tint-image-mobile-mandarin', 'tint-image-mobile-sakura',
+      'tint-image-mobile-ocean', 'tint-image-desktop'
+    ].map(id => document.getElementById(id));
+
+    const tintClasses = {
+      "Onyx": { Light: "light-onyx", Medium: "medium-onyx", Dark: "dark-onyx" },
+      "Canyon": { Light: "light-canyon", Medium: "medium-canyon", Dark: "dark-canyon" },
+      "Moss": { Light: "light-moss", Medium: "medium-moss", Dark: "dark-moss" },
+      "Lemon": { Light: "light-lemon", Medium: "medium-lemon", Dark: "dark-lemon" },
+      "Mandarin": { Light: "light-mandarin", Medium: "medium-mandarin", Dark: "dark-mandarin" },
+      "Sakura": { Light: "light-sakura", Medium: "medium-sakura", Dark: "dark-sakura" },
+      "Ocean": { Light: "light-ocean", Medium: "medium-ocean", Dark: "dark-ocean" }
+    };
+
+    let selectedTintColor = null;
+    let selectedTintStrength = null;
+    let tintsSelectedLabel = null;
+
+    // Handle Tint Color Selection
+    document.querySelectorAll('.new-prescription-right-tints').forEach(function(tintElement) {
+      tintElement.addEventListener('click', function() {
+        selectedTintColor = this.getAttribute('data-tints');
+        updateImages();
+      });
+    });
+
+    // Handle Tint Strength Selection
+    document.querySelectorAll('.tint-options label').forEach(function(label) {
+      if (!label.classList.contains('disabled')) {
+        label.addEventListener('click', function() {
+          const selectedTintsValue = label.getAttribute('tintrx-data-value');
+          selectedTintStrength = selectedTintsValue;
+
+          if (label === tintsSelectedLabel) {
+            label.classList.remove('active');
+            selectedTintStrength = null;
+            tintsSelectedLabel = null;
+            localStorage.removeItem('tints-Rx');
+            resetImages();
+          } else {
+            document.querySelectorAll('.tint_rx_label').forEach(l => l.classList.remove('active'));
+            label.classList.add('active');
+            localStorage.setItem('tints-Rx', selectedTintsValue);
+            tintsSelectedLabel = label;
+            resetImages();
+            updateImages();
+          }
+        });
+      }
+    });
+
+    function updateImages() {
+      if (selectedTintColor) {
+        const tintClass = tintClasses[selectedTintColor];
+
+        // Reset all images before showing the selected one
+        resetImages();
+
+        if (tintClass && tintClass[selectedTintStrength]) {
+          const tintId = tintClass[selectedTintStrength];
+          const imageElement = document.querySelector(`img.${tintId}`);
+          const mobileImageElement = document.querySelector(`#tint-image-mobile-${selectedTintColor.toLowerCase()}`);
+
+          if (imageElement) {
+            imageElement.style.display = 'block';
+            const imgUrl = imageElement.src;
+
+            if (mobileImageElement) {
+              mobileImageElement.src = imgUrl;
+              mobileImageElement.style.display = 'block';
+            }
+          }
+        }
+      }
+    }
+
+    // Reset Tint RX image on entry point
+    document.querySelector('.select-lenses-button').addEventListener('click', function() {
+      console.log('Resetting tint strength.');
+      let selectedTintColor = null;
+      let selectedTintStrength = null;
+      let tintsSelectedLabel = null;
+      localStorage.removeItem('tints-Rx');
+      resetImages();
+    });
+
+    function resetImages() {
+      // Mobile Reset
+      tintRxImages.forEach(imageElement => {
+        if (imageElement) {
+          imageElement.style.display = 'none';
+          imageElement.src = ''; 
+        }
+      });
+
+      // Desktop Reset
+      Object.values(tintClasses).forEach(strengthClass => {
+        Object.values(strengthClass).forEach(tintId => {
+          const imageElement = document.querySelector(`img.${tintId}`);
+          if (imageElement) {
+            imageElement.style.display = 'none'; 
+          }
+        });
+      });
+    }
+
+  });
+</script>

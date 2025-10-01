@@ -1,0 +1,49 @@
+<style>
+  .join-waitlist-container{
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    padding: 16px;
+    width: 100%;
+    background-color: #fff;
+    z-index: 10;
+  }
+  
+  #join_waitlist {
+    border: none;
+    outline: none;
+    width: 100%;
+    border-radius: 8px;
+    padding: 12px 40px;
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    line-height: 20px;
+    text-transform: none;
+    font-weight: 400;
+    /* margin-bottom: 24px; */
+  }
+  @media (min-width: 768px) {
+    .join-waitlist-container{
+      position: static;
+      padding: 0;
+      margin-bottom: 8px;
+    }
+    #join_waitlist {
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+  }
+</style>
+
+<div class="join-waitlist-container">
+  <button
+    type="button"
+    id="join_waitlist"
+    class="btn customize"
+    style="background-color: #FFF;color: #352B27;cursor: pointer; border: 1px solid #EFEFEC;"
+    onClick="openWaitlistModal({{ product_id }}, {{ current_variant_id }})"
+  >
+    Join the waitlist
+  </button>
+</div>
+<div class="space-liner mobile-disabled"></div>

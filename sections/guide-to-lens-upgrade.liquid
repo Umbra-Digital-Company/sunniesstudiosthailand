@@ -1,0 +1,154 @@
+<div class="gtlu-banner">
+  <h1>{{ section.settings.banner_heading }}</h1>
+</div>
+<div class="gtlu-main">
+  <p class="gtlu-main__intro">{{ section.settings.intro_description }}</p>
+  <hr>
+  {% for block in section.blocks %}  
+    {% case block.type %}
+      {% when 'card' %}  
+        <div class="gtlu-card" {{ block.shopify_attributes }}>   
+          <img src="{{ block.settings.image | image_url }}" />
+          <div class="gtlu-card__info">
+            <img src="{{ block.settings.logo | image_url }}" />
+            <div>
+            {{ block.settings.content }}
+            </div>
+            <a href="{{ block.settings.card_btn_link }}" class="btn">{{ block.settings.card_btn_text }}</a>
+          </div>
+        </div> 
+    {% endcase %} 
+  {% endfor %}
+</div>
+<style>
+  .gtlu-main {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    max-width: 768px;
+    margin: 0 auto;
+  }
+  .gtlu-banner {
+    background-color: #F4EFE6;
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gtlu-banner > h1 {
+    margin: 0;
+    font-family: 'AT Surt Medium';
+    font-size: 28px;
+  }
+  .gtlu-main__intro {
+    margin: 60px 40px 0;
+  }
+  .gtlu-main > hr {
+    margin-top: 60px;
+    display: none;
+    height: 0;
+    border: 1px solid var(--light_brown_color);
+  }
+  .gtlu-card {
+    margin-top: 60px;
+  }
+  .gtlu-card > img {
+    width: 100%;
+  }
+  .gtlu-card .gtlu-card__info {
+    margin: 60px 40px 0;
+  }
+  .gtlu-card .gtlu-card__info > div, .gtlu-card .gtlu-card__info > a {
+    margin-top: 40px;
+  }
+  .gtlu-card .gtlu-card__info > a {
+    font-family: 'AT Surt Medium';
+    text-transform: unset;
+    padding: 16px 40px;
+    border: 1.5px solid transparent;
+  }
+  .gtlu-card .gtlu-card__info > a:hover {
+    color: var(--black_color);
+    background-color: var(--neutral_eight_color);
+    border: 1.5px solid var(--black_color);
+  }
+  @media only screen and (min-width: 769px) {
+    .gtlu-main {
+      font-size: 16px;
+    }
+    .gtlu-banner {
+      min-height: 375px;
+    }
+    .gtlu-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .gtlu-card .gtlu-card__info {
+      display: flex;
+      flex-direction: column;
+      align-items: baseline;
+      justify-content: end;
+       margin: 60px 60px 0;
+    }
+    .gtlu-banner > h1 {
+      font-size: 40px;
+    }
+    .gtlu-main__intro {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .gtlu-main > hr {
+      display: block;
+    }
+  }
+</style>
+{% schema %}
+  {
+    "name": "Guide to lens upgrade",
+    "settings": [
+      {
+        "type": "text",
+        "id": "banner_heading",
+        "label": "Banner Heading"
+      },
+      {
+        "type": "textarea",
+        "id": "intro_description",
+        "label": "Intro Description"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Card",
+        "type": "card",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Card Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "Card Logo"
+          },
+          {
+            "type": "textarea",
+            "id": "content",
+            "label": "Card Content"
+          },
+          {
+            "type": "text",
+            "id": "card_btn_text",
+            "label": "Card Button Text",
+            "default": "Learn more"
+          },
+          {
+            "type": "url",
+            "id": "card_btn_link",
+            "label": "Card Button Link"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

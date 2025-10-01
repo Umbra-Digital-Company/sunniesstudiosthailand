@@ -1,0 +1,26 @@
+{{ 'page-small-copy.css' | asset_url | stylesheet_tag }}
+
+<div class="page-small-copy-container">
+  <div class="page-small-copy-wrapper">
+    {{ section.settings.page_copy }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page Small Copy",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "page_copy",
+      "label": "Small Introductory Copy"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Small Copy"
+    }
+  ]
+}
+{% endschema %}

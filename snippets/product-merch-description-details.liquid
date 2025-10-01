@@ -1,0 +1,148 @@
+{% liquid
+  assign product_measurements = 'initial'
+  
+  assign frame_measurement_array = product.metafields.frame_measurement.bridge_width_eye_size_temple_length | split: ", "
+  assign bridge_width = frame_measurement_array[0]
+  assign eye_size = frame_measurement_array[1]
+  assign temple_length = frame_measurement_array[2]
+  assign image_frame_front = product.metafields.frame_measurement.image_frame_front
+  assign image_temple = product.metafields.frame_measurement.image_temple
+  
+  capture measurement_gallery
+    for image in product.images
+      assign image_color = image.alt | split: '::' | first | downcase
+      assign image_alt = image.alt | split: '::' | last
+      if image_color == 'measurement'
+        assign product_measurements = product_measurements | append: ',' | append: image_color
+        render 'responsive-image' with image: image, alt: image_alt, image_class: "css-class", wrapper_class: "wrapper-css-class", max_width: 900, max_height: 500
+      endif
+    endfor
+  endcapture
+%}
+
+<div class="product-description-details">
+  <ul class="product-description-accordion" id="product-description-accordion">
+    <li>
+      <div class="product-description-accordion-header">
+        <span>Details</span>
+        {% render 'icon-minus' %}
+      </div>
+      <div class="product-description-accordion-content" style="display: block">
+        <div class="product-description">
+          {% comment %} <h3 class="product-description__title">Description</h3> {% endcomment %}
+          {{ product.description }}
+        </div>
+        {% unless product.selected_or_first_available_variant.metafields.description.made_with.value == blank %}
+          <div class="product-made-with">
+            {% comment %} <h3 class="product-made-with__title">Crafted with</h3> {% endcomment %}
+            <ul>
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  {% when 'product_made_with' %}
+                  {% if product.selected_or_first_available_variant.metafields.description.made_with.value contains block.settings.title %}
+                    <li {{ block.shopify_attributes }}>
+                      <div>
+                        <img src="{{ block.settings.icon | image_url }}" />
+                        <a href={{ block.settings.title_link }}>{{ block.settings.title }}</a>
+                      </div>
+                      <p>{{ block.settings.description }}</p>
+                    </li>
+                  {% endif %}
+                {% endcase %}
+              {% endfor %}
+            </ul>
+          </div>
+        {% endunless %}
+
+        <div class="product-description-tags">
+          <ul class="tags-list">
+            {% for product_tag in product.tags %}
+              {% assign clean_product_tag = product_tag | downcase %}
+
+              {% if clean_product_tag contains 'arranged_desc' %}
+                {% assign split_label = clean_product_tag | split: '::' | last | strip %}
+                {% assign split_tags = split_label | split: '-' %}
+                {% assign arrangedTags = split_tags %}
+
+                {% for tag in arrangedTags %}
+                  {% assign clean_tag = tag | downcase %}
+                  {% assign content = tag | strip %}
+                  {% assign classes = content | handleize %}
+
+                  <li>
+                    <div class="icon-{{ classes }}"></div>
+                    <span>{{ content }}</span>
+                  </li>
+                {% endfor %}
+              {% endif %}
+
+              {% if clean_product_tag contains 'arranged_by_star_desc' %}
+                {% assign split_label = clean_product_tag | split: '::' | last | strip %}
+                {% assign split_tags = split_label | split: '*' %}
+                {% assign arrangedTags = split_tags %}
+
+                {% for tag in arrangedTags %}
+                  {% assign clean_tag = tag | downcase %}
+                  {% assign content = tag | strip %}
+                  {% assign classes = content | handleize %}
+
+                  <li>
+                    <div class="icon-{{ classes }}"></div>
+                    <span>{{ content }}</span>
+                  </li>
+                {% endfor %}
+              {% endif %}
+
+              {% assign is_desc = clean_product_tag | split: '::' | first | strip %}
+
+              {% if is_desc == 'desc' %}
+                {% assign content = clean_product_tag | split: '::' | last | strip %}
+                {% assign classes = content | handleize %}
+
+                <li>
+                  <div class="icon-{{ classes }}"></div>
+                  <span>{{ content }}</span>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="product-description-callout" style="{% if section.settings.is_callout_hidden == true %}display: none;{% endif %}">
+          <h5>{{ section.settings.callout_title }}</h5>
+          <p>{{ section.settings.callout_copy }}</p>
+          <a href="{{ section.settings.callout_url }}">{{ section.settings.callout_url_label }}</a>
+        </div>
+
+        {% render 'discount-callout' %}
+      </div>
+    </li>
+    {% comment %} <li>
+      <div class="product-description-accordion-header">
+        <span>Fit Guide</span>
+        {% render 'icon-plus' %}
+      </div>
+      <div class="product-description-accordion-content">
+        test
+      </div>
+    </li> {% endcomment %}
+    
+    {% comment %} <li>
+      <div class="product-description-accordion-header">
+        <span>What's included</span>
+        {% render 'icon-plus' %}
+      </div>
+      <div class="product-description-accordion-content whats-included-content">
+        {{ section.settings.whats_included_content }}
+      </div>
+    </li> {% endcomment %}
+  </ul>
+
+  <div class="product-description-pairs">
+    <h5>Pairs nicely with</h5>
+    <div>
+      {% render 'mini-product-card' with section.settings.pair_product_one as product_data %}
+      {% render 'mini-product-card' with section.settings.pair_product_two as product_data %}
+    </div>
+  </div>
+</div>

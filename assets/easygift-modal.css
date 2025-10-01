@@ -1,0 +1,99 @@
+#aca-modal-wrapper {
+  justify-content: center;
+}
+#aca-modal-container {
+  max-width: 480px;
+  padding: 80px 60px !important;
+  border-radius: 12px;
+  box-shadow: none !important;
+}
+#aca-products-container {
+  width: 100% !important;
+}
+#aca-products-container .aca-product {
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+#aca-products-container .aca-product-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+}
+#aca-products-container .aca-product-name {
+    font-family: 'Radio Grotesk';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    text-align: center;
+    color: #352B27;
+    margin-top: 24px;
+}
+#aca-products-container label {
+    margin-top: 40px;
+    display: block;
+    text-align: left;
+    font-family: 'Radio Grotesk';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    color: #352B27;
+}
+#aca-products-container .aca-product-dropdown {
+    margin-top: 12px;
+    margin-bottom: 0px !important;
+    height: auto !important;
+}
+#aca-products-container .aca-product-variants {
+    border-radius: 4px;
+    padding: 14px 16px;
+    height: auto;
+    font-family: 'Radio Grotesk';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    color: #352B27;
+    width: 100%;
+}
+#aca-products-container .aca-product-button {
+    padding: 16px 40px;
+    width: max-content;
+    height: 48px;
+    background: #352B27;
+    border-radius: 8px;
+    font-family: 'AT Surt Medium';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    text-transform: none;
+    margin-top: 16px;
+}
+#aca-products-container .aca-product-button.aca-product-out-of-stock-button {
+  background-color: #E3E3E3;
+  color: #B0AEAF;
+  border: none;
+}
+#aca-bottom-close, #aca-close-icon-container {
+  display: none !important;
+}
+
+@media only screen and (max-width: 767px) {
+  #aca-modal-container {
+      max-width: 480px;
+      padding: 20px !important;
+  }
+  #aca-products-container .aca-product-name, 
+  #aca-products-container label, 
+  #aca-products-container .aca-product-button,
+  #aca-products-container .aca-product-variants {
+      font-size: 14px;
+  }
+  #aca-products-container label {
+      margin-top: 24px;
+  }
+}

@@ -1,0 +1,104 @@
+{{ 'merch-main-product.css' | asset_url | stylesheet_tag }}
+{{ 'product-variants.css' | asset_url | stylesheet_tag }}
+{{ 'product-add-to-bag.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign selected_color = current_variant.option1 | handleize
+  assign specific_lifestyle = 'lifestyle-' | append: selected_color
+  assign item_type = ''
+  assign isIconView = false
+  assign product_measurements = 'initial'
+
+  if product.tags contains 'merch'
+    assign item_type = 'merch'
+
+    if product.tags contains 'icon-view'
+      assign isIconView = false
+    else
+      assign isIconView = true
+    endif
+  else
+    assign item_type = 'studios_frame'
+    assign isIconView = false
+  endif
+%}
+
+<div class="main-product-container"
+  data-section-id="{{ section.id }}"
+  data-section-type="product">
+  <div class="main-product-wrapper">
+    {% render 'desktop-product-vto' %}
+    
+    <div class="product-details">
+      <header class="Product__header">
+        {% render 'product-information' %}
+
+        {% form 'product', product, class: 'Product__header-actions' %}
+          <input type="hidden"
+            name="id"
+            value="{{ current_variant.id }}"
+            class="js-variant-id">
+          <input type="hidden" name="properties[_item_type]" class="js-product-properties" value="{{item_type}}">
+
+          {% unless product.has_only_default_variant %}
+            {% render 'product-variants' %}
+          {% endunless %}
+          {% comment %}
+          {% if current_variant.available %}
+            {% render 'product-add-to-bag' %}
+          {% else %}
+            <div id="join_waitlist"
+              class="btn customize"
+              style="background-color: #AB9F92;color: #fff;cursor: pointer;"
+              onClick="openWaitlistModal({{ product.id }}, {{ current_variant.id }})">
+              Join the waitlist
+            </div>
+          {% endif %}
+        {% endcomment %}
+        {% endform %}
+      </header>
+
+      <div class="product-description-details">
+        <h5>Details</h5>
+      
+        <div class="product-description">
+          {{ product.description }}
+        </div>
+      
+        <div class="product-description-tags">
+          <ul class="tags-list">
+            {% for product_tag in product.tags %}
+              {% assign clean_product_tag = product_tag | downcase %}
+
+              {% if clean_product_tag contains 'desc' %}
+                {% assign split_label = clean_product_tag | split: '::' | last | strip %}
+                {% assign content = split_label | strip %}
+                {% assign classes = content | handleize %}
+
+                <li>
+                  <div class="icon-{{ classes }}"></div>
+                  <span>{{ content }}</span>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="{{ 'product-information.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+  {
+    "name": "GWP Main Product",
+    "presets": [
+      {
+        "name": "GWP Main Product"
+      }
+    ]
+  }
+{% endschema %}

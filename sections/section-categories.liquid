@@ -1,0 +1,189 @@
+{{ "section-categories.css" | asset_url | stylesheet_tag }}
+
+  <div class="section-categories {{ section.id }}">
+    <h2 class="section-category--heading">
+      {{ section.settings.title-text }}
+    </h2>
+    <div class="section-category-swiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide category-block" style="transform: translate3d(0px,0px,0px)">
+          {% if block.settings.category_media contains '.mp4' %}
+            <video class="" autoplay loop muted playsinline>
+              <source src="{{ block.settings.category_media }}" type="video/mp4">
+            </video>
+          {% else %}
+            <img
+              class=""
+              src="{{ block.settings.category_media }}"
+              loading="lazy"
+            >
+          {% endif %}
+              <a class="category-link" href="{{ block.settings.category_link }}">{{ block.settings.cta_text }} </a>
+          </div>
+
+      {% endfor %}
+              {% for block in section.blocks %}
+          <div class="swiper-slide category-block" style="transform: translate3d(0px,0px,0px)">
+          {% if block.settings.category_media contains '.mp4' %}
+            <video class="" autoplay loop muted playsinline>
+              <source src="{{ block.settings.category_media }}" type="video/mp4">
+            </video>
+          {% else %}
+            <img
+              class=""
+              src="{{ block.settings.category_media }}"
+              loading="lazy"
+            >
+          {% endif %}
+              <a class="category-link" href="{{ block.settings.category_link }}">{{ block.settings.cta_text }} </a>
+          </div>
+
+      {% endfor %}
+      </div>
+
+    </div>
+
+  </div>
+<style>
+  
+  .section-categories .swiper-wrapper {
+    display: flex;
+    flex-direction: row;
+    column-gap: 4px;
+    aspect-ratio: 3;
+  }
+  .section-categories .category-block {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    position: absolute !important;
+    margin-right: 4px;
+  }
+  @media(max-width: 900px){
+    .section-categories .swiper-wrapper{
+      aspect-ratio: 2.5;
+    }
+    .section-categories .category-block{
+      width: 30%;
+    }
+  }
+
+  @media(max-width: 767px){
+    .section-categories .swiper-wrapper{
+      aspect-ratio: 1.107;
+    }
+    .section-categories .category-block {
+      width: 66.423%;
+    }
+  }
+  
+</style>
+<script>
+  
+let current;
+let transform;
+let re = /matrix\((?<a>.*?),(?<s>.*?),(?<d>.*?),(?<x>.*?), (?<y>.*?), (?<z>.*?)\)/;
+let results ;
+let x = 0;
+const parent = document.querySelector('.section-categories.{{ section.id }} .swiper-wrapper');
+let slidesSize = document.querySelectorAll('.section-categories.{{ section.id }} .swiper-wrapper .swiper-slide');
+let interval;
+let lastY;
+  const timer = 10;
+
+  
+  
+      const reset = () => {
+      
+      
+        lastY = (slidesSize.length - 2) * 4 + slidesSize[0].clientWidth * (slidesSize.length - 2);
+        
+        for(let i = 0; i < slidesSize.length; i++ ){
+          let width = slidesSize[i].clientWidth * i
+          slidesSize[i].style.transform = `translate3d(calc(${width + i*4}px), 0px, 0px)`;
+        }
+      }
+        reset();
+      window.addEventListener('resize', function(){
+        reset();
+      });
+
+      let startLoop = () => {
+            interval = setInterval(function(){
+      
+              for(let i = 0; i < slidesSize.length; i++ ){
+                  transform = window.getComputedStyle(slidesSize[i]).transform;
+                  results = re.exec(transform);
+              
+                  slidesSize[i].style.transform = `translate3d(${ --(results.groups.y) }px, 0px, 0px)`;
+      
+                  
+                  if(results.groups.y < slidesSize[0].clientWidth * -2 - 8){
+                    slidesSize[i].style.transform = `translate3d(${lastY}px, 0px, 0px)`;
+                  }
+              }
+            }, timer)
+      }
+        
+      startLoop();
+  
+  
+      $('.section-category-swiper').on('mouseover', function(e){
+          clearInterval(interval)
+      });
+
+      $('.section-category-swiper').on('mouseleave', function(e){
+        startLoop();
+      });
+
+</script>
+
+{% schema %}
+  {
+    "name": "Categories",
+    "settings": [
+      {
+      "type":"text",
+      "id":"title-text",
+      "label":"Header Text",
+        "default":"Categories"
+      }
+    ],
+    "blocks":[
+      {
+        "type":"category_block",
+        "name":"Category Block",
+        "settings":[
+          {
+            "type":"url",
+            "id":"category_media",
+            "label":"Category Block Image/Video",
+            "info":"only .mp4 format for video"
+          },
+          {
+            "type":"text",
+            "id":"cta_text",
+            "label":"CTA Text"
+          },
+          {
+            "type":"url",
+            "id":"category_link",
+            "label":"Category Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+      "name": "Categories"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

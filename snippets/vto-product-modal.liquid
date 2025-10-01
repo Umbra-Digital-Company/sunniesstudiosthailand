@@ -1,0 +1,252 @@
+{{ "vto-product-modal.css" | asset_url | stylesheet_tag }}
+<div class="vto-product-modal modal-hidden">
+  <div class="modal-container" filter="Sun">
+    <div class="modal-close-container">
+      <button class="modal-close">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 22 22"
+          fill="none">
+          <rect
+            x="0.333313"
+            y="19.989"
+            width="27.7974"
+            height="2"
+            rx="1"
+            transform="rotate(-45 0.333313 19.989)"
+            fill="#352B27" />
+          <rect
+            x="2.01105"
+            y="0.333252"
+            width="27.7974"
+            height="2"
+            rx="1"
+            transform="rotate(45 2.01105 0.333252)"
+            fill="#352B27" />
+        </svg>
+      </button>
+    </div>
+
+    <h2>Choose the frames you want to try on</h2>
+    <div class="modal-collection-names">
+      {% for collection in collections %}
+        {% if collection.id == 167945470070 %}
+          <div
+            class="vto-modal-collection-title"
+            data-id="{{collection.id}}"
+            data-collection-name="{{ 'Sun' }}">
+            {{ 'Sun' }}
+          </div>
+
+        {% endif %}
+
+      {% endfor %}
+
+      {% for collection in collections %}
+        {% if collection.id == 167944978550 %}
+          <div
+            class="vto-modal-collection-title"
+            data-id="{{collection.id}}"
+            data-collection-name="{{ 'Optical' }}">
+            {{ 'Optical' }}
+          </div>
+        {% endif %}
+
+      {% endfor %}
+
+      {% for collection in collections %}
+
+        {% if collection.id == 268684361846 %}
+          <div
+            class="vto-modal-collection-title"
+            data-id="{{collection.id}}"
+            data-collection-name="{{ 'Anti-Rad' }}">
+            {{ 'Anti-Rad' }}
+          </div>
+        {% endif %}
+
+      {% endfor %}
+
+      {% for collection in collections %}
+        {% if collection.id == 269579288630 %}
+          <div
+            class="vto-modal-collection-title"
+            data-id="{{collection.id}}"
+            data-collection-name="{{ collection.title | strip }}">
+            {{ collection.title | strip }}
+          </div>
+        {% endif %}
+
+      {% endfor %}
+    </div>
+    <div class="modal-product-section">
+
+      {% comment %} IDs
+
+      "id": "popup_product",
+      "id": "popup_variant",
+      "id": "popup_product_icon_tag",
+      "id": "popup_product_icon_text",
+
+      {% endcomment %}
+      <div class="modal-product-container">
+        {%- for block in section.blocks limit: 50 -%}
+          {%- assign _block = block.settings -%}
+
+          {%- case block.type -%}
+
+
+            {%- when 'modal_product' -%}
+            
+            {% assign index = index | plus: 1 %}
+            {%- assign pu_product = _block.popup_product -%}
+            {%- assign pu_variant = _block.popup_variant -%}
+            {%- assign pu_tag_icon = _block.popup_product_icon_tag -%}
+            {%- assign pu_tag_text = _block.popup_product_icon_text -%}
+
+        
+            {%- capture product_images_1 -%}
+              {%- for image in pu_product.images -%}
+                {%- assign image_variants = image.variants | map: 'option1' -%}
+                {%- if image_variants contains pu_variant -%}
+                  <span
+                    data-bg-src="{{ image |  img_url: '900x' }}"
+                    data-image-variant="{{ image_variants | join: ',' }}"
+                    style="background-image: url({{ image |  img_url: '900x' }});"
+                    class="current-image-variant"></span>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endcapture -%}
+
+            {%- capture product_images_attr -%}
+              {%- for image in pu_product.images -%}
+                {%- assign image_variants = image.variants | map: 'option1' -%}
+                {%- if image_variants contains pu_variant -%}
+                  {{ image | img_url: '900x' }}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endcapture -%}
+
+        
+            {%- for variant in pu_product.variants limit: 500-%}
+
+              
+              {%- if variant.option1 == pu_variant and variant.option3 != '1.50' and variant.option3 != '2.00' and variant.option3 != '2.50' and variant.option3 != '3.00' %}
+
+
+        
+                {%- assign variant_id = variant.id -%}
+                {%- assign variant_sku = variant.sku -%}
+
+                {% capture pu_collection %}
+
+                  {% for collection in pu_product.collections %}
+                    {% if collection.title == "Optical" %}
+                      {{ 'Optical' }}
+                      {% break %}
+
+                    {% elsif collection.title == "Anti-Rad Eyewear" %}
+                      {{ 'Anti-Rad' }}
+                      {% break %}
+                    {% elsif collection.title == "Sun" %}
+                      {{ 'Sun' }}
+                      {% break %}
+                    {% elsif collection.title == "Readers" %}
+                      {{ 'Readers' }}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+
+                {% endcapture %}
+
+                <div
+                  class="item-frames__image"
+                  type="radio"
+                  name="ditto_frame_popup"
+                  id="dittoFrame_popup{{ index | t}}"
+
+                  data-name="{{pu_product.title}}"
+                  data-variant-sku="{{variant_sku}}"
+                  data-variant-id="{{variant_id}}"
+                  data-variant-name="{{pu_variant}}"
+                  data-collection="{{pu_collection | strip }}"
+                  data-bg-src="{{product_images_attr}}"
+                  data-product-link="{{pu_product.url}}?variant={{variant_id}}"
+                  checked="checked">
+                  <div class="product-tag-container">
+                    <style>
+                      img[src=''] {
+                        display: none;
+                      }
+                    </style>
+                    {% if _block.popup_product_icon_tag.url != blank %}
+                      <img
+                        class="product-tag-icon"
+                        src="{{ _block.popup_product_icon_tag.url }}"
+                        alt="tag icon">
+                    {% else %}
+                      <img style="display: none;">
+                    {% endif %}
+
+                    {% if _block.popup_product_icon_text != blank %}
+                      <div class="product-tag-text">{{ _block.popup_product_icon_text }}</div>
+                    {% endif %}
+
+                  </div>
+                  <label for="dittoFrame_popup{{ index | t}}" class="js-product-item product-item">
+                    <div class="product-item__inner">
+                      <div class="product__image">
+                        {{ product_images_1 }}
+                      </div>
+                    </div>
+                  </label>
+                  <div class="product-details-container">
+                    <h5>{{ pu_product.title }}</h5>
+                    <div class="variant-name">{{ pu_variant }}</div>
+                  </div>
+                  {% comment %} 
+                  {% for collection in block_ditto_product_1.collections %}
+                  {% if collection.title contains "Sun" or collection.title contains "Anti-Rad" %}
+
+                  <form method="post" action="/cart/add">
+                  <input
+                  name="id"
+                  value="{{ variant_1_id}}"
+                  type="hidden" />
+                  <input
+                  name="add"
+                  value="Add to bag"
+                  type="submit"
+                  class="btn" />
+                  </form>
+                  {% break %}
+                  {% elsif collection.title contains "Optical" or collection.title contains "Readers" %}
+
+                  <a href="{{block_ditto_product_1.url}}?variant={{variant_1_id}}" class="btn">Shop frame</a>
+
+                  {% break %}
+
+                  {% endif %}
+                  {% endfor %}
+                  {% endcomment %}
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          {% endcase %}
+        {% endfor %}
+
+      </div>
+
+    </div>
+    <div class="modal-try-on-container">
+      <div class="modal-try-counter">
+        <span id="try-counter">0
+        </span>
+        / 12 frames selected
+      </div>
+      <button id="try-btn" class="try-btn">Try them on</button>
+    </div>
+  </div>
+</div>

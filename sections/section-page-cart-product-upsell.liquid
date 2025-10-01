@@ -1,0 +1,41 @@
+{%- include 'product-upsell' -%}
+
+{% schema %}
+{
+	"name": "Product Upsell",
+	"max_blocks": 9999,
+	"blocks": [
+		{
+			"type": "product",
+			"name": "Product Upsell",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title"
+				},
+				{
+					"type": "product",
+					"id": "product_1",
+					"label": "Select Product"
+				},
+				{
+					"type": "product",
+					"id": "product_2",
+					"label": "Select Product"
+				},
+				{
+					"type": "product",
+					"id": "product_3",
+					"label": "Select Product"
+				},
+				{
+					"type": "product",
+					"id": "product_4",
+					"label": "Select Product"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

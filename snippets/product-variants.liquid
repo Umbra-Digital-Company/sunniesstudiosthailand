@@ -1,0 +1,89 @@
+{% liquid
+    assign current_variant = product.selected_or_first_available_variant
+    assign selected_color = current_variant.option1 | handleize
+    assign current_variant_is_seasonal = false
+    if current_variant.metafields.variant_swatch.is_seasonal == true
+      assign current_variant_is_seasonal = true
+    endif
+%}
+
+<div class="product-variants-container {% if product.metafields.product.size_guide != blank %}with-size-guide{% endif %}">
+  {% if product.metafields.variant_swatch.group_variant_swatch == true %}
+    <h5>
+      <span class="variant-name-label">Core{% unless current_variant_is_seasonal == true %}{% endunless %}
+      </span>
+      {% unless current_variant_is_seasonal == true %}
+        <span class="variant-name">
+          {{ current_variant.option1 }}
+        </span>
+      {% endunless %}
+    </h5>
+    <div class="product-variant-swatches">
+      {% for variant in product.variants %}
+        {% assign current_color = variant.option1 | handleize %}
+        {% unless variant.metafields.variant_swatch.is_seasonal == true %}
+          <a id="product-get-sku" href="{{ variant.url }}" data-product="{{ product.id }}" data-product-sku="{{ product.selected_variant.sku }}" data-variant="{{ variant.id }}" data-section="{{ section.id }}" data-url="{{ variant.url }}"
+            class="
+              {% if selected_color == current_color %}active{% endif %}
+              {% if variant.available == false %}not-available{% endif %}
+            ">
+            <div data-handle-name="{{variant.option1 | handleize}}"></div>
+            {% unless variant.available %}
+              <div id="variant-not-available" data-variant-id="{{ variant.id }}"></div>
+            {% endunless %}
+          </a>
+        {% endunless %}
+      {% endfor %}
+    </div>
+    <h5 class="product-variants-container__seasonal-label">
+      <span class="variant-name-label">Seasonal{% if current_variant_is_seasonal == true %}{% endif %}
+      </span>
+      {% if current_variant_is_seasonal == true %}
+        <span class="variant-name">
+          {{ current_variant.option1 }}
+        </span>
+      {% endif %}
+    </h5>
+    <div class="product-variant-swatches">
+      {% for variant in product.variants %}
+        {% assign current_color = variant.option1 | handleize %}
+        {% if variant.metafields.variant_swatch.is_seasonal == true %}
+          <a id="product-get-sku" href="{{ variant.url }}" data-product="{{ product.id }}" data-product-sku="{{ product.selected_or_first_available_variant.sku }}" data-variant="{{ variant.id }}" data-section="{{ section.id }}" data-url="{{ variant.url }}"
+            class="
+              {% if selected_color == current_color %}active{% endif %}
+              {% if variant.available == false %}not-available{% endif %}
+            ">
+            <div data-handle-name="{{variant.option1 | handleize}}"></div>
+            {% unless variant.available %}
+              <div id="variant-not-available" data-variant-id="{{ variant.id }}"></div>
+            {% endunless %}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+  <h5>
+    <span class="variant-name-label">{% if product.handle contains 'digital-gift-card'%}Value{% else %}Color{% endif %}
+    </span>
+    <span class="variant-name">
+      {{ current_variant.option1 }}
+    </span>
+  </h5>
+  <div class="product-variant-swatches">
+    {% for variant in product.variants %}
+      {% assign current_color = variant.option1 | handleize %}
+
+      <a id="product-get-sku" href="{{ variant.url }}" data-product="{{ product.id }}" data-product-sku="{{ product.selected_variant.sku }}" data-variant="{{ variant.id }}" data-section="{{ section.id }}" data-url="{{ variant.url }}"
+        class="
+          {% if selected_color == current_color %}active{% endif %}
+          {% if variant.available == false %}not-available{% endif %}
+        ">
+        <div data-handle-name="{{variant.option1 | handleize}}"></div>
+        {% unless variant.available %}
+          <div id="variant-not-available" data-variant-id="{{ variant.id }}"></div>
+        {% endunless %}
+      </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>

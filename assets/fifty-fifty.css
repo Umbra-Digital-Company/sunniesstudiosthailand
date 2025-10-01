@@ -1,0 +1,119 @@
+#fifty-fifty-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+#fifty-fifty-image {
+  display: flex;
+  background: linear-gradient(0deg, #f5f1ee 0%, #f3efec 100%);
+}
+
+#fifty-fifty-image-desktop {
+  display: none;
+}
+
+#fifty-fifty-image-mobile {
+  object-fit: contain;
+  display: block;
+}
+
+#fifty-fifty-content {
+  background-color: var(--black_color);
+  padding: 60px 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#fifty-fifty-content h2 {
+  color: var(--white_color);
+  font-family: "AT Surt Medium";
+  font-size: 32px;
+  line-height: 120%;
+  margin: 0 0 16px 0;
+}
+
+#fifty-fifty-content p,
+#fifty-fifty-content p a {
+  color: var(--white_color);
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  text-align: center;
+}
+
+#fifty-fifty-cta {
+  font-family: "AT Surt Medium";
+  font-size: 14px;
+  line-height: 100%;
+  color: var(--black_color);
+  background-color: var(--neutral_eight_color);
+  text-decoration: none;
+  padding: 16px 40px;
+  margin: 24px 0 0 0;
+  border-radius: 8px;
+  border: 1px solid var(--white_color);
+  transition: none;
+}
+
+#fifty-fifty-cta:hover {
+  color: var(--neutral_eight_color);
+  background-color: var(--black_color);
+}
+
+#fifty-fifty-cta:hover {
+  color: var(--neutral_eight_color);
+  border: 1px solid var(--white_color);
+  background-color: var(--black_color);
+}
+
+@media (min-width: 768px) {
+  #fifty-fifty-wrapper {
+    display: flex;
+  }
+
+  #fifty-fifty-image {
+    width: 50%;
+    height: auto;
+  }
+
+  #fifty-fifty-image-desktop {
+    object-fit: cover;
+    display: block;
+  }
+
+  #fifty-fifty-image-mobile {
+    display: none;
+  }
+
+  #fifty-fifty-content {
+    width: 50%;
+    align-items: flex-start;
+    padding: 60px 30px;
+  }
+
+  #fifty-fifty-content h2 {
+    color: var(--white_color);
+    font-size: 40px;
+    margin: 0 0 40px 0;
+  }
+
+  #fifty-fifty-content p,
+  #fifty-fifty-content p a {
+    color: var(--white_color);
+    font-size: 16px;
+    text-align: left;
+  }
+
+  #fifty-fifty-cta {
+    font-size: 16px;
+    margin: 60px 0 0 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  #fifty-fifty-content {
+    padding: 80px;
+  }
+}

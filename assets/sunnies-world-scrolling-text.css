@@ -1,0 +1,78 @@
+.sunnies-world-scrolling-text {
+  width: 100%;
+  padding: 10px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.scrolling-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.scrolling-text {
+  display: flex;
+  width: 200%;
+  animation: scroll-right-to-left linear infinite;
+}
+
+.text-group {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  white-space: nowrap;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.text-item {
+  font-family: 'Radio Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 0 20px;
+}
+
+@keyframes scroll-right-to-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause animation on hover */
+.scrolling-text:hover {
+  animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+  .sunnies-world-scrolling-text {
+    margin-top: 2px;
+  }
+  
+  .scrolling-text {
+    gap: 30px;
+    width: fit-content;
+  }
+  
+  .text-item {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scrolling-text {
+    gap: 20px;
+  }
+  
+  .text-item {
+    font-size: 14px;
+  }
+}

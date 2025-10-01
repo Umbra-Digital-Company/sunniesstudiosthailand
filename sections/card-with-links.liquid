@@ -1,0 +1,120 @@
+<section class="card-links desktop {% if page.handle == "new-sunglasses" %}cards-swiper{% endif %}" {% if page.handle == "new-sunglasses" %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+  <h3>{{ section.settings.cards_heading }}</h3>
+  <div class="cards-container swiper-wrapper">
+    <div class="card card-one swiper-slide">
+      <img src="{{ section.settings.card_one_img | img_url: 'master' }}">
+      <a href="{{ section.settings.card_one_link }}">{{ section.settings.card_one_text }}</a>
+    </div>
+    <div class="card card-two swiper-slide">
+      <img src="{{ section.settings.card_two_img | img_url: 'master' }}">
+      <a href="{{ section.settings.card_two_link }}">{{ section.settings.card_two_text }}</a>
+    </div>
+    <div class="card card-three swiper-slide">
+      <img src="{{ section.settings.card_three_img | img_url: 'master' }}">
+      <a href="{{ section.settings.card_three_link }}">{{ section.settings.card_three_text }}</a>
+    </div>
+    <div class="card card-four swiper-slide">
+      <img src="{{ section.settings.card_four_img | img_url: 'master' }}">
+      <a href="{{ section.settings.card_four_link }}">{{ section.settings.card_four_text }}</a>
+    </div> 
+  </div>
+  {% if page.handle == "new-sunglasses" %}<div class="swiper-pagination"></div>{% endif %}
+</section>
+<section class="card-links mobile" {% if page.handle == "new-sunglasses" %}style="display: none;"{% else %}style="display: block;"{% endif %}>
+       	<h3>{{ section.settings.cards_heading }}</h3>
+        <div class="cards-container">
+        <div class="row-1">
+          <div class="card card-one">
+            <img src="{{ section.settings.card_one_img | img_url: 'master' }}">
+            <a href="{{ section.settings.card_one_link }}">{{ section.settings.card_one_text }}</a>
+          </div>
+          <div class="card card-two">
+            <img src="{{ section.settings.card_two_img | img_url: 'master' }}">
+            <a href="{{ section.settings.card_two_link }}">{{ section.settings.card_two_text }}</a>
+          </div>
+        </div>
+        <div class="row-2">
+            <div class="card card-three">
+              <img src="{{ section.settings.card_three_img | img_url: 'master' }}">
+              <a href="{{ section.settings.card_three_link }}">{{ section.settings.card_three_text }}</a>
+            </div>
+            <div class="card card-four">
+              <img src="{{ section.settings.card_four_img | img_url: 'master' }}">
+              <a href="{{ section.settings.card_four_link }}">{{ section.settings.card_four_text }}</a>
+            </div> 
+          </div>
+        </div>
+</section>
+
+{% schema %}
+{
+			"name": "Card with links",
+			"settings": [
+				{
+					"type": "text",
+					"id": "cards_heading",
+					"label": "Heading"
+				},
+				{
+					"type": "image_picker",
+					"id": "card_one_img",
+					"label": "Card one image"
+				},
+				{
+					"type": "text",
+					"id": "card_one_text",
+					"label": "Card one text"
+				},
+				{
+					"type": "url",
+					"id": "card_one_link",
+					"label": "Card one link"
+				},
+				{
+					"type": "image_picker",
+					"id": "card_two_img",
+					"label": "Card two image"
+				},
+				{
+					"type": "text",
+					"id": "card_two_text",
+					"label": "Card two text"
+				},
+				{
+					"type": "url",
+					"id": "card_two_link",
+					"label": "Card two link"
+				},
+				{
+					"type": "image_picker",
+					"id": "card_three_img",
+					"label": "Card three image"
+				},
+				{
+					"type": "text",
+					"id": "card_three_text",
+					"label": "Card three text"
+				},
+				{
+					"type": "url",
+					"id": "card_three_link",
+					"label": "Card three link"
+				},
+				{
+					"type": "image_picker",
+					"id": "card_four_img",
+					"label": "Card four image"
+				},
+				{
+					"type": "text",
+					"id": "card_four_text",
+					"label": "Card four text"
+				},
+				{
+					"type": "url",
+					"id": "card_four_link",
+					"label": "Card four link"
+				}
+			]	
+}
+{% endschema %}

@@ -1,0 +1,61 @@
+{{ 'summer-landing-page-2025.css' | asset_url | stylesheet_tag }}
+
+<section class="section-ten">
+  <div class="section-ten__media">
+    <img src="{{ section.settings.section-ten-image-desktop | image_url }}" class="section-ten__image--desktop" />
+    <img src="{{ section.settings.section-ten-image-mobile | image_url }}" class="section-ten__image--mobile" />
+    {% if section.settings.section-ten-media-icon  %}
+      <img class="section-ten__media-icon" src={{ section.settings.section-ten-media-icon | image_url }} />
+    {% endif %}
+    <ul class="section-ten__media-text">
+      {%  assign section_ten_text_list_arr = section.settings.section-ten-text-list | split: "," %}
+      {% for text_item in section_ten_text_list_arr %}
+        {% assign text_item_arr = text_item | split: "::"  %}
+        <li><span>{{ text_item_arr | first }}</span><span>{{ text_item_arr | last }}</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+
+{% schema %}
+    {
+      "name": "Summer Section 10",
+      "settings": [
+        {
+        "type": "header",
+        "content": "Section 10"
+      },
+      {
+        "type": "header",
+        "content": "Section 10"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-ten-media-icon",
+        "label": "Icon"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-ten-image-desktop",
+        "label": "Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-ten-image-mobile",
+        "label": "Image (Mobile)"
+      },
+      {
+        "type": "textarea",
+        "id": "section-ten-text-list",
+        "label": "Texts"
+      }
+      ],
+        "presets": [
+            {
+            "name": "Summer Section 10",
+            "category": "Landing Page"
+            }
+        ]
+    }
+  {% endschema %}

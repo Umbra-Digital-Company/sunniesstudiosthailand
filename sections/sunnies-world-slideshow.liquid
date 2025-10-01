@@ -1,0 +1,322 @@
+{{ 'sunnies-world-slideshow.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign section_settings = section.settings
+  assign show_section = section_settings.show_section
+%}
+
+{% if show_section %}
+<section class="sunnies-world-slideshow">
+  <div class="slideshow-container">
+    <div class="slideshow-wrapper" id="slideshow-{{ section.id }}">
+      <div class="slides-container" id="slides-container-{{ section.id }}">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'slide' %}
+              <div class="slide" {{ block.shopify_attributes }}>
+                {% if block.settings.slide_image != blank %}
+                  <div class="slide-image-wrapper">
+                    <img 
+                      src="{{ block.settings.slide_image | image_url: width: 1200 }}" 
+                      alt="{{ block.settings.slide_alt | default: 'Store interior' }}"
+                      class="slide-image"
+                      width="1200"
+                      height="800"
+                      loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                    >
+                  </div>
+                {% endif %}
+                
+                {% if block.settings.slide_title != blank or block.settings.slide_description != blank %}
+                  <div class="slide-content">
+                    {% if block.settings.slide_title != blank %}
+                      <h3 class="slide-title">{{ block.settings.slide_title }}</h3>
+                    {% endif %}
+                    {% if block.settings.slide_description != blank %}
+                      <p class="slide-description">{{ block.settings.slide_description }}</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+    
+    {% if section.blocks.size > 1 %}
+      <!-- Navigation arrows -->
+      <button class="slideshow-nav slideshow-prev" onclick="changeSlide('{{ section.id }}', -1)">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
+      </button>
+      <button class="slideshow-nav slideshow-next" onclick="changeSlide('{{ section.id }}', 1)">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.625 12L13 8L8.625 4M13 8L3 8" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      
+      <!-- Pagination dots -->
+      <div class="slideshow-pagination">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'slide' %}
+              <button 
+                class="pagination-dot {% if forloop.first %}active{% endif %}" 
+                onclick="goToSlide('{{ section.id }}', {{ forloop.index0 }})"
+                aria-label="Go to slide {{ forloop.index }}"
+              ></button>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  window.currentSlide_{{ section.id | replace: '-', '_' }} = 0;
+  window.totalSlides_{{ section.id | replace: '-', '_' }} = {{ section.blocks.size }};
+
+  function changeSlide(sectionId, direction) {
+    const slideshowElement = document.querySelector(`#slideshow-${sectionId}`);
+    if (!slideshowElement) return;
+    
+    const slidesContainer = slideshowElement.querySelector('.slides-container');
+    const dots = slideshowElement.parentElement.querySelectorAll('.pagination-dot');
+    
+    if (!slidesContainer) return;
+    
+    const sectionIdClean = sectionId.replace(/-/g, '_');
+    const currentSlideVar = window[`currentSlide_${sectionIdClean}`];
+    const totalSlidesVar = window[`totalSlides_${sectionIdClean}`];
+    
+    // Calculate new slide index (no infinite loop)
+    let newSlide = currentSlideVar + direction;
+    if (newSlide >= totalSlidesVar) return; // Don't go beyond last slide
+    if (newSlide < 0) return; // Don't go before first slide
+    
+    // Update current slide
+    window[`currentSlide_${sectionIdClean}`] = newSlide;
+    
+    // Move the slides container
+    slidesContainer.style.transform = `translateX(-${newSlide * 100}%)`;
+    
+    // Update pagination dots
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === newSlide);
+    });
+    
+    // Update navigation button states
+    const prevButton = slideshowElement.parentElement.querySelector('.slideshow-prev');
+    const nextButton = slideshowElement.parentElement.querySelector('.slideshow-next');
+    
+    if (prevButton) {
+      prevButton.disabled = (newSlide === 0);
+    }
+    if (nextButton) {
+      nextButton.disabled = (newSlide === totalSlidesVar - 1);
+    }
+    
+    // Autoplay removed - slides only change on user interaction
+  }
+
+  function goToSlide(sectionId, slideIndex) {
+    const slideshowElement = document.querySelector(`#slideshow-${sectionId}`);
+    if (!slideshowElement) return;
+    
+    const slidesContainer = slideshowElement.querySelector('.slides-container');
+    const dots = slideshowElement.parentElement.querySelectorAll('.pagination-dot');
+    
+    if (!slidesContainer) return;
+    
+    const sectionIdClean = sectionId.replace(/-/g, '_');
+    const totalSlidesVar = window[`totalSlides_${sectionIdClean}`];
+    
+    // Validate slide index
+    if (slideIndex < 0 || slideIndex >= totalSlidesVar) return;
+    
+    // Update current slide
+    window[`currentSlide_${sectionIdClean}`] = slideIndex;
+    
+    // Move the slides container
+    slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+    
+    // Update pagination dots
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === slideIndex);
+    });
+    
+    // Update navigation button states
+    const prevButton = slideshowElement.parentElement.querySelector('.slideshow-prev');
+    const nextButton = slideshowElement.parentElement.querySelector('.slideshow-next');
+    
+    if (prevButton) {
+      prevButton.disabled = (slideIndex === 0);
+    }
+    if (nextButton) {
+      nextButton.disabled = (slideIndex === totalSlidesVar - 1);
+    }
+    
+    // Autoplay removed - slides only change on user interaction
+  }
+
+  // Initialize button states on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const slideshowElement = document.querySelector('#slideshow-{{ section.id }}');
+    if (!slideshowElement) return;
+    
+    const prevButton = slideshowElement.parentElement.querySelector('.slideshow-prev');
+    const nextButton = slideshowElement.parentElement.querySelector('.slideshow-next');
+    const totalSlides = {{ section.blocks.size }};
+    
+    if (prevButton) {
+      prevButton.disabled = true; // Start on first slide, so prev is disabled
+    }
+    if (nextButton) {
+      nextButton.disabled = (totalSlides <= 1); // Disable next if only one slide
+    }
+  });
+
+      // Autoplay functionality removed - slides only change on user interaction
+      
+           // Handle drag/swipe functionality
+           function initDragSwipe() {
+             const slideshowElement = document.querySelector('#slideshow-{{ section.id }}');
+             if (!slideshowElement) return;
+
+             const slidesContainer = slideshowElement.querySelector('.slides-container');
+             if (!slidesContainer) return;
+
+             let startX = 0;
+             let currentX = 0;
+             let isDragging = false;
+             let startTranslate = 0;
+             let currentTranslate = 0;
+
+             // Touch events
+             slidesContainer.addEventListener('touchstart', handleStart, { passive: false });
+             slidesContainer.addEventListener('touchmove', handleMove, { passive: false });
+             slidesContainer.addEventListener('touchend', handleEnd);
+
+             // Mouse events (for desktop drag)
+             slidesContainer.addEventListener('mousedown', handleStart);
+             slidesContainer.addEventListener('mousemove', handleMove);
+             slidesContainer.addEventListener('mouseup', handleEnd);
+             slidesContainer.addEventListener('mouseleave', handleEnd);
+
+             function handleStart(e) {
+               if (e.type === 'mousedown') e.preventDefault();
+               
+               isDragging = true;
+               startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+               startTranslate = currentTranslate;
+               slidesContainer.style.transition = 'none';
+             }
+
+             function handleMove(e) {
+               if (!isDragging) return;
+               
+               e.preventDefault();
+               currentX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+               currentTranslate = startTranslate + (currentX - startX);
+               
+               // Apply the drag transform
+               slidesContainer.style.transform = `translateX(${currentTranslate}px)`;
+             }
+
+             function handleEnd() {
+               if (!isDragging) return;
+               
+               isDragging = false;
+               slidesContainer.style.transition = 'transform 0.3s ease';
+               
+               const sectionIdClean = '{{ section.id | replace: "-", "_" }}';
+               const currentSlide = window[`currentSlide_${sectionIdClean}`];
+               const totalSlides = window[`totalSlides_${sectionIdClean}`];
+               
+               // Determine if we should change slides based on drag distance
+               const dragDistance = currentX - startX;
+               const threshold = 50; // Minimum drag distance to trigger slide change
+               
+               if (Math.abs(dragDistance) > threshold) {
+                 if (dragDistance > 0 && currentSlide > 0) {
+                   // Drag right - go to previous slide
+                   changeSlide('{{ section.id }}', -1);
+                 } else if (dragDistance < 0 && currentSlide < totalSlides - 1) {
+                   // Drag left - go to next slide
+                   changeSlide('{{ section.id }}', 1);
+                 } else {
+                   // Snap back to current slide
+                   slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+                 }
+               } else {
+                 // Snap back to current slide
+                 slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+               }
+               
+               // Reset translate values
+               currentTranslate = -currentSlide * slidesContainer.offsetWidth;
+               startTranslate = currentTranslate;
+             }
+           }
+
+           // Initialize drag/swipe on page load
+           document.addEventListener('DOMContentLoaded', function() {
+             initDragSwipe();
+           });
+    </script>
+    {% endif %}
+
+{% schema %}
+{
+  "name": "Sunnies World Slideshow",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show section",
+      "default": true
+    },
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Slide image"
+        },
+        {
+          "type": "text",
+          "id": "slide_alt",
+          "label": "Image alt text"
+        },
+        {
+          "type": "text",
+          "id": "slide_title",
+          "label": "Slide title"
+        },
+        {
+          "type": "text",
+          "id": "slide_description",
+          "label": "Slide description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sunnies World Slideshow",
+      "blocks": [
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

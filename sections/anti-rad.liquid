@@ -1,0 +1,373 @@
+{{ 'anti-rad-page.css' | asset_url | stylesheet_tag }}
+
+{%liquid 
+  assign _section = section.settings 
+  assign section_faq_accordion_text = _section.faq_accordionTitle 
+  assign section_slider_title = _section.slider_title
+%}
+
+<div class="anti-rad-page">
+  <div id="anti-rad-hero-banner">
+    <video id="ant-rad-hero-banner-img-desktop" autoplay muted loop playsinline>
+      <source src="{{ section.settings.hero-banner-desktop }}" type="video/mp4">
+    </video>
+    <video id="ant-rad-hero-banner-img-mobile" autoplay muted loop playsinline>
+      <source src="{{ section.settings.hero-banner-mobile }}" type="video/mp4">
+    </video>
+    <div id="anti-rad-banner-content">
+      <span>Discover Anti-Rad</span>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.33398 6.66675L10.0007 13.3334L16.6673 6.66675" stroke="white" stroke-width="2.5" stroke-linecap="square"/>
+      </svg>
+    </div>
+  </div>
+
+  <div id="ant-rad-page-switch-wrapper">
+    <div id="ant-rad-page-group-one">
+      <div id="anti-rad-section-one">
+        <div id="section-one-image">
+          <img src="{{ section.settings.fifty-fifty-img }}">
+        </div>
+        <div id="section-one-content">
+          <span id="one">{{ section.settings['fifty-fifty-text-one'] }}</span>
+          <span id="two">{{ section.settings['fifty-fifty-text-two'] }}</span>
+          <span id="three">{{ section.settings['fifty-fifty-text-three'] }}</span>
+        </div>
+      </div>
+      <div id="anti-rad-section-review">
+        <video id="anti-rad-review-desktop" autoplay muted loop playsinline>
+          <source src="{{ section.settings.reviews-gif-desktop }}" type="video/mp4">
+        </video>
+        <video id="anti-rad-review-mobile" autoplay muted loop playsinline>
+          <source src="{{ section.settings.reviews-gif-mobile }}" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div id="anti-rad-section-three">
+      <video id="anti-rad-section-three-img-desktop" autoplay muted loop playsinline>
+        <source src="{{ section.settings.featured-gif-desktop }}" type="video/mp4">
+      </video>
+      <video id="anti-rad-section-three-img-mobile" autoplay muted loop playsinline>
+        <source src="{{ section.settings.featured-gif-mobile }}" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div id="anti-rad-section-shop-now">
+    <div id="one" style="background: url('{{ section.settings.anti-rad-adults }}'); background-size: cover; margin: 0 12px 0 0;">
+      <span id="show-now-label">Anti-Rad for Adults</span>
+      <a id="show-now-btn" href="{{ section.settings.anti-rad-adults-url }}">Shop now</a>
+    </div>
+    <div id="two" style="background: url('{{ section.settings.anti-rad-kids }}'); background-size: cover; margin: 0 12px 0 0;">
+      <span id="show-now-label">Anti-Rad for Kids</span>
+      <a id="show-now-btn" href="{{ section.settings.anti-rad-kids-url }}">Shop now</a>
+    </div>
+  </div>
+  <div id="anti-rad-section-bestsellers">
+    <div id="bestsellers-header">
+      <h2>{{ section_slider_title }}</h2>
+      <a
+        id="bestsellers-shop-all-desktop"
+        href="https://ph.sunniesstudios.com/collections/anti-radiation-eyewear">
+        Shop All
+      </a>
+    </div>
+    <div class="anti-rad-products-swiper" id="anti-rad-products-swiper">
+      <div class="anti-rad-nav-buttons">
+        <div class="anti-rad-swiper-prev">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Vector.svg?v=1660974657"
+            alt="previous"
+            loading="lazy"
+          >
+        </div>
+        <div class="anti-rad-swiper-next">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Vector_1f4ceb8f-13b3-49f2-a497-6e2caefe25f1.svg?v=1660974674"
+            alt="next"
+            loading="lazy"
+          >
+        </div>
+      </div>
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="swiper-slide">
+            {% render 'product-card' with block.settings.product_select as product_data %}
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="anti-rad-products-pagination"></div>
+    </div>
+    <div id="bestsellers-shop-all-mobile">
+      <a href="https://ph.sunniesstudios.com/collections/anti-radiation-eyewear">Shop All</a>
+    </div>
+  </div>
+  <div id="anti-rad-sticky">
+    <div id="anti-rad-stick-one">
+      <span>Anti-Rad Eyewear</span>
+      <svg width="122" height="18" viewBox="0 0 122 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.33426 2.04894C8.54381 1.40402 9.45619 1.40402 9.66574 2.04894L10.8635 5.73516C10.9572 6.02357 11.2259 6.21885 11.5292 6.21885H15.4051C16.0832 6.21885 16.3652 7.08658 15.8166 7.48516L12.6809 9.76337C12.4355 9.94162 12.3329 10.2576 12.4266 10.546L13.6243 14.2322C13.8339 14.8771 13.0957 15.4134 12.5471 15.0148L9.41145 12.7366C9.16611 12.5584 8.83389 12.5584 8.58855 12.7366L5.45286 15.0148C4.90426 15.4134 4.16613 14.8771 4.37567 14.2322L5.5734 10.546C5.66711 10.2576 5.56445 9.94162 5.31911 9.76337L2.18342 7.48516C1.63482 7.08658 1.91676 6.21885 2.59487 6.21885H6.47079C6.77405 6.21885 7.04282 6.02357 7.13653 5.73516L8.33426 2.04894Z" fill="white"/>
+        <path d="M34.3343 2.04894C34.5438 1.40402 35.4562 1.40402 35.6657 2.04894L36.8635 5.73516C36.9572 6.02357 37.2259 6.21885 37.5292 6.21885H41.4051C42.0832 6.21885 42.3652 7.08658 41.8166 7.48516L38.6809 9.76337C38.4355 9.94162 38.3329 10.2576 38.4266 10.546L39.6243 14.2322C39.8339 14.8771 39.0957 15.4134 38.5471 15.0148L35.4114 12.7366C35.1661 12.5584 34.8339 12.5584 34.5886 12.7366L31.4529 15.0148C30.9043 15.4134 30.1661 14.8771 30.3757 14.2322L31.5734 10.546C31.6671 10.2576 31.5644 9.94162 31.3191 9.76337L28.1834 7.48516C27.6348 7.08658 27.9168 6.21885 28.5949 6.21885H32.4708C32.7741 6.21885 33.0428 6.02357 33.1365 5.73516L34.3343 2.04894Z" fill="white"/>
+        <path d="M60.3343 2.04894C60.5438 1.40402 61.4562 1.40402 61.6657 2.04894L62.8635 5.73516C62.9572 6.02357 63.2259 6.21885 63.5292 6.21885H67.4051C68.0832 6.21885 68.3652 7.08658 67.8166 7.48516L64.6809 9.76337C64.4355 9.94162 64.3329 10.2576 64.4266 10.546L65.6243 14.2322C65.8339 14.8771 65.0957 15.4134 64.5471 15.0148L61.4114 12.7366C61.1661 12.5584 60.8339 12.5584 60.5886 12.7366L57.4529 15.0148C56.9043 15.4134 56.1661 14.8771 56.3757 14.2322L57.5734 10.546C57.6671 10.2576 57.5644 9.94162 57.3191 9.76337L54.1834 7.48516C53.6348 7.08658 53.9168 6.21885 54.5949 6.21885H58.4708C58.7741 6.21885 59.0428 6.02357 59.1365 5.73516L60.3343 2.04894Z" fill="white"/>
+        <path d="M86.3343 2.04894C86.5438 1.40402 87.4562 1.40402 87.6657 2.04894L88.8635 5.73516C88.9572 6.02357 89.2259 6.21885 89.5292 6.21885H93.4051C94.0832 6.21885 94.3652 7.08658 93.8166 7.48516L90.6809 9.76337C90.4355 9.94162 90.3329 10.2576 90.4266 10.546L91.6243 14.2322C91.8339 14.8771 91.0957 15.4134 90.5471 15.0148L87.4114 12.7366C87.1661 12.5584 86.8339 12.5584 86.5886 12.7366L83.4529 15.0148C82.9043 15.4134 82.1661 14.8771 82.3757 14.2322L83.5734 10.546C83.6671 10.2576 83.5644 9.94162 83.3191 9.76337L80.1834 7.48516C79.6348 7.08658 79.9168 6.21885 80.5949 6.21885H84.4708C84.7741 6.21885 85.0428 6.02357 85.1365 5.73516L86.3343 2.04894Z" fill="white"/>
+        <path d="M112.334 2.04894C112.544 1.40402 113.456 1.40402 113.666 2.04894L114.863 5.73516C114.957 6.02357 115.226 6.21885 115.529 6.21885H119.405C120.083 6.21885 120.365 7.08658 119.817 7.48516L116.681 9.76337C116.436 9.94162 116.333 10.2576 116.427 10.546L117.624 14.2322C117.834 14.8771 117.096 15.4134 116.547 15.0148L113.411 12.7366C113.166 12.5584 112.834 12.5584 112.589 12.7366L109.453 15.0148C108.904 15.4134 108.166 14.8771 108.376 14.2322L109.573 10.546C109.667 10.2576 109.564 9.94162 109.319 9.76337L106.183 7.48516C105.635 7.08658 105.917 6.21885 106.595 6.21885H110.471C110.774 6.21885 111.043 6.02357 111.137 5.73516L112.334 2.04894Z" fill="white"/>
+      </svg>
+    </div>
+    <div id="anti-rad-stick-two">
+      <span id="stick-two-label">Starts at $35</span>
+      <span id="stick-two-btn">Shop now</span>
+    </div>
+  </div>
+  <div class="section__accordion">
+    <div class="section__bodyFlex">
+      <h3 class="section__bodyLabel">{{ section_faq_accordion_text }}</h3>
+      <ul class="faq__accordion">\
+        <li class="faq__accordion__item">
+          <p class="faq__accordion__title" id="js-accordion" onclick="myAccordion(this)">
+            <span class="faq__accordion__titleText">Do Anti-Rad eyewear have prescription?​​</span>
+            <span class="faq__accordion__plus"></span>
+          </p>
+          <div class="faq__accordion__content" onload="checkContentList(this)">
+            <p>They're ready-to-wear glasses with prescription-free lenses.​</p>
+          </div>
+        </li>
+        <li class="faq__accordion__item">
+          <p class="faq__accordion__title" id="js-accordion" onclick="myAccordion(this)">
+            <span class="faq__accordion__titleText">Who needs Anti-Rad eyewear?​​​</span>
+            <span class="faq__accordion__plus"></span>
+          </p>
+          <div class="faq__accordion__content" onload="checkContentList(this)">
+            <p>
+              Anyone who spends at least an hour a day in front of digital devices such as phones, laptops, computers, 
+              and TVs. Especially those who experience screen-related problems such as digital eye strain.​
+            </p>
+          </div>
+        </li>
+        <li class="faq__accordion__item">
+          <p class="faq__accordion__title" id="js-accordion" onclick="myAccordion(this)">
+            <span class="faq__accordion__titleText">What's the difference between Screen Safe and Anti-Rad eyewear?​​​</span>
+            <span class="faq__accordion__plus"></span>
+          </p>
+          <div class="faq__accordion__content" onload="checkContentList(this)">
+            <p>
+              They both offer blue light protection. However, Screen Safe is a lens upgrade for prescription glasses, 
+              while Anti-Rad eyewear are ready-made with no prescription.​  
+            ​</p>
+          </div>
+        </li>
+        <li class="faq__accordion__item">
+          <p class="faq__accordion__title" id="js-accordion" onclick="myAccordion(this)">
+            <span class="faq__accordion__titleText">How does it protect your eyes?​​​</span>
+            <span class="faq__accordion__plus"></span>
+          </p>
+          <div class="faq__accordion__content" onload="checkContentList(this)">
+            <p>
+              Anti-Rad lenses are multi-coated with EMI (Electromagnetic Interference) for maximum blue light 
+              protection. This reduces radiation from digital screens.​
+            ​</p>
+          </div>
+        </li>
+        <li class="faq__accordion__item">
+          <p class="faq__accordion__title" id="js-accordion" onclick="myAccordion(this)">
+            <span class="faq__accordion__titleText">How effective is it?​​</span>
+            <span class="faq__accordion__plus"></span>
+          </p>
+          <div class="faq__accordion__content" onload="checkContentList(this)">
+            <p>
+              Based on a product study by a research agency, 97% of users rated Anti-Rad eyewear as effective in 
+              blocking blue light to reduce eye strain and other screen-related problems. They are also certified by 
+              Intertek, the leading quality insurance provider.​
+            ​</p>
+          </div>
+        </li>
+        <li class="faq__accordion__item">
+          <p class="faq__accordion__title" id="js-accordion" onclick="myAccordion(this)">
+            <span class="faq__accordion__titleText">Do the lenses have a yellowish or greenish tint?​​</span>
+            <span class="faq__accordion__plus"></span>
+          </p>
+          <div class="faq__accordion__content" onload="checkContentList(this)">
+            <p>
+              Our Anti-Rad lenses have a slight green tint, but you'll hardly notice it. This is because they are equipped 
+              with anti-reflective coating to reduce screen glare and promote ease of use even on screen-heavy days.​
+            ​</p>
+          </div>
+        </li>
+        <li class="faq__accordion__item">
+          <p class="faq__accordion__title" id="js-accordion" onclick="myAccordion(this)">
+            <span class="faq__accordion__titleText">What are the benefits of Anti-Rad Eyewear?​​</span>
+            <span class="faq__accordion__plus"></span>
+          </p>
+          <div class="faq__accordion__content" onload="checkContentList(this)">
+            <p class="contentList">Reduces headaches and digital eye strain​</p>
+            <p class="contentList">Enhances focus and better learning​</p>
+            <p class="contentList">Promotes quality sleep​</p>
+          </div>
+        </li>
+        <li class="faq__accordion__item">
+          <p class="faq__accordion__title" id="js-accordion" onclick="myAccordion(this)">
+            <span class="faq__accordion__titleText">What styles do you have in the Anti-Rad collection?​​</span>
+            <span class="faq__accordion__plus"></span>
+          </p>
+          <div class="faq__accordion__content" onload="checkContentList(this)">
+            <p>
+              Whether you're shopping for adults or kids, we have multiple styles for every face shape and style 
+              preference— may it be classic, contemporary, or a little mix of both.​
+            ​</p>
+          </div>
+        </li>
+        <li class="faq__accordion__item">
+          <p class="faq__accordion__title" id="js-accordion" onclick="myAccordion(this)">
+            <span class="faq__accordion__titleText">Is there a difference between the adults and kids' styles?​​​</span>
+            <span class="faq__accordion__plus"></span>
+          </p>
+          <div class="faq__accordion__content" onload="checkContentList(this)">
+            <p>Apart from the sizes, our kids' frames are designed for better comfort and adjustability.​​</p>
+            <p class="contentList">Temple arms are made of plant-based plastic for lightness and durability​​</p>
+            <p class="contentList">Nose pads are made of rubber for adjustability​​</p>
+            <p class="contentList">Temple tips are made of rubber for prolonged comfort​</p>
+          </div>
+        </li>
+        <li class="faq__accordion__item">
+          <p class="faq__accordion__title" id="js-accordion" onclick="myAccordion(this)">
+            <span class="faq__accordion__titleText">What does an Anti-Rad Eyewear package include?​​</span>
+            <span class="faq__accordion__plus"></span>
+          </p>
+          <div class="faq__accordion__content" onload="checkContentList(this)">
+            <p>Each purchase comes with a hard case and cleaning cloth.​</p>
+          </div>
+        </li>
+        <li class="faq__accordion__item">
+          <p class="faq__accordion__title" id="js-accordion" onclick="myAccordion(this)">
+            <span class="faq__accordion__titleText">Where is it available?​​</span>
+            <span class="faq__accordion__plus"></span>
+          </p>
+          <div class="faq__accordion__content" onload="checkContentList(this)">
+            <p>Anti-Rad Eyewear is available in-store, Shopee, Lazada, and on sunniesstudios.com​​</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/seamless-scroll-polyfill@latest/lib/bundle.min.js"></script>
+<script src="{{ 'anti-rad-page.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Anti-Radiation Page",
+  "settings": [
+    {
+      "type": "url",
+      "id": "hero-banner-desktop",
+      "label": "Hero Banner (Desktop)(MP4)"
+    },
+    {
+      "type": "url",
+      "id": "hero-banner-mobile",
+      "label": "Hero Banner (Mobile)(MP4)"
+    },
+    {
+      "type": "url",
+      "id": "fifty-fifty-img",
+      "label": "50/50 Section Image (.PNG/.JPG/.GIF)"
+    },
+    {
+      "type": "url",
+      "id": "reviews-gif-desktop",
+      "label": "Review GIF (Desktop)(MP4)"
+    },
+    {
+      "type": "url",
+      "id": "reviews-gif-mobile",
+      "label": "Review GIF (Mobile)(MP4)"
+    },
+    {
+      "type": "url",
+      "id": "featured-gif-desktop",
+      "label": "Featured GIF (Desktop)(MP4)"
+    },
+    {
+      "type": "url",
+      "id": "featured-gif-mobile",
+      "label": "Featured GIF (Mobile)(MP4)"
+    },
+    {
+      "type": "url",
+      "id": "anti-rad-adults",
+      "label": "Anti-rad for Adults Image (.PNG/.JPG/.GIF)"
+    },
+    {
+      "type": "url",
+      "id": "anti-rad-adults-url",
+      "label": "Anti-rad for Adults CTA link"
+    },
+    {
+      "type": "url",
+      "id": "anti-rad-kids",
+      "label": "Anti-rad for Kids Image (.PNG/.JPG/.GIF)"
+    },
+    {
+      "type": "url",
+      "id": "anti-rad-kids-url",
+      "label": "Anti-rad for Kids CTA link"
+    },
+    {
+      "type": "text",
+      "id": "fifty-fifty-text-one",
+      "label": "50/50 Content (1)"
+    },
+    {
+      "type": "text",
+      "id": "fifty-fifty-text-two",
+      "label": "50/50 Content (2)"
+    },
+    {
+      "type": "text",
+      "id": "fifty-fifty-text-three",
+      "label": "50/50 Content (3)"
+    },
+    {
+      "type": "text",
+      "id": "slider_title",
+      "label": "Slider Products Title"
+    },
+    {
+      "type": "text",
+      "id": "faq_accordionTitle",
+      "label": "FAQ Accordion Title"
+    }
+  ],
+  "max_blocks": 999,
+  "blocks": [
+    {
+      "type": "product",
+      "name": "product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product_select",
+          "label": "Select Product"
+        }
+      ]
+    },
+    {
+      "type": "faq_accordion",
+      "name": "FAQ Accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "accordion_title",
+          "label": "Accordion Title"
+        },
+        {
+          "type": "richtext",
+          "id": "accordion_content",
+          "label": "Accordion Content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

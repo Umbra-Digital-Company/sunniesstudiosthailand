@@ -1,0 +1,178 @@
+{% unless page.metafields.store.store_data.value.abouts.value == blank %}
+    <div class="store-abouts">
+      {% assign abouts = page.metafields.store.store_data.value.abouts.value %}
+      {% for about in abouts %}
+         {% assign images_mobile = about.images_mobile.value %}
+         {% assign images_desktop = about.images_desktop.value %}
+        <div>
+          <div class="store-abouts__swiper--mobile swiper">
+            <div class="swiper-wrapper">
+              {% for image_mobile in images_mobile %}
+                <div class="store-abouts__swiper-slide swiper-slide">
+                  <div class="store-abouts__image-container">
+                    <img src="{{ image_mobile | image_url }}" alt="About image" loading="lazy"/>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+            <div class='store-abouts-swiper-nav'>
+              <div class='store-abouts-swiper-button-prev'>
+                <img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Vector.svg?v=1660974657" alt="previous" loading="lazy">
+              </div>
+              <div class='store-abouts-swiper-button-next'>
+                <img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Vector_1f4ceb8f-13b3-49f2-a497-6e2caefe25f1.svg?v=1660974674" alt="next" loading="lazy">
+              </div>
+            </div>  
+          </div>
+          <div class="store-abouts__swiper--desktop swiper">
+            <div class="swiper-wrapper">
+              {% for image_desktop in images_desktop %}
+                <div class="store-abouts__swiper-slide swiper-slide">
+                  <div class="store-abouts__image-container">
+                    <img src="{{ image_desktop | image_url }}" alt="About image" loading="lazy"/>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+            <div class='store-abouts-swiper-nav'>
+              <div class='store-abouts-swiper-button-prev'>
+                <img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Vector.svg?v=1660974657" alt="previous" loading="lazy">
+              </div>
+              <div class='store-abouts-swiper-button-next'>
+                <img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Vector_1f4ceb8f-13b3-49f2-a497-6e2caefe25f1.svg?v=1660974674" alt="next" loading="lazy">
+              </div>
+            </div>  
+          </div>
+          <div class="store-abouts__content">
+            <h2>{{ about.title }}</h2>
+            <div>{{ about.body | metafield_tag  }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% endunless %}
+    
+    <style>
+      .store-abouts {
+        margin-top: 40px;
+      }
+      .store-abouts > div:not(:first-child) {
+        margin-top: 60px;
+      }
+      .store-abouts__swiper--desktop {
+        display: none;
+      }
+      .store-abouts-swiper-nav {
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        top: 45%;
+        width: 100%;
+      }
+      .store-abouts-swiper-button-prev, .store-abouts-swiper-button-next {
+        z-index: 2;
+        cursor: pointer;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+      }
+      .store-abouts__swiper--mobile .store-abouts__image-container {
+        width: 100%;
+        padding-bottom: 100%;
+        position: relative;
+      }
+      .store-abouts__image-container > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+      }
+      .store-abouts__content {
+        margin-top: 60px;
+        padding: 0 16px;
+        font-family: 'Radio Grotesk';
+        color: var(--black_color);
+      }
+      .store-abouts__content > h2 {
+        font-size: 28px;
+        font-family: 'AT Surt Medium';
+      }
+      .store-abouts__content > div {
+        font-size: 14px;
+        margin-top: 24px;
+      }
+      .store-abouts__content > div p:not(:first-child) {
+        margin-top: 14px;
+      }
+      @media only screen and (min-width: 1025px){
+        .store-abouts {
+          padding: 0 100px;
+          margin-top: 100px;
+        }
+        .store-abouts > div:not(:first-child) {
+          margin-top: 100px;
+        }
+        .store-abouts__swiper--mobile {
+          display: none;
+        }
+        .store-abouts__swiper--desktop {
+          display: block;
+        }
+        .store-abouts-swiper-nav {
+          padding: 0 16px;
+        }
+        .store-abouts-swiper-button-prev, .store-abouts-swiper-button-next {
+          background: var(--white_color);
+          box-shadow: 0 0 9.6px #352b271a;
+        }
+        .store-abouts__swiper--desktop .store-abouts__image-container {
+          width: 100%;
+          padding-bottom: 66%;
+          position: relative;
+        }
+        .store-abouts__content {
+          margin-top: 100px;
+          padding: 0;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 40px;
+        }
+        .store-abouts__content > h2 {
+          font-size: 40px;
+        }
+        .store-abouts__content > div {
+          font-size: 16px;
+          margin-top: 0;
+          grid-column: 2/4;
+        }
+      }
+    </style>
+    
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js" defer></script>
+    <script>
+      new Swiper('.store-abouts__swiper--mobile', {
+        loop: true,
+        // Navigation arrows
+        navigation: {
+          nextEl: '.store-abouts__swiper--mobile .store-abouts-swiper-button-next',
+          prevEl: '.store-abouts__swiper--mobile .store-abouts-swiper-button-prev',
+        }
+      });
+      new Swiper('.store-abouts__swiper--desktop', {
+        loop: true,
+        // Navigation arrows
+        navigation: {
+          nextEl: '.store-abouts__swiper--desktop .store-abouts-swiper-button-next',
+          prevEl: '.store-abouts__swiper--desktop .store-abouts-swiper-button-prev',
+        }
+      });
+    </script>
+    {% schema %}
+      {
+        "name": "Store abouts"
+      }
+    {% endschema %}
+    

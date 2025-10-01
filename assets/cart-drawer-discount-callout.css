@@ -1,0 +1,81 @@
+.cart-drawer-discount-callout-container {
+  width: 100%;
+  margin: 16px 0 0 0;
+}
+
+.cart-drawer-discount-callout-wrapper {
+  background: var(--light_gray_color);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.cart-drawer-discount-callout-wrapper #callout-img {
+  min-width: 56px;
+  width: 56px;
+  height: 80px;
+  display: flex;
+}
+
+.cart-drawer-discount-callout-content {
+  margin: 0 0 0 16px;
+  display: grid;
+  grid-template-rows: 50px 63px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.cart-drawer-discount-callout-content #cart-drawer-callout-title {
+  font-family: "AT-Surt-SemiBold";
+  font-size: 16px;
+  line-height: 120%;
+  color: var(--black_color);
+  grid-column: 1 / -1;
+}
+
+.cart-drawer-discount-callout-content #cart-drawer-callout-title a {
+  color: var(--black_color);
+}
+
+.cart-drawer-discount-callout-content #cart-drawer-callout-title s {
+  color: var(--neutral_five_color);
+}
+
+.cart-drawer-discount-callout-content #cart-drawer-callout-description {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--black_color);
+  width: 120%;
+}
+
+.cart-drawer-discount-callout-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cart-drawer-discount-callout-content #cart-drawer-discount-callout-button {
+  border: none;
+  outline: none;
+  background: var(--black_color);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.cart-drawer-discount-callout-content
+  #cart-drawer-discount-callout-button
+  span {
+  font-family: "AT Surt Medium";
+  font-size: 16px;
+  line-height: 100%;
+  color: var(--neutral_eight_color);
+}
+
+.cart-drawer-discount-callout-content #cart-drawer-discount-callout-button img {
+  width: 14px;
+  height: 14px;
+  margin: 0 8px 0 0;
+}

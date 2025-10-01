@@ -1,0 +1,50 @@
+
+[data-testid="klaviyo-form-VejBsv"] [data-testid="form-component"] input[type="email"] {
+  border: 1.5px solid #FFF !important;
+}
+[data-testid="klaviyo-form-VejBsv"] [data-testid="form-component"] button {
+  padding: 16px 40px !important;
+  font-family: 'AT Surt Medium' !important;
+  font-weight: 500 !important;
+  height: auto !important;
+}
+[data-testid="klaviyo-form-VejBsv"] [data-testid="form-component"] button:hover {
+  border: none !important;
+}
+
+@media only screen and (min-width: 1024px) {
+  [data-testid="klaviyo-form-VejBsv"] {
+    padding: 80px 60px !important;
+    width: 480px !important;
+  }
+  [data-testid="klaviyo-form-VejBsv"] [data-testid="form-component"] img {
+    width: 360px !important;
+  }
+  [data-testid="klaviyo-form-VejBsv"] [data-testid="form-row"]:nth-child(2) [data-testid="form-component"],  
+  [data-testid="klaviyo-form-VejBsv"] [data-testid="form-row"]:nth-child(3) [data-testid="form-component"], 
+  [data-testid="klaviyo-form-VejBsv"] [data-testid="form-row"]:nth-child(5) [data-testid="form-component"] 
+  {
+    padding-top: 40px !important;
+  }
+  [data-testid="klaviyo-form-VejBsv"] [data-testid="form-row"]:nth-child(2) [data-testid="form-component"] span
+  {
+    font-size: 18px !important;
+  }
+  [data-testid="klaviyo-form-VejBsv"] [data-testid="form-component"] input, [data-testid="klaviyo-form-VejBsv"] [data-testid="form-component"] button
+  {
+    font-size: 16px !important;
+  }
+  [data-testid="klaviyo-form-VejBsv"] [data-testid="form-row"]:nth-child(5) [data-testid="form-component"] span
+  {
+    font-size: 10px !important;
+  }
+  [data-testid="klaviyo-form-VejBsv"] > div:not(:has(>:nth-child(5))) [data-testid="form-row"]:nth-child(2) [data-testid="form-component"] span {
+    font-size: 18px !important;
+  }
+  [data-testid="klaviyo-form-VejBsv"] > div:not(:has(>:nth-child(5))) [data-testid="form-row"]:nth-child(3) [data-testid="form-component"] span {
+    font-size: 16px !important;
+  }
+  [data-testid="klaviyo-form-VejBsv"] > div:not(:has(>:nth-child(5))) [data-testid="form-row"]:nth-child(3) [data-testid="form-component"] {
+    padding-top: 40px !important;
+  }
+}t

@@ -1,0 +1,118 @@
+variant-radios {
+  width: 100%;
+  /* margin-bottom: 24px; */
+}
+variant-radios fieldset {
+  border: none;
+  padding: 0;
+}
+variant-radios fieldset:not(:first-child) {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+variant-radios fieldset legend{
+  font-family: "AT-Surt";
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 8px;
+}
+variant-radios fieldset .input-label-wrapper {
+  display: inline-block;
+  position: relative;
+  border-radius: 8px;
+  border: 1.5px solid #efefec;
+}
+variant-radios fieldset .input-label-wrapper:not(:last-child) {
+  margin-right: 8px;
+}
+variant-radios fieldset .input-label-wrapper:has(input:checked) {
+  border: .63px solid #352B27;
+}
+variant-radios fieldset .input-label-wrapper:hover {
+  border: .63px solid #EFEFEC;
+}
+variant-radios fieldset .input-label-wrapper label {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 20px;
+  display: inline-block;
+  padding: 8px;
+}
+variant-radios fieldset input {
+  margin: 0;
+  display: none;
+}
+
+@media only screen and (min-width: 769px){
+  variant-radios fieldset legend{
+    font-size: 14px;
+  }
+  variant-radios fieldset .input-label-wrapper label {
+    font-size: 14px;
+  }
+}
+
+/* Swatch style */
+fieldset.swatch label {
+  position: relative;
+  height: 20px;
+  width: 20px;
+  color: transparent;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 100%;
+  cursor: pointer;
+}
+fieldset.swatch .input-label-wrapper {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 28px;
+  width: 28px;
+  border-radius: 100%;
+  border: 1.5px solid transparent;
+  padding: 0;
+}
+fieldset.swatch .input-label-wrapper:not(:last-child) {
+  margin-right: 5px;
+}
+fieldset.swatch .input-label-wrapper:has(input:checked) {
+  border-color: #352B27;
+  background-color: transparent;
+}
+fieldset.swatch .input-label-wrapper:hover {
+  border-color: var(--gray_color);
+}
+fieldset.swatch .input-label-wrapper.not-available {
+  border-color: var(--gray_color);
+}
+fieldset.swatch .input-label-wrapper.not-available:after {
+  content: "";
+  position: absolute;
+  width: 1.5px;
+  height: 28px;
+  background-color: var(--gray_color);
+  transform: rotate(45deg);
+}
+/* Swatch style END */
+
+/*  */
+.color-label {
+  font-family: 'Radio Grotesk';
+}
+.size-guide-modal-trigger {
+  cursor: pointer;
+  display: inline-flex;
+  gap: 4px;
+}
+.size-guide {
+  font-family: "At Surt Medium";
+  text-decoration: underline;
+}
+
+.form-label-title {
+  font-size: 14px;
+  font-family: 'Radio Grotesk';
+  line-height: 20px;
+  color: #AEAAA9;
+}

@@ -1,0 +1,354 @@
+.Customer {
+        padding: 40px 0 40px 0;
+        max-width: 468px;
+    }
+    .login_header_wrapper {
+        text-align: start;
+        margin-bottom: 40px;
+    }
+    .login_header_wrapper h1 {
+        font-family: "AT Surt Medium";
+        font-size: 28px;
+        line-height: 36px;
+        color: #352B27;
+        margin: 0 0 12px 0;
+    }
+    .login_header_wrapper p {
+        font-family: 'Radio Grotesk';
+        font-size: 14px;
+        line-height: 20px;
+        color: #554D4A;
+    }
+    .form-reset-password, .Login {
+        margin: 125px auto 0;
+    }
+    .Login {
+        margin-top: 80px;
+    }
+    .label-set {
+        font-family: 'Radio Grotesk';
+        font-size: 12px;
+        line-height: 16px;
+        color: #756F6D;
+        margin-bottom: 6px;
+        text-align: start;
+    }
+    .label-set:not(:first-of-type) {
+    margin-top: 16px; 
+    }
+    .form-element input {
+        margin-top: 0
+    }
+    .label-set:last-of-type {
+        margin-top: 16px;
+    }
+    .CustomerPassword {
+        position: relative;
+    }
+    .showpassword, .showpassword-1 {
+    position: absolute;
+    right: 8px;
+    top: 12px;
+    }
+    input[type="date"], input[type="email"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="url"] {
+        border: 1px solid #EFEFEC;
+        border-radius: 4px;
+        height: 40px;
+        padding: 0 8px;
+    }
+    input[type="date"]:hover, 
+    input[type="email"]:hover, 
+    input[type="number"]:hover, 
+    input[type="password"]:hover, 
+    input[type="search"]:hover,
+    input[type="tel"]:hover,
+    input[type="text"]:hover, 
+    input[type="url"]:hover {
+        border: 1px solid #D7D6D0;
+    }
+    input[type="date"]:focus-visible, 
+    input[type="email"]:focus-visible, 
+    input[type="number"]:focus-visible, 
+    input[type="password"]:focus-visible, 
+    input[type="search"]:focus-visible,
+    input[type="tel"]:focus-visible,
+    input[type="text"]:focus-visible, 
+    input[type="url"]:focus-visible {
+        border: 1px solid #352B27;
+    }
+    .form-reset-password__link, .Login__link {
+        font-family: 'Radio Grotesk';
+        font-size: 14px;
+        line-height: 20px;
+        color: #352B27;
+        display: block;
+        margin-top: 16px;
+        text-align: right;
+        text-decoration: none;
+        text-transform: none;
+        text-wrap: nowrap;
+        font-weight: 100;
+    }
+    .form-reset-password__link, .Login__link:hover,.create-account-wrapper a:hover {
+        color: #756F6D;
+    }
+    .forgot-password-container {
+        display: flex;
+        justify-content: end;
+    }
+    .forgot-password-container .forgot-wrapper {
+        border-bottom: .63px solid #352B27;
+        padding-bottom: 2px;
+        width: fit-content;
+    }
+    /* .form-reset-password form input[type="submit"], .Login form input[type="submit"] {
+        margin-top: 40px;
+    } */
+    .form-reset-password form input[type="submit"], .Login form input[type="submit"] {
+        background-color: #352B27;
+        border-radius: 8px;
+        display: block;
+        height: 44px;
+        padding: 12px 0;
+        margin-top: 40px;
+        text-transform: none;
+        width: 100%;
+        color: #FFF;
+        font-family: 'Radio Grotesk';
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .form-reset-password form input[type="submit"]:hover, .Login form input[type="submit"]:hover {
+        background: #FFF;
+        color: #352B27;
+        border: 1px solid #352B27;
+    }
+    .form-reset-password form input, .Login form input {
+        font-family: 'Radio Grotesk';
+        font-size: 14px;
+        line-height: 20px;
+        color: #352B27;
+        text-transform: none;
+    }
+    .create-account-wrapper {
+        background: #F8F6F5;
+        padding: 24px;
+        border-radius: 4px;
+        text-align: start;
+        margin-top: 40px;
+    }
+    .create-account-wrapper h4 {
+        font-family: "AT-Surt-SemiBold";
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 12px;
+        color: #352B27;
+    }
+    .create-account-wrapper p {
+        font-family: 'Radio Grotesk';
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 24px;
+        color: #352B27;
+    }
+    .create-account-wrapper a {
+        background: none;
+        text-decoration: none;
+        border: none;
+        font-size: 14px;
+        font-family: 'Radio Grotesk';
+        color: #352b27;
+        padding-bottom: 2px;
+        border-bottom: 1px solid #352B27;
+    }
+    .text-highlight-link {
+        text-decoration: underline;
+        color: #352B27;
+    }
+    .form-reset-password .errors ul, .Login .errors ul, .confirm-pass-err, .errors ul li a, #tos-error {
+        color: #B44720;
+        font-family: 'Radio Grotesk';
+        font-size: 12px;
+        list-style: none;
+        margin: 0;
+        text-align: start;
+        text-transform: none;
+    }
+    .errors ul li a {
+        text-decoration: underline;
+    }
+    .form-success {
+        color: #352B27;
+        font-family: 'Radio Grotesk';
+        font-size: 12px;
+        list-style: none;
+        margin: 0;
+        text-align: center;
+        text-transform: none;
+        position: absolute;
+        z-index: 1;
+        background: #FFF;
+        height: 630px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .p-gap {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    #DateOfBirth {
+        font-family: 'Radio Grotesk'; 
+        font-size: 14px;
+        color: #352B27;
+        padding: 12px 8px;
+        border: 1px solid #EFEFEC;
+        border-radius: 4px;
+        background-color: #FFF;
+        transition: border-color 0.3s ease;
+        width: 100%;
+    }
+    #DateOfBirth:hover {
+        border-color: #D7D6D0;
+    }
+    #DateOfBirth:focus {
+        border-color: #352B27; 
+        outline: none;
+    }
+    #DateOfBirth::before {
+        content: url('https://cdn.shopify.com/s/files/1/0268/4141/5798/files/DOB.svg?v=1724831870');
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        height: 18px;
+        transform: translateY(-50%);
+        pointer-events: none;
+        background: #FFF;
+    }
+    .newCountry {
+        font-family: 'Radio Grotesk'; 
+        font-size: 14px;
+        color: #352B27;
+        padding: 12px 4px;
+        border: 1px solid #EFEFEC;
+        border-radius: 4px;
+        background-color: #FFF;
+        transition: border-color 0.3s ease;
+        width: 100%;
+        height: 40px;
+    }
+    .newCountry:focus {
+        border-color: #352B27; 
+        outline: none;
+    }
+    .newCountry:hover {
+        border-color: #D7D6D0;
+    }
+    .newCountry option {
+        padding: 12px 0;
+        background-color: #fff;
+        color: #352B27;
+    }
+    .newCountry option:checked {
+        background-color: #e9ecef;
+    }
+    .form-svg-select {
+        width: auto;
+    }
+    .form-svg-select img {
+        position: absolute;
+        top: 12px;
+        right: 5px;
+        background: #FFF;
+    }
+    .ten-off-wrapper,.tos-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    }
+    /* #CreatePassword {
+        margin-bottom: 40px;
+    } */
+    .password-error {
+        padding: 16px 0 0;
+    }
+    .password-signup {
+        padding: 16px 0 40px;
+    }
+    #AcceptsMarketing {
+        margin-top: 0px;
+        width: 20px;
+        height: 20px;
+    }
+    input[type="checkbox"]:before {
+        height: 20px;
+        width: 20px;
+        border-radius: 4px;
+        border: 1px solid #D7D6D0;
+        margin-top: -1px;
+    }
+    input[type="checkbox"]:after {
+        content: url("https://cdn.shopify.com/s/files/1/0268/4141/5798/files/Check.svg?v=1724991247");
+        border-radius: 4px;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    input[type="checkbox"]+label {
+        font-size: 14px;
+        font-family: 'Radio Grotesk';
+        line-height: 20px;
+        color: #352B27;;
+    }
+    .tos-wrapper {
+        align-items: start;
+        margin-top: 4px;
+    }
+    /* .accept-tos {
+        margin-left: 3px;
+    } */
+    @media(max-width: 768px) {
+        .login_header_wrapper {
+                margin-bottom: 32px;
+        }
+        .login_header_wrapper h1 {
+                font-size: 22px;
+                line-height: 32px;
+        }
+        .form-reset-password form input[type="submit"], .Login form input[type="submit"] {
+                margin-top: 32px;
+        }
+        .create-account-wrapper {
+                margin: 32px 0;
+        }
+        .Customer {
+                padding: 40px 16px;
+        }
+        .form-reset-password {
+                padding: 0 16px;
+        }
+        /* #CreatePassword {
+                margin-bottom: 32px;
+        } */
+        .accept-tos {
+                margin-left: 8px;
+        }
+        .full-name-container {
+            padding-bottom: 16px;
+        }
+    }
+    @media(min-width: 769px) {
+        .full-name-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .fname-wrapper,.lname-wrapper {
+            width: 50%;
+        }
+    }

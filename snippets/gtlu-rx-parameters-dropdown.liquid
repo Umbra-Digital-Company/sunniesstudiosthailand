@@ -1,0 +1,116 @@
+{% liquid
+  assign vision_type_count = 0
+  for block in blocks
+    if block.type == 'vision_type'
+       assign vision_type_count = vision_type_count | plus: 1
+    endif
+  endfor
+%}
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+<style>
+  .ts-wrapper {
+    margin-top: 24px;
+    {% if vision_type_count <= 1 %}pointer-events: none;{% endif %}
+  }
+  .ts-control {
+    display: flex;
+    justify-content: space-between;
+    border: 1.5px solid var(--light_gray_color);
+    border-radius: 4px;
+    padding: 14px 16px;
+  }
+  .ts-control input, .ts-control .item  {
+    text-transform: unset;
+    font-size: 14px;
+  }
+  .ts-control input::placeholder {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    line-height: 100%;
+    color: var(--black_color);
+  }
+  .ts-wrapper.single.dropdown-active .ts-control:after {
+    transform: scale(-1);
+  }
+  {% if vision_type_count > 1 %}
+    .ts-wrapper.single .ts-control:after {
+      content: url('{{'select-arrow.svg' | asset_url}}');
+      margin-right: 20px;
+      height: 16px;
+    }
+  {% endif %}
+  .ts-dropdown {
+    box-shadow: none;
+    border: 1.5px solid var(--light_gray_color);
+    border-radius: 4px;
+    margin-top: 8px;
+  }
+  .ts-dropdown-content .option {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    padding: 14px 16px;
+    line-height: 100%;
+    color: var(--black_color);
+  }
+  .ts-dropdown-content .option.active {
+    background-color: var(--light_gray_color);
+  }
+  .gtlu__rx-params {
+    list-style: none;
+    padding: 8px 0;
+    background-color: #f5f5f5;
+    margin-top: 24px;
+    border-radius: 4px;
+    display: none;
+  }
+  .gtlu__rx-params li{
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    align-items: center;
+  }
+  .gtlu__rx-params li .gtlu__rx-key{
+    font-family: 'AT-Surt-Semibold';
+    flex-grow: 1;
+    line-height: 100%;
+  }
+  
+  {% for block in blocks %}
+    {% case block.type %}
+      {% when 'vision_type' %}
+         .ts-wrapper:has(.ts-control .item[data-value='{{ block.settings.name }}']) ~ #{{ block.settings.name | handleize }}{
+            display: block;
+          }
+    {% endcase %}
+  {% endfor %}
+  
+</style>
+
+<select id="select" autocomplete="off">
+  {% if vision_type_count > 1 %}<option value="">Select your vision type</option>{% endif %}
+  {% for block in blocks %}
+    {% case block.type %}
+      {% when 'vision_type' %}
+         <option value="{{ block.settings.name }}">{{ block.settings.name }}</option>
+    {% endcase %}
+  {% endfor %}
+</select>
+{% for block in blocks %}
+  {% case block.type %}
+    {% when 'vision_type' %}
+      {% assign value = block.settings.value | split: ', ' %}
+      <ul class="gtlu__rx-params" id="{{ block.settings.name | handleize }}">
+        <li><rx-info-icon iconSrc="{{ 'info-icon.svg' | asset_url }}" text="Indicates eyeglass prescription power"></rx-info-icon><span class="gtlu__rx-key">Sphere (SPH)</span><span>{{ value[0] }}</span></li>
+        <li><rx-info-icon iconSrc="{{ 'info-icon.svg' | asset_url }}" text="Correction number needed for astigmatism"></rx-info-icon><span class="gtlu__rx-key">Cylinder (CYL)</span><span>{{ value[1] }}</span></li>
+        <li><rx-info-icon iconSrc="{{ 'info-icon.svg' | asset_url }}" text="Added magnifying power on the lower part of prescription lenses"></rx-info-icon><span class="gtlu__rx-key">Addition (ADD)</span><span>{{ value[2] }}</span></li>
+      </ul>
+  {% endcase %}
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+<script>
+  new TomSelect("#select",{
+  	create: true
+  });
+  document.querySelector('.ts-control input').disabled = true;
+</script>  

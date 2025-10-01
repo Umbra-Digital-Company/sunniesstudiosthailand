@@ -1,0 +1,73 @@
+{% assign modules = 'account details, order history, my prescription, addresses' %}
+{% assign modules = modules | split: ', '%}
+
+{% for module in modules %}
+<div class="Customer__module hide js-customer-module"
+  data-module="{{ module | handleize }}">
+
+  {% case module %}
+  {% when 'account details' %}
+  {% render 'customer_details' %}
+  {% when 'order history' %}
+  {% render 'customer_orders' %}
+  {% when 'my prescription' %}
+  {% render 'customer_prescriptions' %}
+  {% when 'addresses' %}
+  {% render 'customer_addresses' %}
+  {% endcase %}
+</div>
+{% endfor %}
+
+<script>
+  const pathParameter = window.location.pathname;
+  const searchParameter = window.location.search;
+  const accountDetails = 'account-details';
+  const orderHistory = 'order-history';
+  const myPrescription = 'my-prescription';
+  const addresses = 'addresses';
+  const accountDetailsPage = document.querySelector('[data-module="account-details"]');
+  const orderHistoryPage = document.querySelector('[data-module="order-history"]');
+  const myPrescriptionPage = document.querySelector('[data-module="my-prescription"]');
+  const addressesPage = document.querySelector('[data-module="addresses"]');
+  const isAccountDetailsPage = pathParameter.includes('/account') && !searchParameter;
+  const isOrderHistoryPage = searchParameter.includes('?module=order-history');
+  const isMyPrescriptionPage = searchParameter.includes('module=my-prescription');
+  const isAddressesPage = searchParameter.includes('module=addresses');
+  const currentSelectedPage = localStorage.getItem('current-account-page');
+  function setSelectedAccountPage(page) {
+    localStorage.setItem('current-account-page', page);
+  }
+  function handleCustomerAccountTabs(page) {
+    if (page === accountDetails) {
+      accountDetailsPage.classList.remove('hide');
+      setSelectedAccountPage(accountDetails);
+    }
+    if (page === orderHistory) {
+      orderHistoryPage.classList.remove('hide');
+      setSelectedAccountPage(orderHistory);
+    }
+    if (page === myPrescription) {
+      myPrescriptionPage.classList.remove('hide');
+      setSelectedAccountPage(myPrescription);
+    }
+    if (page === addresses) {
+      addressesPage.classList.remove('hide');
+      setSelectedAccountPage(addresses);
+    }
+  }
+  const accountPages = {
+    [accountDetails]: isAccountDetailsPage,
+    [orderHistory]: isOrderHistoryPage,
+    [myPrescription]: isMyPrescriptionPage,
+    [addresses]: isAddressesPage
+  }
+  const [selectedPage] = Object.entries(accountPages).find(([_, value]) => value);
+
+  // TODO
+  // if (selectedPage !== currentSelectedPage) {
+  //   handleCustomerAccountTabs(currentSelectedPage)
+  // } else {
+  //   handleCustomerAccountTabs(selectedPage)
+  // }
+  handleCustomerAccountTabs(selectedPage)
+</script>

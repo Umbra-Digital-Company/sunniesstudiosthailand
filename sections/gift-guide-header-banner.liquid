@@ -1,0 +1,42 @@
+{%- assign _section = section.settings -%}
+{%- assign section_image_d = _section.image_desktop -%}
+{%- assign section_image_m = _section.image_mobile -%}
+
+<section class="section-gift-guide-banner">
+    {% if section_image_d != blank %}
+        <div 
+          class="section__image desktop" 
+          style="background-image: url({{section_image_d | img_url: '3200x'}});">
+          <a href="#shopify-section-gift-guide-two-block-module">
+            <img src="{{ 'gift-guide-down-btn.svg' | asset_url }}" />
+          </a>
+        </div>
+	{% endif %}
+    {% if section_image_m != blank %}
+        <div 
+          class="section__image mobile size-4-5" 
+          style="background-image: url({{section_image_m | img_url: '3200x'}});">
+          <a href="#shopify-section-gift-guide-two-block-module">
+            <img src="{{ 'gift-guide-down-btn.svg' | asset_url }}" />
+          </a>
+        </div>
+	{% endif %}
+</section><!-- /.section-gift-guide-banner -->
+
+{% schema %}
+{
+    "name": "Header Banner",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image_desktop",
+            "label": "Desktop Banner 16:9"
+        },
+        {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Mobile Banner 4:5"
+        }
+    ]
+}
+{% endschema %}

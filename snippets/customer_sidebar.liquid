@@ -1,0 +1,72 @@
+{% assign modules = 'account details, order history, my prescription, addresses' %}
+{% assign modules = modules | split: ', '%}
+
+<div class="Customer__sidebar-mobile js-active-sidebar">
+  {% liquid
+    if template.name == 'account'
+      assign mobile_title = "Account Details" | upcase
+    elsif template.name == 'order'
+      assign mobile_title = "Order History" | upcase
+    elsif template.name == 'address' or template.name == 'addresses'
+      assign mobile_title = "Addresses" | upcase
+    else
+      assign mobile_title = "Account Details" | upcase
+    endif
+  %}
+
+  <div class="Customer__sidebar-mobile-name">
+    <span></span>
+    <p class="js-sidebar-title">{{ mobile_title }}</p>
+    
+    <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 1.0672C16 1.3392 15.904 1.61121 15.7072 1.82081L8.70718 9.28803C8.61751 9.38642 8.5083 9.46502 8.38653 9.51881C8.26475 9.57259 8.1331 9.60037 7.99997 9.60037C7.86685 9.60037 7.7352 9.57259 7.61342 9.51881C7.49165 9.46502 7.38244 9.38642 7.29277 9.28803L0.29275 1.82081C0.104425 1.61469 0 1.3456 0 1.0664C0 0.78721 0.104425 0.518113 0.29275 0.312001C0.683151 -0.104 1.31675 -0.104 1.70715 0.312001L7.99997 7.02562L14.2928 0.312001C14.6832 -0.104 15.3168 -0.104 15.7072 0.312001C15.9024 0.520002 16 0.793602 16 1.0672Z" fill="#393334"/>
+    </svg>
+  </div>
+</div>
+
+<ul class="Customer__sidebar" role="navigation" aria-label="Customer Information">
+  {% liquid
+    for module in modules
+      assign modules_name = module 
+      assign target = module | handleize
+
+      if modules_name == 'account details'
+        assign module_name = 'ACCOUNT INFO'
+      elsif modules_name == 'order history'
+        assign module_name = 'MY ORDERS'
+      elsif modules_name == 'my prescription'
+        assign module_name = 'MY PRESCRIPTIONS'
+      else
+        assign module_name = module | upcase
+      endif
+        
+
+      if template.name == 'account' and target == 'account-details'
+        assign active_class = ' active'
+      elsif template.name == 'order' and target == 'order-history'
+        assign active_class = ' active'
+      elsif template.name == 'address' or template.name == 'addresses' and target == 'addresses'
+        assign active_class = ' active'
+      else
+        assign active_class = ''
+      endif
+
+      if target == 'account-details'
+        assign trackback_link = '/account'
+      elsif target == 'order-history'
+        assign trackback_link = '/account#order-history'
+      elsif target == 'addresses'
+        assign trackback_link = '/account#addresses'
+      else
+        assign trackback_link = ''
+      endif
+
+      if template.name == 'address' or template.name == 'addresses' or template.name == 'order'
+        echo '<li data-target="' | append: target | append: '" class="Customer__sidebar-toggle' | append: active_class | append: ' js-customer-nav Button__link" tabindex="0"><a href="' | append: trackback_link | append: '">' | append: module_name | append: '</a></li>'
+      else
+        echo '<li data-target="' | append: target | append: '" class="Customer__sidebar-toggle' | append: active_class | append: ' js-customer-nav Button__link" tabindex="0"><p>' | append: module_name | append: '</p></li>'
+      endif
+    endfor
+  %}
+  <li data-target="log-out" class="Customer__sidebar-toggle js-customer-nav Button__link" tabindex="0"><a href="/account/logout">LOG OUT</a></li>
+</ul>

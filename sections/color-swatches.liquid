@@ -1,0 +1,82 @@
+{%- assign _blocks = section.blocks -%}
+{%- if _blocks.size > 0 -%}
+<style type="text/css" media="screen">
+    {%- for block in _blocks -%}
+      {%- assign current_block = block.settings -%}
+
+      {%- if current_block.title != blank -%}
+        {%- assign color_styles = '' -%}
+        {%- assign color_name_arr = current_block.title | split: ',' -%}
+        {%- assign color_selectors = '' -%}
+        {%- assign color_selectors_2 = '' -%}
+
+        {%- for color_name in color_name_arr -%}
+          {%- assign color_name_handle = color_name | handle -%}
+          {%- assign color_name_capitalize_arr = color_name | split: ' ' -%}
+          {% assign color_name_capitalize = '' %}
+            
+          {%- for color_indx in color_name_capitalize_arr -%}
+              {% assign capitalized = color_indx | capitalize %}
+              {% assign color_name_capitalize = color_name_capitalize | append: capitalized %}
+              
+              {% unless forloop.last %}
+                  {% assign color_name_capitalize = color_name_capitalize | append: ' ' %}
+              {% endunless %}
+          {%- endfor -%}
+
+          {%- assign color_selectors = color_selectors | append: ', [data-handle-name="' | append: color_name_handle | append: '"]' -%}
+          {%- assign color_selectors_2 = color_selectors_2 | append: ', .bc-sf-filter-option-swatch a[data-title="' | append: color_name_capitalize | append: '"] .bc-sf-filter-option-swatch-image' -%}
+        {%- endfor -%}
+
+        {%- if current_block.image != blank -%}
+          {%- assign _image = current_block.image | img_url: '48x' -%}
+
+          {%- assign color_styles = 'background: url(' | append: _image | append: ');' -%}
+        {%- elsif current_block.color_1 != blank and current_block.color_2 != blank -%}
+          {%- assign color_styles = 'background: linear-gradient(to right, ' | append: current_block.color_1 | append: ' 0%,' | append: current_block.color_1 | append: ' 50%,' | append: current_block.color_2 | append: ' 50%,' | append: current_block.color_2 | append: ' 100%);' -%}
+        {%- elsif current_block.color_1 != blank and current_block.color_2 == blank -%}
+          {%- assign color_styles = 'background: ' | append: current_block.color_1 | append: ';' -%}
+        {%- endif -%}
+
+        {{ color_selectors | replace_first: ',', '' }} { {{ color_styles }} }
+        {{ color_selectors_2 | replace_first: ',', '' }} { {{ color_styles | replace: ';',' !important;' }} }
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+</style>
+
+{% schema %}
+{
+  "name": "Color Swatches",
+  "max_blocks": 9999,
+  "blocks": [
+    {
+      "type": "color",
+      "name": "Color",
+      "settings": [
+        {
+          "type": "color",
+          "id": "color_1",
+          "label": "Color 1"
+        },
+        {
+          "type": "color",
+          "id": "color_2",
+          "label": "Color 2",
+          "info": "When select color for this field, result will be gradient for selected color"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Color name"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

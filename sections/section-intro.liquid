@@ -1,0 +1,633 @@
+{%- assign _section = section.settings -%}
+{%- assign section_image = _section.image -%}
+{%- assign section_image_mobile = _section.image_mobile -%}
+{%- assign section_video = _section.video -%}
+{%- assign section_video_mobile = _section.video_mobile -%}
+{%- assign section_title = _section.title -%}
+{%- assign section_image_url = _section.image_url -%}
+{%- assign section_btn_left_text = _section.btn_left_text -%}
+{%- assign section_btn_left_url = _section.btn_left_url -%}
+{%- assign section_btn_right_text = _section.btn_right_text -%}
+{%- assign section_btn_right_url = _section.btn_right_url -%}
+{%- assign section_alignment = _section.alignment -%}
+{%- assign section_alignment_mobile = _section.alignment_mobile -%}
+{%- assign section_text_color = _section.text_color -%}
+{%- assign section_btn_text_color = _section.btn_text_color -%}
+{%- assign section_has_overlay = _section.has_overlay -%}
+{%- assign overlay_class = '' -%}
+{%- assign inner_video_mobile = '' -%}
+{%- assign inner_video = '' -%}
+{%- assign section_logo_image = _section.logo_image -%}
+{%- assign title_font_size = _section.title_font_size -%}
+{%- assign title_font_size_mobile = _section.title_font_size_mobile -%}
+{%- assign use_custom_font_family = _section.use_custom_font_family -%}
+{%- assign custom_font_family = _section.custom_font_family -%}
+{%- assign title_font_family = _section.title_font_family -%}
+{%- assign title_distance = _section.title_distance -%}
+{%- assign title_distance_mobile = _section.title_distance_mobile -%}
+
+{%- if section_has_overlay -%}
+  {%- assign overlay_class = ' section-intro--overlay' -%}
+{%- endif -%}
+
+{%- if section_video_mobile != blank -%}
+  {%- assign inner_video_mobile = ' video-mobile' -%}
+{%- endif -%}
+
+{%- if section_video != blank -%}
+  {%- assign inner_video = ' video-desktop' -%}
+{%- endif -%}
+
+<section class="section-intro{{color_class}}{{overlay_class}}">
+  <div>
+    <div class="section__inner{{inner_video}}{{inner_video_mobile}}">
+      {%- if section_btn_left_url == blank and section_btn_right_url == blank and section_image_url != blank -%}
+        <a class="section__image-url" href="{{section_image_url}}"></a>
+      {%- endif -%}
+
+      {%- if section_image_mobile != blank -%}
+        <div
+          class="section__image section__image--mobile"
+          style="background-image: url({{ section_image_mobile | img_url: '1534x' }});"
+        ></div>
+        <!-- /.section__image -->
+      {%- else -%}
+        {%- if section_video_mobile != blank -%}
+          <div class="section__video section__video--mobile">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              class="home-page-video"
+              style="right: 0;bottom: 0;width: 100vw;height: auto;"
+            >
+              <source src="{{ section_video_mobile }}" type="video/mp4">
+            </video>
+            <div class="section__content section__content--video section__content--mobile {{section_alignment_mobile}}">
+              <div class="shell">
+                <div class="section__content--wrap">
+                  {%- if section_title != blank -%}
+                    <div class="section__content-inner" style="margin-bottom: {{title_distance_mobile}}px">
+                      {%- if section_title != blank -%}
+                        <h1 style="color: {{section_text_color}};">{{ section_title }}</h1>
+                      {%- endif -%}
+                    </div>
+                    <!-- /.section__content-inner -->
+                  {%- endif -%}
+
+                  {%- if section_logo_image != blank -%}
+                    <div class="section__logo">
+                      <img srcset="{{ section_logo_image | img_url: 'master' }}" alt="" class="lazyload">
+                    </div>
+                    <!-- /.section__image -->
+                  {%- endif -%}
+
+                  <div class="section_text" style="color: {{section_text_color}};">
+                    {{ section.settings.text }}
+                  </div>
+
+                  {%- if section_btn_left_url != blank or section_btn_right_url != blank -%}
+                    <div class="section__actions">
+                      {%- if section_btn_left_url != blank -%}
+                        <a
+                          href="{{ section_btn_left_url }}"
+                          class="btn btn--white test"
+                          style="margin-right: {{section.settings.distance_btns}}px; background-color: {{section_text_color}}; color: {{section_btn_text_color}};"
+                        >
+                          {{- section_btn_left_text -}}
+                        </a>
+                      {%- endif -%}
+
+                      {%- if section_btn_right_url != blank -%}
+                        <a
+                          href="{{ section_btn_right_url }}"
+                          class="btn btn--white test"
+                          style="background-color: {{section_text_color}}; color: {{section_btn_text_color}};"
+                        >
+                          {{- section_btn_right_text -}}
+                        </a>
+                      {%- endif -%}
+                    </div>
+                    <!-- /.section__actions -->
+                  {%- endif -%}
+                </div>
+              </div>
+              <!-- /.shell -->
+            </div>
+            <!-- /.section__content--mobile -->
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if section_image != blank -%}
+        <div class="section__image" style="background-image: url({{ section_image | img_url: '3200x' }});"></div>
+      {%- else -%}
+        {%- if section_video != blank -%}
+          <div class="section__video">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              class="home-page-video"
+              style="right: 0;bottom: 0;width: 100vw;height: auto;"
+            >
+              <source src="{{ section_video }}" type="video/mp4">
+            </video>
+            <div class="section__content section__content--video section__content--desktop {{section_alignment}}">
+              <div class="shell">
+                <div class="section__content--wrap">
+                  {%- if section_title != blank -%}
+                    <div class="section__content-inner" style="margin-bottom: {{title_distance}}px">
+                      {%- if section_title != blank -%}
+                        <h1>{{ section_title }}</h1>
+                      {%- endif -%}
+                    </div>
+                    <!-- /.section__content-inner -->
+                  {%- endif -%}
+
+                  {%- if section_logo_image != blank -%}
+                    <div class="section__logo">
+                      <img srcset="{{ section_logo_image | img_url: 'master' }}" alt="" class="lazyload">
+                    </div>
+                    <!-- /.section__image -->
+                  {%- endif -%}
+
+                  <div class="section_text" style="color: {{section_text_color}};">
+                    {{ section.settings.text }}
+                  </div>
+
+                  {%- if section_btn_left_url != blank or section_btn_right_url != blank -%}
+                    <div class="section__actions">
+                      <div>
+                        {%- if section_btn_left_url != blank -%}
+                          <a
+                            href="{{ section_btn_left_url }}"
+                            class="btn btn--white test"
+                            style="margin-right: {{section.settings.distance_btns}}px; background-color: {{section_text_color}}; color: {{section_btn_text_color}};"
+                          >
+                            {{- section_btn_left_text -}}
+                          </a>
+                        {%- endif -%}
+
+                        {%- if section_btn_right_url != blank -%}
+                          <a
+                            href="{{ section_btn_right_url }}"
+                            class="btn btn--white test"
+                            style="background-color: {{section_text_color}}; color: {{section_btn_text_color}};"
+                          >
+                            {{- section_btn_right_text -}}
+                          </a>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                    <!-- /.section__actions -->
+                  {%- endif -%}
+                </div>
+              </div>
+              <!-- /.shell -->
+            </div>
+            <!-- /.section__content--desktop -->
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- unless section_video != blank -%}
+        <div class="section__content section__content--desktop {{section_alignment}}">
+          <div class="shell">
+            <div class="section__content--wrap">
+              {%- if section_title != blank -%}
+                <div class="section__content-inner" style="margin-bottom: {{title_distance}}px;">
+                  {%- if section_title != blank -%}
+                    <h1 style="color: {{section_text_color}};">{{ section_title }}</h1>
+                  {%- endif -%}
+                </div>
+                <!-- /.section__content-inner -->
+              {%- endif -%}
+
+              {%- if section_logo_image != blank -%}
+                <div class="section__logo">
+                  <img srcset="{{ section_logo_image | img_url: 'master' }}" alt="" class="lazyload">
+                </div>
+                <!-- /.section__image -->
+              {%- endif -%}
+
+              <div class="section_text" style="color: {{section_text_color}};">
+                {{ section.settings.text }}
+              </div>
+
+              {%- if section_btn_left_url != blank or section_btn_right_url != blank -%}
+                <div class="section__actions">
+                  <div>
+                    {%- if section_btn_left_url != blank -%}
+                      <a
+                        href="{{ section_btn_left_url }}"
+                        class="btn btn--white"
+                        style="margin-right: {{section.settings.distance_btns}}px; background-color: {{section_text_color}}; color: {{section_btn_text_color}};"
+                      >
+                        {{- section_btn_left_text -}}
+                      </a>
+                    {%- endif -%}
+
+                    {%- if section_btn_right_url != blank -%}
+                      <a
+                        href="{{ section_btn_right_url }}"
+                        class="btn btn--white"
+                        style="background-color: {{section_text_color}}; color: {{section_btn_text_color}};"
+                      >
+                        {{- section_btn_right_text -}}
+                      </a>
+                    {%- endif -%}
+                  </div>
+                </div>
+                <!-- /.section__actions -->
+              {%- endif -%}
+            </div>
+          </div>
+          <!-- /.shell -->
+        </div>
+        <!-- /.section__content--desktop -->
+      {% endunless %}
+
+      {%- unless section_video_mobile != blank -%}
+        <div class="section__content section__content--mobile {{section_alignment_mobile}}">
+          <div class="shell">
+            <div class="section__content--wrap">
+              {%- if section_title != blank -%}
+                <div class="section__content-inner" style="margin-bottom: {{title_distance_mobile}}px;">
+                  {%- if section_title != blank -%}
+                    <h1 style="color: {{section_text_color}};">{{ section_title }}</h1>
+                  {%- endif -%}
+                </div>
+                <!-- /.section__content-inner -->
+              {%- endif -%}
+
+              {%- if section_logo_image != blank -%}
+                <div class="section__logo">
+                  <img src="{{ section_logo_image | img_url: 'master' }}" alt="">
+                </div>
+                <!-- /.section__image -->
+              {%- endif -%}
+
+              <div class="section_text" style="color: {{section_text_color}};">
+                {{ section.settings.text }}
+              </div>
+
+              {%- if section_btn_left_url != blank or section_btn_right_url != blank -%}
+                <div class="section__actions">
+                  <div>
+                    {%- if section_btn_left_url != blank -%}
+                      <a
+                        href="{{ section_btn_left_url }}"
+                        class="btn btn--white"
+                        style="margin-right: {{section.settings.distance_btns}}px; background-color: {{section_text_color}}; color: {{section_btn_text_color}};"
+                      >
+                        {{- section_btn_left_text -}}
+                      </a>
+                    {%- endif -%}
+
+                    {%- if section_btn_right_url != blank -%}
+                      <a
+                        href="{{ section_btn_right_url }}"
+                        class="btn btn--white"
+                        style="background-color: {{section_text_color}}; color: {{section_btn_text_color}};"
+                      >
+                        {{- section_btn_right_text -}}
+                      </a>
+                    {%- endif -%}
+                  </div>
+                </div>
+                <!-- /.section__actions -->
+              {%- endif -%}
+            </div>
+          </div>
+          <!-- /.shell -->
+        </div>
+        <!-- /.section__content--mobile -->
+      {%- endunless -%}
+    </div>
+    <!-- /.section__inner -->
+  </div>
+  <!-- /.shell -->
+</section>
+<!-- /.section-intro -->
+
+<style>
+  .section__video {
+      position: relative;
+  }
+
+  .section__content--video {
+      width: 100%;
+      position: absolute !important;
+      top: 0;
+  }
+
+  .section-intro .section__content--wrap {
+      max-width: initial;
+  }
+
+  .section-intro .section__content-inner {
+      font-size: 40px;
+  }
+
+  .section-intro .section__content-inner h1 p {
+      color: {{section_text_color}};
+      font-size: {{title_font_size}}px;
+      font-family: {% if use_custom_font_family %}{{ custom_font_family }}{% else %}{{ title_font_family }}{% endif %};
+  }
+
+  .section-intro .section__actions .btn {
+      padding: 16px 40px;
+      background: #FFFFFF;
+      border-radius: 12px;
+      font-family: SharpGroteskBold, serif;
+      font-style: normal;
+      font-size: 16px;
+      line-height: 24px;
+      color: #352B27;
+      margin: 0 0 80px 0;
+  }
+
+  .section__video--mobile .bottom-left .shell {
+      padding-bottom: 60px;
+  }
+
+  @media (max-width: 767px) {
+      .section-intro.video-mobile {
+          height: 100% !important;
+      }
+
+      .section-intro .section__content-inner h1 p {
+          font-size: {{title_font_size_mobile}}px;
+      }
+
+      .section-intro .section__actions .btn {
+          margin: 0 0 60px 0;
+          padding: 16px 24px;
+      }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Intro",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image mobile"
+    },
+    {
+      "type": "header",
+      "content": "Video Banner T"
+    },
+    {
+      "type": "url",
+      "id": "video",
+      "label": "Video",
+      "info": "This will work only if Image is empty"
+    },
+    {
+      "type": "url",
+      "id": "video_mobile",
+      "label": "Video mobile",
+      "info": "This will work only if Image Mobile is empty"
+    },
+    {
+      "type": "url",
+      "id": "image_url",
+      "label": "Image url",
+      "info": "This will work only if there are no buttons"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo Title"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Content"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font_family",
+      "label": "Title font family",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 12,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Title font size (desktop)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "min": 12,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Title font size in (mobile)",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "title_distance",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Title distance from the content (desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_distance_mobile",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Title distance from the content (mobile)",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_font_family",
+      "label": "Use custom font family (Disables the chosen font family above)",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "custom_font_family",
+      "label": "Title custom font family",
+      "options": [
+        {
+          "value": "SharpGroteskMedium",
+          "label": "Sharp Grotesk Medium"
+        },
+        {
+          "value": "SharpGroteskBold",
+          "label": "Sharp Grotesk Bold"
+        }
+      ],
+      "default": "SharpGroteskMedium"
+    },
+    {
+      "type": "header",
+      "content": "Button 1"
+    },
+    {
+      "type": "text",
+      "id": "btn_left_text",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "btn_left_url",
+      "label": "Button url"
+    },
+    {
+      "type": "header",
+      "content": "Button 2"
+    },
+    {
+      "type": "range",
+      "id": "distance_btns",
+      "label": "Distance between buttons",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "text",
+      "id": "btn_right_text",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "btn_right_url",
+      "label": "Button url"
+    },
+    {
+      "type": "select",
+      "id": "btn_text_color",
+      "label": "Button Text Color",
+      "options": [
+        {
+          "value": "#ffffff",
+          "label": "White"
+        },
+        {
+          "value": "#352b27",
+          "label": "Black"
+        },
+        {
+          "value": "#ede2cb",
+          "label": "Cream"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Content Text Color",
+      "options": [
+        {
+          "value": "#ffffff",
+          "label": "White"
+        },
+        {
+          "value": "#352b27",
+          "label": "Black"
+        },
+        {
+          "value": "#ede2cb",
+          "label": "Cream"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "has_overlay",
+      "label": "Gradient overlay",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Content Alignment"
+    },
+    {
+      "type": "radio",
+      "id": "alignment",
+      "label": "Content Alignment",
+      "options": [
+        {
+          "value": "center-top",
+          "label": "Center Top"
+        },
+        {
+          "value": "center-bottom",
+          "label": "Center Bottom"
+        },
+        {
+          "value": "center-left",
+          "label": "Center Left"
+        },
+        {
+          "value": "center-right",
+          "label": "Center Right"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        }
+      ],
+      "default": "center-top"
+    },
+    {
+      "type": "radio",
+      "id": "alignment_mobile",
+      "label": "Mobile Content Alignment",
+      "options": [
+        {
+          "value": "center-bottom",
+          "label": "Center Bottom"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom Left"
+        }
+      ],
+      "default": "center-bottom"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Intro"
+    }
+  ]
+}
+{% endschema %}

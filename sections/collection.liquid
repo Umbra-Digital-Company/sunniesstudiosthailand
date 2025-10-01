@@ -1,0 +1,246 @@
+{{ 'collections-interactive-banner.css' | asset_url | stylesheet_tag }}
+{{ 'collections-new-2024.css' | asset_url | stylesheet_tag }}
+
+{% unless collection.handle == "sunnies-flask" %}
+  <div class="filter-container">
+    <div class="filter-wrapper">
+      <div class="left-filter-wrapper">
+        {% render 'icon-filter' %}
+        <span>Filter</span>
+      </div>
+      <div class="right-filter-wrapper">
+        <div id="bc-sf-filter-top-sorting"></div>
+      </div>
+    </div>
+    <div class="filter-selection-display">
+      <span id='names-display-span'></span>
+    </div>
+    <div class="filter-container-liner"></div>
+  </div>
+{% endunless %}
+
+<div class="sidebar-filter-container">
+  <div class="sidebar-title-wrapper">
+    <h1>Filter
+      <span id='count-display-span'></span>
+    </h1>
+    {% render 'icon-sidebar-close' %}
+  </div>
+  <div class="sidebar-liner"></div>
+  <div id="bc-sf-filter-tree"></div>
+  <div class="filtered-items js-filtered-items"></div>
+  <div id="bc-sf-filter-option-block-frame-color"></div>
+  <div class="sidebar-footer">
+    <div class="filters-drawer__actions js-clone-clear-btn">
+      <a
+        href="#"
+        class="bc-sf-filter-clear-all btn-clear-all js-clear-all-toggle"
+        onclick="clearAllFilterOptions(event)">
+        <strong>Clear All</strong>
+      </a>
+    </div>
+    <a class="btnShowItems" href="">Show
+      <span id='count-display-span-btn'></span>
+      Items</a>
+  </div>
+</div>
+<div class="background-overlay"></div>
+
+<section>
+  <div class="shell-40 shell-mobile-disabled">
+    <span class="global-overlay js-global-overlay"></span>
+    <div class="js-product-list-container hidden product-listing-container --">
+      <div id="bc-sf-filter-products" class="product-listing">
+        {% for _product in collection.products %}
+          {%- include 'product-item'
+ with _product
+          -%}
+        {% endfor %}
+      </div>
+    </div>
+    <!-- /.js-product-list product-listing-container -->
+
+    <div id="bc-sf-filter-bottom-pagination"></div>
+    <script>
+    document.dispatchEvent(
+        new CustomEvent("swym:collections-loaded")
+    );
+    console.log("'swym:collections-loaded'");
+</script>
+
+  </div>
+<!-- /.shell -->
+</section>
+<!-- /.section-collection -->
+{% comment %} 
+                    {% section 'section-brand-proposition' %} 
+{% endcomment %}
+<script defer src="{{ 'bc-sf-filter-custom.js' |  asset_url }}"></script>
+<script>
+  // Declare bcSfFilterConfig variable
+  var bcSfFilterConfig = {
+    general: {
+      no_image_url: "{{ 'bc-sf-filter-no-image.gif' | asset_url }}",
+    },
+    label: {
+      sorting: {% assign temp = 'collections.sorting.title' | t  %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Sorting" {% endunless %},
+      sorting_best_selling: {% assign temp = collection.sort_options[1].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Best Selling" {% endunless %},
+      // sorting_featured: {% assign temp = 'collections.sorting.manual' | t  %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Manual" {% endunless %},
+      sorting_title_ascending: {% assign temp = collection.sort_options[2].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Alphabetically, A-Z" {% endunless %},
+      sorting_title_descending: {% assign temp = collection.sort_options[3].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Alphabetically, Z-A" {% endunless %},
+     sorting_price_ascending: {% assign temp = collection.sort_options[4].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Lowest Price" {% endunless %},
+      sorting_price_descending: {% assign temp = collection.sort_options[5].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Highest Price" {% endunless %},
+      sorting_date_ascending: {% assign temp = collection.sort_options[6].name %} {% unless temp == nil  %} {{ temp | json }} {% else %} "Date, Old to New" {% endunless %},
+      sorting_date_descending: {% assign temp = collection.sort_options[7].name %} {% unless temp == nil  %} {{ temp | json }} {% else %} "Date, New to Old" {% endunless %},
+      sorting_relevance: {% assign temp = 'collections.sorting.relevance' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Relevance" {% endunless %},
+  
+  
+      sale: {{ 'products.product.on_sale' | t | json }},
+      sale_price: {{ 'products.product.sale_price' | t | json }},
+      from_price: {{ 'products.product.from_price' | t | json }},
+      sold_out: {{ 'products.product.sold_out' | t | json }},
+      vendor: {{ 'products.product.vendor' | t |json }},
+      regular_price: {{ 'products.product.regular_price' | t | json }},       items_with_count_one: {{ 'collections.general.items_with_count.one' | t | json}},
+      items_with_count_other: {{ 'collections.general.items_with_count.other' | t | json }},
+      current_page: {{ 'general.pagination.current_page' | t | json }},
+      quick_add: {{ 'products.product.quick_add' | t | json }}
+    },
+    custom: {
+      // Add custom value here
+    }
+  };
+</script>
+{% comment %} BCF V2 -- Do not touch this sorting filter -- {% endcomment %}
+<script>
+  // Declare boostPFSThemeConfig
+  var boostPFSThemeConfig = {
+    general: {
+      no_image_url: "{{ 'bc-sf-filter-no-image.gif' | asset_url }}",
+    },
+    label: {
+      sorting: {% assign temp = 'collections.sorting.title' | t  %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Sorting" {% endunless %},
+      sorting_best_selling: {% assign temp = collection.sort_options[1].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Best Selling" {% endunless %},
+      // sorting_featured: {% assign temp = 'collections.sorting.manual' | t  %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Manual" {% endunless %},
+      sorting_title_ascending: {% assign temp = collection.sort_options[2].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Alphabetically, A-Z" {% endunless %},
+      sorting_title_descending: {% assign temp = collection.sort_options[3].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Alphabetically, Z-A" {% endunless %},
+     sorting_price_ascending: {% assign temp = collection.sort_options[4].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Lowest Price" {% endunless %},
+      sorting_price_descending: {% assign temp = collection.sort_options[5].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Highest Price" {% endunless %},
+      sorting_date_ascending: {% assign temp = collection.sort_options[6].name %} {% unless temp == nil  %} {{ temp | json }} {% else %} "Date, Old to New" {% endunless %},
+      sorting_date_descending: {% assign temp = collection.sort_options[7].name %} {% unless temp == nil  %} {{ temp | json }} {% else %} "Date, New to Old" {% endunless %},
+      sorting_relevance: {% assign temp = 'collections.sorting.relevance' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Relevance" {% endunless %},
+  
+  
+      sale: {{ 'products.product.on_sale' | t | json }},
+      sale_price: {{ 'products.product.sale_price' | t | json }},
+      from_price: {{ 'products.product.from_price' | t | json }},
+      sold_out: {{ 'products.product.sold_out' | t | json }},
+      vendor: {{ 'products.product.vendor' | t |json }},
+      regular_price: {{ 'products.product.regular_price' | t | json }},       items_with_count_one: {{ 'collections.general.items_with_count.one' | t | json}},
+      items_with_count_other: {{ 'collections.general.items_with_count.other' | t | json }},
+      current_page: {{ 'general.pagination.current_page' | t | json }},
+      quick_add: {{ 'products.product.quick_add' | t | json }}
+    },
+  };
+
+  // Declare Templates
+  var boostPFSTemplate = {
+    soldOutClass: 'sold-out',
+    saleClass: 'on-sale',
+    soldOutLabelHtml: {% render 'boost-pfs-filter-html', layout: 'soldOutLabelHtml' %},
+    saleLabelHtml: {% render 'boost-pfs-filter-html', layout: 'saleLabelHtml' %},
+    // More template rendering follows a similar pattern...
+  };
+</script>
+
+<script>
+  // [Feature][Rose] Image Break start
+    var imageBreakBannerArr = {{collection.metafields.image_break.banner.value | json}};
+    var imageBreakTextColor = {{collection.metafields.image_break.text_color}};
+    var imageBreakHeaderArr = {{collection.metafields.image_break.header}};
+    var imageBreakSubcopyArr = {{collection.metafields.image_break.subcopy}};
+    var imageBreakCTAColor = {% if collection.metafields.image_break.cta_color != nil %}{{ collection.metafields.image_break.cta_color }}{% else %}[]{% endif %};
+    var imageBreakLinkArr = {{collection.metafields.image_break.cta_action}};
+    var imageBreakTextArr = {{collection.metafields.image_break.cta_text}};
+    var imageBreakPositionArr = {{collection.metafields.image_break.text_position}};
+  
+    var imageBreakArr = [];
+  
+    for (var i = 0; i < imageBreakBannerArr.length; i++) {
+      var obj = {};
+  
+      obj['image'] = imageBreakBannerArr[i];
+      obj['color'] = imageBreakTextColor[i];
+      obj['header'] = imageBreakHeaderArr[i];
+      obj['subcopy'] = imageBreakSubcopyArr[i];
+      obj['ctaColor'] = imageBreakCTAColor[i];
+      obj['ctaAction'] = imageBreakLinkArr[i];
+      obj['ctaText'] = imageBreakTextArr[i];
+      obj['position'] = imageBreakPositionArr[i];
+      
+      imageBreakArr.push(obj);
+    }
+      
+    var countRenderRight = 1;
+    var countRenderLeft = 0;
+    var collectionImageBreak = imageBreakArr.length > 0 ? imageBreakArr : "";
+    const productsCount = parseInt("{{collection.products_count}}");
+  
+    let isSidebarOpen = false;
+    function toggleInteractiveBanner(id) {
+      $(id).addClass('open')
+        .parents('html').addClass('disable-scroll')
+        .find('.close-interactive-banner').on('click', function() {
+          $(id).removeClass('open');
+          $('html').removeClass('disable-scroll');
+          isSidebarOpen = false;
+        });
+      setTimeout(() => {
+        isSidebarOpen = true;
+      }, 100)
+    }
+  
+    $(document).on('click', function(event) {
+      var $target = $(event.target);
+      if(isSidebarOpen && $target.hasClass('interactive-banner-container')) {
+        $('.interactive-banner-container').removeClass('open');
+        $('html').removeClass('disable-scroll');
+      }
+    });
+  // [Feature][Rose] Image Break end
+</script>
+
+<script defer>
+  const collection = {{ collection | json }};
+  const collectionTitle = collection.title;
+  
+  const MAX_INTERVAL = 20;
+  let INTERVAL = 0;
+  if (collectionTitle === "Optical") {
+    const waitForLensOption = setInterval(() => {
+      const [lensOption] = document.getElementsByClassName("bc-sf-filter-option-block-lens-color");
+  
+      if (!!lensOption) {
+        lensOption.style.display = "none";
+        clearInterval(waitForLensOption);
+      }
+  
+      if (MAX_INTERVAL === INTERVAL) {
+        clearInterval(waitForLensOption);
+      }
+  
+      INTERVAL++;
+    }, 200);
+  }
+</script>
+
+{% comment %} {% section 'explore-slider-section' %}
+{% section 'collections-interactive-banner-1' %}
+{% section 'collections-interactive-banner-2' %}
+{% section 'collections-interactive-banner-3' %}
+{% section 'collections-interactive-banner-4' %}
+{% section 'collections-interactive-banner-5' %}
+{% section 'collections-interactive-banner-6' %}
+{% section 'collections-interactive-banner-7' %}
+{% section 'collections-interactive-banner-8' %}
+{% section 'collections-interactive-banner-9' %}
+{% section 'collections-interactive-banner-10' %} {% endcomment %}

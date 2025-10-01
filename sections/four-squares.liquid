@@ -1,0 +1,86 @@
+{{ 'four-squares.css' | asset_url | stylesheet_tag }}
+
+<div class="four-squares-container" id="four-squares">
+  <div class="four-square-top">
+    <img class="four-sqaure-image" src="{{ section.settings.top_image }}"
+      loading="lazy" />
+    <div class="four-square-content">
+      <h5>{{ section.settings.top_title }}</h5>
+      {{ section.settings.top_content }}
+      <a href="{{ section.settings.top_button_url }}" id="top-button">
+        {{ section.settings.top_button_label }}
+      </a>
+    </div>
+  </div>
+
+</div>
+<div class="four-square-bottom">
+  <img class="four-sqaure-image" src="{{ section.settings.bottom_image }}"
+    loading="lazy" />
+  <div class="four-square-content">
+    <h5>{{ section.settings.bottom_title }}</h5>
+    {{ section.settings.bottom_conten_one }}
+    {{ section.settings.bottom_content_two }}
+  </div>
+</div>
+
+</div>
+</div>
+
+{%- schema -%}
+{
+"name": "Four Squares",
+"settings": [
+{
+"type": "url",
+"id": "top_image",
+"label": "Top Image"
+},
+{
+"type": "text",
+"id": "top_title",
+"label": "Title (Top)"
+},
+{
+"type": "richtext",
+"id": "top_content",
+"label": "Content (Top)"
+},
+{
+"type": "text",
+"id": "top_button_label",
+"label": "Button Label (Top)"
+},
+{
+"type": "url",
+"id": "top_button_url",
+"label": "Button URL (Top)"
+},
+{
+"type": "url",
+"id": "bottom_image",
+"label": "Bottom Image"
+},
+{
+"type": "text",
+"id": "bottom_title",
+"label": "Title (Bottom)"
+},
+{
+"type": "richtext",
+"id": "bottom_conten_one",
+"label": "Content (Bottom)"
+},
+{
+"type": "richtext",
+"id": "bottom_content_two",
+"label": "Content (Bottom)"
+}
+],
+"presets": [
+{
+"name": "Four Squares"
+}
+]
+}
+{%- endschema -%}

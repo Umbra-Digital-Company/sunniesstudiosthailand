@@ -1,0 +1,8 @@
+<div class="Orders">
+  {% if customer.orders_count > 0 %}
+    {% render 'customer_order_table' %}
+  {% else %}
+    <p class="Orders__none">You have no past orders.</p>
+    <a href="/collections/all" type="button" class="Button Orders__shop">Start Shopping</a>
+  {% endif %}
+</div>

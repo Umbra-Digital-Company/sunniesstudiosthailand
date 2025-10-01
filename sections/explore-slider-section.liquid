@@ -1,0 +1,218 @@
+{%- assign _section = section.settings -%}
+{%- assign TtlSection = _section.page_section_title %}
+
+{%- if section.blocks.size > 0 -%}
+<section class="section__explore">
+  <div class="shell">
+    <div class="explore__wrapperInner">
+      <h2 class="explore__wrapperTitle">{{ TtlSection }}</h2>
+
+      <div class="exploreCards">
+        <div class="swiper swiper-explore">
+          <div class="swiper-wrapper">
+            {%- for block in section.blocks -%}
+            {%- assign _block = block.settings -%}
+            {%- assign img = _block.explore_img -%}
+            {%- assign caption = _block.img_caption_link -%}
+            <div class="swiper-slide">
+              <div class="exploreCards__item">
+                <div class="exploreCards__itemLink">
+                  <figure class="exploreCards__itemKv">
+                    <img src="{{img | image_url}}" alt="">
+                  </figure>
+                  <div class="exploreCards__itemCaption">
+                    {{ caption }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {%- endfor -%}
+            </div>
+            <div class="swiper-pagination"></div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </section>
+            {%- endif -%}
+<style>
+  .explore__wrapperTitle {
+    font-size: 36px;
+    color: #352B27;
+    font-family: 'AT Surt Medium';
+  }
+    .explore__wrapperInner {
+        padding: 40px 0 100px;
+    }
+
+    .exploreCards {
+        margin-top: 40px;
+    }
+
+    .exploreCards__item {
+        width: 100%;
+    }
+
+    .exploreCards__itemLink {
+        display: block;
+        width: 100%;
+        color: #352B27;
+    }
+
+    .exploreCards__itemKv {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .exploreCards__itemKv img {
+        width: 100%;
+    }
+
+    .exploreCards__itemCaption {
+        margin-top: 24px;
+    }
+
+    .exploreCards__itemCaption * {
+        font-size: 16px;
+        color: #352B27;
+        line-height: 1.2;
+        font-family: 'Radio Grotesk';
+    }
+
+    .exploreCards__itemCaption a {
+        text-decoration: none;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 4px;
+    }
+
+    .exploreCards__itemCaption a:before {
+        content: '';
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        position: absolute;
+        background: #352B27;
+    }
+
+    .exploreCards__itemCaption a:hover {
+        color: #352B27;
+    }
+
+    .explore__wrapperInner .swiper-pagination {
+        display: none;
+    }
+
+    @media only screen and (max-width: 767px) {
+
+        .explore__wrapperInner .swiper-horizontal>.swiper-pagination-bullets,
+        .explore__wrapperInner .swiper-pagination-bullets.swiper-pagination-horizontal,
+        .explore__wrapperInner .swiper-pagination-custom,
+        .swiper-pagination-fraction {
+            bottom: 0;
+        }
+
+        .explore__wrapperInner .swiper-pagination {
+            display: block;
+        }
+
+        .explore__wrapperInner .swiper-pagination-bullet {
+            background: transparent;
+            width: 8px;
+            height: 8px;
+            opacity: 100%;
+            border-radius: 50%;
+            border: 1.5px solid #352B27;
+        }
+
+        .explore__wrapperInner .swiper-pagination-bullet-active {
+            border: 1.5px solid #352B27;
+            background: #352B27;
+        }
+
+        .explore__wrapperInner {
+            padding: 0 16px 52px;
+            overflow: hidden;
+        }
+
+        .explore__wrapperTitle {
+            font-size: 28px;
+        }
+
+        .exploreCards {
+            width: 100%;
+            margin-top: 16px;
+            overflow: visible;
+        }
+
+        .exploreCards .swiper-explore {
+            margin: 0;
+            overflow: hidden;
+            padding-bottom: 40px;
+        }
+
+        .exploreCards__item {
+            width: 100%;
+        }
+
+        .exploreCards__item:nth-child(n+3) {
+            margin-top: 40px;
+        }
+
+        .swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+          margin: 0 var(--swiper-pagination-bullet-horizontal-gap,8px);
+        }
+    }
+</style>
+<script>
+  const swiper = new Swiper('.swiper-explore', {
+    loop: false,
+    breakpoints: {
+        320: {
+            loop: true,
+            slidesPerView: 2,
+            spaceBetween: 12
+        },
+        767: {
+            slidesPerView: 4,
+            spaceBetween: 24,
+        }
+    },
+    pagination: {
+        el: '.swiper-explore .swiper-pagination',
+    },
+  });
+</script>
+{% schema %}
+{
+  "name": "Explore",
+  "settings": [
+    {
+      "type": "text",
+      "id": "page_section_title",
+      "label": "Section Title"
+    }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "explore_items",
+      "name": "Explore Items",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "explore_img",
+          "label": "Select Image"
+        },
+        {
+          "type": "richtext",
+          "id": "img_caption_link",
+          "label": "Image Caption/Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

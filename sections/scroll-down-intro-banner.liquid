@@ -1,0 +1,62 @@
+{{ 'scroll-down-intro-banner.css' | asset_url | stylesheet_tag }}
+
+<div class="scroll-down-intro-banner-container">
+  {%- if section.settings.hero-banner-option == true -%}
+    <video class="scroll-down-hero-banner-img-desktop" autoplay muted loop
+      playsinline>
+      <source src="{{ section.settings.hero-banner-desktop }}" type="video/mp4">
+    </video>
+    <video class="scroll-down-hero-banner-img-mobile" autoplay muted loop
+      playsinline>
+      <source src="{{ section.settings.hero-banner-mobile }}" type="video/mp4">
+    </video>
+  {%- else -%}
+    <div class="scroll-down-hero-banner-img-desktop">
+      <img src="{{ section.settings.hero-banner-desktop }}">
+    </div>
+    <div class="scroll-down-hero-banner-img-mobile">
+      <img src="{{ section.settings.hero-banner-mobile }}">
+    </div>
+  {%- endif -%}
+  <div class="scroll-down-hero-banner-content"
+    onclick="document.querySelector('.block__cta').scrollIntoView(false);">
+    <span>{{ section.settings.banner_scroll_down_label }}</span>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M3.33398 6.66675L10.0007 13.3334L16.6673 6.66675" stroke="white"
+        stroke-width="2.5" stroke-linecap="square" />
+    </svg>
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "Scroll Down Intro Banner",
+"settings": [
+{
+"type": "checkbox",
+"id": "hero-banner-option",
+"label": "Video asset",
+"default": true
+},
+{
+"type": "url",
+"id": "hero-banner-desktop",
+"label": "Hero Banner (Desktop)(MP4)"
+},
+{
+"type": "url",
+"id": "hero-banner-mobile",
+"label": "Hero Banner (Mobile)(MP4)"
+},
+{
+"type": "text",
+"id": "banner_scroll_down_label",
+"label": "Scroll Down Label"
+}
+],
+"presets": [{
+"name": "Scroll Down Intro Banner"
+}]
+}
+{% endschema %}

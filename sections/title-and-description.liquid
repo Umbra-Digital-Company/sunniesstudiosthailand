@@ -1,0 +1,27 @@
+<div class="title-and-description-container">
+  <h2>{{ section.settings.title }}</h2>
+  <p>{{ section.settings.description }}</p>
+</div>
+
+{% schema %}
+{
+  "name": "Title and Description",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Title and Description"
+    }
+  ]
+}
+{% endschema %}

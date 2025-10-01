@@ -1,0 +1,709 @@
+{% liquid
+  assign list_id = settings.newsletter_subs_popup_list_id
+  assign heading = settings.newsletter_subs_popup_heading
+  assign success_message = settings.newsletter_subs_popup_success_message
+%}
+<style>
+  .newsletter_subs_modal {
+    overflow: auto;
+    z-index: 1000;
+    opacity: 1 !important;
+    background: none;
+  }
+  .newsletter_subs_modal .klaviyo_inner {
+    padding: 40px 16px;
+    background-color: #FFF;
+    background-image: none;
+    box-shadow: none;
+    padding: 40px;
+    font-family: 'Radio Grotesk';
+    border-radius: 12px;
+    position: absolute;
+    margin-left: 0;
+    width: 90%;
+    max-width: 360px;
+    left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.16);
+  }
+  .newsletter_subs_modal .klaviyo_header_close {
+    font-size: 28px;
+    color: #352B27;
+    height: 16px;
+    width: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 12px;
+    right: 12px;
+    position: absolute;
+    text-decoration: none;
+    opacity: 1;
+  }
+  .newsletter-subs-modal__form h1 {
+    color: var(--soft-black-700, #352B27);
+    text-align: center;
+    
+    /* Text md/Semibold */
+    font-family: 'At-Surt-Semibold';
+    font-size: 14px;
+    font-style: normal;
+    line-height: 20px; /* 142.857% */
+    margin-bottom: 24px;
+  }
+
+  .newsletter-subs-modal__form h1 .subcopy {
+      color: var(--soft-black-700, #352B27);
+      text-align: center;
+      font-family: 'Radio Grotesk';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+      margin-top: 8px;
+      display: inline-block;
+  }
+  
+  .newsletter_subs_modal .klaviyo_form_actions {
+    border: 0;
+    padding-top: 0;
+  }
+  .newsletter_subs_modal {
+    max-width: unset;
+    margin-bottom: 0;
+  }
+  .newsletter_subs_modal .klaviyo_form_actions {
+    text-align: left;
+  }
+  .newsletter_subs_modal .newsletter-subs-modal__submit-btn {
+    display: none;
+  }
+  .newsletter_subs_modal .klaviyo_field_group {
+    margin-bottom: 0;
+    padding: 0;
+  }
+  .newsletter_subs_modal .klaviyo_field_group input {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    margin: 0;
+    width: 100%;
+    color: var(--black_color);
+  }
+  .newsletter_subs_modal .klaviyo_field_group label[for="email"] {
+    display: none;
+  }
+  .newsletter_subs_modal .klaviyo_field_group input[name="email"] {
+    border: 0;
+    padding: 15px 12px;
+    border-radius: 0;
+    text-transform: unset;
+    color: var(--black_color);
+    border-radius: 8px;
+    background: var(--soft-black-50, #F8F8F8);
+  }
+  .newsletter_subs_modal .klaviyo_field_group input::placeholder {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    /* color: var(--light_brown_color); */
+    color: #AEAAA9;
+    text-transform: initial;
+  }
+  .newsletter_subs_modal input[type='email'] ~ hr{
+    background-color: var(--black_color);
+    border: none;
+    border-bottom: 1.5px solid var(--black_color);
+  }
+  .newsletter_subs_modal .klaviyo_field_group label[for="birthday"] {
+    border: 0;
+    padding: 15px 12px;
+    border-radius: 0;
+    text-transform: unset;
+    /* color: var(--light_brown_color); */
+    color: #AEAAA9;
+    border-radius: 8px;
+    background: var(--soft-black-50, #F8F8F8);
+    margin-top: 8px;
+    display: block;
+}
+  .newsletter_subs_modal .birthday-submit-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .newsletter_subs_modal .klaviyo_field_group .birthday-input {
+    display: flex;
+    gap: 0px;
+    margin-top: 8px;
+    flex-grow: 1;
+    padding: 15px 12px;
+    border-radius: 8px;
+    width: 100%;
+    background: var(--soft-black-50, #F8F8F8);
+  }
+  .klaviyo_field_group:has(> .input-error-message) #email,
+  .klaviyo_field_group:has(.birthday-submit-wrapper > .input-error-message) label[for='birthday'],
+  .klaviyo_field_group:has(.birthday-submit-wrapper > .input-error-message) .birthday-input  {
+    border: 1px solid #B44720;
+  }
+  
+  input#birthdayMonth,
+  input#birthdayDay {
+    max-width: 31px;
+    width: 31px;
+  }
+  .newsletter_subs_modal .klaviyo_field_group .birthday-input__input-container + span {
+    font-family: 'AT-Surt-Semibold';
+    line-height: 135%;
+    margin: 0 5px;
+  }
+  .newsletter_subs_modal .klaviyo_field_group .birthday-input .birthday-input__input-container {
+    display: block;
+    width: fit-content;
+    flex-direction: column;
+  }
+  .newsletter_subs_modal .klaviyo_field_group .birthday-input input {
+    padding: 0;
+    border: 0;
+    color: var(--black_color);
+    /* padding-bottom: 14px; */
+  }
+  .newsletter_subs_modal .input-error-message {
+    padding-bottom: 4px;
+    line-height: 100%;
+        font-size: 9px;
+    color: #B44720;
+    font-family: 'Radio Grotesk';
+    display: block;
+    margin: 4px auto 0 0;
+  }
+  .newsletter_subs_modal .klaviyo_submit {
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .newsletter_subs_modal .klaviyo_messages .success_message {
+    font-family: 'Radio Grotesk';
+    color: #352B27;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 0;
+    line-height: 150%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    row-gap: 8px;
+  }
+  .newsletter_subs_modal .klaviyo_messages .success_message .success-top {
+    font-family: 'AT-SURT-SEMIBOLD';
+  }
+
+  .success-cta {
+      margin: 20px auto 0;
+      width: fit-content;
+      padding: 12px 40px;
+      border-radius: 8px;
+      background: #352B27;
+      color: white !important;
+      text-decoration: none;
+      font-family: 'Radio Grotesk';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+  }
+  
+  .newsletter_subs_modal .newsletter-subs-modal__btn{
+    display: inline-block;
+    border-radius: 8px;
+    padding: 12px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--black_color);
+    color: var(--base-white, #FFF);
+    
+    /* Text md/Regular */
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+    border: 1px solid transparent;
+  }
+  .newsletter_subs_modal .newsletter-subs-modal__btn:hover{
+    background: white;
+    border: 1px solid #352b27;
+    color: #352b27;
+  }
+  .newsletter_subs_modal .error_message {
+    margin-top: 16px;
+  }
+
+  .newsletter-subs-modal__form .klaviyo_field_group:focus-within label[for="birthday"],
+  .newsletter-subs-modal__form .klaviyo_field_group:hover label[for="birthday"],
+.newsletter_subs_modal .klaviyo_field_group .birthday-submit-wrapper:hover label[for="birthday"],
+.newsletter_subs_modal .klaviyo_field_group label[for="birthday"]:hover{
+  display:none;
+}
+
+.newsletter_subs_modal .klaviyo_field_group .birthday-input{
+  display: none;
+}
+  .klaviyo_field_group:focus-within .birthday-input,
+  .klaviyo_field_group:hover .birthday-input,
+.newsletter_subs_modal .klaviyo_field_group .birthday-submit-wrapper:hover .birthday-input{
+    display: flex;
+  }
+
+.klaviyo_field_group .birthday-input.has-value,
+.klaviyo_field_group .birthday-submit-wrapper.has-value .birthday-input {
+  display: flex !important;
+}
+
+.klaviyo_field_group .birthday-submit-wrapper.has-value label[for="birthday"] {
+  display: none !important;
+}
+
+.birthday-input.has-value .birthday-input__display {
+  opacity: 0 !important;
+}
+  
+.shopping-for__input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.shopping-for__input-container h3 {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  color: var(--soft-black-700, #352B27);
+  line-height: 20px;
+  margin-bottom: 8px;
+}
+
+.shopping-preference {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+}
+
+.shopping-preference div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shopping-preference div:last-child {
+  margin-right: 26px;
+}
+
+.shopping-preference div input[type="radio"] {
+  appearance: none;
+  width: 24px !important;
+  height: 24px;
+  border: 1px solid #D7D6D0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.shopping-preference div input[type="radio"]:checked {
+  background-color: #FFF;
+  border-style: outset;
+  border: 1px solid #352B27;
+  position: relative;
+}
+
+.shopping-preference div input[type="radio"]:checked::after {
+  content: '';
+  display: flex;
+  width: 70%;
+  height: 70%;
+  border-radius: 100%;
+  background: #352b27;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.shopping-preference div label {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  color: var(--soft-black-600, #554D4A);
+  line-height: 20px;
+  margin-left: 8px;
+}
+
+.shopping-preference input {
+    width: auto !important;
+}
+
+  @media only screen and (min-width: 769px) {
+    .newsletter_subs_modal .klaviyo_inner {
+      padding: 40px 16px;
+      width: 100%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      bottom: unset;
+    }
+    .newsletter_subs_modal .klaviyo_field_group .birthday-input {
+      /* padding-left: 35px; */
+    }
+    .newsletter_subs_modal .klaviyo_field_group input[name="email"], 
+    .newsletter_subs_modal .klaviyo_field_group input::placeholder, 
+    .newsletter_subs_modal .klaviyo_field_group label[for="birthday"], 
+    .newsletter_subs_modal .klaviyo_field_group .birthday-input input, 
+    .newsletter_subs_modal .klaviyo_field_group .birthday-input input::placeholder {
+      font-size: 14px;
+    }
+    .newsletter_subs_modal .klaviyo_messages .success_message {
+      /* font-size: 16px; */
+    }
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  #newsletterSubsModalSubmitBtnCustom {
+    margin-top: 40px;
+  }
+
+  .klaviyo_styling .klaviyo_messages .success_message h2 {
+    justify-content: center;
+  }
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+  
+</style>
+{% if template == 'index' %}
+  <div class="klaviyo_modal newsletter_subs_modal" id="newsletterSubsModal" style="display:none;">
+    <div class="klaviyo_inner">
+    <a href="#" class="klaviyo_close_modal klaviyo_header_close"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <path d="M3 3L13 13M13 3L3 13" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg></a>
+    <div class="newsletter-subs-modal__form">
+    <form action="//manage.kmail-lists.com/subscriptions/subscribe" 
+        data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe"
+        id="newsletterSubsModalForm" 
+        method="POST"
+        novalidate="novalidate"
+        class="klaviyo_gdpr_embed_TiyRsr">
+        <input type="hidden" name="g" value="{{ list_id }}">
+        <input type="hidden" name="$fields" value="Birthday,Shopping_For,$source">
+        <input type="hidden" name="Shopping_For" id="popup_shopping_for_hidden" value="">
+        <input type="hidden" name="$source" value="Popup">
+        <h1 class="hide_on_submit">Good stuff, straight to your inbox.<br><span class="subcopy">10% off your first purchase</span></h1>
+        <div class="klaviyo_field_group hide_on_submit">
+          <label for="email">Email</label>
+          <input class="" type="email" value="" name="email" id="email" placeholder="Email address" />
+          <label for="birthday">Birthday</label>
+          <input class="" type="hidden" value="" name="Birthday" id="birthday"/>
+          <div class="birthday-submit-wrapper">
+            <div class="birthday-input">
+              <div class="birthday-input__input-container">
+                <input id="birthdayMonth" type="number" value="" min="1" max="12" placeholder="MM" maxlength="2"/>
+              </div>
+              <span>/</span>
+              <div class="birthday-input__input-container">
+                <input id="birthdayDay" type="number" value="" min="1" max="31" placeholder="DD" maxlength="2"/>
+              </div> 
+              <span>/</span>
+              <div class="birthday-input__input-container"> 
+                <input id="birthdayYear" type="number" value="" min="1000" placeholder="YYYY" maxlength="4"/>
+              </div>     
+            </div>
+            <div class="shopping-for__input-container">
+              <h3>Shopping for:</h3>
+              <div class="shopping-preference">
+                <div>
+                  <input type="radio" id="eyewear" name="shopping_for" value="Eyewear">
+                  <label for="eyewear">Eyewear</label>
+                </div>
+                <div>
+                  <input type="radio" id="flask" name="shopping_for" value="Flask">
+                  <label for="flask">Flask</label>
+                </div>
+                <div>
+                  <input type="radio" id="both" name="shopping_for" value="Both">
+                  <label for="both">Both</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Add success message section mirroring the newsletter-subscription.liquid pattern -->
+        <div class="klaviyo_messages">
+          <div class="success_message" style="display:none;">
+            {{ success_message }}
+            <a href="/collections/all" class="success-cta">Browse products</a>
+          </div>
+          <div class="error_message" style="display:none;"></div>
+        </div>
+        
+        <div class="klaviyo_submit">
+          <button type="submit" class="newsletter-subs-modal__submit-btn">Subscribe</button> 
+          <button type="button" id="newsletterSubsModalSubmitBtnCustom" class="newsletter-subs-modal__btn">
+            Subscribe
+          </button> 
+        </div>
+      </form>
+    </div>
+    </div>
+  </div>
+{% endif %}
+<script src="{{ 'validate-string-date.js' | asset_url }}" defer="defer"></script>
+<script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+<script type="text/javascript">
+  // Cookie functions "1 day expiry"
+  function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
+
+  function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  // Show popup function
+  function showNewsletterPopup() {
+    if (!getCookie('newsletterPopupShownToday')) {
+      setTimeout(() => {
+        console.log("Showing Klaviyo popup...");
+        document.getElementById('newsletterSubsModal').style.display = 'block';
+        
+        setCookie('newsletterPopupShownToday', 'true', 1);
+        
+        KlaviyoSubscribe.attachToModalForm('#newsletterSubsModal', {
+          delay_seconds: 0.01,
+          success: function ($form) {
+            console.log("Form submitted successfully.");
+            $('#newsletterSubsModal h1').hide();
+            $('#newsletterSubsModal .klaviyo_submit').hide();
+            document.querySelector('#newsletterSubsModal .hide_on_submit').style.display = "none";
+            document.querySelector('#newsletterSubsModal .success_message').style.display = "block";
+          },
+          custom_success_message: true,
+          has_closed_modal_cookie_name: 'newsletterSubsModalClosed'
+        });
+      }, 1000);
+    } else {
+      console.log("Newsletter popup already shown today.");
+    }
+  }
+
+  function closeNewsletterModal() {
+    document.getElementById('newsletterSubsModal').style.display = 'none';
+    
+    setCookie('newsletterSubsModalClosed', 'true', 7);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('newsletterSubsModal').style.display = 'none'; // Set to block to show the modal - test mode
+    
+    document.querySelector('.klaviyo_close_modal').addEventListener('click', function(event) {
+      event.preventDefault();
+      closeNewsletterModal();
+    });
+    
+    showNewsletterPopup();
+  });
+
+  const isEmail = (email) => {
+    const regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+  };
+
+  const validate = (values) => {
+    const errors = {};
+
+    if (!values.email) {
+      errors.email = "Invalid email address";
+    } else if (!isEmail(values.email)) {
+      errors.email = "Invalid email address";
+    }
+
+    if (!values.birthdayMonth) {
+      errors.birthdayMonth = "Invalid birthday";
+    } else if (values.birthdayMonth < 1 || values.birthdayMonth > 12) {
+      errors.birthdayMonth = "Invalid birthday";
+    }
+
+    if (!values.birthdayDay) {
+      errors.birthdayDay = "Invalid birthday";
+    } else if (values.birthdayDay < 1 || values.birthdayDay > 31) {
+      errors.birthdayDay = "Invalid birthday";
+    }
+
+    if (!values.birthdayYear) {
+      errors.birthdayYear = "Invalid birthday";
+    } else if (values.birthdayYear < 1000 || values.birthdayYear > new Date().getFullYear()) {
+      errors.birthdayYear = "Invalid birthday";
+    }
+    
+    if (!values.shoppingFor) {
+      errors.shoppingFor = "Please select an option";
+    }
+
+    return errors;
+  };
+
+  const getValues = () => {
+    const values = {};
+    values.email = $(".newsletter-subs-modal__form input[name='email']").val();
+    values.birthdayMonth = $(".newsletter-subs-modal__form #birthdayMonth").val();
+    values.birthdayDay = $(".newsletter-subs-modal__form #birthdayDay").val();
+    values.birthdayYear = $(".newsletter-subs-modal__form #birthdayYear").val();
+    values.shoppingFor = $(".newsletter-subs-modal__form input[name='shopping_for']:checked").val();
+    return values;
+  };
+
+  const renderErrors = (errors) => {
+    $(".newsletter-subs-modal__form input[name='email']").next('.input-error-message:first').remove();
+    $(".newsletter-subs-modal__form .birthday-input").next('.input-error-message:first').remove();
+    $(".newsletter-subs-modal__form .shopping-preference").next('.input-error-message:first').remove();
+
+    if (errors.email) {
+      $(`<span class="input-error-message">${errors.email}</span>`).insertAfter(".newsletter-subs-modal__form input[name='email']");
+    }
+    if (errors.birthdayMonth || errors.birthdayDay || errors.birthdayYear) {
+      $(`<span class="input-error-message">Please enter a valid birthday</span>`).insertAfter(".newsletter-subs-modal__form .birthday-input");
+    }
+    if (errors.shoppingFor) {
+      $(`<span class="input-error-message">${errors.shoppingFor}</span>`).insertAfter(".newsletter-subs-modal__form .shopping-preference");
+    }
+  };
+
+  const passValuesToHiddenInputs = () => {
+    let month = parseInt($(".newsletter-subs-modal__form #birthdayMonth").val());
+    let day = parseInt($(".newsletter-subs-modal__form #birthdayDay").val());
+    const year = $(".newsletter-subs-modal__form #birthdayYear").val();
+    
+    month = month < 10 ? '0' + month : month;
+    day = day < 10 ? '0' + day : day;
+    
+    if (month && day && year) {
+      const formattedDate = month + '/' + day + '/' + year;
+      $('.newsletter-subs-modal__form input[name="Birthday"]').val(formattedDate);
+    }
+    
+    // Handle shopping preference
+    const shoppingFor = $(".newsletter-subs-modal__form input[name='shopping_for']:checked").val();
+    if (shoppingFor) {
+      $('#popup_shopping_for_hidden').val(shoppingFor);
+    }
+  };
+
+  $('#newsletterSubsModalSubmitBtnCustom').click(function(event) {
+    event.preventDefault();
+    const errors = validate(getValues());
+    renderErrors(errors);
+    if ($.isEmptyObject(errors)) {
+      passValuesToHiddenInputs();
+      
+      // Use AJAX submission instead of clicking the button
+      $.ajax({
+        type: "POST",
+        url: "//manage.kmail-lists.com/ajax/subscriptions/subscribe",
+        data: $("#newsletterSubsModalForm").serialize(),
+        success: function(response) {
+          $('#newsletterSubsModal h1').hide();
+          $('#newsletterSubsModal .klaviyo_submit').hide();
+          $('#newsletterSubsModal .hide_on_submit').hide();
+          $('#newsletterSubsModal .success_message').show();
+        },
+        error: function(xhr, status, error) {
+          console.error("Form submission error:", error);
+          $('#newsletterSubsModal .error_message').html("There was an error with your submission. Please try again.").show();
+        }
+      });
+    } else {
+      console.log("Form submission blocked due to validation errors.");
+    }
+  });
+
+  $(document).ready(function() {
+    // Add input validation and formatting for month field
+    $('#birthdayMonth').on('input', function() {
+      const val = $(this).val();
+      if (val.length >= 2) {
+        $('#birthdayDay').focus();
+      }
+      if (parseInt(val) > 12) {
+        $(this).val(12);
+      }
+    });
+    
+    // Add input validation and formatting for day field
+    $('#birthdayDay').on('input', function() {
+      const val = $(this).val();
+      if (val.length >= 2) {
+        $('#birthdayYear').focus();
+      }
+      if (parseInt(val) > 31) {
+        $(this).val(31);
+      }
+    });
+    
+    // Add input validation and formatting for year field
+    $('#birthdayYear').on('input', function() {
+      const val = $(this).val();
+      const currentYear = new Date().getFullYear();
+      if (val.length > 4) {
+        $(this).val(val.substring(0, 4));
+      }
+      if (parseInt(val) > currentYear) {
+        $(this).val(currentYear);
+      }
+    });
+    
+    $('#birthdayMonth, #birthdayDay, #birthdayYear').on('input change focus', function() {
+      const hasValue = $('#birthdayMonth').val() || $('#birthdayDay').val() || $('#birthdayYear').val();
+      
+      if (hasValue) {
+        $('.birthday-submit-wrapper').addClass('has-value');
+        $('.birthday-input').addClass('has-value');
+        $('label[for="birthday"]').hide();
+        $('.birthday-input').css('display', 'flex');
+      }
+    });
+    
+    // Initial check on page load
+    const hasValue = $('#birthdayMonth').val() || $('#birthdayDay').val() || $('#birthdayYear').val();
+    
+    if (hasValue) {
+      $('.birthday-submit-wrapper').addClass('has-value');
+      $('.birthday-input').addClass('has-value');
+      $('label[for="birthday"]').hide();
+      $('.birthday-input').css('display', 'flex');
+    }
+  });
+</script>

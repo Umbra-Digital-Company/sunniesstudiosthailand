@@ -1,0 +1,184 @@
+{{ 'main-product-2024.css' | asset_url | stylesheet_tag }}
+{{ 'product-variants-2024.css' | asset_url | stylesheet_tag }}
+{{ 'product-add-to-bag-2024.css' | asset_url | stylesheet_tag }}
+{{ 'mini-product-card.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign item_type = ''
+  
+  if product.tags contains 'merch'
+  else
+    assign item_type = 'studios_frame'
+  endif
+
+  assign extra_video_desktop = product.metafields.media.extra_video_desktop_mobile.value | first
+  assign extra_video_mobile = product.metafields.media.extra_video_desktop_mobile.value | last
+%}
+
+<div
+  class="main-product-container"
+  data-section-id="{{ section.id }}"
+  data-section-type="product"
+>
+  <div class="main-product-wrapper">
+    <div class="vto-wrapper">
+      <div class="swym-button swym-add-to-wishlist swym-pdp-icon"
+      data-with-epi="true"
+      data-swaction="addToWishlist"
+      data-product-id="{{ product.id }}"
+      data-variant-id="{{ product.variants[0].id }}"
+      data-product-url="{{ shop.url }}{{ product.url }}">{% comment %}<img src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/Heart_Stroke.svg?v=1733389077" style="height: 18px; width: 20px;" alt="">{% endcomment %}
+    </div>
+      {% render 'product-vto' %}
+    </div>
+
+    <div>
+      {% unless extra_video_desktop == blank %}
+        {{ extra_video_desktop | video_tag: autoplay: true, loop: true, muted:true, class: "main-product-video-desktop" }}
+      {% endunless %} 
+
+      {% comment %} {% render 'desktop-product-vto' %} {% endcomment %}
+
+      {% render 'desktop-gallery' %}
+    </div>
+
+    <div class="product-details">
+      <header class="Product__header">
+        {% render 'product-information' %}
+
+        {% form 'product', product %}
+          <input
+            type="hidden"
+            name="id"
+            value="{{ current_variant.id }}"
+            class="js-variant-id"
+          >
+          <input type="hidden" name="properties[_item_type]" class="js-product-properties" value="{{item_type}}">
+
+          {% unless product.has_only_default_variant %}
+            {% render 'product-variants' %}
+          {% endunless %}
+
+          {% if current_variant.available %}
+            {% render 'product-add-to-bag' %}
+          {% else %}
+            {% render 'product-join-waitlist-button' with product_id: product.id, current_variant_id: current_variant.id %}
+          {% endif %}
+        {% endform %}
+
+        <div class="space-liner"></div>
+
+      </header>
+      {% unless extra_video_mobile == blank %}
+         {{ extra_video_mobile | video_tag: autoplay: true, loop: true, muted:true, class: "main-product-video-mobile" }}
+      {% endunless %}
+      {% render 'product-description-details' %}
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'product-information.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-description-accordion.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'mini-product-card.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'main-product-add-to-bag-handler.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pdp-cta.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Main Product 2024",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Callout"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_callout_hidden",
+      "label": "Hide Callout"
+    },
+    {
+      "type": "text",
+      "id": "callout_title",
+      "label": "Callout Title"
+    },
+    {
+      "type": "richtext",
+      "id": "callout_copy",
+      "label": "Callout Copy"
+    },
+    {
+      "type": "url",
+      "id": "callout_url",
+      "label": "Callout URL"
+    },
+    {
+      "type": "text",
+      "id": "callout_url_label",
+      "label": "Callout URL Label"
+    },
+    {
+      "type": "header",
+      "content": "What's included"
+    },
+    {
+      "type": "richtext",
+      "id": "whats_included_content",
+      "label": "What's Included Content"
+    },
+    {
+      "type": "header",
+      "content": "Pair nicely with"
+    },
+    {
+      "type": "product",
+      "id": "pair_product_one",
+      "label": "Pair Product One"
+    },
+    {
+      "type": "product",
+      "id": "pair_product_two",
+      "label": "Pair Product Two"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Product Made With",
+      "type": "product_made_with",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Product Made With",
+          "info": "To use this block, add block's title to variant metafields."
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "info": "To use this block, add this title to variant metafields."
+        },
+        {
+          "type": "url",
+          "id": "title_link",
+          "label": "Title Link"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Product 2024"
+    }
+  ]
+}
+{% endschema %}

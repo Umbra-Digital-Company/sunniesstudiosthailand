@@ -1,0 +1,248 @@
+{%- assign _section = section.settings -%}
+<style>
+    @media(min-width: 768px){
+        #{{ section.id }} {
+            max-height: 478px;
+        }
+    }
+    #{{ section.id }} .block-item .block__content {
+        font-family: 'Replica';
+        font-size: 22px;
+        text-transform: unset;
+        text-align: left;
+        padding: 0px;
+    }
+
+    @media( max-width: 768px){
+        #{{ section.id }} .block-item .block__content {
+            text-align: center;
+            padding: 0px;
+            position: relative;
+        }
+    }
+
+    #{{ section.id }} .block-item .block__content h3{
+        font-family: 'Replica';
+        text-transform: unset;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    @media(max-width: 768px){
+        #{{ section.id }} .block-item .block__content h3{
+            justify-content: center;
+        }
+    }
+
+    #{{ section.id }} .block-item .block__content {
+        font-family: 'Replica';
+        font-size: 14px;
+    }
+
+    #{{ section.id }} .block-items {
+        min-height: 478px;
+        margin: unset;
+        gap: 4px;
+    }
+    @media(max-width: 768px){
+        #{{ section.id }} .block-items {
+            flex-direction: column;
+        }
+    }
+
+    #{{ section.id }} .block-item{
+        padding: 40px;
+        background-repeat: no-repeat;
+        width: calc(50% - 4px);
+        height: 478px;
+    }
+
+    @media(max-width: 768px){
+        #{{ section.id }} .block-item{
+            width: 100%;
+            position: relative;
+        }
+    }
+
+    #{{ section.id }} .block-item .block__inner {
+        padding-top: unset;
+        height: 100%;
+    }
+    @media(max-width: 768px){
+        #{{ section.id }} .block-item .block__inner {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 40px;
+            height: unset;
+        }
+    }
+    #{{ section.id }} .block-item .block__image {
+        position: relative;
+    }
+
+</style>
+
+{%- if section.blocks.size > 0 -%}
+    <section id="{{ section.id }}">
+        <div class="block-items">
+            
+            {%- for block in section.blocks -%}
+                {%- assign _block = block.settings -%}
+                {%- assign block_image = _block.image -%}
+                {%- assign block_image_mobile = _block.image_mobile -%}
+                {%- assign block_video = _block.video_url -%}
+                {%- assign block_title = _block.title -%}
+                {%- assign block_subtext = _block.subtitle -%}
+                {%- assign block_text_color = _block.text_color -%}
+                {%- assign block_arrow_color = _block.arrow_color -%}
+                {%- assign block_url = _block.url -%}
+                
+
+                {%- if block_image != blank or block_video != blank -%}
+                    {%- assign first_order_class = 'block-item--first' -%}
+                {%- else -%}
+                    {%- assign first_order_class = '' -%}
+                {%- endif -%}
+
+                <a href="{{ block_url }}" target="_blank" id="{{ block.id }}" class="block-item {{first_order_class}}">
+                    <div class="block__inner">
+                        {%- if block_title != blank -%}
+                            <div class="block__content {{ block_text_align }}">
+                                {%- if block_title != blank -%}
+                                    <h3 style="color: {{block_text_color}};">{{ block_title }} <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1.33333 8.49997L14.6667 8.49997M14.6667 8.49997L9 13.8333M14.6667 8.49997L8.83333 3.16663" stroke="{{ block_text_color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    </h3>
+                                {%- endif -%}
+                                {%- if block_subtext != blank -%}
+                                    <p style="color: {{block_text_color}};">{{ block_subtext | newline_to_br }}</p>
+                                {%- endif -%}
+                            </div><!-- /.block__content -->
+                        {%- endif -%}
+                    </div><!-- /.block__inner -->
+                    <style>
+                        #{{ block.id }}{
+                            background-image: url({{block_image | img_url: '1450x'}});
+                            background-color: {{ _block.background_color }};
+                            background-image: url({{block_image | img_url: '1450x'}}), {{ _block.background_color }};
+                            background-size: {{ _block.backround_size }};
+                            background-position:  {{ _block.backround_position }};
+                        }
+                        @media(max-width: 768px){
+                            #{{ section.id }} #{{ block.id }}{
+                                aspect-ratio: 390 / 585;
+                                background-image: url({{block_image_mobile | img_url: '1450x'}});
+                                background-color: {{ _block.background_color }};
+                                background-image: url({{block_image_mobile | img_url: '1450x'}}), {{ _block.background_color }};
+                                height: auto;   
+                            }
+                            #{{ section.id }} #{{ block.id }}:nth-child(2){
+                                background-image: url({{block_image_mobile | img_url: '1450x'}}), linear-gradient(
+                                to right,
+                                #F2F1EF 0%,
+                                #ECEBE7 38%,
+                                #E7E2DF 58%,
+                                #DED9D6 83%,
+                                #E2E1DF 97%
+                            );
+                            }
+                        }
+                    </style>
+                </a><!-- /.block-item -->
+            {%- endfor -%}
+        </div><!-- /.block-items -->
+    </section><!-- /.section-blocks -->
+{%- endif -%}
+
+
+{% schema %}
+
+{
+    "name": "Flask 50/50 Banner",
+    "max_blocks": 2,
+    "blocks": [
+        {
+            "type": "box",
+            "name": "Block",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Desktop Background"
+                }, {
+                    "type": "image_picker",
+                    "id": "image_mobile",
+                    "label": "Mobile Background"
+                }, {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                }, {
+                    "type": "text",
+                    "id": "subtitle",
+                    "label": "Subtext"
+                }, {
+                    "type": "url",
+                    "id": "url",
+                    "label": "Link"
+                }, {
+                    "type": "select",
+					"id": "backround_position",
+					"label": "Background Position",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						}, {
+							"value": "center",
+							"label": "Center"
+						}, {
+							"value": "right",
+							"label": "Right"
+						}
+					],
+                    "default": "right"
+                }, {
+                    "type": "select",
+					"id": "backround_size",
+					"label": "Background Size",
+					"options": [
+						{
+							"value": "contain",
+							"label": "Contain"
+						}, {
+							"value": "cover",
+							"label": "Fill"
+						}
+					],
+                    "default": "contain"
+                }, {
+                    "type": "color_background",
+					"id": "background_color",
+					"label": "Background Color",
+                    "default": "#EAE5E2"
+                }, {
+                    "type": "color",
+					"id": "text_color",
+					"label": "Text Color",
+                    "default": "#352B27"
+                }, {
+                    "type": "color",
+					"id": "arrow_color",
+					"label": "Arrow Color",
+                    "default": "#F7CED6"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Flask 50/50 Banner"
+        }
+    ]
+}
+
+{% endschema %}
+

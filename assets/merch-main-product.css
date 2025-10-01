@@ -1,0 +1,220 @@
+.main-product-container {
+  padding: 0 16px;
+}
+
+.desktop-product-vto-container {
+  display: none;
+}
+
+.product-details {
+  width: 100%;
+}
+
+.product-information-container {
+  margin: 0 0 24px 0;
+}
+
+.product-infomation-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-infomation-header h1 {
+  font-family: "AT Surt Medium";
+  font-size: 20px;
+  line-height: 120%;
+  color: var(--black_color);
+  margin: 0;
+  padding: 0;
+}
+
+.product-infomation-header #product-price {
+  font-family: "AT Surt Medium";
+  font-size: 18px;
+  line-height: 120%;
+  color: var(--black_color);
+}
+
+.product-information-reviews {
+  display: flex;
+  align-items: center;
+}
+
+/* .product-information-review-stars {
+  margin: 0 0 2px 0;
+} */
+
+.product-information-review-stars img {
+  width: 18px;
+  height: 18px;
+  margin: 0 2px 0 0;
+}
+
+.product-information-review-info p {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 100%;
+  color: var(--black_color);
+  margin-top: 8px;
+}
+
+#join_waitlist {
+  border: none;
+  outline: none;
+  width: 100%;
+  border-radius: 8px;
+  padding: 12px 40px;
+  font-family: "AT Surt Medium";
+  font-size: 14px !important;
+  line-height: 100%;
+  margin: 0 0 8px 0;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .main-product-container {
+    padding: 0 40px 0 24px;
+  }
+
+  .main-product-wrapper {
+    display: flex;
+  }
+
+  .main-product-wrapper > div:first-child{
+    align-self: start;
+    position: sticky;
+    top: 100px;
+  }
+  
+  .desktop-product-vto-container {
+    width: 50%;
+    display: block;
+  }
+
+  .product-details {
+    width: 50%;
+    padding: 0 0 0 24px;
+  }
+
+  .product-vto-wrapper {
+    position: relative;
+  }
+
+  #desktop-virtual-try-on-btn {
+    background: var(--neutral_eight_color);
+    border-radius: 8px;
+    padding: 16px 40px;
+    font-family: "AT Surt Medium";
+    font-size: 16px;
+    line-height: 100%;
+    color: var(--black_color);
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 33px;
+    width: 190px;
+    margin: 0 auto;
+    border: 1.5px solid transparent;
+    z-index: 2;
+    display: none;
+  }
+
+  #desktop-virtual-retake-try-on-btn {
+    background: var(--neutral_eight_color);
+    border-radius: 8px;
+    padding: 16px 40px;
+    font-family: "AT Surt Medium";
+    font-size: 16px;
+    line-height: 100%;
+    color: var(--black_color);
+    border: none;
+    outline: none;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border: 1.5px solid transparent;
+    z-index: 10;
+    display: none;
+    border: 1.5px solid #efefec;
+  }
+
+  #desktop-virtual-try-on-btn:hover,
+  #desktop-virtual-retake-try-on-btn:hover {
+    border: 1.5px solid var(--black_color);
+  }
+
+  #desktop-swipe-to-rotate-text {
+    position: absolute;
+    bottom: 33px;
+    font-family: "AT Surt Medium";
+    font-size: 16px;
+    line-height: 100%;
+    color: var(--white_color);
+    z-index: 10;
+    width: 100%;
+    display: none;
+  }
+
+  .desktop-product-vto-container .Overlay-canvas {
+    width: auto !important;
+  }
+
+  #desktop-vto-overlay {
+    text-align: center;
+    position: relative;
+  }
+
+  .product-information-container {
+    margin: 24px 0 40px 0;
+  }
+
+  .product-infomation-header h1 {
+    font-size: 32px;
+  }
+
+  .product-infomation-header #product-price {
+    font-size: 18px;
+  }
+
+  .product-information-review-info p {
+    font-size: 16px;
+  }
+
+  #join_waitlist {
+    font-size: 14px;
+  }
+}
+
+.product-information-review-stars:has(img) {
+  margin-right: 8px;
+  position: relative;
+  top: 3px;
+}
+
+/* Size guide START */
+.size-guide-container {
+  align-self: flex-start;
+  margin-bottom: 24px;
+}
+
+.size-guide-line {
+  font-family: 'Radio Grotesk';
+}
+
+.size-guide-modal-trigger--dynamic {
+  cursor: pointer;
+}
+
+.size-guide-modal-trigger--dynamic .size-guide {
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .size-guide-container {
+    margin-bottom: 40px;
+  }
+}
+
+/* Size guide END */

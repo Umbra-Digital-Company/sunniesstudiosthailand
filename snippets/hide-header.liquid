@@ -1,0 +1,37 @@
+<script>
+  var mainChildren = document.querySelector('#MainContent').children
+  var styleElement = document.createElement('style');
+
+  styleElement.textContent = `  
+  #{{ page_title | handle }} .header{
+    background: transparent;
+  }
+  
+  #{{ page_title | handle }} .header.header-is-fixed,
+  #{{ page_title | handle }} .header:hover{
+    /*background: #fff;*/
+  }
+  
+  @media (min-width: 768px) {
+    #{{ page_title | handle }} .header
+    {
+      background: transparent;
+    }
+  
+    #{{ page_title | handle }} .header.header-is-fixed,
+    #{{ page_title | handle }} .header:hover
+    {
+      background: #fff;
+    }
+  }`;
+  if (mainChildren[0].classList.contains('image-banner')){
+    document.querySelector('#MainContent').appendChild(styleElement);
+  }
+
+
+  
+</script>
+
+<style>
+
+</style>

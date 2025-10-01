@@ -1,0 +1,458 @@
+.mini-product-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  display: flex;
+  margin: 0 0 12px 0;
+  border: 1px solid #EFEFEC;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mini-product-card-images {
+  min-height: 95px;
+  min-width: 120px;
+  height: 95px;
+  width: 120px;
+  cursor: pointer;
+}
+
+.mini-product-card-image {
+  display: none;
+  border-radius: 10px 0 0 10x;
+}
+
+.mini-product-card-image[data-first-available="true"] {
+  display: block;
+}
+
+.mini-product-card-details {
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+  background: #fff;
+}
+
+.mini-product-card-details-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mini-product-card-details-wrapper .title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.mini-product-card-details-wrapper .title-wrapper h3 {
+  font-family: "AT Surt Medium";
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--black_color);
+  margin: 0 0 4px 0;
+}
+
+.mini-product-card-prices li {
+  font-family: "AT Surt Medium";
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 12px;
+  color: var(--black_color);
+}
+
+.success_message h2 {
+  margin-bottom: 0 !important;
+}
+
+.mini-product-card-variants {
+  list-style-type: none;
+  font-family: 'Radio Grotesk';
+  font-size: 10px;
+  line-height: 100%;
+  color: #AEAAA9;
+}
+
+.mini-product-card-variants li {
+  display: none;
+}
+
+.mini-product-card-variants li[data-first-available="true"] {
+  display: block;
+}
+
+.mini-product-card-prices {
+  list-style-type: none;
+}
+
+.mini-product-card-prices li {
+  display: none;
+}
+
+.mini-product-card-prices li[data-first-available="true"] {
+  display: block;
+}
+
+.mini-product-card-swatches {
+  list-style-type: none;
+  display: flex;
+  overflow-x: auto;
+}
+
+.mini-product-card-swatches::-webkit-scrollbar {
+  height: 4px;
+}
+.mini-product-card-swatches::-webkit-scrollbar-track {
+  background: transparent; 
+}
+.mini-product-card-swatches:hover::-webkit-scrollbar-track {
+  background: var(--gray_color);
+}
+.mini-product-card-swatches::-webkit-scrollbar-thumb {
+  background: transparent; 
+}
+.mini-product-card-swatches:hover::-webkit-scrollbar-thumb {
+  background: var(--gray_color);
+}
+
+.mini-product-card-swatches li {
+  border-radius: 100%;
+  margin: 0 2px 2px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  min-height: 20px;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  border: 0.63px solid rgba(53, 43, 39, 0);
+}
+
+.mini-product-card-swatches li:hover {
+  border: 0.63px solid rgba(53, 43, 39, 0.2);
+}
+
+.mini-product-card-swatches li[data-is-available="false"] {
+  border: 0.63px solid #D7D6D0;
+}
+
+.mini-product-card-swatches li.current-active-swatch {
+  border: 0.63px solid var(--black_color);
+}
+
+.mini-product-card-swatches li.current-active-swatch:hover {
+  border: 0.63px solid var(--black_color);
+}
+
+#variant-not-available {
+  position: absolute;
+  height: 100%;
+  width: 0.63px;
+  background-color: #D7D6D0;
+  transform: rotateY(0deg) rotate(45deg);
+}
+
+.mini-product-card-swatches li div {
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+}
+
+.mini-product-card-actions-buttons {
+  display: none;
+  position: initial !important;
+}
+
+.mini-product-card-actions-buttons > a {
+  display: none;
+}
+
+.mini-product-card-actions-buttons[data-first-available="true"] {
+  display: flex;
+}
+
+.mini-product-card-actions-buttons[data-is-available="true"] a:not(:last-child){
+  display: flex;
+}
+
+.mini-product-card-actions-buttons[data-is-available="false"] a:last-child{
+  display: flex;
+}
+
+.mini-product-card-actions-buttons a img {
+  min-width: 8px;
+  min-height: 8px;
+}
+
+.mini-product-card-actions-buttons a {
+  text-decoration: none;
+  font-family: 'Radio Grotesk';
+  font-size: 11px;
+  line-height: 100%;
+  color: var(--neutral_eight_color);
+  width: 100%;
+  min-width: 64px;
+  background: var(--black_color);
+  border-radius: 4px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #EFEFEC;
+  padding: 6px;
+}
+
+.mini-product-card-actions-buttons > a.loading:first-child , .mini-product-card-actions-buttons > a.success:first-child {
+  border-color: transparent;
+  background-color: var(--neutra_seven_color);
+  pointer-events: none;
+}
+.mini-product-card-actions-buttons > a.loading:first-child > *, .mini-product-card-actions-buttons > a.success:first-child > * {
+  display: none;
+}
+
+.mini-product-card-actions-buttons > a.loading:first-child:after {
+  content: url('//cdn.shopify.com/s/files/1/0268/4141/5798/t/356/assets/loading-icon.svg?v=119789143952358447631678441813');
+  -webkit-animation: none;
+  height: 14px;
+  width: 14px;
+}
+
+.mini-product-card-actions-buttons > a.success:first-child:after {
+  content: url('//cdn.shopify.com/s/files/1/0268/4141/5798/t/356/assets/check-icon.svg?v=134107740177769714341678441827')
+}
+
+@media (max-width: 430px) {
+  .mini-product-card-actions-buttons > a.loading:first-child:after {
+    content: url('//cdn.shopify.com/s/files/1/0268/4141/5798/files/icon-plus-shop-the-feed.svg?v=1718694236');
+    -webkit-animation: none;
+    height: 14px;
+    width: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .mini-product-card-actions-buttons > a.success:first-child:after {
+    content: url('//cdn.shopify.com/s/files/1/0268/4141/5798/files/icon-plus-shop-the-feed.svg?v=1718694236');
+    height: 14px;
+    width: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.mini-product-card-actions-buttons a span {
+  line-height: 12px;
+  font-size: 11px;
+  font-family: 'Radio Grotesk';
+}
+
+/* .mini-product-card-actions-buttons a:hover {
+  border: 1px solid #EFEFEC;
+} */
+
+
+.mini-product-card-actions-buttons .bss_pl_img {
+  visibility: hidden;
+}
+
+.mini-product-card-details-wrapper-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.price-compare {
+  text-decoration: line-through;
+  color: #756F6D;
+  margin-right: 4px;
+}
+
+.price-highlight {
+  color: #B44720;
+}
+.mini-product-card-actions-buttons #joint-the-waitlist-button {
+  font-family: 'Radio Grotesk';
+  font-size: 11px;
+  padding: 6px;
+  color: var(--black_color) !important;
+  background-color: #fff !important;
+  border: 1px solid #EFEFEC !important;
+  height: auto;
+  min-width: fit-content;
+}
+.mini-product-card-actions-buttons #joint-the-waitlist-button {
+  font-size: 11px;
+  padding: 8px;
+}
+
+#joint-the-waitlist-button img {
+  min-width: 14px;
+  min-height: 12px;
+} 
+
+.mini-product-card-actions-buttons #joint-the-waitlist-button {
+    font-size: 11px;
+    padding: 6px;
+}
+
+
+@media (min-width: 1024px) {
+
+  .mini-product-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    border: 1px solid #EFEFEC;
+  }
+
+  .mini-product-card-details {
+    padding: 12px;
+  }
+
+  .mini-product-card-images {
+    min-width: 156px;
+    width: 153px;
+    height: 125px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mini-product-card-image {
+    border-radius: 10px 0 0 10px;
+    /* transform: scale(1.2);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.2);
+    position: absolute; */
+  }
+
+  .mini-product-card-details-wrapper .title-wrapper h3 {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .mini-product-card-prices li {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .mini-product-card-variants {
+    font-size: 10px;
+  }
+
+  .mini-product-card-swatches li {
+    margin: 0 2px 0 0;
+    min-width: 20px;
+    min-height: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .mini-product-card-swatches li div {
+    width: 15px;
+    height: 15px;
+  }
+
+  /* .mini-product-card-actions-buttons a {
+    font-size: 11px;
+    line-height: 16px;
+    border-radius: 4px;
+  } */
+
+  /* .mini-product-card-actions-buttons a:hover {
+    color: var(--black_color);
+    background-color: var(--neutral_eight_color);
+    border: 1.5px solid var(--black_color);
+  } */
+
+  /* .mini-product-card-actions-buttons a:hover img {
+    filter: brightness(0) saturate(100%) invert(13%) sepia(3%) saturate(4211%)
+      hue-rotate(331deg) brightness(94%) contrast(87%);
+  } */
+}
+@-webkit-keyframes rotation {
+  from {-webkit-transform: rotate(0deg);}
+  to   {-webkit-transform: rotate(359deg);}
+}
+
+.mini-product-card-actions-buttons[data-is-available=false] a:last-child {
+  background: white;
+}
+
+a#join-the-waitlist-button {
+  display: flex;
+  min-width: min-content;
+}
+
+.mini-product-card-actions-buttons[data-is-available=true] a:not(:last-child) {
+  display: flex;
+  min-width: fit-content;
+}
+
+@media(max-width: 430px){
+  .mini-product-card-images {
+    min-width: 156px;
+    width: 153px;
+    height: 125px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mini-product-card-image {
+    border-radius: 10px 0 0 10px;
+    /* transform: scale(1.2);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.2);
+    position: absolute; */
+  }
+  svg#mini-svg-icon path {
+    stroke: white;
+  }
+}
+.mini-product-card-actions-buttons a {
+  align-items: center;
+  overflow: hidden;
+  transition: all ease-in-out 0.3s;
+}
+
+.mini-product-card-actions-buttons a img,
+.mini-product-card-actions-buttons a svg {
+  display: inline-block;
+}
+
+.mini-product-card-actions-buttons a span {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  width: 0;
+}
+
+.mini-product-card-actions-buttons a:hover span {
+  width: auto;
+}
+
+@media (min-width: 431px) {
+  .mini-product-card-actions-buttons a {
+    background: #FFF;
+    color: #352B27;
+    transition: all ease-in-out 0.3s;
+  }
+
+  .mini-product-card-actions-buttons a:hover {
+    background: #352B27;
+    color: #FFF;
+  }
+}

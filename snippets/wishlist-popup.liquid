@@ -1,0 +1,109 @@
+<div class="wishlist-container">
+  <div id="wishlistModal" class="wishlist-wrapper" style="display: none;">
+    <span class="text-inline" id="wishlistText">
+      Successfully removed from the wishlist.
+    </span>
+    {% comment %} <div class="x-button" id="closeButton" onclick="closeWishlistModal()">
+      <img src="{{ 'x-close-button.svg' | asset_url }}">
+    </div> {% endcomment %}
+  </div>
+</div>
+
+<script>
+  (function () {
+    function onSwymLoadCallback(swat) {
+      const event = 'sw:removedfromwishlist';
+
+      const listener = function (e) {
+        const data = e.detail.d.productData;
+
+        openWishlistModal();
+      };
+
+      swat.evtLayer.addEventListener(event, listener);
+    }
+
+    function openWishlistModal() {
+      const modal = document.getElementById('wishlistModal');
+      const wishlistText = document.getElementById('wishlistText');
+
+      if (modal) {
+        modal.style.display = 'flex';
+        modal.classList.add('show');
+      }
+
+      setTimeout(() => {
+        closeWishlistModal();
+      }, 5000);
+    }
+
+    if (!window.SwymCallbacks) {
+      window.SwymCallbacks = [];
+    }
+    window.SwymCallbacks.push(onSwymLoadCallback);
+  })();
+
+  function closeWishlistModal() {
+      const modal = document.getElementById('wishlistModal');
+      if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 500);
+      }
+    }
+</script>
+
+<style>
+  .wishlist-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  .wishlist-wrapper {
+    position: fixed;
+    top: 0;
+    /* right: -500px; */
+    display: flex;
+    justify-content: center;
+    max-width: 449px;
+    background-color: #fff;
+    border-radius: 10px;
+    z-index: 9999999999;
+    transition: top 0.5s ease-in-out, visibility 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    visibility: hidden;
+    opacity: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    }
+    .wishlist-wrapper.show {
+    top: 20px;
+    visibility: visible;
+    opacity: 1;
+    }
+    .text-inline {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    padding: 24px;
+    }
+    .x-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 24px;
+    cursor: pointer;
+    }
+    .text-inline-underline {
+    text-decoration: underline;
+    cursor: pointer;
+    }
+    @media (max-width: 768px) {
+    .wishlist-wrapper {
+      top: -500px;
+      margin: 5px;
+      transition: top 0.5s ease-in-out, visibility 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    }
+    .wishlist-wrapper.show {
+      top: 20px;
+    }
+    }
+  </style>

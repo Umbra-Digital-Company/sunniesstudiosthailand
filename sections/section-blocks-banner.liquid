@@ -1,0 +1,167 @@
+{%- assign _section = section.settings -%}
+
+{%- if section.blocks.size > 0 -%}
+    <section class="section-blocks section-blocks--banner">
+        <div class="shell">
+            <div class="block-items">
+                {%- for block in section.blocks -%}
+                    {%- assign _block = block.settings -%}
+                    {%- assign block_image = _block.image -%}
+                    {%- assign block_video = _block.video_url -%}
+                    {%- assign block_title = _block.title -%}
+                    {%- assign block_title_color = _block.title_color -%}
+                    {%- assign block_details = _block.details -%}
+                    {%- assign block_details_color = _block.details_color -%}
+                    {%- assign block_button_text = _block.button_text -%}
+                    {%- assign block_button_theme = _block.button_theme -%}
+                    {%- assign block_button_size = _block.button_size -%}
+                    {%- assign block_text_align = _block.text_align -%}
+                    {%- assign block_content = _block.content -%}
+                    {%- assign block_item_url = _block.block_url -%}
+
+                    {%- if block_image != blank or block_video != blank -%}
+                        {%- assign first_order_class = 'block-item--first' -%}
+                    {%- else -%}
+                        {%- assign first_order_class = '' -%}
+                    {%- endif -%}
+
+                    <div class="block-item {{first_order_class}}">
+                        <div class="block__inner">
+
+                            {%- if block_image != blank -%}
+                                <a href="{{block_item_url}}" class="block__image">
+                                    <span style="background-image: url({{block_image | img_url: '1450x'}})"></span>
+                                </a>
+                            {%- else -%}
+                                {%- if block_video != "" -%}
+                                    <a href="{{block_item_url}}" class="block__image block__image--video">
+                                        <video autoplay muted loop playsinline>
+                                            <source src="{{ block_video }}" type="video/mp4">
+                                        </video>
+                                    </a>
+                                {%- endif -%}
+                            {%- endif -%}
+
+                            {%- if block_title != blank -%}
+                                <div class="block__content {{ block_text_align }}">
+                                    {%- if block_title != blank -%}
+                                        <h3 style="color: {{block_title_color}};">{{ block_title }}</h3>
+									{%- endif -%}
+									{%- if block_details != blank -%}
+                                        <p style="color: {{block_details_color}};">{{ block_details | newline_to_br }}</p>
+                                    {%- endif -%}
+									{%- if block_button_text != blank -%}
+                                        <a class="btn {{block_button_theme}} {{block_button_size}}" href="{{block_item_url}}">{{ block_button_text }}</a>
+                                    {%- endif -%}
+                                </div><!-- /.block__content -->
+                            {%- endif -%}
+                        </div><!-- /.block__inner -->
+                    </div><!-- /.block-item -->
+                {%- endfor -%}
+            </div><!-- /.block-items -->
+        </div><!-- /.shell -->
+    </section><!-- /.section-blocks -->
+{%- endif -%}
+
+{% schema %}
+
+{
+    "name": "50/50 Section Banner",
+    "max_blocks": 2,
+    "blocks": [
+        {
+            "type": "box",
+            "name": "Block",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                }, {
+                    "type": "text",
+                    "id": "video_url",
+                    "label": "Video URL"
+                }, {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                }, {
+                    "type": "color",
+                    "id": "title_color",
+                    "label": "Title color"
+                }, {
+                    "type": "textarea",
+                    "id": "details",
+                    "label": "Details"
+                }, {
+                    "type": "color",
+                    "id": "details_color",
+                    "label": "Details color"
+                }, {
+                    "type": "text",
+                    "id": "button_text",
+                    "label": "Button text"
+				}, {
+                    "type": "select",
+					"id": "button_theme",
+					"label": "Button color",
+					"options": [
+						{
+							"value": "",
+							"label": "Dark (default)"
+						}, {
+							"value": "btn--lightbrown",
+							"label": "Lightbrown"
+						}, {
+							"value": "btn--white",
+							"label": "White"
+						}
+					]
+                }, {
+                    "type": "select",
+					"id": "button_size",
+					"label": "Button size",
+					"options": [
+						{
+							"value": "",
+							"label": "Normal"
+						}, {
+							"value": "btn--small",
+							"label": "Small"
+						}, {
+							"value": "btn--large",
+							"label": "Large"
+						}
+					]
+                }, {
+                    "type": "url",
+                    "id": "block_url",
+                    "label": "Block Url"
+                }, {
+					"type": "select",
+					"id": "text_align",
+					"label": "Text Alignment",
+					"options": [
+						{
+							"value": "text-left",
+							"label": "Left"
+						}, {
+							"value": "text-center",
+							"label": "Center"
+						}, {
+							"value": "text-right",
+							"label": "Right"
+						}
+					]
+				}
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "50/50 Section Banner"
+        }
+    ]
+}
+
+{% endschema %}

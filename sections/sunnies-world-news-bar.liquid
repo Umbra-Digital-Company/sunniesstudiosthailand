@@ -1,0 +1,67 @@
+{{ 'sunnies-world-news-bar.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign section_settings = section.settings
+  assign news_text = section_settings.news_text
+  assign news_url = section_settings.news_url
+  assign background_color = section_settings.background_color
+  assign text_color = section_settings.text_color
+  assign show_section = section_settings.show_section
+%}
+
+{% if show_section and news_text != blank %}
+<section class="sunnies-world-news-bar" style="background-color: {{ background_color }}; color: {{ text_color }};">
+  <div class="news-bar-container">
+    <a href="{{ news_url | default: '#' }}" class="news-bar-link">
+      {{ news_text }}
+    </a>
+    <button class="news-bar-close" style="display: none;" onclick="this.parentElement.parentElement.style.display='none'">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 1L1 11M1 1L11 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Sunnies World News Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show news bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "news_text",
+      "label": "News text",
+      "default": "NEW - Visit Sunnies World in Dusit Central Park Thailand."
+    },
+    {
+      "type": "url",
+      "id": "news_url",
+      "label": "News link URL"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#8B4513"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sunnies World News Bar"
+    }
+  ]
+}
+{% endschema %}

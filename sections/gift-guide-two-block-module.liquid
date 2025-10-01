@@ -1,0 +1,52 @@
+{%- assign _section = section.settings -%}
+{%- assign section_title = _section.title -%}
+
+{%- if section.blocks.size > 0 -%}
+	<section class="gift-guide-two-block-container">
+    {%- for block in section.blocks -%}
+      {%- assign _block = block.settings -%}
+      {%- assign block_image = _block.image -%}
+      {%- assign block_title = _block.title -%}
+      {%- assign block_url = _block.url -%}
+
+      {%- if block_image != blank -%}
+        <div 
+          class="gift-guide-two-block-image"
+          style="background-image: url({{block_image | img_url: '900x'}})"
+          onclick="window.location.href='{{ block_url }}'">
+          <span>{{ block_title }}</span>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+	</section>
+{%- endif -%}
+
+{% schema %}
+{
+	"name": "Two Block Module",
+	"max_blocks": 2,
+	"blocks": [
+		{
+			"type": "block",
+			"name": "Block",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+        {
+          "id": "url",
+          "type": "url",
+          "label": "Onclick redirect url"
+        }
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Two Block Module"
+		}
+	]
+}
+{% endschema %}

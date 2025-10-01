@@ -1,0 +1,122 @@
+{% comment %} {{ 'product-card-eye-candy.css' | asset_url | stylesheet_tag }} {% endcomment %}
+
+{% liquid
+    assign product_first_variant = product_data.selected_or_first_available_variant
+  
+    if size_variant != blank 
+      assign product_first_variant = product_data.variants | where: 'option2', '32oz' | first
+    endif
+  
+    assign item_type = ''
+  
+    if product_data.tags contains 'merch' or product.type == 'Gift Cards'
+      assign item_type = 'merch'
+    elsif product_data.tags contains 'sun'
+      assign item_type = 'studios_frame'
+    elsif product_data.tags contains 'anti-rad' or product_data.tags contains 'readers'
+      assign item_type = 'G100'
+    elsif product_data.tags contains 'flask'
+      assign item_type = 'flask'
+    endif
+  %}
+  
+  
+  <div class="product-card product-card-essencials swiper-slide">
+    <div class="product-card-image-container">
+      {% if product_first_variant.image != blank %}
+        <img
+          alt="{{ product_first_variant.image.alt }}"
+          class="product-card-image"
+          data-first-available="{% if product_first_variant.id == product_first_variant.id %}true{% else %}false{% endif %}"
+          data-variant-id="{{ product_first_variant.id }}"
+          loading="lazy"
+          src="{{ product_first_variant.image | image_url: width: product_first_variant.image.width }}"
+          width="{{ product_first_variant.image.width }}"
+          height="{{ product_first_variant.image.height }}"
+        >
+      {% else %}
+        <img 
+          alt="NO IMAGE" 
+          width="100%" 
+          height="100%"
+          src="{{ '/no_image_available.jpg' | asset_url }}" 
+        >
+      {% endif %}
+    </div>
+    <div class="product-card-btn-container">
+      <a href="{{ button_link }}" class="button">
+        <span class="button-text">
+          {{ button_text }}
+        </span>
+      </a>
+    </div>
+  </div>
+  
+  
+  
+  <style>
+    .product-card-essencials{
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #E8E8E4;
+      border: 2px solid #B5161C;
+    }
+  
+    .product-card-essencials .product-card-image-container{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .product-card-essencials .product-card-image{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 1/1.5;
+    }
+    .product-card-essencials .product-card-btn-container{
+      width: 100%;
+      height: 44px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .product-card-essencials .product-card-btn-container .button{
+      width: 216px;
+      height: 44px;
+      border-radius: 8px;
+      padding: 12px 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #B5161C;
+      border: none;
+      text-decoration: none;
+      transition: all ease-in-out 500ms;
+    }
+    .product-card-essencials .product-card-btn-container .button:hover{
+      background: #fff;
+      border: 1px solid #B5161C;
+      cursor: pointer;
+    }
+    
+    .product-card-essencials .product-card-btn-container .button span{
+      font-family: 'Radio Grotesk';
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0%;
+      color: #fff;
+      transition: all ease-in-out 300ms;
+    }
+    .product-card-essencials .product-card-btn-container .button:hover span{
+      color: #B5161C;
+    }
+  </style>

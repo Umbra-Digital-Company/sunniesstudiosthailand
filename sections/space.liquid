@@ -1,0 +1,27 @@
+<div
+  class="space-section"
+  style="--space_desktop_height: {{ section.settings.desktop_height }}px; --space_mobile_height: {{ section.settings.mobile_height }}px"
+></div>
+
+{% schema %}
+{
+  "name": "Space",
+  "settings": [
+    {
+      "type": "text",
+      "id": "desktop_height",
+      "label": "Height (Desktop)(px)"
+    },
+    {
+      "type": "text",
+      "id": "mobile_height",
+      "label": "Height (Mobile)(px)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Space"
+    }
+  ]
+}
+{% endschema %}

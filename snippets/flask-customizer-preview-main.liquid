@@ -1,0 +1,290 @@
+<div class="preview-main">
+  <div class="nav-container previous-nav-container">
+    {% comment %} <svg class="slider-nav bottle-previous active" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+      viewBox="0 0 16 16" fill="none">
+      <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="var(--text-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav cap-previous" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="var(--text-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav loop-previous" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="var(--text-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav boot-previous" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="var(--text-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg> {% endcomment %}
+    <svg class="slider-nav bottle-previous active" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+      viewBox="0 0 16 16" fill="none">
+      <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="var(--summer-red-color)"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav bottle-previous-32oz" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+      viewBox="0 0 16 16" fill="none">
+      <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="var(--summer-red-color)"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav cap-previous" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="var(--summer-red-color)"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav loop-previous" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="var(--summer-red-color)"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav boot-previous" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="var(--summer-red-color)"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav boot-previous-32oz" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="var(--summer-red-color)"
+        stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    </div>
+    <div class="content">
+      <div class="preview-images preview-images-hover-handlers">
+        <div class="hidden-title">spacer</div>
+        <div class="hover-handlers">
+    
+          <div class="cap-hover"></div>
+          <div class="loop-hover"></div>
+          <div class="bottle-hover"></div>
+          <div class="boot-hover"></div>
+        </div>
+      </div>
+    
+      <div class="preview-images preview-image-containers" style="z-index: 20;">
+      <div class="preview-main-image main-image-cap">
+        <div class="hidden-title">spacer</div>
+        <img alt="Cap Image" src class="cap-image">
+      </div>
+      </div>
+    <div class="preview-images preview-image-containers" style="z-index: 25;">
+      <div class="preview-main-image main-image-loop">
+        <div class="hidden-title">spacer</div>
+        <img alt="Loop Image" src class="loop-image">
+      </div>
+    </div>
+    <div class="preview-images preview-image-containers" style="z-index: 1;">
+      <div class="preview-main-image main-image-bottle active">
+        <div class="hidden-title">spacer</div>
+        <img alt="Bottle Image" src class="bottle-image">
+      </div>
+      </div>
+      <div class="preview-images preview-image-containers" style="z-index: 20;">
+        <div class="preview-main-image main-image-boot hidden">
+          <div class="hidden-title">spacer</div>
+          <img alt="Boot Image" src class="boot-image">
+        </div>
+      </div>
+      <div class="preview-components bottle-preview active" data-filled="">
+
+      <div class="swiper-wrapper">
+        {% for variant in body_component.variants %}
+        {% unless variant.metafields.custom.limited == true %}
+        <div class="preview-bottle-container swiper-slide {% unless variant.available %}disabled{% endunless %}"
+          data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+          data-main_variant='{% for variant_main in main_bottle.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+          data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+          dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+          data-variant_color="{{ variant.metafields.custom.swatch_color }}" {% if variant.metafields.custom.limited==true
+          %}data-color-type="limited" {% else %}data-color-type="classic" {% endif %}>
+          <p class="bottle-title">{{ variant.title }}</p>
+          <img alt="Bottle Image" class="bottle-image"
+            src="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}">
+        </div>
+        {% endunless %}
+        {% endfor %}
+          {% for variant in body_component.variants %}
+          {% if variant.metafields.custom.limited == true %}
+          <div class="preview-bottle-container swiper-slide {% unless variant.available %}disabled{% endunless %}"
+            data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+            data-main_variant='{% for variant_main in main_bottle.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+            data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+            dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+            data-variant_color="{{ variant.metafields.custom.swatch_color }}" {% if variant.metafields.custom.limited==true
+            %}data-color-type="limited" {% else %}data-color-type="classic" {% endif %}>
+            <p class="bottle-title">{{ variant.title }}</p>
+            <img alt="Bottle Image" class="bottle-image"
+              src="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}">
+            </div>
+          {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+
+    <div class="preview-components cap-preview" data-filled="">
+
+
+    <div class="swiper-wrapper">
+      {% for variant in cap_component.variants %}
+        {% unless variant.metafields.custom.limited == true %}
+        <div class="preview-cap-container swiper-slide {% unless variant.available %}disabled{% endunless %}"
+          data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+          data-main_variant='{% for variant_main in main_cap.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+          data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+          dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+          data-variant_color="{{ variant.metafields.custom.swatch_color }}" {% if variant.metafields.custom.limited==true
+          %}data-color-type="limited" {% else %}data-color-type="classic" {% endif %}>
+          <p class="cap-title">{{ variant.title }}</p>
+          <img alt="Cap Image" class="cap-image"
+            src="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}">
+          </div>
+        {% endunless %}
+        {% endfor %}
+        {% for variant in cap_component.variants %}
+        {% if variant.metafields.custom.limited == true %}
+        <div class="preview-cap-container swiper-slide {% unless variant.available %}disabled{% endunless %}"
+          data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+          data-main_variant='{% for variant_main in main_cap.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+          data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+          dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+          data-variant_color="{{ variant.metafields.custom.swatch_color }}" {% if variant.metafields.custom.limited==true
+          %}data-color-type="limited" {% else %}data-color-type="classic" {% endif %}>
+          <p class="cap-title">{{ variant.title }}</p>
+          <img alt="Cap Image" class="cap-image"
+            src="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}">
+        </div>
+        {% endif %}
+      {% endfor %}
+      </div>
+
+    </div>
+
+    <div class="preview-components loop-preview" data-filled="" data-with-loop data-loop>
+
+
+    <div class="swiper-wrapper">
+      {% for variant in loop_component.variants %}
+        {% unless variant.metafields.custom.limited == true %}
+        <div class="preview-loop-container swiper-slide {% unless variant.available %}disabled{% endunless %}"
+          data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+          data-main_variant='{% for variant_main in main_loop.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+          data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+          dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+          data-variant_color="{{ variant.metafields.custom.swatch_color }}" {% if variant.metafields.custom.limited==true
+          %}data-color-type="limited" {% else %}data-color-type="classic" {% endif %}>
+          <p class="loop-title">{{ variant.title }}</p>
+          <img alt="Loop Image" class="loop-image"
+            src="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}">
+          </div>
+        {% endunless %}
+        {% endfor %}
+        {% for variant in loop_component.variants %}
+        {% if variant.metafields.custom.limited == true %}
+        <div class="preview-loop-container swiper-slide {% unless variant.available %}disabled{% endunless %}"
+          data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+          data-main_variant='{% for variant_main in main_loop.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+          data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+          dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+          data-variant_color="{{ variant.metafields.custom.swatch_color }}" {% if variant.metafields.custom.limited==true
+          %}data-color-type="limited" {% else %}data-color-type="classic" {% endif %}>
+          <p class="loop-title">{{ variant.title }}</p>
+          <img alt="Loop Image" class="loop-image"
+            src="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}">
+        </div>
+        {% endif %}
+      {% endfor %}
+      </div>
+
+    </div>
+
+    <div class="preview-components boot-preview" data-filled="" data-with-boot data-boot>
+      <div class="swiper-wrapper">
+        {% for variant in boot_component.variants %}
+          {% unless variant.metafields.custom.limited == true %}
+          <div class="preview-boot-container swiper-slide {% unless variant.available %}disabled{% endunless %}"
+            data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+            data-main_variant='{% for variant_main in main_boot.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+            data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+            dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+            data-variant_color="{{ variant.metafields.custom.swatch_color }}" {% if variant.metafields.custom.limited==true
+            %}data-color-type="limited" {% else %}data-color-type="classic" {% endif %}>
+            <p class="boot-title">{{ variant.title }}</p>
+            <img alt="Boot Image" class="boot-image"
+              src="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}">
+            </div>
+          {% endunless %}
+          {% endfor %}
+          {% for variant in boot_component.variants %}
+          {% if variant.metafields.custom.limited == true %}
+          <div class="preview-boot-container swiper-slide {% unless variant.available %}disabled{% endunless %}"
+            data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+            data-main_variant='{% for variant_main in main_boot.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+            data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+            dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+            data-variant_color="{{ variant.metafields.custom.swatch_color }}" {% if variant.metafields.custom.limited==true
+            %}data-color-type="limited" {% else %}data-color-type="classic" {% endif %}>
+            <p class="boot-title">{{ variant.title }}</p>
+            <img alt="Boot Image" class="boot-image"
+              src="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}">
+          </div>
+          {% endif %}
+        {% endfor %}
+        </div>
+
+    </div>
+    </div>
+    <div class="nav-container next-nav-container">
+    {% comment %} <svg class="slider-nav bottle-next active" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M3 8L13 8.00001M13 8.00001L8.75 12M13 8.00001L8.625 4" stroke="var(--text-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav cap-next" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M3 8L13 8.00001M13 8.00001L8.75 12M13 8.00001L8.625 4" stroke="var(--text-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav boot-next" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M3 8L13 8.00001M13 8.00001L8.75 12M13 8.00001L8.625 4" stroke="var(--text-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav loop-next" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M3 8L13 8.00001M13 8.00001L8.75 12M13 8.00001L8.625 4" stroke="var(--text-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg> {% endcomment %}
+    <svg class="slider-nav bottle-next active" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+      viewBox="0 0 16 16" fill="none">
+      <path d="M3 8L13 8.00001M13 8.00001L8.75 12M13 8.00001L8.625 4" stroke="var(--summer-red-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav bottle-next-32oz" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+      viewBox="0 0 16 16" fill="none">
+      <path d="M3 8L13 8.00001M13 8.00001L8.75 12M13 8.00001L8.625 4" stroke="var(--summer-red-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav cap-next" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M3 8L13 8.00001M13 8.00001L8.75 12M13 8.00001L8.625 4" stroke="var(--summer-red-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav boot-next" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M3 8L13 8.00001M13 8.00001L8.75 12M13 8.00001L8.625 4" stroke="var(--summer-red-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav boot-next-32oz" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M3 8L13 8.00001M13 8.00001L8.75 12M13 8.00001L8.625 4" stroke="var(--summer-red-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+    <svg class="slider-nav loop-next" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+      fill="none">
+      <path d="M3 8L13 8.00001M13 8.00001L8.75 12M13 8.00001L8.625 4" stroke="var(--summer-red-color)" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
+    </div>
+    </div>

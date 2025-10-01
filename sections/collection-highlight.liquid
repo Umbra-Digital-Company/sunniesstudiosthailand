@@ -1,0 +1,90 @@
+{{ 'collection-highlight.css' | asset_url | stylesheet_tag }}
+
+<div class="collection-highlight-wrapper">
+  <div class="collection-highlight-header">
+    <img src="{{ section.settings.logo | image_url }}" loading="lazyload">
+    <p>{{ section.settings.subcopy }}</p>
+  </div>
+  <div class="collection-highligh-images">
+    <img src="{{ section.settings.left_image | image_url }}" id="left-image" loading="lazyload">
+    <img src="{{ section.settings.right_image | image_url }}" id="right-image" loading="lazyload">
+  </div>
+  <div id="cta-wrapper">
+    <a href="{{ section.settings.cta_url }}" target="_blank">{{ section.settings.cta_label }}</a>
+  </div>
+  <div class="collection-highlight-products collection-highlight-swiper" id="collection-highlight-products">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide">
+          {% render 'product-card' with block.settings.product_select as product_data %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="collection-highlight-pagination"></div>
+  </div>
+</div>
+
+<script src="{{ 'collection-highlight.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Collection Highlight",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subcopy",
+      "label": "Subcopy"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Left Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Right Image"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Label"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA URL"
+    },
+    {
+      "id": "collection",
+      "label": "Collection",
+      "type": "collection"
+    }
+  ],
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "product",
+      "name": "product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product_select",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Highlight"
+    }
+  ]
+}
+{% endschema %}

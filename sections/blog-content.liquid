@@ -1,0 +1,127 @@
+{{ 'blog-content.css' | asset_url | stylesheet_tag }}
+
+<section class="blog-content">
+  <div class="blog-intro">
+    <h2>{{ article.title }}</h2>
+    <p class="blog-date">Published on {{ article.published_at | time_tag: format: 'date' }}</p>
+  </div>
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'blog_banner' %}
+        <div class="blog-banner-container">
+          <img class="blog-banner desktop" src="{{ block.settings.blog_content_banner | img_url: 'master'}}">
+          <img class="blog-banner mobile" src="{{ block.settings.blog_content_banner_mobile | img_url: 'master'}}">
+        </div>
+      {% when 'blog_text' %}
+        <div class="blog-text">
+          <div class="blog-text-container">
+            {{ block.settings.blog_content_text }}
+          </div>
+        </div>
+    {% endcase %}
+  {% endfor %}
+</section>
+
+<style>
+  .blog-intro,
+  .blog-text {
+    max-width: 720px;
+    margin: auto;
+  }
+
+  .blog-intro h2 {
+    font-size: 28px;
+  }
+
+  .blog-date {
+    color: #d7d6d0;
+  }
+
+  .blog-intro-content {
+    margin-top: 40px;
+  }
+
+  .blog-text-container {
+    margin: 42px auto;
+    max-width: 1240px;
+  }
+
+  .blog-intro-content p,
+  .blog-text p {
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .blog-banner-container {
+    max-width: 1202px;
+    margin: auto;
+  }
+
+  .blog-banner.mobile {
+    display: none;
+  }
+
+  .blog-banner.desktop {
+    display: block;
+  }
+
+  @media (max-width: 767px) {
+    .blog-banner.mobile {
+      display: block;
+      width: 100%;
+      margin: 0 0 16px 0;
+    }
+
+    .blog-banner.desktop {
+      display: none;
+    }
+
+    .blog-intro {
+      margin: 0 16px;
+    }
+
+    .blog-text-container {
+      margin: 40px 16px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Blog Content",
+  "blocks": [
+    {
+      "type": "blog_banner",
+      "name": "Blog Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "blog_content_banner",
+          "label": "Banner on content (desktop)"
+        },
+        {
+          "type": "image_picker",
+          "id": "blog_content_banner_mobile",
+          "label": "Banner on content (mobile)"
+        }
+      ]
+    },
+    {
+      "type": "blog_text",
+      "name": "Blog Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "blog_content_text",
+          "label": "Blog text content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog Content"
+    }
+  ]
+}
+{% endschema %}

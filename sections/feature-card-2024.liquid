@@ -1,0 +1,202 @@
+<div class="slider shell-1030">
+  {% for block in section.blocks %}
+    <div class="carousel-item">
+      <div class="carousel-container">
+        <div class="carousel-image-container" style="background-image: url('{{ block.settings.image_slider | image_url }}');">
+          <div class="carousel-content">
+            <h1 class="title-text-h1">{{ block.settings.text-input-h1 }}</h1>
+            <p class="title-text-p">{{ block.settings.text-input-p }}</p>
+            <div class="title-text-wrapper">
+              <a class="title-text-link" href="{{ block.settings.link_url }}">{{ block.settings.carousel_label }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<style>
+  .carousel-image-container {
+    position: relative;
+    width: 100%;
+    height: 718px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .carousel-content {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    right: 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  .carousel-container {
+    padding-right: 4px;
+  }
+  .carousel-item:last-child .carousel-container {
+    padding-right: 0;
+  }
+  .title-text-h1 {
+    font-family: "At Surt Medium";
+    font-size: 22px;
+    color: #fff;
+    line-height: 32px;
+    margin-bottom: 12px;
+  }
+  .title-text-p,
+  .title-text-link {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    color: #fff;
+    line-height: 20px;
+    max-width: 319px;
+  }
+  .title-text-wrapper {
+    margin-top: 24px;
+    display: flex;
+  }
+  .title-text-wrapper > .title-text-link {
+    border-bottom: 1px solid #fff;
+    padding-bottom: 2px;
+    text-decoration: none;
+  }
+  .title-text-wrapper > .title-text-link:hover {
+    color: #fff;
+    border-bottom: 1px solid #fff;
+  }
+  .carousel-slider {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .slider .slick-prev,
+  .slider .slick-next {
+    display: none;
+    background: transparent;
+  }
+  .slider {
+    scroll-snap-type: x mandatory;
+  }
+
+  @media (min-width: 1030px) {
+    .slider {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+    .slider .slick-slide {
+      flex: 1 1 calc(20% - 16px);
+    }
+  }
+  @media(max-width: 1120px) {
+    .carousel-content {
+      bottom: 40px;
+      left: 16px;
+      right: 55px;
+    }
+    .carousel-image-container {
+      height: 390px;
+    }
+    .slider-container {
+      overflow: hidden;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .slider .slick-slide {
+      flex: none;
+      min-width: 260px;
+    }
+  }
+</style>
+
+<script>
+  $(document).ready(function(){
+  $('.slider').slick({
+    slidesToShow: 5, // Number of slides to show at a time
+    autoplay: false, // Auto-play the slider
+    autoplaySpeed: 2000, // Duration between each slide transition in milliseconds
+    infinite: false, 
+    lazyLoad: 'ondemand', // Enable lazy loading
+    responsive: [
+      {
+        breakpoint: 1499, // Breakpoint for large devices
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 1299, // Breakpoint for large devices
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 767, // Breakpoint for small devices
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          variableWidth: true,
+          infinite: true
+        }
+      }
+    ],
+    initialSlide: 0,
+    scroll: true,
+    scrollSpeed: 500 
+  });
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Image Carousel 2024",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "image_slider_block",
+        "name": "Image Slider Block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image_slider",
+            "label": "Slider Image"
+          },
+          {
+            "type": "text",
+            "id": "text-input-h1",
+            "label": "Headline",
+            "default": "Headline here"
+          },
+          {
+            "type": "text",
+            "id": "text-input-p",
+            "label": "Paragraph",
+            "default": "Paragraph here"
+          },
+          {
+            "type": "text",
+            "id": "carousel_label",
+            "label": "Link Label",
+            "default": "Shop all"
+          }, {
+            "type": "url",
+            "id": "link_url",
+            "label": "URL Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image Carousel 2024",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

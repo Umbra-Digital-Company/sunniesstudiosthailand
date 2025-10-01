@@ -1,0 +1,45 @@
+{%- assign _section = section.settings -%}
+{%- assign section_title = _section.title -%}
+
+<section class="section-brand-intro">
+  <div class="shell">
+    <div class="section__inner">
+       <img data-src="{{ section.settings.image | img_url }}" alt="" class="lazyload" />
+      <div class="section__body">
+		{%- if section_title != blank -%}
+          <h5>{{section_title}}</h5>
+        {%- endif -%}
+        {{ section.settings.text }}
+      </div><!-- /.section__body -->
+    </div><!-- /.section__inner -->
+  </div><!-- /.shell -->
+</section><!-- /.section-brand-intro -->
+
+{% schema %}
+{
+	"name": "Brand Proposition",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title"
+		},
+		{
+			"type": "image_picker",
+          	"id": "image",
+          	"label": "Icon"
+        },
+        {
+            "type": "richtext",
+            "id": "text",
+            "label": "Content"
+        }
+        
+	],
+	"presets": [
+		{
+			"name": "Brand Proposition"
+		}
+	]
+}
+{% endschema %}

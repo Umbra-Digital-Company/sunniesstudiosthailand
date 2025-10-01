@@ -1,0 +1,174 @@
+{{ 'product-gallery.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign selected_color = current_variant.option1 | handleize
+  if template contains 'apparel'
+    assign color_handleize = current_variant.option1 | handleize
+    assign size_handleize = current_variant.option2 | handleize
+    assign selected_color = color_handleize | append: "-" | append: size_handleize
+  endif
+  if template contains 'flask' and current_variant.option2 
+    assign color_handleize = current_variant.option1 | handleize
+    assign size_handleize = current_variant.option2 | handleize
+    assign selected_color = color_handleize | append: "-" | append: size_handleize
+  endif
+
+  assign extra_video_mobile = product.metafields.media.extra_video_desktop_mobile.value | last
+%}
+
+<div class="product-gallery-container" id="product-gallery-container" data-product-sku="{{ product.selected_or_first_available_variant.sku }}">
+  <div class="product-gallery-swipper">
+    <div class="swiper-wrapper">
+      
+      {% unless extra_video_mobile == blank %}
+        <div class="swiper-slide full-image-mobile">
+          <div class="video-wrapper">
+            <div class="swym-button swym-add-to-wishlist swym-pdp-icon"
+              data-with-epi="true"
+              data-swaction="addToWishlist"
+              data-product-id="{{ product.id }}"
+              data-variant-id="{{ product.variants[0].id }}"
+              data-product-url="{{ shop.url }}{{ product.url }}">{% comment %}<img src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/Heart_Stroke.svg?v=1733389077" style="height: 18px; width: 20px;" alt="">{% endcomment %}
+          </div>
+            {{ extra_video_mobile | video_tag: autoplay: true, loop: true, muted: true, class: "main-product-video-mobile-gallery" }}
+          </div>
+        </div>
+      {% endunless %}
+
+      {% for media in product.media %}
+        {% assign image_color = media.alt | split: '::' | first | handleize %}
+        {% assign image_alt = media.alt | split: '::' | last %}
+        {% assign has_mobile = 'false' %}
+
+        {% if image_alt contains 'mobile' %}
+          {% assign has_mobile = 'true' %}
+        {% endif %}
+
+        {% if image_color == selected_color %}
+          <div class="swiper-slide {% if has_mobile == 'true' %}full-image-mobile{% endif %}">
+            {% if media.media_type == "image" %}
+              <img class="product-gallery-image" src="{{ media.src | image_url: master }}" loading="lazy">
+            {% elsif media.media_type == "video" %}
+              <div class="video-wrapper">
+                <div class="swym-button swym-add-to-wishlist swym-pdp-icon"
+                  data-with-epi="true"
+                  data-swaction="addToWishlist"
+                  data-product-id="{{ product.id }}"
+                  data-variant-id="{{ product.variants[0].id }}"
+                  data-product-url="{{ shop.url }}{{ product.url }}">{% comment %}<img src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/Heart_Stroke.svg?v=1733389077" style="height: 18px; width: 20px;" alt="">{% endcomment %}
+              </div>
+                {{ media | video_tag: autoplay: true, muted: true, loop: true, class: "product-gallery-video" }}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% unless product.tags contains "flask" %}
+      <div class="swiper-pagination flask-pagination" style=""></div>
+      {% else %}
+      <div class="swiper-pagination"></div>
+    {% endunless %}
+    <div class="product-gallery-pagination">
+      <button class="product-gallery-pagination-prev">
+          <img src="{{ 'product-gallery-left-icon.svg' | asset_url }}" loading="lazy">
+      </button>
+      <button class="product-gallery-pagination-next">
+          <img src="{{ 'product-gallery-right-icon.svg' | asset_url }}" loading="lazy">
+      </button>
+    </div>
+  </div>
+  
+  <div class="vto-scan-container" id="vto-scan-container">
+    <div id="vto-scan"></div>
+  </div>
+
+  {% unless template == 'product.merch' %}
+    <div class="mobile-try-on-container">
+      <button id="mobile-try-on-button">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.32394 7.75C8.32394 8.44036 7.7643 9 7.07394 9H2.25C1.55964 9 1 8.44036 1 7.75V4.25C1 3.55964 1.55964 3 2.25 3H7.07394C7.7643 3 8.32394 3.55964 8.32394 4.25M8.32394 7.75V7.02633L9.74493 8.32075C10.2265 8.75946 11 8.41777 11 7.76631V4.23354C11 3.58208 10.2265 3.24039 9.74493 3.6791L8.32394 4.97352V4.25M8.32394 7.75V4.25" stroke="#352B27"/>
+        </svg>
+        Try on
+      </button>
+    </div>
+  {% endunless %}
+
+  <div id="mobile-loading-spinner">
+    <div class="loader"></div>
+  </div>
+</div>
+
+<script>
+  let productGallerySwiper;
+
+  function loadGallerySwiper(){
+    // Destroy existing Swiper instance if it exists
+    // if (productGallerySwiper) {
+    //   productGallerySwiper.destroy(true, true);
+    // }
+
+    const isDesktop = window.innerWidth > 768;
+
+    productGallerySwiper = new Swiper('.product-gallery-swipper', {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      centeredSlides: true,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 1.7,
+        },
+      },
+      navigation: {
+        nextEl: '.product-gallery-pagination-next',
+        prevEl: '.product-gallery-pagination-prev',
+      },
+    });
+
+    productGallerySwiper.on('slideChange', function (evt) {
+      const currentSlide = evt.slides[productGallerySwiper.realIndex + 1];
+      const isFullImage = currentSlide.classList.contains("full-image-mobile");
+
+      // document.getElementById("mobile-try-on-button").style.color = isFullImage ? "#ffffff" : "#4d4443";
+      // document.getElementById("mobile-try-on-button").style.borderBottom = isFullImage ? "1.5px solid #ffffff" : "1.5px solid #4d4443";
+    });
+
+    if (isDesktop) {
+      let fullImageMobileSlideIndexes = [];
+
+      const swiperSlidesWithoutDuplicates = productGallerySwiper.slides.filter(slide => !slide.classList.contains('swiper-slide-duplicate'));
+
+      for (const [index, slide] of swiperSlidesWithoutDuplicates.entries()) {
+        if (slide.classList.contains('full-image-mobile')) {
+          fullImageMobileSlideIndexes.push(index);
+        }
+      }
+
+      productGallerySwiper.removeSlide(fullImageMobileSlideIndexes);
+    }
+
+    productGallerySwiper.update();
+  }
+
+  // Call the function to initialize Swiper
+  loadGallerySwiper();
+</script>
+
+
+{% schema %}
+{
+  "name": "Product Gallery",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Product Gallery"
+    }
+  ]
+}
+{% endschema %}

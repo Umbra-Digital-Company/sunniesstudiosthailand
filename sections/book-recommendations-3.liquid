@@ -1,0 +1,143 @@
+<section class="book-recommendations">
+  <h3 class="book-reco-heading">{{ section.settings.title }}</h3>
+  <div class="book-reco-text">{{ section.settings.text }}</div>
+  <div class="books-container">
+    {% for block in section.blocks %}
+      <div class="book-item">
+        <figure class="book-image">
+          <img src="{{ block.settings.book_img | img_url: 'master' }}" alt="Book image">
+        </figure>
+        <div class="book-info">
+          <div class="book-title">{{ block.settings.book_title }}</div>
+          <div class="book-desc">
+            {{ block.settings.book_desc }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  .book-recommendations {
+    max-width: 720px;
+    margin: 50px auto 100px;
+  }
+
+  .book-reco-heading {
+    margin-bottom: 24px;
+  }
+
+  .book-reco-text p,
+  .book-info p {
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .book-info p {
+    font-family: 'Radio Grotesk';
+  }
+
+  .books-container {
+    padding-top: 20px;
+  }
+
+  .book-item {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .book-item:not(:last-child) {
+    margin-bottom: 40px;
+  }
+
+  .book-image {
+    width: 210px;
+  }
+
+  .book-image img {
+    width: 100%;
+  }
+
+  .book-info {
+    width: 50%;
+  }
+
+  .book-desc p {
+    text-indent: 24px;
+    text-align: justify;
+  }
+
+  @media (max-width: 767px) {
+    .book-recommendations {
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+
+    .book-reco-text {
+      margin: 0 16px;
+    }
+
+    .book-item:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    .book-reco-heading {
+      font-size: 24px;
+      margin-left: 16px;
+      margin-bottom: 24px;
+    }
+
+    .book-image {
+      width: 150px;
+    }
+
+    .book-title p,
+    .book-desc p {
+      font-size: 12px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Book Recommendation",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text content"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "book_item",
+      "name": "Book Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "book_img",
+          "label": "Book image"
+        },
+        {
+          "type": "richtext",
+          "id": "book_title",
+          "label": "Book title"
+        },
+        {
+          "type": "richtext",
+          "id": "book_desc",
+          "label": "Book description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

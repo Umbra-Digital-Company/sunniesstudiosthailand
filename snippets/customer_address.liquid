@@ -1,0 +1,64 @@
+<div class="js-address-details">
+  <div class="Address">
+    <div class="Address__summary js-details-info">
+      {% if address.address1 %}
+        <p class="Address__summary-title">{{ address.address1 }}</p>
+      {% endif %}
+
+      <p>{{ address.name }}</P>
+      {% if address.company %}
+        <p>{{ address.company }}</p>
+      {% endif %}
+
+      {% if address.address1 %}
+        <p>{{ address.address1 }}</p>
+      {% endif %}
+
+      {% if address.address2 %}
+        <p>{{ address.address2 }}</p>
+      {% endif %}
+
+      {% if address.city or address.province or address.zip %}
+        <p>
+          {% if address.city %}
+            {{ address.city }},&nbsp
+          {% endif %}
+          {% if address.province %}
+            {{ address.province }}&nbsp
+          {% endif %}
+          {% if address.zip %}
+            {{ address.zip }}&nbsp
+          {% endif %}
+          {% if address.country %}
+            {{ address.country }}
+          {% endif %}
+        </p>
+      {% endif %}
+
+      {% if address.phone %}
+        <p>{{ address.phone }}</p>
+      {% endif %}
+
+      {% comment %} DEFAULT ADDRESS INDICATOR {% endcomment %}
+      {% if address == customer.default_address %}
+        <input type="checkbox" class="Address__summary-default" tabindex="-1" checked disabled>
+      {% else %}
+        <input type="checkbox" class="Address__summary-default" tabindex="-1" disabled>
+      {% endif %}
+      <label class="Address__summary-default__label">Default Address</label>
+    </div>
+
+    <div class="Address__actions">
+      {% comment %} EDIT ADDRESS TOGGLE {% endcomment %}
+      <button class="Address__actions-button js-edit-address">Edit</button>
+
+      {% comment %} REMOVE ADDRESS FORM {% endcomment %}
+      <form method="post" action="/account/addresses/{{ address.id }}">
+        <input type="hidden" name="_method" value="delete"/>
+        <button type="submit" class="Address__actions-button js-delete-address">Delete</button>
+      </form>
+    </div>
+  </div>
+
+  {% render 'customer_edit_address_form', address: address %}
+</div>

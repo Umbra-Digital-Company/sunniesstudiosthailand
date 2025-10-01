@@ -1,0 +1,59 @@
+<div class="bottom-cta-product-carousel-container">
+  <div class="generic-swiper">
+    <div class="swiper-wrapper">
+      {%- for block in section.blocks -%}
+        <div class="swiper-slide">
+          {% assign block_product = block.settings.product_select %}
+          {% assign block_product_type = block_product.type | downcase %}
+
+          {% if block_product_type == 'readers frame' %}
+            {% render 'readers-product-card' with block_product as product_data %}
+          {% else %}
+            {% render 'product-card' with block_product as product_data %}
+          {% endif %}
+        </div>
+      {%- endfor -%}
+    </div>
+    <div class="generic-swiper-pagination"></div>
+  </div>
+  <div class="bottom-cta-product-carousel-wrapper">
+    <a href="{{ section.settings.cta_url }}">{{ section.settings.cta_label }}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Bottom CTA Products",
+  "settings": [
+    {
+      "id": "cta_label",
+      "type": "text",
+      "label": "CTA Label"
+    },
+    {
+      "id": "cta_url",
+      "type": "url",
+      "label": "CTA URL"
+    }
+  ],
+  "max_blocks": 20,
+  "blocks": [
+    {
+      "type": "product",
+      "name": "product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product_select",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bottom CTA Products"
+    }
+  ]
+}
+{% endschema %}

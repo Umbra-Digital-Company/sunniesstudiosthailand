@@ -1,0 +1,167 @@
+{% paginate pages by 10000 %}
+  {% assign pages = pages | sort: 'published_at' | reverse %}
+  {% assign event_pages = pages | where: 'template_suffix', 'coa-in-store-event' %}
+  {% assign event_pages = event_pages | sort: 'metafields.event.start_date' | reverse %}
+{% endpaginate %}
+<div class="coa-in-store-banner" style="--background-image-desktop: url({{ section.settings.banner_image_desktop | image_url }}); --background-image-mobile: url({{ section.settings.banner_image_mobile | image_url }})">
+  <h1>{{ section.settings.banner_text }}</h1>
+</div>
+<div class="coa-in-store-main">
+  {% for page in event_pages %}
+    {% liquid
+      assign image = page.metafields.event.image
+      assign start_date = page.metafields.event.start_date
+      assign end_date = page.metafields.event.end_date
+      assign start_time = page.metafields.event.start_time
+      assign end_time = page.metafields.event.end_time
+      assign stores = page.metafields.event.stores.value | join: ', '
+
+      assign start_date_formatted = start_date | date: "%b %d, %Y"
+      assign end_date_formatted = end_date | date: "%b %d, %Y"
+      assign start_time_formatted = start_time | date: "%I:%M %p"
+      assign end_time_formatted = end_time | date: "%I:%M %p"
+
+      assign event_start_or_end_date = start_date | date: '%s'
+      unless end_date == blank
+        assign event_start_or_end_date = end_date | date: '%s'
+      endunless
+      assign current_date_timestamp = 'now' | date: '%Y-%m-%d' | date: '%s'
+    %}
+    {% if event_start_or_end_date >= current_date_timestamp %}
+      <a href="{{ page.url }}">
+        <article>
+          <img src="{{ image | file_url }}" />
+          <h2>{{ page.title }}</h2>
+          <time datetime="{{ start_date_formatted }} - {{ end_date }}">{{ start_date_formatted }}{% unless end_date_formatted == blank %} - {% endunless %}{{ end_date_formatted }}</time>
+          <time>{{ start_time_formatted }}{% unless end_time_formatted == blank %} - {% endunless %}{{ end_time_formatted }}</time>
+          <p>{{ stores }}</p>
+        </article>
+      </a>
+    {% endif %}
+  {% endfor %}
+  <div class="coa-in-store-main__no-event">
+    {{ section.settings.no_event_message }}
+  </div>
+</div>
+<style>
+  .coa-in-store-banner {
+    background-color: {{section.settings.banner_bg_color}};
+    background-image: var(--background-image-mobile);
+    background-position: center;
+    min-height: 375px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .coa-in-store-banner > h1 {
+    margin: 0;
+    font-family: 'AT Surt Medium';
+    font-size: 28px;
+  }
+  .coa-in-store-main {
+    max-width: 1200px;
+    padding: 16px;
+  }
+  .coa-in-store-main > a {
+    display: block;
+    text-decoration: none;
+  }
+  .coa-in-store-main article {
+    padding: 40px;
+    outline: 1.5px solid var(--light_gray_color);
+    font-size: 12px;
+    font-family: 'AT Surt Medium';
+    color: #959190;
+    cursor: pointer;
+    height: 100%;
+    background-color: #fff;
+  }
+  .coa-in-store-main article:hover {
+    outline-color: var(--black_color);
+    z-index: 2;
+    position: relative;
+  }
+  .coa-in-store-main article  > h2 {
+    margin-top: 24px;
+    font-size: 18px;
+    font-family: 'AT Surt Medium';
+    color: var(--black_color);
+  }
+  .coa-in-store-main article  > time {
+    display: block;
+  }
+  .coa-in-store-main article  > time, .coa-in-store-main article  > p {
+    margin-top: 4px;
+  }
+  .coa-in-store-main__no-event {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    color: var(--neutral_five_color);
+    padding: 40px 16px;
+    text-align: center;
+  }
+  .coa-in-store-main__no-event a {
+    color: var(--neutral_five_color);
+  }
+  .coa-in-store-main:has(article) .coa-in-store-main__no-event {
+    display: none;
+  }
+  @media only screen and (min-width: 769px) {
+  .coa-in-store-banner {
+    background-image: var(--background-image-desktop);
+  }
+  .coa-in-store-banner > h1 {
+    font-size: 40px;
+  }
+  .coa-in-store-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 100px auto;
+    padding: 0 16px;
+  }
+  .coa-in-store-main article {
+    font-size: 14px;
+  }
+  .coa-in-store-main article  > h2 {
+    font-size: 20px;
+  }
+  .coa-in-store-main__no-event {
+    font-size: 16px;
+    grid-column: 1 / -1;
+    padding: 0;
+  }
+}
+</style>
+{% schema %}
+  {
+    "name": "COA In-store Events",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "banner_image_desktop",
+        "label": "Banner Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_image_mobile",
+        "label": "Banner Image (Mobile)"
+      },
+      {
+        "type": "color",
+        "id": "banner_bg_color",
+        "label": "Banner Background Color",
+        "default": "#F4EFE6"
+      },
+      {
+        "type": "text",
+        "id": "banner_text",
+        "label": "Banner Text"
+      },
+      {
+        "type": "richtext",
+        "id": "no_event_message",
+        "label": "No Event Message"
+      }
+    ]
+  }
+{% endschema %}

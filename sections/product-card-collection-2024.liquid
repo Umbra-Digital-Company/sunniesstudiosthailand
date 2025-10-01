@@ -1,0 +1,53 @@
+<div class="page-width-40-2">
+  <div class="product-grid-list">
+    {% for product in section.settings.featured_collection.products %}
+      <div class="product-card-list-wrapper">
+        {% render 'product-card-2024'
+          , product_data: product
+          , variant_name: product.variants.first.option1
+          , wishlist_value : product_first_variant.option1
+        %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .page-width-40-2 {
+    margin: 35px 40px;
+  }
+
+  .product-grid-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .page-width-40-2 {
+      margin: 35px 0;
+    }
+    .product-grid-list {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Product Collection 2024",
+    "settings": [
+      {
+        "type": "collection",
+        "id": "featured_collection",
+        "label": "Collection"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Product Collection 2024"
+      }
+    ]
+  }
+{% endschema %}

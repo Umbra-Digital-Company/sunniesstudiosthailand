@@ -1,0 +1,65 @@
+.sunnies-world-news-bar {
+  width: 100%;
+  padding: 12px 0;
+  text-align: center;
+  position: relative;
+  z-index: 1000;
+}
+
+.news-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.news-bar-link {
+  color: inherit;
+  text-decoration: none;
+  font-family: 'Radio Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  transition: opacity 0.3s ease;
+}
+
+.news-bar-link:hover {
+  opacity: 0.8;
+}
+
+.news-bar-close {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  transition: opacity 0.3s ease;
+}
+
+.news-bar-close:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .news-bar-container {
+    padding: 0 16px;
+  }
+  
+  .news-bar-link {
+    font-size: 12px;
+  }
+  
+  .news-bar-close {
+    right: 16px;
+  }
+}

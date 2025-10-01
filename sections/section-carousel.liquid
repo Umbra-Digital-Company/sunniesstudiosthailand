@@ -1,0 +1,305 @@
+{%- assign _section = section.settings -%}
+
+{%- assign section_image = _section.image -%}
+{%- assign section_image_mobile = _section.image_mobile -%}
+{%- assign section_image_link = _section.image_link -%}
+{%- assign section_btn_left_text = _section.btn_left_text -%}
+{%- assign section_btn_left_url = _section.btn_left_url -%}
+{%- assign section_btn_right_text = _section.btn_right_text -%}
+{%- assign section_btn_right_url = _section.btn_right_url -%}
+
+{%- assign section_image_2 = _section.image_2 -%}
+{%- assign section_image_mobile_2 = _section.image_mobile_2 -%}
+{%- assign section_image_link_2 = _section.image_link_2 -%}
+{%- assign section_btn_left_text_2 = _section.btn_left_text_2 -%}
+{%- assign section_btn_left_url_2 = _section.btn_left_url_2 -%}
+{%- assign section_btn_right_text_2 = _section.btn_right_text_2 -%}
+{%- assign section_btn_right_url_2 = _section.btn_right_url_2 -%}
+
+{%- assign section_image_3 = _section.image_3 -%}
+{%- assign section_image_mobile_3 = _section.image_mobile_3 -%}
+{%- assign section_image_link_3 = _section.image_link_3 -%}
+{%- assign section_btn_left_text_3 = _section.btn_left_text_3 -%}
+{%- assign section_btn_left_url_3 = _section.btn_left_url_3 -%}
+{%- assign section_btn_right_text_3 = _section.btn_right_text_3 -%}
+{%- assign section_btn_right_url_3 = _section.btn_right_url_3 -%}
+
+{%- assign overlay_class = '' -%}
+
+{%- if section_has_overlay -%}
+    {%- assign overlay_class = ' section-carousel--overlay' -%}
+{%- endif -%}
+
+<section class="section-carousel{{color_class}}{{overlay_class}}">
+    <div>
+        <div class="section__inner" style="text-align:{{section_alignment}};">
+            {%- if section_btn_left_url == blank and section_btn_right_url == blank and section_image_url != blank -%}
+                <a class="section__image-url" href="{{section_image_url}}"></a>
+            {%- endif -%}            
+            
+          <style type="text/css">
+
+             @media (max-width: 767px) {
+              .section__inner {
+                height: 550px;
+              }
+            }
+
+            {%- if section_image != blank -%}
+            #banner_1 {
+              background-image: url({{ section_image | img_url: '3200x' }});
+            }
+            {%- endif -%}
+
+            {%- if section_image != blank -%}
+            @media (max-width: 767px) {
+              #banner_1 {
+                background-image: url({{ section_image_mobile | img_url: '1534x' }});
+              }
+            }
+            {%- endif -%}
+
+            {%- if section_image_2 != blank -%}
+            #banner_2 {
+              background-image: url({{ section_image_2 | img_url: '3200x' }});
+            }
+            {%- endif -%}
+
+            {%- if section_image_2 != blank -%}
+            @media (max-width: 767px) {
+              #banner_2 {
+                background-image: url({{ section_image_mobile_2 | img_url: '1534x' }});
+              }
+            }
+            {%- endif -%}
+
+            {%- if section_image_3 != blank -%}
+            #banner_3 {
+              background-image: url({{ section_image_3 | img_url: '3200x' }});
+            }
+            {%- endif -%}
+
+            {%- if section_image_3 != blank -%}
+            @media (max-width: 767px) {
+              #banner_3 {
+                background-image: url({{ section_image_mobile_3 | img_url: '1534x' }});
+              }
+            }
+            {%- endif -%}
+
+          </style>
+
+            <div class="slider slider-section-carousel slider-section-carousel--main">              
+
+              {%- if section_image != blank -%}
+              <div>
+                <a href="{{section_image_link}}">
+                  <div class="section__image" id="banner_1"></div>
+                </a>
+
+                {%- if section_btn_left_url != blank or section_btn_right_url != blank -%}
+                  <div class="section__actions">
+                    {%- if section_btn_left_url != blank -%}
+                      <a href="{{ section_btn_left_url }}" class="btn btn--white">{{ section_btn_left_text }}</a>
+                    {%- endif -%}
+
+                    {%- if section_btn_right_url != blank -%}
+                      <a href="{{ section_btn_right_url }}" class="btn btn--white">{{ section_btn_right_text }}</a>
+                    {%- endif -%}
+                  </div><!-- /.section__actions -->
+                {%- endif -%}
+                
+              </div>
+              {%- endif -%}
+
+              {%- if section_image_2 != blank -%}
+              <div>
+                <a href="{{section_image_link_2}}">
+                  <div class="section__image" id="banner_2"></div>
+                </a>
+
+                {%- if section_btn_left_url_2 != blank or section_btn_right_url_2 != blank -%}
+                  <div class="section__actions">
+                    {%- if section_btn_left_url_2 != blank -%}
+                      <a href="{{ section_btn_left_url_2 }}" class="btn btn--white">{{ section_btn_left_text_2 }}</a>
+                    {%- endif -%}
+
+                    {%- if section_btn_right_url_2 != blank -%}
+                      <a href="{{ section_btn_right_url_2 }}" class="btn btn--white">{{ section_btn_right_text_2 }}</a>
+                    {%- endif -%}
+                  </div><!-- /.section__actions -->
+                {%- endif -%}
+
+              </div>
+              {%- endif -%}
+
+              {%- if section_image_3 != blank -%}
+              <div>
+                <a href="{{section_image_link_3}}">
+                  <div class="section__image" id="banner_3"></div>
+                </a>
+
+                {%- if section_btn_left_url_3 != blank or section_btn_right_url_3 != blank -%}
+                  <div class="section__actions">
+                    {%- if section_btn_left_url_3 != blank -%}
+                      <a href="{{ section_btn_left_url_3 }}" class="btn btn--white">{{ section_btn_left_text_3 }}</a>
+                    {%- endif -%}
+
+                    {%- if section_btn_right_url_3 != blank -%}
+                      <a href="{{ section_btn_right_url_3 }}" class="btn btn--white">{{ section_btn_right_text_3 }}</a>
+                    {%- endif -%}
+                  </div><!-- /.section__actions -->
+                {%- endif -%}
+
+              </div>
+              {%- endif -%}
+              
+            </div>                            
+
+        </div><!-- /.section__inner -->
+    </div><!-- /.shell -->
+</section><!-- /.section-carousel -->
+
+{% schema %}
+
+{
+    "name": "Carousel",
+    "settings": [
+        {
+          "type": "header",
+          "content": "Banner 1 - Images"
+        }, 
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+        },  
+        {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Image mobile"
+        }, 
+        {
+          "type": "url",
+          "id": "image_link",
+          "label": "Link"
+        }, 
+        {
+          "type": "header",
+          "content": "Banner 1 - Buttons"
+        }, 
+        {
+            "type": "text",
+            "id": "btn_left_text",
+            "label": "Left - Button text"
+        }, 
+        {
+            "type": "url",
+            "id": "btn_left_url",
+            "label": "Left - Button url"
+        },
+        {
+            "type": "text",
+            "id": "btn_right_text",
+            "label": "Right - Button text"
+        }, 
+        {
+            "type": "url",
+            "id": "btn_right_url",
+            "label": "Right - Button url"
+        }, 
+        {
+          "type": "header",
+          "content": "Banner 2 - Images"
+        }, 
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image"
+        },  
+        {
+            "type": "image_picker",
+            "id": "image_mobile_2",
+            "label": "Image mobile"
+        },
+        {
+          "type": "url",
+          "id": "image_link_2",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Banner 2 - Buttons"
+        }, 
+        {
+            "type": "text",
+            "id": "btn_left_text_2",
+            "label": "Left - Button text"
+        }, 
+        {
+            "type": "url",
+            "id": "btn_left_url_2",
+            "label": "Left - Button url"
+        },
+        {
+            "type": "text",
+            "id": "btn_right_text_2",
+            "label": "Right - Button text"
+        }, 
+        {
+            "type": "url",
+            "id": "btn_right_url_2",
+            "label": "Right - Button url"
+        }, 
+        {
+          "type": "header",
+          "content": "Banner 3 - Images"
+        }, 
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image"
+        },  
+        {
+            "type": "image_picker",
+            "id": "image_mobile_3",
+            "label": "Image mobile"
+        },
+        {
+          "type": "url",
+          "id": "image_link_3",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Banner 3 - Buttons"
+        }, 
+        {
+            "type": "text",
+            "id": "btn_left_text_3",
+            "label": "Left - Button text"
+        }, 
+        {
+            "type": "url",
+            "id": "btn_left_url_3",
+            "label": "Left - Button url"
+        },
+        {
+            "type": "text",
+            "id": "btn_right_text_3",
+            "label": "Right - Button text"
+        }, 
+        {
+            "type": "url",
+            "id": "btn_right_url_3",
+            "label": "Right - Button url"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Carousel"
+        }
+    ]
+}
+
+{% endschema %}

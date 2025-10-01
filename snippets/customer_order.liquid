@@ -1,0 +1,272 @@
+{% assign shipping_method = order.shipping_methods | first %}
+<div class="Customer__module Order js-order-wrapper" data-email="{{customer.email}}">
+  <div class="Order__detail">
+    <div class="order-detail-heading">ORDER DETAILS</div>
+
+    <div class="order-detail-wrapper">
+      <div class="order-detail-details">
+        <span>Order Number:</span>
+        <span>{{ order.name }}</span>
+      </div>
+
+      <div class="order-detail-details">
+        <span>Order Placed:</span>
+        <span>{{ order.created_at | date: "%b %d, %Y" }}</span>
+      </div>
+
+      <div class="order-detail-details">
+        <span>Paid With:</span>
+        <span>
+          {% assign gateway = order.transactions.last.gateway %}
+          {% if gateway contains 'COD' %}
+            {{ gateway }}
+          {% elsif gateway contains 'gcash' %}
+            GCash via PayMongo
+          {% elsif gateway contains 'grab' %}
+            GrabPay
+          {% elsif gateway contains 'paymaya' %}
+            Credit/Debit Card
+          {% else %}
+            {{ gateway }}
+          {% endif %}
+        </span>
+      </div>
+
+      <div class="order-detail-details">
+        <span>
+          <a href="{{ order.order_status_url }}" class="Button__link">Track Shipment </a>
+          <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 6.5L6 9V12L10 5.9832L6 0V3L7.5 5.7L0 5.6V6.4L7.5 6.5Z" fill="#5389BF"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="order-status-heading">
+      {% if order.cancelled %}
+        Canceled
+      {% elsif order.tags contains "payo-delivered" %}
+        Delivered
+      {% elsif order.fulfillment_status == "fulfilled" and order.financial_status == "paid" %}
+        In Transit
+      {% elsif order.tags contains "downloaded" %}
+        Processing
+      {% elsif order.fulfillment_status == "unfulfilled" and order.financial_status == "pending" %}
+        Confirmed
+      {% else %}
+        Processing
+      {% endif %}
+    </div>
+
+    <div class="order-details-status-progress">
+      {% if order.cancelled %}
+      <div class="wrapper-progress-bar">
+        <ul class="progress-bar">
+          <li><span>Confirmed</span></li>
+          <li><span>Processing</span></li>
+          <li><span>In Transit</span></li>
+          <li><span>Delivered</span></li>
+        </ul>
+      </div>
+      {% elsif order.tags contains "payo-delivered" %}
+      <div class="wrapper-progress-bar">
+        <ul class="progress-bar">
+          <li class="active"><span>Confirmed</span></li>
+          <li class="active"><span>Processing</span></li>
+          <li class="active"><span>In Transit</span></li>
+          <li class="active selected"><span>Delivered</span></li>
+        </ul>
+      </div>
+      {% elsif order.fulfillment_status == "fulfilled" and order.financial_status == "paid" %}
+      <div class="wrapper-progress-bar">
+        <ul class="progress-bar">
+          <li class="active"><span>Confirmed</span></li>
+          <li class="active"><span>Processing</span></li>
+          <li class="active selected"><span>In Transit</span></li>
+          <li><span>Delivered</span></li>
+        </ul>
+      </div>
+      {% elsif order.tags contains "downloaded" %}
+      <div class="wrapper-progress-bar">
+        <ul class="progress-bar">
+          <li class="active"><span>Confirmed</span></li>
+          <li class="active selected"><span>Processing</span></li>
+          <li><span>In Transit</span></li>
+          <li><span>Delivered</span></li>
+        </ul>
+      </div>
+      {% elsif order.fulfillment_status == "unfulfilled" and order.financial_status == "pending" %}
+      <div class="wrapper-progress-bar">
+        <ul class="progress-bar">
+          <li class="active selected"><span>Confirmed</span></li>
+          <li><span>Processing</span></li>
+          <li><span>In Transit</span></li>
+          <li><span>Delivered</span></li>
+        </ul>
+      </div>
+      {% else %}
+      <div class="wrapper-progress-bar">
+        <ul class="progress-bar">
+          <li class="active"><span>Confirmed</span></li>
+          <li class="active selected"><span>Processing</span></li>
+          <li><span>In Transit</span></li>
+          <li><span>Delivered</span></li>
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="order-details-other-details">
+      <div>
+        <h4>SHIPPING DETAILS</h4>
+        <p>{{ order.customer.name }}</p>
+        <p>{{ order.shipping_address.address1 }}</p>
+        <p>{{ order.shipping_address.city }}, {{ order.shipping_address.zip }}</p>
+        <p>{{ order.shipping_address.province }}, {{ order.shipping_address.country }}</p>
+      </div>
+
+      <div>
+        <h4>BILLING DETAILS</h4>
+        <p>{{ order.customer.name }}</p>
+        <p>{{ order.billing_address.address1 }}</p>
+        <p>{{ order.billing_address.city }}, {{ order.billing_address.zip }}</p>
+        <p>{{ order.billing_address.province }}, {{ order.billing_address.country }}</p>
+      </div>
+    </div>
+    
+    <h4 id="order-details-ordered-heading">ITEMS ORDERED</h4>
+
+    <div class="Order__items">
+      {% for item in order.line_items %}
+        {% liquid 
+          assign type = item.product.type | downcase
+
+          unless type == 'lens'
+            assign vision = item.properties['vision']
+            assign lens_type = item.properties['lens type']
+            assign lens_option = item.properties['lens option']
+            assign is_prescription = false
+            assign prescription_id = ''
+
+            if item.product.tags contains 'prescription' or  item.product.tags contains 'Prescription'
+              assign is_prescription = true
+              assign prescription_id = item.properties['_prescription_id']
+            endif
+          endunless
+        %}
+      
+        {% unless type == 'lens' %}
+          <div class="Order__item">
+            <div class="Order__item-wrapper">
+              <a class="Order__items-image" href="{{ item.url | within: collections.all }}">
+                <img src="{{ item.image | img_url: '300x' }}">
+              </a>
+
+              <div class="Order__items-description">
+                <div class="Order__items-description-header">
+                  <div>
+                    <p class="Order__items-description__title">{{ item.product.title | upcase }}</p>
+                    <p class="Order__items-description__color">
+                      {% for option in item.options_with_values limit:1 %}
+                        {{ option.value }}
+                      {% endfor %}
+                    </p>
+                  </div>
+
+                  <span class="Order__items-description__price">
+                    P{{ item.line_price | money_without_currency | remove: '.00' }}
+                  </span>
+                </div>
+
+                {% if is_prescription %}
+                  <span id="prescription-toggle" class="item-{{ item.id }}">
+                    VIEW DETAILS
+                    <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="7.36565" height="0.613804" transform="matrix(0.670071 -0.742297 0.670071 0.742297 0 6.4248)" fill="#B7AEA3"/>
+                    <rect width="7.36565" height="0.613804" transform="matrix(-0.670071 -0.742297 0.670071 -0.742297 9.58862 6.88086)" fill="#B7AEA3"/>
+                    <rect width="0.535593" height="0.613692" transform="matrix(0.668742 0.743494 -0.671398 0.741097 4.99878 0.880859)" fill="#B7AEA3"/>
+                    </svg>
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+
+            {% if is_prescription %}
+              <div class="order-items-prescription-table-wrapper" id="item-{{ item.id }}">
+                <div class="Order__items-description__lens">
+                  <p>+ LENSES: {{ vision | capitalize }}</p>
+                  <p>+ PRESCRIPTION: {{ lens_type }}</p>
+                  <p>+ UPGRADE: {{ lens_option }}</p>
+                </div>
+
+                <table 
+                  class="Order__items-description__prescription js-prescription-table" 
+                  data-prescription-id="{{prescription_id}}">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>SPH</th>
+                      <th>CYL</th>
+                      <th>AXIS</th>
+                      <th>ADD</th>
+                      <th>IPD</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <td>OD</td>
+                      <td class="js-prescription-data" data-type="od-sph">---</td>
+                      <td class="js-prescription-data" data-type="od-cyl">---</td>
+                      <td class="js-prescription-data" data-type="od-axis">---</td>
+                      <td class="js-prescription-data" data-type="od-add">---</td>
+                      <td class="js-prescription-data" data-type="od-ipd">---</td>
+                    </tr>
+                    <tr>
+                      <td>OS</td>
+                      <td class="js-prescription-data" data-type="os-sph">---</td>
+                      <td class="js-prescription-data" data-type="os-cyl">---</td>
+                      <td class="js-prescription-data" data-type="os-axis">---</td>
+                      <td class="js-prescription-data" data-type="os-add">---</td>
+                      <td class="js-prescription-data" data-type="os-ipd">---</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            {% endif %}
+          </div>
+        {% endunless %}
+      {% endfor %}
+    </div>
+
+    <div class="Order__total">
+      <div class="Order__total-item">
+        <span>SUBTOTAL</span>
+        <span>P{{ order.subtotal_price | money_without_currency | remove: '.00' }}</span>
+      </div>
+      
+      <div class="Order__total-item">
+        <span>SHIPPING</span>
+        <span>P{{ order.shipping_price | money_without_currency | remove: '.00' }}</span>
+      </div>
+      
+      <div class="Order__total-item Order__total-discount">
+        <span>DISCOUNT</span>
+        <span>- P{{ order.total_discounts | money_without_currency | remove: '.00' }}</span>
+      </div>
+      
+      <div class="Order__total-item">
+        <span>TOTAL</span>
+        <span>P{{ order.total_price | money_without_currency | remove: '.00' }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#prescription-toggle").on("click", (evt) => {
+    const { currentTarget } = evt;
+    const [itemId] = currentTarget.classList;
+    $(`#${itemId}`).toggle();
+  })
+</script>

@@ -1,0 +1,182 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+    "sections": {
+      "sunnies_world_hero_CVkp9X": {
+        "type": "sunnies-world-hero",
+        "blocks": {
+          "product_category_MRe6hr": {
+            "type": "product_category",
+            "settings": {
+              "category_image": "shopify://shop_images/studios.png",
+              "category_content_image": "shopify://shop_images/studios.svg",
+              "category_title": "",
+              "category_tagline": "Eyewear you live in",
+              "category_url": ""
+            }
+          },
+          "product_category_mTzzF3": {
+            "type": "product_category",
+            "settings": {
+              "category_image": "shopify://shop_images/face.png",
+              "category_content_image": "shopify://shop_images/face.svg",
+              "category_title": "",
+              "category_tagline": "Beauty that gets you",
+              "category_url": ""
+            }
+          },
+          "product_category_HkziFW": {
+            "type": "product_category",
+            "settings": {
+              "category_image": "shopify://shop_images/flask.png",
+              "category_content_image": "shopify://shop_images/flask.svg",
+              "category_title": "",
+              "category_tagline": "The most customizable flask ever",
+              "category_url": ""
+            }
+          },
+          "product_category_RyqRkA": {
+            "type": "product_category",
+            "settings": {
+              "category_image": "shopify://shop_images/coffee.png",
+              "category_content_image": "shopify://shop_images/coffee.svg",
+              "category_title": "",
+              "category_tagline": "Your daily dose of good stuff",
+              "category_url": ""
+            }
+          }
+        },
+        "block_order": [
+          "product_category_MRe6hr",
+          "product_category_mTzzF3",
+          "product_category_HkziFW",
+          "product_category_RyqRkA"
+        ],
+        "name": "Sunnies World Hero",
+        "settings": {
+          "background_color": "#ffffff"
+        }
+      },
+      "sunnies_world_scrolling_text_KajcFn": {
+        "type": "sunnies-world-scrolling-text",
+        "name": "Scrolling Text",
+        "settings": {
+          "show_section": true,
+          "scroll_text": "NEW STORE",
+          "background_color": "#d2b48c",
+          "text_color": "#b8860b",
+          "scroll_speed": 20
+        }
+      },
+      "sunnies_world_copy_cta_tcbqAY": {
+        "type": "sunnies-world-copy-cta",
+        "name": "Sunnies World Copy & CTA",
+        "settings": {
+          "show_section": true,
+          "background_color": "#ffffff",
+          "text_color": "#000000",
+          "title": "Sunnies World Bangkok",
+          "description": "<p>Sunnies World is now open in Central Park Dusit Thailand— a new space for all things Sunnies. </p><p>Balancing together classical influence and modern sophistication, Sunnies World Bangkok is a center of exploration where vision, beauty, and design intersect. Built for the ever-growing Sunnies community, the store invites like-minded individuals to meet, drink, read, and engage while getting their hands on an edit of our favorite things. Come seek the full Sunnies experience where you can shop and unwind as you get lost in time.</p>",
+          "cta_text": "Visit our stores",
+          "cta_url": "https://ph.sunniesstudios.com/pages/store-locations"
+        }
+      },
+      "sunnies_world_slideshow_NjtT8n": {
+        "type": "sunnies-world-slideshow",
+        "blocks": {
+          "slide_6PWUTJ": {
+            "type": "slide",
+            "settings": {
+              "slide_image": "shopify://shop_images/Central_Park_Store_Design_17072025_1_-20_1.png",
+              "slide_alt": "",
+              "slide_title": "",
+              "slide_description": ""
+            }
+          },
+          "slide_JnRRTK": {
+            "type": "slide",
+            "settings": {
+              "slide_image": "shopify://shop_images/Central_Park_Store_Design_17072025_1_-20_1.png",
+              "slide_alt": "",
+              "slide_title": "",
+              "slide_description": ""
+            }
+          },
+          "slide_aabRXE": {
+            "type": "slide",
+            "settings": {
+              "slide_image": "shopify://shop_images/Central_Park_Store_Design_17072025_1_-20_1.png",
+              "slide_alt": "",
+              "slide_title": "",
+              "slide_description": ""
+            }
+          },
+          "slide_gyHhyA": {
+            "type": "slide",
+            "settings": {
+              "slide_image": "shopify://shop_images/Central_Park_Store_Design_17072025_1_-20_1.png",
+              "slide_alt": "",
+              "slide_title": "",
+              "slide_description": ""
+            }
+          },
+          "slide_Nz4YTy": {
+            "type": "slide",
+            "settings": {
+              "slide_image": "shopify://shop_images/Central_Park_Store_Design_17072025_1_-20_1.png",
+              "slide_alt": "",
+              "slide_title": "",
+              "slide_description": ""
+            }
+          },
+          "slide_BMwfFR": {
+            "type": "slide",
+            "settings": {
+              "slide_image": "shopify://shop_images/Central_Park_Store_Design_17072025_1_-20_1.png",
+              "slide_alt": "",
+              "slide_title": "",
+              "slide_description": ""
+            }
+          },
+          "slide_3emCbE": {
+            "type": "slide",
+            "settings": {
+              "slide_image": "shopify://shop_images/Central_Park_Store_Design_17072025_1_-20_1.png",
+              "slide_alt": "",
+              "slide_title": "",
+              "slide_description": ""
+            }
+          }
+        },
+        "block_order": [
+          "slide_6PWUTJ",
+          "slide_JnRRTK",
+          "slide_aabRXE",
+          "slide_gyHhyA",
+          "slide_Nz4YTy",
+          "slide_BMwfFR",
+          "slide_3emCbE"
+        ],
+        "name": "Sunnies World Slideshow",
+        "settings": {
+          "show_section": true,
+          "autoplay": true,
+          "autoplay_delay": 5000
+        }
+      }
+    },
+    "order": [
+      "sunnies_world_hero_CVkp9X",
+      "sunnies_world_scrolling_text_KajcFn",
+      "sunnies_world_copy_cta_tcbqAY",
+      "sunnies_world_slideshow_NjtT8n"
+    ]
+  }
+  

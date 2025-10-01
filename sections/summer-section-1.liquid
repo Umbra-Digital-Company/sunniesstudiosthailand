@@ -1,0 +1,68 @@
+{{ 'summer-landing-page-2025.css' | asset_url | stylesheet_tag }}
+
+{% if section.settings.section-one-text != blank %}
+    <section class="section-one">
+      {% if section.settings.section-one-image != blank %}
+        {{ section.settings.section-one-image | image_url: width: 1200 | image_tag }}
+      {% endif %}
+      <div class="section-one__text">
+        {{ section.settings.section-one-text }}
+      </div>
+      {% comment %} <div id="interview-modal-trigger" class="section-one__play-trigger">
+        <img src="{{ 'play-icon.svg' | asset_url }}" />
+        <span>Watch the interview</span>
+      </div>
+      
+      <div id="interview-modal" class="interview-modal">
+        <div class="interview-modal__content">
+          <div class="interview-modal__media-wrapper">
+            {{ section.settings.section-one-interview-video-mobile | video_tag: controls: true, class: "interview-video--mobile" }}
+            {{ section.settings.section-one-interview-video-desktop | video_tag: controls: true, class: "interview-video--desktop" }}
+          <div
+          <span id="interview-modal-close" class="interview-modal__close"><img src="{{ 'close-icon-white.svg' | asset_url }}" /></span>
+        </div>
+      </div> {% endcomment %}
+    </section>
+  {% endif %}
+
+{% schema %}
+  {
+    "name": "Summer Section 1",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Banner"
+      },
+      {
+        "type": "header",
+        "content": "Section 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-one-image",
+        "label": "Image"
+      },
+      {
+        "type": "richtext",
+        "id": "section-one-text",
+        "label": "Text"
+      },
+      {
+        "type": "video",
+        "id": "section-one-interview-video-desktop",
+        "label": "Interview Video (Desktop)"
+      },
+      {
+        "type": "video",
+        "id": "section-one-interview-video-mobile",
+        "label": "Interview Video (Mobile)"
+      }
+    ],
+      "presets": [
+          {
+          "name": "Summer Section 1",
+          "category": "Landing Page"
+          }
+      ]
+  }
+{% endschema %}

@@ -1,0 +1,213 @@
+{% liquid
+  assign product_measurements = 'initial'
+  
+  assign frame_measurement_array = product.metafields.frame_measurement.bridge_width_eye_size_temple_length | split: ", "
+  assign bridge_width = frame_measurement_array[0]
+  assign eye_size = frame_measurement_array[1]
+  assign temple_length = frame_measurement_array[2]
+  assign image_frame_front = product.metafields.frame_measurement.image_frame_front
+  assign image_temple = product.metafields.frame_measurement.image_temple
+  
+  capture measurement_gallery
+    for image in product.images
+      assign image_color = image.alt | split: '::' | first | downcase
+      assign image_alt = image.alt | split: '::' | last
+      if image_color == 'measurement'
+        assign product_measurements = product_measurements | append: ',' | append: image_color
+        render 'responsive-image' with image: image, alt: image_alt, image_class: "css-class", wrapper_class: "wrapper-css-class", max_width: 900, max_height: 500
+      endif
+    endfor
+  endcapture
+%}
+
+<div class="product-description-details">
+  <ul class="product-description-accordion" id="product-description-accordion">
+    <li>
+      <div class="product-description-accordion-header">
+        <span>Details</span>
+        {% render 'icon-minus' %}
+      </div>
+      <div class="product-description-accordion-content" style="display: block">
+        {% unless template contains 'flask' %}
+          <div class="product-description">
+            {% unless product.description contains 'Description' %}
+            <h3 class="product-description__title">Description</h3>
+            {% endunless %}
+            <p>{{ product.description }}</p>
+          </div>
+        {% endunless %}
+
+        {% if product.selected_or_first_available_variant.metafields.description.made_with.value == blank %}
+          {% if template contains 'flask' %}
+            <div class="product-description">
+              <p>{{ product.description }}</p>
+            </div>
+          {% endif %}
+          {% else %}
+          {% if template contains 'flask' %}
+            <div class="product-description">
+              <h3 class="product-description__title">Description</h3>
+              <p>{{ product.description }}</p>
+            </div>
+          {% endif %}
+          {%  assign pmw  = 0 %}
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'product_made_with' %}
+                {% assign pmw  = pmw | plus: 1 %}
+            {% endcase %}
+          {% endfor %}
+          
+          {% if pmw > 0 %}
+              
+
+            <div class="product-made-with">
+              <h3 class="product-made-with__title">Crafted with</h3>
+              <ul>
+                {% for block in section.blocks %}
+                  {% case block.type %}
+                    {% when 'product_made_with' %}
+                    {% if product.selected_or_first_available_variant.metafields.description.made_with.value contains block.settings.title %}
+                      <li {{ block.shopify_attributes }}>
+                        <div>
+                          <img src="{{ block.settings.icon | image_url }}" />
+                          <a href={{ block.settings.title_link }}>{{ block.settings.title }}</a>
+                        </div>
+                        <p>{{ block.settings.description }}</p>
+                      </li>
+                    {% endif %}
+                  {% endcase %}
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        {% endif %}
+
+        <div class="product-description-tags">
+          <ul class="tags-list">
+            {% for product_tag in product.tags %}
+              {% assign clean_product_tag = product_tag | downcase %}
+
+              {% if clean_product_tag contains 'arranged_desc' %}
+                {% assign split_label = clean_product_tag | split: '::' | last | strip %}
+                {% assign split_tags = split_label | split: '-' %}
+                {% assign arrangedTags = split_tags %}
+
+                {% for tag in arrangedTags %}
+                  {% assign clean_tag = tag | downcase %}
+                  {% assign content = tag | strip %}
+                  {% assign classes = content | handleize %}
+
+                  <li>
+                    <div class="icon-{{ classes }}"></div>
+                    <span>{{ content }}</span>
+                  </li>
+                {% endfor %}
+              {% endif %}
+
+              {% if clean_product_tag contains 'arranged_by_star_desc' %}
+                {% assign split_label = clean_product_tag | split: '::' | last | strip %}
+                {% assign split_tags = split_label | split: '*' %}
+                {% assign arrangedTags = split_tags %}
+
+                {% for tag in arrangedTags %}
+                  {% assign clean_tag = tag | downcase %}
+                  {% assign content = tag | strip %}
+                  {% assign classes = content | handleize %}
+
+                  <li>
+                    <div class="icon-{{ classes }}"></div>
+                    <span>{{ content }}</span>
+                  </li>
+                {% endfor %}
+              {% endif %}
+
+              {% assign is_desc = clean_product_tag | split: '::' | first | strip %}
+
+              {% if is_desc == 'desc' %}
+                {% assign content = clean_product_tag | split: '::' | last | strip %}
+                {% assign classes = content | handleize %}
+
+                <li>
+                  <div class="icon-{{ classes }}"></div>
+                  <span>{{ content }}</span>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="product-description-callout" style="{% if section.settings.is_callout_hidden == true %}display: none;{% endif %}">
+          <h5>{{ section.settings.callout_title }}</h5>
+          <p>{{ section.settings.callout_copy }}</p>
+          <a href="{{ section.settings.callout_url }}">{{ section.settings.callout_url_label }}</a>
+        </div>
+
+        {% render 'discount-callout' %}
+      </div>
+    </li>
+    <li>
+      <div class="product-description-accordion-header">
+        <span>{% if template contains 'flask' %}Measurement{% else %}Fit guide{% endif %}</span>
+        {% render 'icon-plus' %}
+      </div>
+      <div class="product-description-accordion-content">
+        {% unless template contains 'flask' %}
+          <div class="frame-size-information">
+            <p>{{ product.metafields.custom.frame_size }} Frame</p>
+          </div>
+          {% endunless %}
+        <div class="frame-size-more-details">
+          {{ product.metafields.custom.more_details }}
+        </div>
+        <p id="frame-size-sub-heading">{% if template contains 'flask' %}{% else %}Frame measurement{% endif %}</p>
+        {% if image_frame_front != blank and image_temple != blank %}
+          <div class="frame-size-images">
+            <div class="frame-size-images__frame-front">
+              <img src="{{ image_frame_front | file_url }}" />
+              <div>
+                <span>{{ bridge_width }}mm</span>
+                <span>{{ eye_size }}mm</span>
+              </div>
+            </div>
+            <div class="frame-size-images__temple">
+              <img src="{{ image_temple | file_url }}" />
+              <div>
+                <span>{{ temple_length }}mm</span>
+              </div>
+            </div>
+          </div>
+          {% elsif image_frame_front != blank and image_temple == blank %}
+              <div class="frame-size-images">
+                <div class="frame-size-images__frame-front">
+                  <img src="{{ image_frame_front | file_url }}" />
+                </div>
+              </div>
+          {% else %}
+            {{ measurement_gallery }}
+          {% endif %}
+      </div>
+    </li>
+    <li>
+      <div class="product-description-accordion-header">
+        <span>What's included</span>
+        {% render 'icon-plus' %}
+      </div>
+      <div class="product-description-accordion-content whats-included-content">
+        {{ section.settings.whats_included_content }}
+      </div>
+    </li>
+    <li>
+      <div class="product-description-accordion-header">
+        <span>Pairs nicely with</span>
+        {% render 'icon-plus' %}
+      </div>
+      <div class="product-description-accordion-content pairs-nicely-with">
+        <div>
+          {% render 'mini-product-card' with section.settings.pair_product_one as product_data %}
+          {% render 'mini-product-card' with section.settings.pair_product_two as product_data %}
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

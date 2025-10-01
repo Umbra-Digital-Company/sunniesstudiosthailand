@@ -1,0 +1,102 @@
+
+{%- assign _section = section.settings -%}
+{%- assign title_one = _section.titleone -%}
+{%- assign section_title = _section.maintitle -%}
+{%- assign footer_title = _section.footertitle -%}
+{%- assign section_text = _section.text -%}
+{%- assign section_image = _section.image -%}
+{%- assign section_image_mobile = _section.image_mobile -%}
+{%- assign section_video = _section.video_url -%}
+
+<section class="section-feature" id="gift-guide-block-one">
+  <div class="section__inner">
+    <div class="shell">
+      <header class="section__head">
+        <span>{{ title_one }}</span>
+        <h2>{{ section_title }}</h2>
+        <div class="section_text">{{ section_text }}</div>
+        <div class="section--cta-">
+          <a class="btn" href="{{ section.settings.ctalink }}" class="section--cta">
+            {{ section.settings.ctatext }}
+          </a>
+        </div>
+      </header>
+    </div>
+
+    <div class="section__body">
+      <div class="shell">
+        <div class="featured-image">
+          {%- if section_image != blank -%}
+            <div class="section__image section__image--desktop">
+              <img 
+                data-src="{{ section_image | img_url: 'master' }}" 
+                alt="" 
+                class="lazyload" />
+            </div>
+            
+            {%- if section_image_mobile != blank -%}
+              <div class="section__image section__image--mobile">
+                <img data-src="{{ section_image_mobile | img_url: 'master' }}" alt="" class="lazyload" />
+              </div>
+            {%- endif -%}
+
+          {%- endif -%}
+        </div>
+
+        <span>{{ footer_title }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Gift Guide Block One",
+  "settings": [
+    {
+      "id": "titleone",
+      "type": "text",
+      "label": "Title One"
+    },
+    {
+      "id": "maintitle",
+      "type": "text",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }, 
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image mobile"
+    },
+    {
+      "id": "ctatext",
+      "type": "text",
+      "label": "Link text",
+      "default": "SHOP DIGITAL GIFT CARDS"
+    },
+    {
+      "id": "ctalink",
+      "type": "url",
+      "label": "Link URL"
+    },
+    {
+      "id": "footertitle",
+      "type": "text",
+      "label": "Footer Title",
+      "default": "Don't forget to include a gift note at checkout"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift Guide Block One"
+    }
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,44 @@
+{%- assign _section = section.settings -%}
+
+{%- for block in section.blocks -%}
+
+  {%- assign _block = block.settings -%}
+
+  {%- case block.type -%}
+
+    {%- when 'product' -%}
+    
+      {%- assign block_title = _block.title -%}
+      {%- assign block_product_1 = all_products[_block.product_1] -%}
+      {%- assign block_product_2 = all_products[_block.product_2] -%}
+      {%- assign block_product_3 = all_products[_block.product_3] -%}
+      {%- assign block_product_4 = all_products[_block.product_4] -%}
+    
+      <section class="products-upsell">
+        <div class="Product">
+
+          {%- if block_title != blank -%}
+            <h2>{{block_title}}</h2>
+          {%- endif -%}
+
+          <div class="product-listing">
+            <div class="product-listing__item">
+              {%- include 'product-item-upsell' with block_product_1  -%}
+            </div> <!-- /.product-listing__item -->
+            <div class="product-listing__item">
+              {%- include 'product-item-upsell' with block_product_2  -%}
+            </div> <!-- /.product-listing__item -->
+            <div class="product-listing__item">
+              {%- include 'product-item-upsell' with block_product_3  -%}
+            </div> <!-- /.product-listing__item -->
+            <div class="product-listing__item">
+              {%- include 'product-item-upsell' with block_product_4  -%}
+            </div> <!-- /.product-listing__item -->
+          </div> <!-- /.product-grid -->
+
+        </div> <!-- /.collection-grid_products -->
+      </section>
+
+  {%- endcase -%}
+  
+{%- endfor -%}

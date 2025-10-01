@@ -1,0 +1,21 @@
+{% capture custom_form_attribute%}  
+  {% unless data_form == blank %}
+    data-form={{ data_form }}
+  {% else %}
+    data-form="default"
+  {% endunless %}
+{% endcapture %} 
+
+<div class="search-form">
+  <form action="/search" method="get">
+    <input 
+      type="text" 
+      name="q"
+      id="searchField"
+      class="search__field"
+      placeholder="{{ placeholder }}"
+    />
+    <input type="hidden" name="type" value="{{ type }}" />
+    <input type="hidden" name="options[unavailable_products]" value="hide" />
+  </form>
+</div>

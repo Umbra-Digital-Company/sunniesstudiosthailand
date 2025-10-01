@@ -1,0 +1,134 @@
+{{ 'page-carousel.css' | asset_url | stylesheet_tag }}
+
+<div class="section-page-carousel {% if section.settings.is_dark_bg %}section-page-carousel-dark{% else %}section-page-carousel-light{% endif %}">
+  <h2 style="text-align: {{ section.settings.title_alignment }}">{{ section.settings.title }}</h2>
+  {%- if section.blocks.size > 0 -%}
+    <div
+      class="page-carousel-swiper-{{ section.id }}"
+      id="page-carousel-pages"
+    >
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="swiper-slide">
+            <img src="{{ block.settings.page_image }}">
+            {% if block.settings.page_title != '' %}
+              <h4 id="page-item-title">{{ block.settings.page_title }}</h4>
+            {% else %}
+              <div class="page-carousel-spacer"></div>
+            {% endif %}
+            <a id="page-item-cta" href="{{ block.settings.page_url }}">{{ block.settings.page_action_label }}</a>
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="page-carousel-pagination-{{ section.id }} page-carousel-pagination"></div>
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+  new Swiper(".page-carousel-swiper-{{ section.id }}", {
+    slidesPerView: Number({{ section.settings.mobile_shown_page_count }}),
+    spaceBetween: 16,
+    breakpoints: {
+      768: {
+        slidesPerView: Number({{ section.settings.desktop_shown_page_count }}),
+        spaceBetween: 24,
+      },
+    },
+    pagination: {
+      el: ".page-carousel-pagination-{{ section.id }}",
+      clickable: true,
+    },
+    on: {
+      init: function () {
+        document.getElementById("page-carousel-pages").style.display = "block";
+      },
+    },
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Page Carousel",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_dark_bg",
+      "label": "Dark Background",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "desktop_shown_page_count",
+      "label": "Shown Page Count (Desktop)",
+      "default": "3"
+    },
+    {
+      "type": "text",
+      "id": "mobile_shown_page_count",
+      "label": "Shown Page Count (Mobile)",
+      "default": "1.5"
+    }
+  ],
+  "max_blocks": 10,
+  "blocks": [
+    {
+      "type": "page",
+      "name": "Pages",
+      "settings": [
+        {
+          "type": "url",
+          "id": "page_url",
+          "label": "Page Url"
+        },
+        {
+          "type": "text",
+          "id": "page_title",
+          "label": "Page Title"
+        },
+        {
+          "type": "text",
+          "id": "page_action_label",
+          "label": "Page Action Label"
+        },
+        {
+          "type": "url",
+          "id": "page_image",
+          "label": "Page Image Url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Carousel"
+    }
+  ]
+}
+{% endschema %}

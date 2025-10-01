@@ -1,0 +1,167 @@
+{{ 'footer.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign _section = section.settings
+  assign section_footer_logo = _section.footer_logo
+  assign section_terms_menu = _section.terms_menu
+  assign section_socials_menu = _section.socials_menu
+  assign current_url = shop.domain
+%}
+
+<footer class="footer">
+  <div class="footer-copy">
+    {% for block in section.blocks %}
+      {% if block.type == 'copywrite_item' %}
+        <div class="footer-copy-item">
+          <div class="footer-copy-item-wrapper">
+            {% if block.settings.title == '90-day Guarantee​' %}
+              <div class="ninety-days-guarantee-image">
+                <img src="{{ block.settings.logo | img_url: 'master' }}" loading="lazy">
+              </div>
+            {% else %}
+              <img src="{{ block.settings.logo | img_url: 'master' }}" loading="lazy">
+            {% endif %}
+            <h4>{{ block.settings.title }}</h4>
+            <div class="text">{{ block.settings.text }}</div>
+          </div>
+          <a href="{{ block.settings.link }}">{{ block.settings.link_text }}</a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-content">
+      
+      {% comment %}<p class="subscribe-text">Subscribe</p>{% endcomment %}
+      {% comment %} {%- if settings.subscribe_html != blank -%}
+        {%- include 'subscribe-mailchimp',
+          action: settings.subscribe_html,
+          form_class: 'js-subscribe-form subscribe footer__subscribe',
+          field_class: 'subscribe__field',
+          field_placeholder: settings.subscribe_placeholder,
+          button_class: 'subscribe__btn',
+          button_text: settings.subscribe_btn,
+          ajax: true,
+          footer_logo: section_footer_logo
+        -%}
+      {%- endif -%} {% endcomment %}
+      <!-- {%- if section_footer_logo != blank -%}
+        <img id="footer-logo" src="{{ section_footer_logo | img_url: 'master' }}" alt="" loading="lazy">
+      {%- endif -%} -->
+    </div>
+    <div class="footer-menus-wrapper">
+      <div class="footer-menus">
+        {% for link in section.settings.left_menu.links -%}
+          <div class="footer-menu">
+            <div class="footer-menu-wrapper">
+              <div class="footer-menu-heading">
+                <h4>
+                  {{ link.title }}
+                </h4>
+                <img id="plus-icon" src="{{ 'plus-iconv1.svg' | asset_url }}" loading="lazy">
+                <img id="minus-icon" src="{{ 'minus-icon.svg' | asset_url }}" loading="lazy">
+              </div>
+              <ul style="display: none;" class="sublinks-wrapper">
+                {% for sub_link in link.links -%}
+                  <li>
+                    {% if sub_link.levels != 0 %}
+                      <span id="sublink-dropdown-title">{{ sub_link.title }}</span>
+                      <ul class="sublink-dropdown-wrapper" style="display: none;">
+                        {% for dropdown_link in sub_link.links %}
+                          <li>
+                            <a href="{{ dropdown_link.url }}" target="_blank">{{ dropdown_link.title }}</a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% else %}
+                      <a href="{{ sub_link.url }}" target="_blank">{{ sub_link.title }}</a>
+                    {% endif %}
+                  </li>
+                {%- endfor %}
+              </ul>
+            </div>
+          </div>
+        {%- endfor %}
+      </div>
+      {% comment %}
+      <div class="footer-terms-menu">
+        <ul>
+          {% for link in section.settings.terms_menu.links -%}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {%- endfor %}
+        </ul>
+      </div>
+      {% endcomment %}
+    </div>
+      {%- if section_footer_logo != blank -%}
+        <div id="footer-logo" class="mobile">
+        <img id="footer-logo--img" src="{{ section_footer_logo | img_url: 'master' }}" alt="" loading="lazy">
+        </div>
+      {%- endif -%}
+  </div>
+</footer>
+
+<script src="{{ 'footer.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "footer_logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "left_menu",
+      "label": "Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "socials_menu",
+      "label": "Socials menu"
+    },
+    {
+      "type": "link_list",
+      "id": "terms_menu",
+      "label": "Terms and Privacy Menu"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "copywrite_item",
+      "name": "Footer copy item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

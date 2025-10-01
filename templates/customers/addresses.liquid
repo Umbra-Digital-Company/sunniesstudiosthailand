@@ -1,0 +1,11 @@
+<div class="Customer">
+  <div class="Customer__wrapper">
+    {% render 'customer_header' %}
+    <div class="customer-main">
+    {% render 'customer_sidebar' %}
+    <div class="Customer__module{% cycle '', ' hide', ' hide'%} js-customer-module" data-module="{{ module | handleize }}">
+      {% render 'customer_addresses' %}
+    </div>
+    </div>
+  </div>
+</div>

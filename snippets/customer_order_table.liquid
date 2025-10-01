@@ -1,0 +1,244 @@
+{% assign invoiceNumbers = '' %}
+
+<div class="Orders__details">
+  <!-- DESKTOP -->
+  {% for order in customer.orders %}
+    {% assign invoiceNumbers = invoiceNumbers | append: order.line_items.first.fulfillment.tracking_number | append: ',' %}
+
+    <div class="order-item">
+      <div class="order-item-first-section order-item-column">
+        <div class="order-item-details order-item-column">
+          <span class="order-item-span order-item-brown" id="order-item-id"># {{ order.name }}</span>
+          <span class="order-item-span order-item-bold">{{ order.created_at | date: "%B %d, %Y" }}</span>
+        </div>
+        <div class="order-item-financial order-item-column">
+          <span class="order-item-span order-item-bold" id="order-item-total">
+            {{ order.total_price | money_with_currency  }}
+          </span>
+          <span class="order-item-span order-item-brown">
+            {% assign gateway = order.transactions.last.gateway %}
+            {% if gateway contains 'COD' %}
+              {{ gateway }}
+            {% elsif gateway contains 'gcash' %}
+              GCash via PayMongo
+            {% elsif gateway contains 'grab' %}
+              GrabPay
+            {% elsif gateway contains 'paymaya' %}
+              Credit/Debit Card
+            {% else %}
+              {{ gateway }}
+            {% endif %}
+          </span>
+        </div>
+      </div>
+
+      <div class="order-item-second-section order-item-column">
+        <div class="order-item-count order-item-column">
+          <span class="order-item-span order-item-brown" id="order-item-items">
+            ({{ order.line_items | size  }} Items)
+          </span> 
+        </div>
+        <div class="order-item-fulfillment order-item-column">
+          <a href="{{ order.customer_url }}" class="order-item-span order-item-bold invoice-num-{{ order.line_items.first.fulfillment.tracking_number }}" id="order-item-fulfillment-status">
+            {% if order.cancelled %}
+              Canceled
+            {% elsif order.line_items.first.fulfillment.shipment_status == "Delivered" %}
+              Delivered
+            {% elsif order.fulfillment_status == "fulfilled" and order.financial_status == "paid" %}
+              In Transit
+            {% elsif order.tags contains "downloaded" %}
+              Processing
+            {% elsif order.fulfillment_status == "unfulfilled" and order.financial_status == "pending" %}
+              Confirmed
+            {% else %}
+              Processing
+            {% endif %}
+
+            <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 6.5L6 9V12L10 5.9832L6 0V3L7.5 5.7L0 5.6V6.4L7.5 6.5Z" fill="#5389BF"/>
+            </svg>
+          </a>
+          <span class="order-item-span order-item-brown">
+            {{ order.billing_address.city }}
+            {{ order.billing_address.country_code  }}
+          </span>
+        </div>
+      </div>
+
+      <div class="order-item-images idx-{{ forloop.index }}">
+        {% assign item_list = '' %}
+        {% for item in order.line_items %}
+          {% unless item.title contains 'Non-prescription' %}
+            {% assign item_list = item_list | append: item.title | append: ',' %}
+          {% endunless %}
+        {% endfor %}
+
+        {% assign item_list_array = item_list | split: "," %}
+
+        {% if item_list_array.size >= 3 %}
+        <div class="order-item-arrows item-arrow-left">
+          <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M1.23492 4.8L5.62567 8.541L5.25 9L4.76837e-07 4.4874L5.25 0L5.62625 0.4584L1.23433 4.2H14V4.8H1.23492Z" fill="black"/>
+          </svg>
+        </div>
+        {% endif %}
+
+        {% assign adder = 0 %}
+        {% for item in order.line_items %}
+          {% assign idx = forloop.index %}
+          
+          {% if item.product.type == 'Lens' %}
+            {% assign adder = adder | plus: 1 %}
+          {% endif %}
+
+          {% if item.product.type != 'Lens' %}
+            <div class="order-item-image idx-{{ idx | minus: adder }}" style="background:url({{ item.image | img_url: '120x100' }})">
+              {% if item.quantity > 1 %}
+              <div id="order-item-quantity">{{ item.quantity }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        {% if item_list_array.size > 3 %}
+        <div class="order-item-arrows item-arrow-right">
+          <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7651 4.8L8.37433 8.541L8.75 9L14 4.4874L8.75 0L8.37375 0.4584L12.7657 4.2H0V4.8H12.7651Z" fill="black"/>
+          </svg>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="order-item-actions order-item-column">
+        <a class="order-item-action-buttons" id="order-item-view-details" href="{{ order.customer_url }}">
+          View Details
+        </a>
+        <a 
+          class="order-item-action-buttons" 
+          id="order-item-track-order" 
+          href="https://sunniesspecs.com/tracking-page/?search={{ order.name }}"
+          target="_blank">
+          Track Order
+        </a>
+      </div>
+    </div>
+
+    <script>
+    $(".order-item-images.idx-{{ forloop.index }} .order-item-arrows").on("click", function (evt) {
+      renderItems(
+        {{ order.line_items | json }}.filter(item => item.product.product_type !== "Lens"),
+        evt.currentTarget.classList.contains("item-arrow-right"),
+        evt.currentTarget.parentElement
+      );
+    })
+    </script>
+  {% endfor %}
+
+  <!-- MOBILE -->
+  {% for order in customer.orders %}
+    <div class="order-item-mobile">
+      <a href="{{ order.customer_url }}" class="order-item-span order-item-bold" id="order-item-fulfillment-status">
+        {% if order.cancelled %}
+          Canceled
+        {% elsif order.tags contains "payo-delivered" %}
+          Delivered
+        {% elsif order.fulfillment_status == "fulfilled" and order.financial_status == "paid" %}
+          In Transit
+        {% elsif order.tags contains "downloaded" %}
+          Processing
+        {% elsif order.fulfillment_status == "unfulfilled" and order.financial_status == "pending" %}
+          Confirmed
+        {% else %}
+          Processing
+        {% endif %}
+
+        <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 6.5L6 9V12L10 5.9832L6 0V3L7.5 5.7L0 5.6V6.4L7.5 6.5Z" fill="#5389BF"/>
+        </svg>
+      </a>
+
+      {% for item in order.line_items limit:1 %}
+        {% if item.product.type != 'Lens' %}
+          <div class="order-item-image idx-{{ idx | minus: adder }}">
+            <img 
+              src="{{ item.image | img_url: '300x' }}"
+              data-src="{{{ img_url }}}"
+              data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+              data-sizes="auto"
+              data-parent-fit="cover"
+            >
+
+              {% if order.line_items.size > 1 %}
+              <div id="order-item-quantity">+ {{ order.line_items.size }}</div>
+              {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      <span class="order-item-span order-item-brown" id="order-item-id"># {{ order.name }}</span>
+
+      <span class="order-item-span order-item-bold">
+        {{ order.created_at | date: "%B %d, %Y" }} 
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        {{ order.total_price | money_with_currency  }}
+      </span>
+
+      <div class="order-item-actions order-item-column">
+        <a class="order-item-action-buttons" id="order-item-view-details" href="{{ order.customer_url }}">
+          View Details
+        </a>
+        <a 
+          class="order-item-action-buttons" 
+          id="order-item-track-order" 
+          href="https://sunniesspecs.com/tracking-page/?search={{ order.name }}"
+          target="_blank">
+          Track Order
+        </a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+function renderItems(items, isNext, element) {
+  const isSmallLaptop = window.innerWidth < 1024;
+  const IMAGE_COUNT = isSmallLaptop ? 2 : 3;
+  const len = items.length;
+  let cursor = element.id ? +element.id : IMAGE_COUNT;
+  
+  if (isNext) {
+    if (cursor !== len) element.setAttribute("id", cursor + 1)
+  } else {
+    if (cursor !== IMAGE_COUNT) element.setAttribute("id", cursor - 1)
+  }
+
+  const newCursor = +element.getAttribute("id");
+  const elArray = Array.from({length: newCursor}, (_, i) => i + 1);
+  const newElArray = elArray.slice(Math.max(elArray.length - IMAGE_COUNT, 0));
+  const newElements = Array.from(element.children).filter(child => !Array.from(child.classList).includes("order-item-arrows"));
+  newElements.forEach(el => {
+    const elIdx = Array.from(el.classList).filter(e => e.includes("idx"));
+    const newIndex = +elIdx.find(Boolean).split("-")[1];
+
+    if (newElArray.includes(newIndex)) {
+      el.style.display = "block";
+    } else {
+      el.style.display = "none";
+    }
+  })
+
+  const [prevButton] = Array.from(element.children)
+  if (newCursor === IMAGE_COUNT) {
+     prevButton.style.display = "none";
+  } else {
+     prevButton.style.display = "block";
+  }
+
+  const [nextButton] = Array.from(element.children).filter(child => Array.from(child.classList).includes("item-arrow-right"))
+  if (newCursor === len) {
+    nextButton.style.display = "none";
+  } else {
+    nextButton.style.display = "block";
+  }
+}
+</script>

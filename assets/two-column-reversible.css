@@ -1,0 +1,66 @@
+.anti-rad-section-one {
+  display: flex;
+  background-color: #fff;
+  flex-direction: column;
+}
+.anti-rad-section-one .section-one-image {
+  width: 100%
+}
+.anti-rad-section-one .section-one-content {
+  padding: 40px 16px;
+  color: var(--black_color);
+  font-family: 'Radio Grotesk';
+}
+.anti-rad-section-one .section-one-content .one {
+  font-size: 28px;
+  font-family: 'AT Surt Medium';
+  display: block;
+}
+.anti-rad-section-one .section-one-content .two {
+  font-size: 14px;
+  margin-top: 24px;
+  display: block;
+}
+.anti-rad-section-one .section-one-content .three {
+  font-size: 12px;
+  margin-top: 16px;
+  display: block;
+}
+
+@media only screen and (min-width: 1281px) {
+  .anti-rad-section-one {
+    flex-direction: row;
+  }
+  .anti-rad-section-one.anti-rad-section-one--reverse {
+    flex-direction: row-reverse;
+  }
+  .anti-rad-section-one .section-one-image {
+    width: 50%
+  }
+  .anti-rad-section-one .section-one-content {
+    width: 50%
+  }
+  .anti-rad-section-one .section-one-content {
+    padding-left: 100px;
+    padding-right: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .anti-rad-section-one .section-one-content .one {
+    font-size: 40px;
+  }
+  .anti-rad-section-one .section-one-content .two {
+    font-size: 16px;
+    margin-top: 40px;
+  }
+  .anti-rad-section-one .section-one-content .three {
+    font-size: 16px;
+    margin-top: 40px;
+  }
+}
+@media only screen and (min-width: 1921px) {
+  .anti-rad-section-one {
+    padding: 0 100px;
+  }
+}

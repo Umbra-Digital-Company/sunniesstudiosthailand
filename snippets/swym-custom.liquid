@@ -1,0 +1,16 @@
+<script defer>
+  function swymCallbackFn(swat){
+    // your API calls go here
+    document.addEventListener("swym:collections-loaded", function(){
+      swat.initializeActionButtons("body");
+    });
+    document.addEventListener("swym:swatch-changed", function(){
+      swat.initializeActionButtons(".featured-products-swiper");
+    })
+  }
+  if(!window.SwymCallbacks){
+    window.SwymCallbacks = [];
+  }
+  window.SwymCallbacks.push(swymCallbackFn);
+
+</script>

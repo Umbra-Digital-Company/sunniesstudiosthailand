@@ -1,0 +1,173 @@
+{% liquid
+  assign _product = product-item
+  assign product_first_variant = _product.selected_or_first_available_variant
+  assign product_url = _product.url
+  assign product_title = _product.title
+  assign product.handle = _product.handle
+  assign prices = ''
+  assign color_swatches = ''
+  assign color_names = ''
+%}
+
+{% liquid 
+  if _product.tags contains 'merch' or product.type == 'Gift Cards'
+    assign item_type = 'merch'
+  elsif _product.tags contains 'sun'
+    assign item_type = 'studios_frame'
+  elsif _product.tags contains 'anti-rad' or _product.tags contains 'readers'
+    assign item_type = 'G100'
+  elsif _product.tags contains 'flask'
+    assign item_type = 'flask'
+  endif
+%}
+
+{%- for _variant in _product.variants -%}
+  {%- assign variant_title_handle = _variant.option1 | handle -%}
+
+  {%- capture prices -%}
+    {{ prices }}
+    <p
+      class="product__prices-item{% if _variant.id == product_first_variant.id %} current-price-variant{% endif %}"
+      data-vid-price="{{_variant.id}}" data-item-type="{{ item-type }}"
+    >
+      ${{ _variant.price | money_without_currency | remove: '.00' }}
+      {% if _variant.compare_at_price > 0 -%}
+        <del>${{ _variant.compare_at_price | money_without_currency | remove: '.00' }}</del>
+      {%- endif %}
+    </p>
+  {%- endcapture -%}
+
+  {%- capture color_swatches -%}
+    {{ color_swatches }}
+
+    <li
+      {% if product_first_variant.id == _variant.id %}
+        class="current-swatch-variant"
+      {% endif %}
+      {% if _variant.inventory_quantity <= 0 %}
+        data-swatch-disabled
+      {% endif %}
+    >
+      <a
+        title="{{_variant.option1}}"
+        class="js-product-item-swatch"
+        data-product-id="{{_product.id}}"
+        data-swatch-vid="{{_variant.id}}"
+        data-swatch-style="{{product_title}}"
+        data-swatch-link="/products/{{_product.handle}}?variant={{_variant.id}}"
+        href="#"
+      >
+        <span data-handle-name="{{variant_title_handle}}"></span>
+      </a>
+    </li>
+  {%- endcapture -%}
+
+  {%- capture color_names -%}
+    {{ color_names }}
+
+    <span
+      style="font-size: 14px; color: #b3a89b !important;"
+      data-vid-color="{{_variant.id}}"
+      id="item_color_name_{{product_title}}"
+      {% if product_first_variant.id == _variant.id %}
+        class="current-color-name"
+      {% endif %}
+    >
+      {{- _variant.option1 -}}
+    </span>
+  {%- endcapture -%}
+{%- endfor -%}
+
+{%- capture product_images -%}
+  {%- if product_first_variant.title == 'Default Title' -%}
+    <span
+      style="background-image: url({{ _product.featured_image | img_url: '900x' }});"
+      class="current-image-variant"
+    ></span>
+  {%- else -%}
+    {%- for image in _product.images -%}
+      {%- assign image_variants = image.variants | map: 'id' -%}
+      <span
+        data-bg-src="{{ image | img_url: '900x' }}"
+        data-image-variant="{{ image_variants | join: ',' }}"
+        {%- if image_variants contains product_first_variant.id -%}
+          style="background-image: url({{ image | img_url: '900x' }})"
+          class="current-image-variant"
+        {%- endif -%}
+      >
+      </span>
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+<div class="js-product-item product-item__wrap product-item product-item-full">
+  <div class="product-item__inner">
+    <div class="product__image">
+      {% if page.handle == "eyewear-for-all" %}
+        {% for image in _product.images %}
+          {% if image.alt contains "second" %}
+            <img class="second-img" src="{{ image | img_url: 'master' }}">
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      <ul class="list-badges">
+        <li class="list__badge list-badges__sold">
+          <small>Out of Stock</small>
+        </li>
+        <li class="list__badge list-badges__sale">
+          <small>Sale</small>
+        </li>
+      </ul>
+      <a href="{{ product_url | strip }}" class="">
+        {{ product_images }}
+      </a>
+    </div>
+    <div class="product__content">
+      <div class="product__entry">
+        <a href="{{product_url | strip}}">
+          <h3>{{ product_title }}&nbsp;&nbsp; {{ color_names }}</h3>
+        </a>
+        {%- if product_first_variant.title != 'Default Title' and color_swatches != '' -%}
+          <ul class="list-swatches">
+            {{ color_swatches }}
+          </ul>
+        {%- endif -%}
+      </div>
+      {% if product_first_variant.available %}
+        <div class="product__actions">
+          {% if _product.tags contains 'prescription' %}
+            <a
+              href="{{product_url | strip }}?variant={{_variant.id}}"
+              id="PrescriptionToggle"
+              class="btn-quick-add customize prescription"
+            >
+              <span></span> Select Lenses
+              <h3 class="hide">
+                {{ product_title }}
+                {{ color_names }}
+              </h3>
+            </a>
+          {% else %}
+            <a href="javascript:;" class="btn-quick-add js-quick-add"><span></span> Add to Bag</a>
+          {% endif %}
+          <span class="hidden-text" style="display: none;">{{ _product.title }}</span>
+          <div class="product__prices js-product-item-prices">{{ prices }}</div>
+        </div>
+      {% else %}
+        <div
+          class="product__actions"
+          onClick="openWaitlistModal({{ _product.id }}, {{ product_first_variant.id }})"
+        >
+          <a href="#" class="btn-quick-add"><span></span>Join the waitlist</a>
+          <span class="hidden-text" style="display: none;">{{ _product.title }}</span>
+          <div class="product__prices js-product-item-prices">{{ prices }}</div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="product-tags" style="display: none;">
+    {% for tag in _product.tags %}
+      <div class="tag">{{ tag }}</div>
+    {% endfor %}
+  </div>
+</div>

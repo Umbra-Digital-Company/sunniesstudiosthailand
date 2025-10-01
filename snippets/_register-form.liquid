@@ -1,0 +1,116 @@
+{% form 'create_customer' %}
+  {% comment %} <input type="hidden" name="checkout_url" value="/collections/all" class="js-redirect"/>
+  <input type="hidden" name="return_to" value="/account"/> {% endcomment %}
+
+  <div class="full-name-container">
+    <div class="fname-wrapper">
+      <p class="label-set">{{ 'customer.register.first_name' | t }}</p> 
+      <div class="form-element js-form-field">
+        <input type="text"
+          name="customer[first_name]"
+          id="FirstName"
+          autofocus
+          required
+          {% if form.first_name %}value="{{ form.first_name }}"{% endif %}>
+      </div>
+    </div>
+    
+    <div class="lname-wrapper">
+      <p class="label-set">{{ 'customer.register.last_name' | t }}</p> 
+      <div class="form-element js-form-field">
+        <input type="text"
+          name="customer[last_name]"
+          id="LastName"
+          required
+          {% if form.last_name %}value="{{ form.last_name }}"{% endif %}>
+      </div>
+    </div>
+  </div>
+  <p class="label-set">{{ 'customer.register.email' | t }}</p> 
+  <div class="form-element js-form-field">
+    <input type="email"
+      name="customer[email]"
+      id="Email"
+          class="{% if form.errors contains 'email' %} input-error{% endif %}" {% if form.email %} value="{{ form.email }}"{% endif %} 
+      value="{% if form.email %}{{ form.email }}{% endif %}"
+      spellcheck="false"
+      autocomplete="off"
+      autocapitalize="off"
+      required>
+  </div>
+
+  <div class="password-error-container">
+    <p class="label-set">{{ 'customer.register.password' | t }}</p> 
+    <div class="form-element js-form-field">
+      <input type="password"
+        name="customer[password]"
+        id="CreatePassword"
+        class="{% if form.errors contains 'password' %}input-error{% endif %}"
+        required>
+        {% render 'fa-eye' %}
+    </div>
+      <div class="password-signup">
+        {{ form.errors | default_errors }}
+        <div id="tos-error" style="display: none;">
+          Please agree to the Privacy Policy.
+      </div>
+    </div>
+  </div>
+
+<div class="ten-off-wrapper">
+  <input type="checkbox" name="customer[accepts_marketing]" id="AcceptsMarketing">
+  <label for="AcceptsMarketing" class="AcceptsMarketing">I want 10% off my first purchase.</label>
+  </div>
+  <div class="tos-wrapper">
+  <input type="checkbox" name="customer[accepts_tos]" id="AcceptsMarketing"  class="tos-accept" required>
+  <label for="accept-tos" class="accept-tos">I have read and understood the <a class="text-highlight-link" href="/pages/privacy-policy">Privacy Policy</a>, and I agree.
+</label>
+  </div>
+  <p>
+    <input id="submit" type="submit" value="{{ 'customer.register.submit' | t }}" class="btn btn--lightbrown js-account-submit">
+  </p>
+{% endform %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var submitButton = document.getElementById('submit');
+  var tosCheckbox = document.querySelector('.tos-accept');
+  var tosError = document.getElementById('tos-error');
+
+  submitButton.addEventListener('click', function(event) {
+    if (!tosCheckbox.checked) {
+      event.preventDefault();
+      tosError.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+{% comment %} <p class="label-set">{{ 'customer.register.date_of_birth' | t }}</p>
+  <div class="form-element js-form-field">
+    <input type="date"
+      name="customer[date_of_birth]"
+      id="DateOfBirth"
+      required
+      {% if form.date_of_birth %}value="{{ form.date_of_birth }}"{% endif %}>
+  </div>
+
+  <p class="label-set">{{ 'customer.register.country' | t }}</p>
+  <div class="form-element js-form-field" style="position: relative;">
+    <div class="form-svg-select">
+      <img src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/chevron-down.svg?v=1724833175">
+    </div>
+    <select class="js-address-country newCountry" id="address_country_{{address.id}}" name="address[country]" data-value="{{ address.country }}" autocomplete="new-password" tabindex="-1">
+      {{ country_option_tags }}
+    </select>
+  </div> {% endcomment %}
+{% comment %} <p class="label-set">{{ 'customer.register.confirm_password' | t }}</p> 
+  <div class="form-element js-form-field">
+    <input type="password"
+      name="customer[confirm_password]"
+      id="ConfirmPassword"
+      class="{% if form.errors contains 'confirm_password' %}input-error{% endif %}"
+      required>
+    <span id="confirm-password-error" class="confirm-pass-err" style="display: none;">Passwords do not match. Please try again.</span>
+  </div> {% endcomment %}

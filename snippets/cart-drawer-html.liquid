@@ -1,0 +1,57 @@
+<div class="cart-drawer">
+    <div class="cart-drawer__inner">
+        <header class="cart-drawer__head js-cd-top">
+            <h3 class='cart-drawer--header'>
+              {{ 'cart.general.title' | t }} 
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                <path d="M4.5 5L19.5 20M19.5 5L4.5 20" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </h3>
+            {% render 'pre-order-alert-mini-cart' %}
+            {% render 'cart-drawer-discount-callout' %}
+            <div class="js-cart-drawer-callout-container">
+                {% render 'cart-drawer-discount-callout-2' %}
+            </div>
+            {% comment %} <div class="cart-progress">
+                <div class="cart-progress-bar">
+                    <div class="cart-progress-bar__filled"></div>
+                </div>
+                <p class="cart-progress-status incomplete">Add $100 more to get free shipping</p>
+            </div> {% endcomment %}
+        </header>
+        <div class="cart-drawer__body js-cart-drawer-container">
+        </div>
+    </div>
+</div>
+
+<script>
+  document.querySelector('.btn-cart.js-cart-btn').addEventListener('click', (e) => {
+    if(screen.width >= 768){
+      e.preventDefault();
+    }
+    setTimeout(function(){
+      document.querySelector('.cart-drawer').classList.toggle('expanded-v2')
+    }, 100);
+    
+  });
+
+  document.querySelector('.btn-cart.js-cart-btn').addEventListener('mouseleave', (e) => {
+      // closeBag();
+  });
+
+  document.querySelector('.cart-drawer--header svg').addEventListener('click', () => {
+      closeBag();
+  })
+
+document.querySelector('.cart-drawer').addEventListener('click', function(e){
+    if(document.querySelector('.cart-drawer__inner') !== e.target && !document.querySelector('.cart-drawer__inner').contains(event.target) ){
+      closeBag();
+    }
+})
+
+  const closeBag = () => {
+        document.querySelector('.cart-drawer').classList.remove('expanded');
+        document.querySelector('.cart-drawer').classList.remove('expanded-v2');
+  }
+  
+</script>

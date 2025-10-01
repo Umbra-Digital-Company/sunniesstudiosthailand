@@ -1,0 +1,83 @@
+{%- assign _section = section.settings -%}
+{%- assign section_title = _section.title -%}
+
+{%- if section.blocks.size > 0 -%}
+	<section class="section-3-blocks">
+		<div class="shell">
+			{%- if section_title != blank -%}
+				<div class="section__head" style="margin-bottom: 50px;">
+					<h2>{{ section_title | newline_to_br }}</h2>
+				</div><!-- /.section__head -->
+			{%- endif -%}
+
+			<div class="section__body">
+				<div class="blocks-3">
+					<div class="blocks-3__items">
+						{%- for block in section.blocks -%}
+						  {%- assign _block = block.settings -%}
+						  {%- assign block_image = _block.image -%}
+						  {%- assign block_title = _block.title -%}
+						  {%- assign block_url = _block.url -%}
+						  <div class="blocks-3__item">
+							  <div class="block-3">
+							  	<a href="{{block_url}}"></a>
+
+								  {%- if block_image != blank -%}
+								  
+									  <img src="{{block_image | img_url: '900x'}}" style="margin-bottom: 25px;" />
+								  {%- endif -%}
+
+								  {%- if block_title != blank -%}
+								  	<h4>{{block_title}}</h4>
+								  {%- endif -%}
+							  </div><!-- /.block-3 -->
+						  </div><!-- /.blocks-3__item -->
+						{%- endfor -%}
+					</div><!-- /.blocks-3__items -->
+				</div><!-- /.blocks-3 -->
+			</div><!-- /.section__body -->
+		</div><!-- /.shell -->
+	</section><!-- /.section-3-blocks -->
+{%- endif -%}
+
+{% schema %}
+{
+	"name": "3 Blocks section",
+	"settings": [
+		{
+			"type": "textarea",
+			"id": "title",
+			"label": "Title"
+		}
+	],
+	"max_blocks": 3,
+	"blocks": [
+		{
+			"type": "block",
+			"name": "Block",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title"
+				},
+				{
+					"type": "url",
+					"id": "url",
+					"label": "Url"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "3 Blocks section"
+		}
+	]
+}
+{% endschema %}

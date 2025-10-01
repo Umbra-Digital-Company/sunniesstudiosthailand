@@ -1,0 +1,208 @@
+<style>
+  #bfs_modal {
+    overflow: auto;
+    z-index: 1000;
+    opacity: 1 !important;
+  }
+  #bfs_modal .klaviyo_inner {
+    background: none;
+    background-color: #F4F2D6;
+    padding: 40px;
+    font-family: 'Radio Grotesk';
+    max-height: 700px;
+    border-radius: 12px;
+    position: absolute;
+    left: 50%;
+    margin-left: 0;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 480px;
+  }
+  #bfs_modal .klaviyo_header_close {
+    font-size: 28px;
+    color: #352B27;
+    top: 4px;
+  }
+  #bfs_modal .klaviyo_image {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+  }
+  #bfs_modal .klaviyo_subheader {
+    margin-top: 24px;
+    padding: 0;
+    color: #352B27;
+    font-weight: 400;
+    line-height: 150%;
+    font-size: 14px;
+  }
+  #bfs_modal .klaviyo_field_group {
+    margin-top: 24px;
+    margin-bottom: 0;
+  }
+  #bfs_modal .klaviyo_field_group input {
+    border: 1.5px solid #352b27;
+    padding: 16px;
+    height: auto;
+    border-radius: 4px;
+    text-transform: none;
+    box-shadow: none;
+    font-size: 14px;
+  }
+  #bfs_modal .klaviyo_form_actions {
+    margin-top: 16px;
+    padding-top: 0;
+    border-top: 0;
+  }
+  #bfs_modal .klaviyo_submit_button {
+    background: none;
+    background-color: #9db74b;
+    border-radius: 4px;
+    padding: 16px;
+    box-shadow: none;
+  }
+  #bfs_modal .klaviyo_submit_button span {
+    font-size: 14px;
+    font-weight: 500;
+    background: none;
+    padding: 0;
+    height: auto;
+    box-shadow: none;
+    line-height: 100%;
+    text-shadow: none;
+  }
+  #bfs_modal .klaviyo_fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  #bfs_modal .klaviyo_below_submit {
+    margin-top: 24px;
+  }
+  #bfs_modal .klaviyo_footer {
+    text-align: center;
+    font-weight: 400;
+    font-size: 10px;
+  }
+  #bfs_modal .success_message {
+    padding: 0;
+    margin-top: 24px;
+  }
+  #bfs_modal .sucess-message__text {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+  }
+  #bfs_modal .sucess-message__subtext {
+    margin-top: 12px;
+    font-size: 12px;
+    line-height: 150%;
+  }
+  #bfs_modal .success-message__close-btn {
+    background: none;
+    background-color: #9db74b;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    display: block;
+    width: 100%;
+    padding: 16px;
+    border: none;
+    color: white;
+    margin-top: 24px;
+  }
+  @media only screen and (min-width: 750px) {
+    #bfs_modal .klaviyo_inner {
+      top: 10%;
+    }
+  }
+  @media only screen and (min-width: 1200px) {
+   #bfs_modal .klaviyo_inner {
+      padding: 60px;
+      width: 100%;
+      top: 2%;
+    }
+     #bfs_modal .klaviyo_image {
+      height: 200px;
+    }
+    #bfs_modal .klaviyo_subheader {
+      margin-top: 40px;
+      font-size: 16px;
+    }
+     #bfs_modal .klaviyo_field_group {
+      margin-top: 40px;
+    }
+    #bfs_modal .klaviyo_below_submit {
+      margin-top: 40px;
+    }
+    #bfs_modal .klaviyo_submit_button span {
+      font-size: 16px
+    }
+    #bfs_modal .klaviyo_field_group input {
+      font-size: 16px;
+    }
+    #bfs_modal .klaviyo_footer {
+      font-size: 12px;
+    }
+    #bfs_modal .sucess-message__text {
+      font-size: 28px;
+    }
+    #bfs_modal .sucess-message__subtext {
+      margin-top: 12px;
+      font-size: 16px;
+    }
+    #bfs_modal .success_message {
+      margin-top: 40px;
+    }
+     #bfs_modal .success-message__close-btn {
+      font-size: 16px;
+      margin-top: 40px;
+    }
+  }
+</style>
+
+<div class="klaviyo_modal" id="bfs_modal" style="display:none;">
+  <div class="klaviyo_inner">
+   <a href="#" class="klaviyo_close_modal klaviyo_header_close">×</a>
+   <img class="klaviyo_image" src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Black_Friday_logo.png?v=1668654758" alt="Black Friday Sale">
+   <form action="//manage.kmail-lists.com/subscriptions/subscribe" id="bfs_form" method="POST" novalidate="novalidate" class="klaviyo_subscription_form hide_on_submit">
+      <input type="hidden" name="g" value="QUPfUM">
+      <div class="klaviyo_fieldset">
+        <p class="klaviyo_subheader"><strong>30% off every single thing</strong> - get access to our biggest sale yet, including prescription glasses! Sign up before everyone else.</p>
+      </div>
+      <div class="klaviyo_fieldset">
+      <div class="klaviyo_field_group">
+        <input type="email" id="bfs_modal_$email" name="email" placeholder="Email address"></div>
+      </div> 
+      <div class="klaviyo_fine_print"></div>
+      <div class="klaviyo_form_actions">
+          <button type="submit" form="bfs_form" class="klaviyo_submit_button">
+          <span>Sign me up</span>
+          </button>
+      </div>
+      <div class="klaviyo_below_submit" >
+        <p class="klaviyo_footer">By submitting your email, you will be signed up to receive emails about launches, promos, and more. Unsubscribe anytime.</p>
+      </div>
+   </form>
+   <div class="error_message" ></div>
+   <div class="success_message" style="display:none;">
+     <p class="sucess-message__text">Done! You’re on the list.</p>
+     <p class="sucess-message__subtext">Keep an eye out for our Black Friday Sale promo code in your inbox!</p>
+     <button class="success-message__close-btn klaviyo_close_modal">Done</button>
+   </div>
+   </div>
+</div>
+
+<script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+<script type="text/javascript">
+  setTimeout(()=>{
+     KlaviyoSubscribe.attachToModalForm('#bfs_modal',{
+      delay_seconds: 0.01,
+      success: function ($form) {
+        document.querySelector('#bfs_modal .hide_on_submit').style.display = "none"
+      },
+      custom_success_message: true,
+      has_closed_modal_cookie_name: 'bfs_modal'
+   });
+  },5000)
+</script>

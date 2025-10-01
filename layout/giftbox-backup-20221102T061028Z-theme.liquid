@@ -1,0 +1,339 @@
+<!doctype html>
+<html class="no-js supports-no-cookies" lang="{{ shop.locale }}">
+  <head>
+{% render 'geolizr-init' %}
+    <!-- Initialize geolizer - Start -->
+        <!-- Initialize geolizer - End -->
+
+    <!-- Initialize Shopify Data - Start -->
+    {% render '_shopify_data' %}
+    <!-- Initialize Shopify Data - End -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0WX604SEP5"></script>
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-0WX604SEP5');
+    </script>
+
+    <!-- Google Analytics -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        (i[r] =
+          i[r] ||
+          function () {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-62768651-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics -->
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          'gtm.start': new Date().getTime(),
+          event: 'gtm.js',
+        });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-MCFRV7');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Meta - Start -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="theme-color" content="{{ settings.color_accent }}">
+    <!-- Meta - End -->
+
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {% if template == 'page.stores' or template == 'page.store-single' %}
+      <script
+        async
+        defer
+        src="//maps.googleapis.com/maps/api/js?key={{settings.google_map_api_key}}&amp;sensor=false"
+        type="text/javascript"
+      ></script>
+    {% endif %}
+
+    {%- if settings.favicon != blank -%}
+      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+    {%- endif -%}
+
+    {%- capture seo_title -%}
+      {{ page_title }}
+
+      {%- if current_tags -%}
+        {%- assign meta_tags = current_tags | join: ', ' -%}
+        &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+      {%- endif -%}
+
+      {%- if current_page != 1 -%}
+        &ndash; {{ 'general.meta.page' | t: page: current_page }}
+      {%- endif -%}
+
+      {%- assign escaped_page_title = page_title | escape -%}
+
+      {%- unless escaped_page_title contains shop.name -%}
+        &ndash; {{ shop.name }}
+      {%- endunless -%}
+    {%- endcapture -%}
+
+    <title>{{ seo_title | strip }}</title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {%- include 'social-meta-tags' -%}
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'product-card.css' | asset_url | stylesheet_tag }}
+    {{ 'featured-collection.css' | asset_url | stylesheet_tag }}
+    {{ 'discount-callout.css' | asset_url | stylesheet_tag }}
+    {{ 'cart-discount-callout.css' | asset_url | stylesheet_tag }}
+    {{ 'cart-drawer-discount-callout.css' | asset_url | stylesheet_tag }}
+
+    <link rel="stylesheet" href="{{ 'rx-flow-style.css' | asset_url }}">
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', '');
+      window.theme = {
+        strings: {
+          addToCart: '{{ "products.product.add_to_cart" | t | json }}',
+          soldOut: '{{ "products.product.sold_out" | t | json }}',
+          unavailable: '{{ "products.product.unavailable" | t | json }}',
+        },
+        moneyFormat: '{{ shop.money_format | json }}',
+      };
+    </script>
+
+    {% if template == 'product' or template == 'page.ditto' %}
+      <script src="https://bsdk.api.ditto.com/default/5.2.0/en-us/api.js"></script>
+    {% endif %}
+
+    {{ content_for_header }}
+
+    <!-- Meta Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '359237558683973');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://www.facebook.com/tr?id=359237558683973&ev=PageView&noscript=1"
+      >
+    </noscript>
+    <!-- End Meta Pixel Code -->
+
+    <script type="text/javascript">
+      (function e() {
+        var e = document.createElement('script');
+        (e.type = 'text/javascript'),
+          (e.async = true),
+          (e.src = '//staticw2.yotpo.com/NS9SsoHiT9FYw9z2b8iLDcJs9kSovIGon8wBkJUk/widget.js');
+        var t = document.getElementsByTagName('script')[0];
+        t.parentNode.insertBefore(e, t);
+      })();
+    </script>
+
+    <link rel="preload stylesheet" href="{{ 'yotpo-review.css' | asset_url }}" as="style">
+
+    <script>
+      GIFTBOX_CUSTOM_LAUNCHER_ICON = "https:{{ 'gift_icon2.svg' | asset_url }}";
+
+      const GBint = setInterval(() => {
+        const selectGB = document.querySelector('#giftbox-root iframe');
+
+        if (selectGB) {
+          // target the offer id
+          let selectOffer = selectGB.contentDocument.querySelector('.Offer-Id-44192');
+
+          //proceed if offer found
+          if (selectOffer) {
+            let selectOfferImg = selectOffer.querySelector('.GiftBox-Card-Img > img');
+
+            // Alter the img source here
+            selectOfferImg.src =
+              'https://cdn.shopify.com/s/files/1/0268/4141/5798/products/YELLOWFRONTDIAGONAL_1_900x.jpg?v=1660727335';
+          }
+        }
+      }, 100);
+
+      const GBint2 = setInterval(() => {
+        const gb = document.querySelector('[data-cy="popup"]');
+        const prices = gb?.contentWindow.document.querySelectorAll('.GiftBox-Card-Description h3 div');
+        if (gb && prices?.length) {
+          prices.forEach((p) => {
+            p.innerText = p.innerText.replace('US', '').replace('.00', '');
+          });
+        }
+      }, 100);
+
+      const GBint1 = setInterval(() => {
+        const gb = document.querySelector('[data-cy="popup"]');
+        const gbBody = gb?.contentDocument?.querySelector('body');
+        if (gb && gbBody) {
+          setTimeout(() => {
+            gb.style.overflow = 'hidden';
+            gbBody.style.overflow = 'hidden';
+          }, 150);
+        }
+      }, 100);
+    </script>
+
+    {% if template.suffix == 'article-template-1' %}
+      <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">
+    {% endif %}
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">
+
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
+    <!-- JQUERY -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+
+    <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-931098509"></script> <script>   window.dataLayer = window.dataLayer || [];   function gtag(){dataLayer.push(arguments);}   gtag('js', new Date());   gtag('config', 'AW-931098509'); </script>
+  
+  {% include 'friendbuy' %}
+</head>
+
+  <body
+    id="{{ page_title | handle }}"
+    class="template-{{ template.name | handle }}{% if settings.top_bar_show %} has-top-bar{% endif %}"
+  >
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-MCFRV7"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe>
+    </noscript>
+
+    <div class="wrapper">
+      <a class="in-page-link visually-hidden skip-link" href="#MainContent">
+        {{- 'general.accessibility.skip_to_content' | t -}}
+      </a>
+
+      {% section 'header' %}
+      {% section 'color-groups' %}
+      {% section 'color-swatches' %}
+
+      {%- include 'cart-drawer-html' -%}
+
+      <span class="global-overlay js-global-overlay"></span>
+      <span class="global-overlay-navigation"></span>
+
+      <main role="main" id="MainContent">
+        {{ content_for_layout }}
+      </main>
+
+      {%- include 'newsletter-popup' -%}
+      {%- include 'waitlist-modal' -%}
+
+      {% section 'footer' %}
+    </div>
+
+    <!-- Lazy Loading -->
+    {{ 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js' | script_tag }}
+    {{ 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/plugins/bgset/ls.bgset.min.js' | script_tag }}
+
+    {% include 'script-tags', layout: 'theme' %}
+    {% include 'bc-sf-filter-style' %}
+    {% include 'bc-sf-filter' %}
+    {% include 'six-six' %}
+
+    <!-- Start of sunniesstudios Zendesk Widget script -->
+    <script
+      id="ze-snippet"
+      src="https://static.zdassets.com/ekr/snippet.js?key=58db3bb3-0114-449d-9231-3272b0023fb9"
+    ></script>
+    <!-- End of sunniesstudios Zendesk Widget script -->
+
+    <!-- giftbox-script -->
+    {{ 'giftbox-config.js' | asset_url | script_tag }}
+
+    <script src="https://giftbox.ds-cdn.com/static/main.js?shop={{shop.permanent_domain}}"></script>
+    <!-- / giftbox-script -->
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script>
+      const productTags = document.querySelectorAll('.product-tags .tag');
+
+      productTags.forEach((tag) => {
+        if (tag.innerText === 'hidden_except_summer_page') {
+          tag.closest('.product-item').classList.add('super-hidden');
+        }
+      });
+
+      // sun collections
+      setTimeout(function () {
+        const toHide = document.querySelectorAll('#sun .product-listing__item');
+
+        toHide.forEach((el) => {
+          if (el.getAttribute('id').includes('copy-of-')) {
+            el.style.display = 'none';
+          }
+        });
+      }, 3000);
+
+      function handleCleanLensPromo() {}
+    </script>
+
+    <script src="{{ 'six-six.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'browserClass.js' | asset_url }}"></script>
+    <script src="{{ 'prescription.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'product-card.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'waitlist-modal.js' | asset_url }}"></script>
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+  {% render 'geolizr-redirect' %}</body>
+</html>

@@ -1,0 +1,223 @@
+<div class="gift-budget" style="background-image: url('{{ section.settings.bg_image | image_url }}')">
+  <div class="gift-budget__title-container">
+    <h2 class="gift-budget__title">{{ section.settings.title }}</h2>
+    <p class="gift-budget__subtitle">{{ section.settings.subtitle }}</p>
+  </div>
+  <div class="swiper gift-budget__cards-container">
+    <div class="swiper-wrapper gift-budget__cards-container-inner">
+      {% for block in section.blocks %}
+        <div class="swiper-slide">
+          <div class="gift-budget__card" >
+            <img class="gift-budget__card-image" src="{{ block.settings.card_bg_image | image_url }}" alt="{{ section.settings.title }}" />
+            <div class="gift-budget__btn-container">
+              <a href="{{ block.settings.btn_link }}" style="{% if block.settings.btn_background_color != empty %}background-color:{{ block.settings.btn_background_color }};{% endif %} {% if block.settings.btn_text_color != empty %}color:{{ block.settings.btn_text_color }}{% endif %}; 
+    --hover-background: {{ block.settings.btn_background_color }};
+    --hover-color:{{ block.settings.btn_text_color }};" class="gift-budget__btn">{{ block.settings.btn_label }}</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "GGuide Gift Budget",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_image",
+        "label": "Background Image"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "card",
+        "name": "card",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "card_bg_image",
+            "label": "Card Background Image"
+          },
+          {
+            "type": "text",
+            "id": "btn_label",
+            "label": "Button Label"
+          },
+          {
+            "type": "url",
+            "id": "btn_link",
+            "label": "Button Link"
+          },
+          {
+            "type": "color",
+            "id": "btn_background_color",
+            "label": "Button Background Color"
+          },
+          {
+            "type": "color",
+            "id": "btn_text_color",
+            "label": "Button Text Color"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "GGift Guide Budget"
+      }
+    ],
+    "max_blocks": 3
+  }
+{% endschema %}
+
+<style>
+  .gift-budget {
+    padding: 60px 16px;
+    color:#F4F2D6;
+    display: grid;
+    grid-template-columns: auto;
+  }
+  .gift-budget__title-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .gift-budget__title {
+    font-family: 'AT Surt Medium';
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 120%;
+    text-align: center;
+  }
+  .gift-budget__subtitle {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 150%;
+    text-align: center;
+    color: #F4F2D6;
+    margin-top: 16px;
+  }
+  .gift-budget__cards-container {
+    margin-top: 36px;
+    padding-bottom: 30px;
+    overflow: visible;
+/*     overflow-x: auto; */
+    width: 100%;
+  }
+/*   .gift-budget__cards-container-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    min-width: 768px;
+  } */
+  .swiper-slide {
+    max-width: 264px;
+  }
+  .gift-budget__card {
+    position: relative;
+    width: 100%;
+    padding-bottom: 150%;
+  }
+  .gift-budget__card-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .gift-budget__btn-container {
+    padding: 24px; 
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+  .gift-budget__btn {
+    padding: 12px 10px;
+    display: block;
+    text-decoration: none;
+    background-color: #F4F2D6;
+    color: #9DB74B;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    border: 1.5px solid transparent;
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  .gift-budget__btn:hover {
+    color: #9DB74B;
+    border: 1.5px solid #9DB74B;
+    
+  }
+  .gift-budget__btn:hover {
+      color: #9DB74B;
+      border: 1.5px solid var(--hover-background);
+      background-color: var(--hover-color) !important;
+      color: var(--hover-background) !important;
+  }
+  .gift-budget__cards-container .swiper-pagination-bullets {
+    bottom: 0;
+  }
+  .gift-budget__cards-container .swiper-pagination-bullet {
+    border: 1.5px solid #F4F2D6;
+    background-color: transparent;
+    opacity: 1;
+  }
+  .gift-budget__cards-container .swiper-pagination-bullet-active {
+    background-color:  #F4F2D6 !important;
+  }
+  @media only screen and (min-width: 1200px) {
+    .gift-budget {
+      grid-template-columns: 1fr 2.5fr;
+      padding: 80px 100px;
+      gap: 40px;
+    }
+    .gift-budget__title  {
+      font-size: 34px;
+    }
+    .gift-budget__subtitle  {
+      font-size: 16px;
+    }
+    .gift-budget__cards-container {
+      margin-top: 0;
+      padding-bottom: 0;
+    }
+    .swiper-slide {
+      max-width: 100%;
+    }
+    .gift-budget__btn {
+      /* font-size: 16px; */
+    }
+  }
+</style>
+<script>
+new Swiper('.gift-budget__cards-container', {
+  slidesPerView: "auto",
+  spaceBetween: 24,
+  pagination: {
+    el: '.swiper-pagination',
+  },
+  breakpoints: {
+    1200: {
+      slidesPerView: 3
+    }
+  },
+
+});
+</script>

@@ -1,0 +1,61 @@
+<div class="page-width-40-1">
+  <div class="filter-wrapper">
+    <div class="left-filter-wrapper">
+      {% render 'icon-filter' %}
+      <span>Filter</span>
+    </div>
+    <div class="right-filter-wrapper">
+      <span>Sort by</span>
+      <span>Featured</span>
+      <div class="icon-down-set">
+        {% render 'icon-arrow-down' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .page-width-40-1 {
+    margin: 45px 40px;
+  }
+  .filter-wrapper {
+    padding: 12px 0;
+    border-top: 1px solid #EFEFEC;
+    border-bottom: 1px solid #EFEFEC;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .left-filter-wrapper > span,
+  .right-filter-wrapper > span {
+    font-size: 14px;
+    color: #352B27;
+    line-height: 20px;
+    font-family: 'Radio Grotesk'
+    , sans-serif;
+  }
+  .left-filter-wrapper,
+  .right-filter-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 40px;
+    cursor: pointer;
+  }
+  .right-filter-wrapper > span:first-child {
+    color: #AEAAA9;
+  }
+  .icon-down-set {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    justify-content: center;
+    margin-left: 12px;
+  }
+  @media (max-width: 768px) {
+    .page-width-40-1 {
+      margin: 45px 16px;
+    }
+  }
+</style>

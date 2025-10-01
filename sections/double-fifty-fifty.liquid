@@ -1,0 +1,68 @@
+{{ 'double-fifty-fifty.css' | asset_url | stylesheet_tag }}
+
+<div class="double-fifty-fifty-container">
+  <div class="double-fifty-fifty-wrapper">
+    <h2>{{ section.settings.title }}</h2>
+    <p class="double-fifty-fifty-description">{{ section.settings.description }}</p>
+    <div class="top-fifty-fifty">
+      <img src="{{ section.settings.top_image }}" loading="lazy">
+      <div class="fifty-fifty-content">
+        <p class="content-text-bold">Lens Width</p>
+        <div style="height: 8px"></div>
+        <p class="content-text">The horizontal width of one lens</p>
+        <div class="content-spacer"></div>
+        <p class="content-text-bold">Bridge Width</p>
+        <div style="height: 8px"></div>
+        <p class="content-text">The distance between two lenses</p>
+        <div class="content-spacer"></div>
+        <p class="content-text-bold">Temple Length</p>
+        <div style="height: 8px"></div>
+        <p class="content-text">The measurement of one arm from the front to the tip</p>
+      </div>
+    </div>
+    <div class="bottom-fifty-fifty">
+      <div class="fifty-fifty-content">
+        <p class="content-text">From left to right, these measurements appear in the following order:</p>
+        <div style="height: 8px"></div>
+        <p class="content-text-bold">Lens Width – Bridge Width – Temple Length</p>
+        <div class="content-spacer"></div>
+        <p class="content-text">Note: Eyeglass measurements are displayed on every product page</p>
+      </div>
+      <img src="{{ section.settings.bottom_image }}" loading="lazy">
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Double 50/50",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "top_image",
+      "label": "Top Image"
+    },
+    {
+      "type": "url",
+      "id": "bottom_image",
+      "label": "Bottom Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Double 50/50"
+    }
+  ]
+}
+{% endschema %}

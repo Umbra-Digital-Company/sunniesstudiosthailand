@@ -1,0 +1,52 @@
+{{ 'summer-landing-page-2025.css' | asset_url | stylesheet_tag }}
+
+<section class="section-nine">
+  <div class="section-nine__media">
+    <img src="{{ section.settings.section-nine-image-desktop | image_url }}" class="section-nine__image--desktop" />
+    <img src="{{ section.settings.section-nine-image-mobile | image_url }}" class="section-nine__image--mobile" />
+    {% if section.settings.section-nine-tag-label != blank %}
+      <a class="tag-link" href="{{ section.settings.section-nine-tag-link }}">
+      {{ section.settings.section-nine-tag-label }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+
+{% schema %}
+    {
+      "name": "Summer Section 9",
+      "settings": [
+        {
+        "type": "header",
+        "content": "Section 9"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-nine-image-desktop",
+        "label": "Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-nine-image-mobile",
+        "label": "Image (Mobile)"
+      },
+      {
+        "type": "url",
+        "id": "section-nine-tag-link",
+        "label": "Tag Link"
+      },
+      {
+        "type": "text",
+        "id": "section-nine-tag-label",
+        "label": "Tag Label"
+      }
+      ],
+        "presets": [
+            {
+            "name": "Summer Section 9",
+            "category": "Landing Page"
+            }
+        ]
+    }
+  {% endschema %}

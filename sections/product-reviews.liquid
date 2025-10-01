@@ -1,0 +1,587 @@
+{{ 'product-reviews.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="product-reviews-container reviews-active"
+  id="product-reviews-container"
+  data-product-id="{{ product.id }}"
+  data-product-title="{{ product.title }}"
+  data-product-url="{{ product.url }}"
+>
+  <div class="product-reviews-header">
+    <div class="product-reviews-header-wrapper">
+      <h2 id="reviews-navlink">Reviews</h2>
+      <h2 id="qanda-navlink">Q&A</h2>
+    </div>
+    <div class="reviews-header-content">
+      <div class="write-product-reviews-container">
+        <div class="product-reviews-stars">
+          <div id="review-stars-container"></div>
+          <p class="product-reviews-info">
+            <span id="product-reviews-info-average"></span>
+            (<span id="product-num-of-reviews">0</span>
+            reviews)
+          </p>
+        </div>
+        <button
+          class="write-product-reviews-button"
+          id="write-product-reviews-button"
+        >
+          Write a review
+        </button>
+      </div>
+      <div class="product-reviews-filters-container">
+        <p class="product-reviews-filter-title">Filter</p>
+      <button
+        class="product-reviews-filter-button"
+        id="product-reviews-filter-button"
+      >
+        {% render 'icon-filter' %}
+      </button>
+      <div class="product-reviews-filter-dropdowns">
+        <div>
+          <button id="product-reviews-filter-dropdowns-rating">
+            <span>All Ratings</span>
+            <img
+              src="{{ 'product-reviews-sort-icon.svg' | asset_url }}"
+              width="16"
+              height="16"
+              loading="lazy"
+            >
+          </button>
+          <ul>
+            <li data-value="all-reviews" class="active">All Ratings</li>
+            <li data-value="5"><img src="{{ '5star.svg' | file_url }}"</li>
+            <li data-value="4"><img src="{{ '4star.svg' | file_url }}"</li>
+            <li data-value="3"><img src="{{ '3star.svg' | file_url }}"</li>
+            <li data-value="2"><img src="{{ '2star.svg' | file_url }}"</li>
+            <li data-value="1"><img src="{{ '1star.svg' | file_url }}"</li>
+          </ul>
+        </div>
+        <div>
+          <button id="product-reviews-filter-dropdowns-all-reviews">
+            <span>All Content</span>
+            <img
+              src="{{ 'product-reviews-sort-icon.svg' | asset_url }}"
+              width="16"
+              height="16"
+              loading="lazy"
+            >
+          </button>
+          <ul>
+            <li data-value="all-reviews-content" class="active">All Content</li>
+            <li data-value="text-reviews">Text Reviews</li>
+            <li data-value="with-images-and-videos">Photo Reviews</li>
+          </ul>
+        </div>
+        <div class="product-reviews-filter-wrapper">
+          <button id="product-reviews-filter-dropdowns-clear">
+            <span>Clear Filters</span>
+            {% comment %} <img
+              src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Group_104.svg?v=1665131673"
+              width="10"
+              height="10"
+              loading="lazy"
+            > {% endcomment %}
+          </button>
+        </div>
+      </div>
+      <div class="product-review-sort-container">
+        <button
+          class="product-reviews-sort-button"
+          id="product-reviews-sort-button"
+        >
+          <span>Sort by</span>
+          <img
+            src="{{ 'product-reviews-sort-icon.svg' | asset_url }}"
+            width="16"
+            height="16"
+            loading="lazy"
+          >
+        </button>
+        <ul
+          class="product-reviews-sort-dropdown"
+          id="product-reviews-sort-dropdown"
+        >
+        <li value="most-recent">Most recent</li>
+          <li value="rating:low-to-high">Rating, high to low</li>
+          <li value="rating:hight-to-low">Rating, low to high</li>
+          {% comment %} <li value="most-helpful">Most helpful</li> {% endcomment %}
+        </ul>
+      </div>
+    </div>
+    </div>
+    <div class="qanda-header-content">
+      <div class="write-product-reviews-container">
+        <div class="product-reviews-stars">
+          <div id="qanda-stars-container"></div>
+          <p class="product-reviews-info">
+            <span id="qanda-count"></span><span> question</span>
+          </p>
+        </div>
+        <button
+          class="write-product-reviews-button"
+          id="ask-a-question-button"
+        >
+          Ask a question
+        </button>
+      </div>
+      <div class="qanda-filters-container">
+      <button
+        class="product-reviews-filter-button"
+        id="product-reviews-filter-button"
+        style="display: none;"
+      >
+        <img
+          src="{{ 'product-review-filter-icon.svg' | asset_url }}"
+          width="16"
+          height="16"
+          loading="lazy"
+        >
+        <span>Filter</span>
+      </button>
+      <div class="product-review-sort-container">
+        <button
+          class="product-reviews-sort-button"
+          id="qanda-sort-button"
+        >
+          <span>Sort</span>
+          <img
+            src="{{ 'product-reviews-sort-icon.svg' | asset_url }}"
+            width="16"
+            height="16"
+            loading="lazy"
+          >
+        </button>
+        <ul
+          class="product-reviews-sort-dropdown"
+          id="qanda-sort-dropdown"
+        >
+          <li data-value="all-content" class="active">All Content</li>
+          <li data-value="most-recent" class="active">Most Recent</li>
+          <li data-value="most-helpful">Most Helpful</li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="reviews-content">
+    <div class="product-reviews-body">
+      <ul id="product-review-items"></ul>
+      <div class="product-review-pagination">
+        <button class="product-review-prev-button" id="product-review-prev-button">
+          <img
+            src="{{ 'product-gallery-left-icon.svg' | asset_url }}"
+            loading="lazy"
+          >
+        </button>
+        <p>
+          <span id="product-review-current-page"></span>
+          /
+          <span id="product-review-total-page"></span>
+        </p>
+        <button class="product-review-next-button" id="product-review-next-button">
+          <img
+            src="{{ 'product-gallery-right-icon.svg' | asset_url }}"
+            loading="lazy"
+          >
+        </button>
+      </div>
+    </div>
+  
+    <div class="product-reviews-filter-no-result">
+      <p>No results found</p>
+      <p>Looks like there aren’t any reviews with the filters you’ve selected.</p>
+    </div>
+    
+    <div id="empty-product-reviews">
+      <p>No reviews yet. Be the first to <span  id="empty-write-a-review-link">write a review.</span></p>
+    </div>
+  
+    <div class="review-filter-container" id="review-filter-container">
+      <div class="review-filter-wrapper">
+        <div class="review-filter-header">
+          {% comment %} <div></div> {% endcomment %}
+          <h4>
+            {% comment %} <img
+              src="{{ 'product-review-filter-icon.svg' | asset_url }}"
+              width="16"
+              height="16"
+              loading="lazy"
+            > {% endcomment %}
+            <span>Filter</span>
+          </h4>
+          <button id="close-review-filter-button">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.6665 1.6665L18.3332 18.3332M18.3332 1.6665L1.6665 18.3332" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="review-filter-body">
+          <div class="review-filter-rating-wrapper">
+            <div
+              class="review-filter-rating-select"
+              id="review-filter-rating-select"
+            >
+              <h5>Contents</h5>
+              <div class="review-filter-select-item" value="all">
+                <div id="review-filter-select-checkbox" class="selected">
+                  <div></div>
+                </div>
+                <span>All Ratings</span>
+              </div>
+              <div class="review-filter-select-item" value="5">
+                <div id="review-filter-select-checkbox">
+                  <div></div>
+                </div>
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/stars.png?v=1665132121"
+                  loading="lazy"
+                >
+              </div>
+              <div class="review-filter-select-item" value="4">
+                <div id="review-filter-select-checkbox">
+                  <div></div>
+                </div>
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/stars_7113ad98-de24-4d0f-b045-f821047eafac.png?v=1665132131"
+                  loading="lazy"
+                >
+              </div>
+              <div class="review-filter-select-item" value="3">
+                <div id="review-filter-select-checkbox">
+                  <div></div>
+                </div>
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/stars_7d04c132-3c28-41bc-a637-128684db01d8.png?v=1665132137"
+                  loading="lazy"
+                >
+              </div>
+              <div class="review-filter-select-item" value="2">
+                <div id="review-filter-select-checkbox">
+                  <div></div>
+                </div>
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/stars_d49e1f44-2957-49a9-be4e-c1495e6b2206.png?v=1665132141"
+                  loading="lazy"
+                >
+              </div>
+              <div class="review-filter-select-item" value="1">
+                <div id="review-filter-select-checkbox">
+                  <div></div>
+                </div>
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/stars_f5f3c895-fd32-4cda-86cc-d56c777970e4.png?v=1665132147"
+                  loading="lazy"
+                >
+              </div>
+            </div>
+            <div
+              class="review-filter-review-wrapper"
+              id="review-filter-review-wrapper"
+            >
+              <h5>Ratings</h5>
+              <div class="review-filter-select-item" value="all-reviews">
+                <div id="review-filter-select-checkbox" class="selected">
+                  <div></div>
+                </div>
+                <span>All Contents</span>
+              </div>
+              <div class="review-filter-select-item" value="all-reviews">
+                <div id="review-filter-select-checkbox">
+                  <div></div>
+                </div>
+                <span>Text Reviews</span>
+              </div>
+              <div class="review-filter-select-item" value="with-images-and-videos">
+                <div id="review-filter-select-checkbox" >
+                  <div></div>
+                </div>
+                <span>Photo Reviews</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-filter-footer">
+            <button id="review-filter-clear-button">Clear All</button>
+            <button id="review-filter-apply-button">Apply</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="write-a-review-container" id="write-a-review-container">
+    <div class="write-a-review-wrapper">
+      <button class="write-a-review-close-button" id="write-a-review-close-button">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/x-icon-review.svg?v=1722587180"
+          loading="lazy"
+        >
+      </button>
+      <h4>Write a review</h4>
+      <div class="write-a-review-form" id="write-a-review-form">
+        <div class="write-a-review-form-item">
+          <label id="write-a-review-rating-label">Rating</label>
+          <div
+            class="star-selector-container"
+            id="star-selector-container"
+            data-current-score="0"
+          >
+            <img
+              data-score="1"
+              src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/star-selector.svg?v=1722587752"
+              loading="lazy"
+            >
+            <img
+              data-score="2"
+              src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/star-selector.svg?v=1722587752"
+              loading="lazy"
+            >
+            <img
+              data-score="3"
+              src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/star-selector.svg?v=1722587752"
+              loading="lazy"
+            >
+            <img
+              data-score="4"
+              src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/star-selector.svg?v=1722587752"
+              loading="lazy"
+            >
+            <img
+              data-score="5"
+              src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/star-selector.svg?v=1722587752"
+              loading="lazy"
+            >
+          </div>
+        </div>
+        <div class="write-a-review-form-item">
+          <label>Review title</label>
+          <input type="text" id="write-a-review-title-input">
+        </div>
+        <div class="write-a-review-form-item">
+          <label>Review description</label>
+          <textarea
+            id="write-a-review-description-textarea"
+            rows="2"
+          ></textarea>
+        </div>
+        <div class="write-a-review-form-item">
+          <label>Name</label>
+          <input type="text" id="write-a-review-name-input">
+        </div>
+        <div class="write-a-review-form-item">
+          <label>Email</label>
+          <input id="write-a-review-email-input" type="email">
+        </div>
+        <button class="write-a-review-submit-button" id="write-a-review-submit-button">Submit</button>
+      </div>
+      <div
+        class="review-submit-mesasge-container"
+        id="review-submit-mesasge-container"
+      >
+        <p class="review-after-submit-message" id="review-after-submit-message"></p>
+        <button id="review-after-submit-button" class="review-after-submit-button">Continue shopping</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  <div class="qanda-content">
+    <div class="product-reviews-body">
+      <ul id="qanda-list" class="qanda-list">
+        <li>
+          <div class="qanda-list__user">
+            <p>Bianca</p>
+            <time>06/06/20</time>
+          </div>
+          <div class="qanda-list__qanda">
+            <p>Q: Will you be releasing new colors for Ezra?</p>
+            <div>
+              <p>We'll have some new colors out in the next months! The best way to stay up to date on new releases is to sign up for our email communication by scrolling to the very bottom of our home page where it says 'Good stuff, straight to your inbox.' You can also follow us on Instagram @sunniesstudios for updates.</p>
+              <div><img src="" /><p>Team Sunnies Studios</p></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="qanda-pagination">
+        <button class="product-review-prev-button" id="qanda-prev-button" data-prev-page="">
+          <img
+            src="{{ 'product-gallery-left-icon.svg' | asset_url }}"
+            loading="lazy"
+          >
+        </button>
+        <p>
+          <span id="qanda-current-page"></span>
+          /
+          <span id="qanda-total-page"></span>
+        </p>
+        <button class="product-review-next-button" id="qanda-next-button" data-next-page="">
+          <img
+            src="{{ 'product-gallery-right-icon.svg' | asset_url }}"
+            loading="lazy"
+          >
+        </button>
+      </div>
+    </div>
+  
+    <div id="empty-product-reviews">
+      <p>No questions yet. Be the first to <span id="ask-a-question-link">ask a question.</span></p>
+    </div>
+  
+    <div class="review-filter-container" id="review-filter-container">
+      <div class="review-filter-wrapper">
+        <div class="review-filter-header">
+          <div></div>
+          <h4>
+            <img
+              src="{{ 'product-review-filter-icon.svg' | asset_url }}"
+              width="16"
+              height="16"
+              loading="lazy"
+            >
+            <span>Filter</span>
+          </h4>
+          <button id="close-review-filter-button">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.6665 1.6665L18.3332 18.3332M18.3332 1.6665L1.6665 18.3332" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="review-filter-body">
+          <div class="review-filter-rating-wrapper">
+            <div
+              class="review-filter-rating-select"
+              id="review-filter-rating-select"
+            >
+              <h5>Rating</h5>
+              <div class="review-filter-select-item" value="all">
+                <div id="review-filter-select-checkbox" class="selected">
+                  <div></div>
+                </div>
+                <span>All rating</span>
+              </div>
+              <div class="review-filter-select-item" value="5">
+                <div id="review-filter-select-checkbox">
+                  <div></div>
+                </div>
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/stars.png?v=1665132121"
+                  loading="lazy"
+                >
+              </div>
+              <div class="review-filter-select-item" value="4">
+                <div id="review-filter-select-checkbox">
+                  <div></div>
+                </div>
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/stars_7113ad98-de24-4d0f-b045-f821047eafac.png?v=1665132131"
+                  loading="lazy"
+                >
+              </div>
+              <div class="review-filter-select-item" value="3">
+                <div id="review-filter-select-checkbox">
+                  <div></div>
+                </div>
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/stars_7d04c132-3c28-41bc-a637-128684db01d8.png?v=1665132137"
+                  loading="lazy"
+                >
+              </div>
+              <div class="review-filter-select-item" value="2">
+                <div id="review-filter-select-checkbox">
+                  <div></div>
+                </div>
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/stars_d49e1f44-2957-49a9-be4e-c1495e6b2206.png?v=1665132141"
+                  loading="lazy"
+                >
+              </div>
+              <div class="review-filter-select-item" value="1">
+                <div id="review-filter-select-checkbox">
+                  <div></div>
+                </div>
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/stars_f5f3c895-fd32-4cda-86cc-d56c777970e4.png?v=1665132147"
+                  loading="lazy"
+                >
+              </div>
+            </div>
+            <div
+              class="review-filter-review-wrapper"
+              id="review-filter-review-wrapper"
+            >
+              <h5>Ratings</h5>
+              <div class="review-filter-select-item" value="all-reviews">
+                <div id="review-filter-select-checkbox" class="selected">
+                  <div></div>
+                </div>
+                <span>All reviews</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-filter-footer">
+            <button id="review-filter-clear-button">Clear All</button>
+            <button id="review-filter-apply-button">Apply</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="write-a-review-container" id="ask-a-question-modal">
+    <div class="write-a-review-wrapper">
+      <button class="write-a-review-close-button" id="ask-a-question-close-button">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/x.svg?v=1664972385"
+          loading="lazy"
+        >
+      </button>
+      <h4>Ask a question</h4>
+      <div class="write-a-review-form hide-on-success hide-on-error" id="write-a-review-form">
+        <div class="write-a-review-form-item">
+          <label>What would you like to know?</label>
+          <textarea
+            name="question"
+            id="ask-a-question-question-input"
+            rows="2"
+            class="ask-a-question-input"
+          ></textarea>
+        </div>
+        <div class="write-a-review-form-item">
+          <label>Name</label>
+          <input type="text" name="name" id="ask-a-question-name-input"  class="ask-a-question-input">
+        </div>
+        <div class="write-a-review-form-item">
+          <label>Email</label>
+          <input type="email" name="email" id="ask-a-question-email-input"  class="ask-a-question-input">
+        </div>
+        <button class="write-a-review-submit-button" id="ask-a-question-submit-button">Submit</button>
+      </div>
+      <div
+        class="review-submit-mesasge-container show-on-success"
+      >
+        <p class="review-after-submit-message">A member of our team is working on answering your question. In the meantime, feel free to look through our other products.</p>
+        <a href="/" class="review-after-submit-button">Continue shopping</a>
+      </div>
+      <div
+        class="review-submit-mesasge-container show-on-error"
+      >
+        <p class="review-after-submit-message">There's an error submitting your review.</p>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<script src="{{ 'product-reviews.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-qanda.js' | asset_url }}" defer="defer"></script>
+
+  {% schema %}
+  {
+    "name": "Product Reviews",
+    "presets": [
+      {
+        "name": "Product Reviews"
+      }
+    ]
+  }
+  {% endschema %}
+</div>

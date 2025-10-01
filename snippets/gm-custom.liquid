@@ -1,0 +1,94 @@
+<style>
+  html body #shopify-section-header .header .nav .gm-item .gm-target.red .gm-text{
+    color:red !important;
+  }
+  
+  html body #shopify-section-header .header .nav .gm-item:hover .gm-target.red .gm-text{
+    color:red !important;
+  }
+
+  /* Globo css */
+  /* html body.gm-menu-installed.gm-custom.home div#shopify-section-header section.header.header--index .gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0 > .gm-target > .gm-text{
+    color:#fff !important;
+  }
+  
+  html body.gm-menu-installed.gm-custom.home div#shopify-section-header section.header.header--index .gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0 > .gm-target > .gm-retractor{
+    color:#fff !important;
+  }
+  
+  html body.gm-menu-installed.gm-custom.home div#shopify-section-header section.header.header--index .gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0 > .gm-target > .gm-icon{
+    color:#fff !important;
+  } */
+  
+  html body.gm-menu-installed div#shopify-section-header section.header.header--index:hover .header__content.header__content--white .gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0 > .gm-target > .gm-icon{
+    color:#000 !important;
+  }
+  
+  html body.gm-menu-installed div#shopify-section-header section.header.header--index:hover .header__content.header__content--white .gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0 > .gm-target > .gm-retractor{
+    color:#000 !important;
+  }
+  
+  html body.gm-menu-installed div#shopify-section-header section.header.header--index:hover .header__content.header__content--white .gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0 > .gm-target > .gm-text{
+    color:#000 !important;
+  }
+  
+  html body.gm-menu-installed div#shopify-section-header section.header.header--index.header-is-fixed .header__content.header__content--white .gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0 > .gm-target > .gm-text{
+    color:#000 !important;
+  }
+  
+  html body.gm-menu-installed div#shopify-section-header section.header.header--index.header-is-fixed .header__content.header__content--white .gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0 > .gm-target > .gm-retractor{
+    color:#000 !important;
+  }
+  
+  html body.gm-menu-installed div#shopify-section-header section.header.header--index.header-is-fixed .header__content.header__content--white .gm-menu:not(.gm-menu-mobile) > .gm-item.gm-level-0 > .gm-target > .gm-icon{
+    color:#000 !important;
+  }
+  
+  html body.gm-menu-installed div#shopify-section-header .gm-menu-mobile > .gm-item.gm-level-0 > .gm-target > .gm-text{
+    color:#000 !important;
+  }
+  
+  html body.gm-menu-installed div#shopify-section-header  .gm-menu-mobile > .gm-item.gm-level-0 > .gm-target > .gm-retractor{
+    color:#000 !important;
+  }
+  
+  html body.gm-menu-installed div#shopify-section-header  .gm-menu-mobile > .gm-item.gm-level-0 > .gm-target > .gm-icon{
+    color:#000 !important;
+  }
+</style>
+<script>
+  var check = false;
+  var app_interval = setInterval(checkApp, 100);
+  function checkApp() {
+    if (typeof GloboMenuConfig == 'object' && $('.gm-menu').length) {
+      check = true;
+      clearInterval(app_interval);
+    }
+    if (check) {
+      
+
+      if($('main#MainContent video.section-video-banner.bg-banner-desktop').length){
+        $('body').addClass('gm-custom');
+      }
+      
+      if($('.section__inner.video-desktop.video-mobile').length || $('.section__inner > .section__image').length){
+        $('body').addClass('gm-custom');
+      }
+      
+      if(window.location.href.includes('pages/careers')){
+        $('body').removeClass('gm-custom');
+      }
+      
+      if(window.location.href.includes('pages/anti-radiation-eyewear')){
+         $('body').addClass('gm-custom');
+      }
+
+      $('.gm-item .gm-target').each(function(){
+        
+         if($(this).attr('href') !== undefined && $(this).attr('href').includes('sunnies-studios-sale')){
+          $(this).addClass('red');
+        }
+      });
+    }
+  }
+</script>

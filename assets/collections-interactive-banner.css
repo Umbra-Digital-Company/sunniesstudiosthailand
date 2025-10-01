@@ -1,0 +1,178 @@
+.interactive-banner-container {
+	position: fixed;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+	max-width: 520px;
+	right: -520px;
+	top: 0;
+	background: #fff;
+	transition: all .3s ease-in-out;
+	overflow-y: auto;
+}
+
+
+.interactive-banner-container::before {
+	content: '';
+	display: block;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 5;
+	width: 100%;
+	height: 100%;
+	visibility: hidden;
+	background: transparent;
+	transition: all .3s ease-in-out;
+}
+
+.interactive-banner-container.open::before {
+	width: calc(100% - 520px);
+	background: rgba(0, 0, 0, 0.55);
+	visibility: visible;
+}
+
+.interactive-banner-container.open {
+	right: 0;
+}
+
+.interactive-banner-wrapper {
+	position: relative;
+	padding: 60px 0;
+	background: #fff;
+	z-index: 150;
+}
+
+.interactive-banner-wrapper .close-interactive-banner {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	height: 21px;
+	width: 21px;
+	cursor: pointer;
+}
+
+.interactive-banner-wrapper .close-interactive-banner::before,
+.interactive-banner-wrapper .close-interactive-banner::after {
+	content: '';
+	width: 115%;
+	height: 2px;
+	left: -1px;
+	top: 10px;
+	background: #352B27;
+	border-radius: 1.38987px;
+	display: block;
+	position: absolute;
+}
+
+.interactive-banner-wrapper .close-interactive-banner::before {
+	transform: rotate(-45deg);
+
+}
+
+.interactive-banner-wrapper .close-interactive-banner::after {
+	transform: rotate(45deg);
+}
+
+.interactive-banner-container .ib-image {
+	text-align: center;
+}
+
+.interactive-banner-container .ib-image.is-logo img {
+	display: block;
+	max-height: 35px;
+	width: auto;
+	margin: 0 auto;
+}
+
+.interactive-banner-container .ib-image~.ib-image {
+	padding-top: 60px;
+}
+
+.interactive-banner-container .ib-body-text {
+	margin: 16px 0;
+	padding: 0 16px;
+	text-align: center;
+	font-family: 'Radio Grotesk';
+}
+
+.interactive-banner-container .ib-heading-text {
+	margin-top: 60px;
+	padding: 0 16px;
+	font-family: 'AT Surt Medium';
+	text-align: center;
+}
+
+.interactive-banner-container .btn-ib-cta {
+	text-align: center;
+}
+
+.interactive-banner-container .btn-ib-cta .btn {
+	font-family: 'AT Surt Medium';
+	text-transform: initial;
+}
+
+.interactive-banner-container .btn-ib-cta .btn:hover {
+	color: var(--black_color);
+	background-color: var(--neutral_eight_color);
+	border: 1.5px solid var(--black_color);
+}
+
+.interactive-banner-container .ib-prescription-table {
+	background: #EFEFEC;
+	border-radius: 4px;
+	padding: 8px 0;
+	margin: 0 16px;
+}
+
+.interactive-banner-container .ib-prescription-head,
+.interactive-banner-container .ib-prescription-row {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	text-align: center;
+}
+
+.interactive-banner-container .ib-prescription-head p {
+	font-weight: 650;
+}
+
+.interactive-banner-container .ib-prescription-head p,
+.interactive-banner-container .ib-prescription-row p {
+	width: 100%;
+	font-size: 14px;
+	padding: 10px 6px;
+	font-family: 'Radio Grotesk';
+}
+
+.interactive-banner-container .ib-prescription-head p:first-of-type,
+.interactive-banner-container .ib-prescription-row p:first-of-type {
+	text-align: left;
+	padding-right: 16px;
+	padding-left: 8px;
+	font-weight: 650;
+}
+
+@media (max-width: 767px) {
+	.interactive-banner-container {
+		max-width: 480px;
+		right: -480px;
+	}
+
+	.interactive-banner-container .ib-heading-text {
+		font-size: 20px;
+	}
+
+	.interactive-banner-container .ib-body-text {
+		font-size: 14px;
+	}
+
+	.interactive-banner-container .ib-prescription-head p,
+	.interactive-banner-container .ib-prescription-row p {
+		font-size: 12px;
+	}
+
+	.interactive-banner-container .btn-ib-cta .btn {
+		font-size: 14px;
+	}
+}

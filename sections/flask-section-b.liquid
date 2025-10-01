@@ -1,0 +1,97 @@
+
+  {% comment %} test {% endcomment %}
+<div class="flask-sec-b">
+  <div>
+    <img src="{{ section.settings.image_one_mobile | image_url }}" alt="Select your bottle" height="400" width="400">
+    <img src="{{ section.settings.image_one_desktop | image_url }}" alt="Select your bottle" height="520" width="400">
+  </div>
+  <div>
+    <img src="{{ section.settings.image_two_mobile | image_url }}" alt="Select your bottle" height="400" width="400">
+    <img src="{{ section.settings.image_two_desktop | image_url }}" alt="Select your bottle" height="520" width="400">
+  </div>
+  <div>
+    <img src="{{ section.settings.image_three_mobile | image_url }}" alt="Select your bottle" height="400" width="400">
+    <img src="{{ section.settings.image_three_desktop | image_url }}" alt="Select your bottle" height="520" width="400">
+  </div>
+  <div>
+    <img src="{{ section.settings.image_four_mobile | image_url }}" alt="Select your bottle" height="400" width="400">
+    <img src="{{ section.settings.image_four_desktop | image_url }}" alt="Select your bottle" height="520" width="400">
+  </div>
+</div>
+
+<style>
+  .flask-sec-b {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px;
+  }
+  .flask-sec-b > div > img {
+    width: 100%;
+  }
+  .flask-sec-b > div > img:nth-child(2) {
+    display: none;
+  }
+  
+  @media only screen and (min-width: 1024px) {
+    .flask-sec-b {
+      flex-direction: row;
+      padding: 40px;
+      justify-content: center;
+    }
+    .flask-sec-b > div > img:nth-child(1) {
+      display: none;
+    }
+    .flask-sec-b > div > img:nth-child(2) {
+      display: block;
+    }
+  } 
+</style>
+
+{% schema %}
+  {
+    "name": "Flask Section B",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image_one_mobile",
+        "label": "Image One (Mobile)"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_one_desktop",
+        "label": "Image One (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_two_mobile",
+        "label": "Image Two (Mobile)"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_two_desktop",
+        "label": "Image Two (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_three_mobile",
+        "label": "Image Three (Mobile)"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_three_desktop",
+        "label": "Image Three (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_four_mobile",
+        "label": "Image Four (Mobile)"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_four_desktop",
+        "label": "Image Four (Desktop)"
+      }
+    ]
+  }
+{% endschema %}

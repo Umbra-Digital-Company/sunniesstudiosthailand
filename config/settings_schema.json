@@ -1,0 +1,710 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Starter theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Shopify",
+    "theme_documentation_url": "https:\/\/github.com\/Shopify\/starter-theme",
+    "theme_support_url": "https:\/\/github.com\/Shopify\/starter-theme\/issues",
+    "theme_packaged_with": "@shopify\/slate-tools@1.0.0-beta.19"
+  },
+  {
+    "name": "404 Page",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image_404",
+        "label": "Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_mobile_404",
+        "label": "Image mobile"
+      },
+      {
+        "type": "text",
+        "id": "404_title",
+        "label": "Title"
+      },
+      {
+        "type": "textarea",
+        "id": "404_content",
+        "label": "Content"
+      },
+      {
+        "type": "text",
+        "id": "404_btn_text",
+        "label": "Button text"
+      },
+      {
+        "type": "url",
+        "id": "404_btn_url",
+        "label": "Button url"
+      },
+      {
+        "type": "select",
+        "id": "404_text_color",
+        "label": "Text Color",
+        "options": [
+          {
+            "value": "#ffffff",
+            "label": "White"
+          },
+          {
+            "value": "#352b27",
+            "label": "Black"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Google Map",
+    "settings": [
+      {
+        "type": "text",
+        "id": "google_map_api_key",
+        "label": "Googel Map Api Key"
+      },
+      {
+        "type": "image_picker",
+        "id": "marker_image",
+        "label": "Marker Image"
+      },
+      {
+        "type": "range",
+        "id": "google_map_zoom",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "label": "Zoom",
+        "default": 14
+      },
+      {
+        "type": "textarea",
+        "id": "google_styles",
+        "label": "Map Styles"
+      }
+    ]
+  },
+  {
+    "name": "Product",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Shipping & Returns content"
+      },
+      {
+        "type": "richtext",
+        "id": "shipping_returns",
+        "label": "PDP Shipping & Returns content"
+      },
+      {
+        "type": "header",
+        "content": "Header titles"
+      },
+      {
+        "type": "text",
+        "id": "add_to_cart",
+        "label": "Add To Cart button text",
+        "default": "Add To Cart"
+      },
+      {
+        "type": "text",
+        "id": "try_on",
+        "label": "Try On button text",
+        "default": "Try On"
+      },
+      {
+        "type": "text",
+        "id": "customize",
+        "label": "Customize Prescription button text",
+        "default": "Customize Prescription"
+      },
+      {
+        "type": "text",
+        "id": "description",
+        "label": "Description tab header",
+        "default": "Description"
+      },
+      {
+        "type": "text",
+        "id": "shipping_returns_tab",
+        "label": "Shipping & Returns tab header",
+        "default": "Shipping & Returns"
+      },
+      {
+        "type": "text",
+        "id": "measurements",
+        "label": "Measurements header",
+        "default": "Measurements"
+      },
+      {
+        "type": "text",
+        "id": "recommendations",
+        "label": "Recommendations header",
+        "default": "More To Love"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social sharing image"
+      },
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Image",
+        "info": "Shown when sharing a link on social media. [Learn more](https:\/\/help.shopify.com\/manual\/using-themes\/troubleshooting\/showing-social-media-thumbnail-images\/) about image thumbnails."
+      },
+      {
+        "type": "header",
+        "content": "Accounts"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram_link",
+        "label": "Instagram",
+        "info": "https:\/\/instagram.com\/shopify"
+      },
+      {
+        "type": "url",
+        "id": "social_twitter_link",
+        "label": "Twitter",
+        "info": "https:\/\/www.twitter.com\/shopify"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook_link",
+        "label": "Facebook",
+        "info": "https:\/\/www.facebook.com\/shopify"
+      },
+      {
+        "type": "url",
+        "id": "social_pinterest_link",
+        "label": "Pinterest",
+        "info": "https:\/\/pinterest.com\/shopify"
+      }
+    ]
+  },
+  {
+    "name": "Subscribe Form",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "subscribe_html_title",
+        "label": "Subscribe title"
+      },
+      {
+        "type": "textarea",
+        "id": "subscribe_html",
+        "label": "Embedd Code",
+        "info": "Paste Embedd code from www.mailchimp.com"
+      },
+      {
+        "type": "text",
+        "id": "subscribe_html_placeholder_email",
+        "label": "Placeholder email text"
+      },
+      {
+        "type": "text",
+        "id": "subscribe_html_placeholder_birthday",
+        "label": "Placeholder birthday text"
+      },
+      {
+        "type": "header",
+        "content": "Popup settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_newsletter_popup",
+        "label": "Show",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Klaviyo Newsletter Subscription",
+    "settings": [
+      {
+        "type": "text",
+        "id": "newsletter_subs_popup_list_id",
+        "label": "Klaviyo List ID"
+      },
+      {
+        "type": "textarea",
+        "id": "newsletter_subs_popup_heading",
+        "label": "Heading"
+      },
+      {
+        "type": "textarea",
+        "id": "newsletter_subs_popup_subheading",
+        "label": "Sub Heading"
+      },
+      {
+        "type": "textarea",
+        "id": "newsletter_subs_popup_success_message",
+        "label": "Success Message"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Enable cart notes",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_free_product",
+        "label": "Show free product",
+        "default": false
+      },
+      {
+        "type": "product",
+        "id": "cart_free_product",
+        "label": "Free product"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
+  },
+  {
+    "name": "Lens settings",
+    "settings": [
+      {
+        "type": "collection",
+        "id": "lenses",
+        "label": "Lenses collection"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent Color"
+      },
+      {
+        "type": "color",
+        "id": "color_body_text",
+        "label": "Text",
+        "default": "#352B27"
+      },
+      {
+        "type": "color",
+        "id": "color_main_bg",
+        "label": "Main Background Color"
+      }
+    ]
+  },
+  {
+    "name": "Discount Callout",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_discount_callout",
+        "label": "Enable Discount Callout",
+        "default": false
+      },
+      {
+        "type": "url",
+        "id": "discount_callout_image",
+        "label": "Image"
+      },
+      {
+        "type": "header",
+        "content": "Products"
+      },
+      {
+        "type": "html",
+        "id": "discount_callout_title",
+        "label": "Title"
+      },
+      {
+        "type": "html",
+        "id": "sun_discount_callout_title",
+        "label": "Title for Sun products"
+      },
+      {
+        "type": "html",
+        "id": "ar_discount_callout_title",
+        "label": "Title for Anti-rad products"
+      },
+      {
+        "type": "text",
+        "id": "discount_callout_description",
+        "label": "Description"
+      },
+      {
+        "type": "text",
+        "id": "sun_discount_callout_description",
+        "label": "Description for Sun products"
+      },
+      {
+        "type": "text",
+        "id": "ar_discount_callout_description",
+        "label": "Description for Anti-rad products"
+      },
+      {
+        "type": "text",
+        "id": "discount_callout_disclaimer",
+        "label": "Disclaimer"
+      },
+      {
+        "type": "header",
+        "content": "Cart"
+      },
+      {
+        "type": "html",
+        "id": "cart_discount_callout_title_eligible",
+        "label": "Title (Eligible)"
+      },
+      {
+        "type": "html",
+        "id": "cart_discount_callout_title_not_eligible",
+        "label": "Title (Not Eligible)"
+      },
+      {
+        "type": "text",
+        "id": "cart_discount_callout_description_eligible",
+        "label": "Description (Eligible)"
+      },
+      {
+        "type": "text",
+        "id": "cart_discount_callout_description_not_eligible",
+        "label": "Description (Not Eligible)"
+      },
+      {
+        "type": "header",
+        "content": "Cart Drawer"
+      },
+      {
+        "type": "html",
+        "id": "cart_drawer_discount_callout_title_eligible",
+        "label": "Title (Eligible)"
+      },
+      {
+        "type": "html",
+        "id": "cart_drawer_discount_callout_title_not_eligible",
+        "label": "Title (Not Elegible)"
+      },
+      {
+        "type": "text",
+        "id": "cart_drawer_discount_callout_description_eligible",
+        "label": "Description (Eligible)"
+      },
+      {
+        "type": "text",
+        "id": "cart_drawer_discount_callout_description_not_eligible",
+        "label": "Description (Not Eligible)"
+      },
+      {
+        "type": "header",
+        "content": "Discount Calculations"
+      },
+      {
+        "type": "number",
+        "id": "discount_minimum_purchase_amount",
+        "label": "Minimum cart total for eligible discount",
+        "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id": "discount_include_sun",
+        "label": "Include Sun products to calculation",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "discount_include_optical",
+        "label": "Include Optical products to calculation",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "discount_include_reader",
+        "label": "Include Reader products to calculation",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "discount_include_antirad",
+        "label": "Include Anti-rad products to calculation",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "discount_include_merch",
+        "label": "Include Merch products to calculation",
+        "default": false
+      },
+      {
+        "type": "product",
+        "id": "product_to_be_excluded",
+        "label": "Select Product to be excluded on the calculations"
+      }
+    ]
+  },
+  {
+    "name": "Discount Callout PWP",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_discount_callout_2",
+        "label": "Enable Discount Callout",
+        "default": false
+      },
+      {
+        "type": "url",
+        "id": "discount_callout_image_2",
+        "label": "Image"
+      },
+      {
+        "type": "header",
+        "content": "Products"
+      },
+      {
+        "type": "html",
+        "id": "discount_callout_title_2",
+        "label": "Title"
+      },
+      {
+        "type": "html",
+        "id": "sun_discount_callout_title_2",
+        "label": "Title for Sun products"
+      },
+      {
+        "type": "html",
+        "id": "ar_discount_callout_title_2",
+        "label": "Title for Anti-rad products"
+      },
+      {
+        "type": "text",
+        "id": "discount_callout_description_2",
+        "label": "Description"
+      },
+      {
+        "type": "text",
+        "id": "sun_discount_callout_description_2",
+        "label": "Description for Sun products"
+      },
+      {
+        "type": "text",
+        "id": "ar_discount_callout_description_2",
+        "label": "Description for Anti-rad products"
+      },
+      {
+        "type": "text",
+        "id": "discount_callout_disclaimer_2",
+        "label": "Disclaimer"
+      },
+      {
+        "type": "header",
+        "content": "Cart"
+      },
+      {
+        "type": "html",
+        "id": "cart_discount_callout_title_eligible_2",
+        "label": "Title (Eligible)"
+      },
+      {
+        "type": "html",
+        "id": "cart_discount_callout_title_not_eligible_2",
+        "label": "Title (Not Eligible)"
+      },
+      {
+        "type": "text",
+        "id": "cart_discount_callout_description_eligible_2",
+        "label": "Description (Eligible)"
+      },
+      {
+        "type": "text",
+        "id": "cart_discount_callout_description_not_eligible_2",
+        "label": "Description (Not Eligible)"
+      },
+      {
+        "type": "header",
+        "content": "Cart Drawer"
+      },
+      {
+        "type": "html",
+        "id": "cart_drawer_discount_callout_title_eligible_2",
+        "label": "Title (Eligible)"
+      },
+      {
+        "type": "html",
+        "id": "cart_drawer_discount_callout_title_not_eligible_2",
+        "label": "Title (Not Elegible)"
+      },
+      {
+        "type": "text",
+        "id": "cart_drawer_discount_callout_description_eligible_2",
+        "label": "Description (Eligible)"
+      },
+      {
+        "type": "text",
+        "id": "cart_drawer_discount_callout_description_not_eligible_2",
+        "label": "Description (Not Eligible)"
+      },
+      {
+        "type": "header",
+        "content": "Discount Calculations"
+      },
+      {
+        "type": "number",
+        "id": "discount_minimum_purchase_amount_2",
+        "label": "Minimum cart total for eligible discount",
+        "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id": "discount_include_sun_2",
+        "label": "Include Sun products to calculation",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "discount_include_optical_2",
+        "label": "Include Optical products to calculation",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "discount_include_reader_2",
+        "label": "Include Reader products to calculation",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "discount_include_antirad_2",
+        "label": "Include Anti-rad products to calculation",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "discount_include_merch_2",
+        "label": "Include Merch products to calculation",
+        "default": false
+      },
+      {
+        "type": "product",
+        "id": "product_to_be_excluded_2",
+        "label": "Select Product to be excluded on the calculations"
+      },
+      {
+        "type": "product",
+        "id": "product_to_be_excluded_2a",
+        "label": "Select Product to be excluded on the calculations"
+      }
+    ]
+  },
+  {
+    "name": "Survey Pop-up",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "survey_popup_image_desktop",
+        "label": "Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "survey_popup_image_mobile",
+        "label": "Image (Mobile)"
+      }
+    ]
+  },
+  {
+    "name": "Trending Cards",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_trending_cards",
+        "label": "Enable Trending Cards",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Trending Cards",
+        "info": "Setting Text to blank will hide the card"
+      },
+      {
+        "type": "image_picker",
+        "id": "trending_image_1",
+        "label": "Trending Card 1 Image"
+      },
+      {
+        "type": "text",
+        "id": "trending-text_1",
+        "label": "Trending Card 1 Text"
+      },
+      {
+        "type": "url",
+        "id": "trending-link_1",
+        "label": "Trending Card 1 Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "trending_image_2",
+        "label": "Trending Card 2 Image"
+      },
+      {
+        "type": "text",
+        "id": "trending-text_2",
+        "label": "Trending Card 2 Text"
+      },
+      {
+        "type": "url",
+        "id": "trending-link_2",
+        "label": "Trending Card 2 Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "trending_image_3",
+        "label": "Trending Card 3 Image"
+      },
+      {
+        "type": "text",
+        "id": "trending-text_3",
+        "label": "Trending Card 3 Text"
+      },
+      {
+        "type": "url",
+        "id": "trending-link_3",
+        "label": "Trending Card 3 Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "trending_image_4",
+        "label": "Trending Card 4 Image"
+      },
+      {
+        "type": "text",
+        "id": "trending-text_4",
+        "label": "Trending Card 4 Text"
+      },
+      {
+        "type": "url",
+        "id": "trending-link_4",
+        "label": "Trending Card 4 Link"
+      }
+    ]
+  }
+]

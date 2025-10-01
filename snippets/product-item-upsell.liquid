@@ -1,0 +1,111 @@
+{%- assign _product = product-item-upsell -%}
+{%- assign product_first_variant = _product.selected_or_first_available_variant -%}
+{%- assign item_type = '' -%}
+
+{% liquid 
+  if _product.tags contains 'merch' or product.type == 'Gift Cards'
+    assign item_type = 'merch'
+  elsif _product.tags contains 'sun'
+    assign item_type = 'studios_frame'
+  elsif _product.tags contains 'anti-rad' or _product.tags contains 'readers'
+    assign item_type = 'G100'
+  elsif _product.tags contains 'flask'
+    assign item_type = 'flask'
+  endif
+%}
+
+{%- assign product_url = _product.url -%}
+{%- assign product_title = _product.title -%}
+
+{%- assign prices = '' -%}
+{%- assign color_swatches = '' -%}
+{%- assign color_names = '' -%}
+{%- for _variant in _product.variants -%}
+	{%- assign variant_title_handle = _variant.option1 | handle -%}
+
+	{%- capture prices -%}
+		{{prices}}
+		<p class="product__prices-item{% if _variant.id == product_first_variant.id %} current-price-variant{% endif %}" data-vid-price="{{_variant.id}}">${{ _variant.price | money_without_currency | remove: '.00' }}</p>
+	{%- endcapture -%}
+
+	{%- capture color_swatches -%}
+		{{color_swatches}}
+
+		<li {% if product_first_variant.id == _variant.id %} class="current-swatch-variant"{% endif %}{% if _variant.inventory_quantity <= 0 %} data-swatch-disabled{% endif %}>
+			<a title="{{_variant.option1}}" class="js-product-item-swatch" data-swatch-vid="{{_variant.id}}" data-swatch-link="/products/{{_product.title}}?variant={{_variant.id}}" href="#">
+				<span data-handle-name="{{variant_title_handle}}"></span>
+			</a>
+		</li>
+	{%- endcapture -%}
+
+	{%- capture color_names -%}
+		{{color_names}}
+
+		<span style="font-size: 14px; color: #b3a89b !important;" data-vid-color="{{_variant.id}}" id="item_color_name_{{product_title}}" {% if product_first_variant.id == _variant.id %} class="current-color-name"{% endif %}>{{_variant.option1}}</span>
+
+	{%- endcapture -%}
+{%- endfor -%}
+
+{%- assign product_images = '' -%}
+{%- capture product_images -%}
+	{%- if product_first_variant.title == 'Default Title' -%}
+		<span style="background-image: url({{ _product.featured_image |  img_url: '900x' }});" class="current-image-variant"></span>
+	{%- else -%}
+		{%- for image in _product.images -%}
+			{%- assign image_variants = image.variants | map: 'id' -%}
+
+			<span data-bg-src="{{ image |  img_url: '900x' }}" data-image-variant="{{ image_variants | join: ',' }}"{%- if image_variants contains product_first_variant.id -%}style="background-image: url({{ image |  img_url: '900x' }});" class="current-image-variant"{%- endif -%}></span>
+		{%- endfor -%}
+	{%- endif -%}
+{%- endcapture -%}
+
+{%- if _product != empty -%}
+	<div class="js-product-item product-item{% if _product.compare_at_price > _product.price %} product-item--sale{% endif %}{% unless _product.available %} product-item--sold-out{% endunless %}">
+		<div class="product-item__inner">
+			<div class="product__image">
+				<a href="{{ product_url }}" class="">
+					{{product_images}}
+				</a>
+			</div><!-- /.product__image -->
+
+			<div class="product__content">
+				<div class="product__entry">
+					<a href="{{product_url}}">
+						<h3>{{product_title}} {{color_names}}</h3>
+
+						<div class="product__prices js-product-item-prices">
+							{{prices}}
+						</div>
+					</a>
+				</div><!-- /.product__entry -->
+
+				<div class="product__actions">
+					{%- if product_first_variant.title != 'Default Title' and color_swatches != '' -%}
+						<ul class="list-swatches">
+							{{color_swatches}}
+						</ul><!-- /.list-swatches -->
+					{%- endif -%}
+
+					<a href="#" id="animate-add__btn" class="btn-quick-add js-quick-add{% if _product.tags contains 'prescription' %} hidden{% endif %}">
+						<span>
+						  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<g clip-path="url(#clip0_3247_9280)">
+							  <path d="M6 1.00024V11.0002" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+							  <path d="M1 6.00024L11 6.00025" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+							</g>
+							<defs>
+							  <clipPath id="clip0_3247_9280">
+								<rect width="12" height="12" fill="white" transform="translate(0 0.000244141)"/>
+							  </clipPath>
+							</defs>
+						  </svg>
+						  <p class="text-hidden">Add</p>
+						</span>
+					  </a>
+				</div><!-- /.product__actions -->
+			</div><!-- /.product__content -->
+		</div><!-- /.product-item__inner -->
+	</div><!-- /.product-item -->
+{%- endif -%}
+{%- assign _product = '' -%}
+

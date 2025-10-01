@@ -1,0 +1,304 @@
+body * {
+  font-family: 'Radio Grotesk', "SharpGroteskMedium", serif;
+}
+body .total-line__price .order-summary__small-text {
+  display: block;
+}
+body .btn,
+body .section__title {
+  text-transform: capitalize;
+}
+@media screen and (max-width: 1023px) {
+  body .field__input--select {
+    line-height: 18px;
+    padding-bottom: 0 !important;
+  }
+}
+@media (min-width: 1000px) {
+  body .wrap__header {
+    padding: 0 5%;
+    margin: 0 auto;
+    width: 90%;
+    max-width: 78.5714285714em;
+  }
+}
+body .order-summary__sections {
+  height: auto;
+}
+body .order-summary__sections .field__input-btn span {
+  font-family: 'AT Surt Medium';
+}
+body header.main__header[role="banner"] {
+  text-align: center;
+  display: none;
+}
+@media (min-width: 1000px) {
+  body header.main__header[role="banner"] {
+    padding: 4em 0;
+    display: block;
+  }
+}
+body h2.checkout__title {
+  font-family: "AT-Surt-SemiBold";
+  font-size: 40px;
+  font-weight: 700;
+  color: #000;
+  display: none;
+}
+@media (min-width: 1000px) {
+  body h2.checkout__title {
+    display: block;
+  }
+}
+body .sidebar {
+  padding-left: 0;
+}
+body .sidebar .section__title {
+  color: #6a6a6a;
+  display: none;
+}
+@media (min-width: 750px) {
+  body .sidebar .section__title {
+    margin-bottom: 21px;
+  }
+}
+@media (min-width: 1000px) {
+  body .sidebar .section__title {
+    display: none;
+  }
+}
+@media (min-width: 1000px) {
+  body .page--no-banner .main,
+  body .page--no-banner .sidebar {
+    padding-top: 2em;
+  }
+}
+@media (min-width: 1000px) {
+  body .sidebar::after {
+    box-shadow: none;
+  }
+}
+body form.edit_checkout .section__title {
+  color: #342B27;
+  font-family: 'AT Surt Medium';
+}
+@media (min-width: 750px) {
+  body form.edit_checkout .field[data-address-field="zip"],
+  body form.edit_checkout .field[data-address-field="city"],
+  body form.edit_checkout .field[data-address-field="province"],
+  body form.edit_checkout .field[data-address-field="country"] {
+    width: 50%;
+  }
+}
+body .main .field__input {
+  border-color: #d9d9d9;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+body .main .field__input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #969696;
+  opacity: 1;
+  /* Firefox */
+}
+body .main .field__input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #969696;
+}
+body .main .field__input::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #969696;
+}
+body .section--contact-information .section__header .section__title {
+  color: transparent;
+  position: relative;
+}
+body .section--contact-information .section__header .section__title::before {
+  content: "Personal Information";
+  position: absolute;
+  color: #342b27;
+}
+body .section--contact-information .section__header p span {
+  display: none;
+}
+body .section--contact-information .section__header p a {
+  border-bottom: 1px solid #9e9e9e;
+  padding-bottom: 5px;
+  font-family: 'AT Surt Medium';
+}
+body .section--contact-information .fieldset-description {
+  display: none;
+}
+body
+  .section--shipping-address
+  .section__content
+  .fieldset
+  > .field.field--show-floating-label {
+  display: none;
+}
+body .step__footer__previous-link-content, body .step__footer__continue-btn .btn__content {
+  font-family: 'AT Surt Medium';
+  font-weight: 400;
+}
+body .section__header .os-order-number, 
+body .section__header .os-header__title, 
+body .section__header .section__title, 
+body .section__header .section__text, 
+body .section__content .content-box h2, 
+body .section__content .content-box .heading-2,
+body .section__content .content-box h3, 
+body .section__content .content-box .heading-3 {
+  font-family: 'AT Surt Medium';
+}
+@media (min-width: 750px) {
+  body .step__footer .step__footer__previous-link {
+    color: #b3a89b;
+  }
+  body .step__footer .step__footer__previous-link svg {
+    fill: #b3a89b;
+    margin-right: 15px;
+  }
+}
+body .step__footer .step__footer__continue-btn {
+  text-transform: none;
+  font-family: "SharpGroteskBold", serif !important;
+  font-weight: 700;
+  padding: 1em 1.4em;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+body #order-summary {
+  padding: 30px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+@media (max-width: 999px) {
+  body #order-summary.order-summary--is-expanded {
+    margin: 30px 0;
+  }
+}
+@media (max-width: 999px) {
+  body #order-summary.order-summary--is-collapsed {
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 0;
+  }
+}
+body #order-summary .product-thumbnail__quantity {
+  background-color: #fff;
+  color: #b3a89b;
+  border: 1px solid #b3a89b;
+  right: auto;
+  left: -0.75em;
+}
+body #order-summary .product-thumbnail::after {
+  border: 0;
+}
+body #order-summary .product-thumbnail__image {
+  object-fit: cover;
+  height: 100%;
+}
+body #order-summary .product__description {
+  vertical-align: top;
+  padding-top: 1em;
+}
+body #order-summary .product__description .order-summary__small-text {
+  color: #b3a89b;
+  font-family: 'AT Surt Medium';
+}
+body #order-summary .product__description .order-summary__emphasis {
+  font-family: 'AT Surt Medium';
+}
+body #order-summary .payment-due-label__total {
+  color: inherit;
+}
+body #order-summary .payment-due-label__total,
+body #order-summary .payment-due__price {
+  font-size: 1em;
+}
+.order-summary__section--product-list,
+.no-js .order-summary__section__content,
+.no-touchevents .order-summary__section__content {
+  overflow: visible !important;
+}
+.order-summary__section:last-of-type {
+  padding-bottom: 0;
+}
+.order-summary__section .total-line .total-line__name, .order-summary__section .total-line .total-line__name span {
+  font-family: 'AT-Surt-Semibold';
+}
+.order-summary__section .order-summary__emphasis, .order-summary__section .total-line .total-line__price span {
+  font-family: 'AT Surt Medium';
+}
+.product__description .reduction-code__text {
+  font-size: 0.8571428571em;
+}
+#discount-code-sub-label {
+  font-size: 0.8em;
+  color: #b3a89b;
+  padding-top: 1.5em;
+}
+.step__sections .review-block .review-block__label, .step__sections .review-block a span {
+  font-family: 'AT Surt Medium';
+}
+.section--shipping-method .content-box__emphasis {
+  font-family: 'AT Surt Medium';
+}
+/* FONTS */
+@font-face {
+  font-family: "SharpGroteskMediumItalic";
+  src: url("https://cdn.shopify.com/s/files/1/0172/4383/2374/files/SharpGroteskMediumItalic19-Regular.woff2?v=1659942671");
+}
+@font-face {
+  font-family: "SharpGroteskBold";
+  src: url("https://cdn.shopify.com/s/files/1/0172/4383/2374/files/SharpGroteskSmBold19-Regular_25fc65a4-837f-4a9f-bab8-dc8da531703e.woff2?v=1659942740");
+}
+@font-face {
+  font-family: "SharpGroteskBoldItalic";
+  src: url("https://cdn.shopify.com/s/files/1/0172/4383/2374/files/SharpGroteskSmBoldItalic19-Regular.woff2?v=1659942780");
+}
+@font-face {
+  font-family: "SharpGroteskMedium";
+  src: url("https://cdn.shopify.com/s/files/1/0172/4383/2374/files/SharpGroteskMedium19-Regular_8f56b065-765b-4e21-a214-5eaa37874c13.woff2?v=1659942808");
+}
+@font-face {
+  font-family: "AT-Surt-DemiBold";
+  src: url("https://cdn.shopify.com/s/files/1/0172/4383/2374/files/AT-Surt-DemiBold.woff2?v=1659942856");
+}
+@font-face {
+  font-family: 'Radio Grotesk';
+  src: url("https://cdn.shopify.com/s/files/1/0172/4383/2374/files/AT-Surt-Regular.woff2?v=1658470709");
+}
+@font-face {
+  font-family: "AT Surt Medium";
+  src: url("https://cdn.shopify.com/s/files/1/0172/4383/2374/files/AT_Surt_Medium.otf?v=1661844550");
+}
+@font-face {
+  font-family: "AT Surt Medium Oblique";
+  src: url("https://cdn.shopify.com/s/files/1/0172/4383/2374/files/AT_Surt_Medium_Oblique.otf?v=1661844550");
+}
+@font-face {
+  font-family: "AT-Surt-SemiBold";
+  src: url("https://cdn.shopify.com/s/files/1/0172/4383/2374/files/AT-Surt-SemiBold.woff2?v=1659942908");
+}
+@font-face {
+  font-family: "Tondu Beta";
+  src: url("https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Tondu_Beta.ttf?v=1659942940");
+}
+@font-face {
+  font-family: "PPE-Editorial";
+  src: url("https://cdn.shopify.com/s/files/1/0172/4383/2374/files/PPEditorialNew-Regular.woff2?v=1661419426");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

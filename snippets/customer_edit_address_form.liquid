@@ -1,0 +1,55 @@
+{% form 'customer_address', address, class: 'visually-hidden js-edit-address-form', autocomplete: 'off'  %}
+  <h4 class="edit-title">Edit: {{ address.address1 | upcase }}</h4>
+  <div class="form-element js-form-field js-required">
+    <label for="address_first_name_{{address.id}}">First Name</label>
+    <input id="address_first_name_{{address.id}}" type="text" value="{{ address.first_name }}" name="address[first_name]" autocomplete="new-password" tabindex="-1">
+  </div>
+
+  <div class="form-element js-form-field js-required">
+    <label for="address_last_name_{{address.id}}">Last Name</label>
+    <input id="address_last_name_{{address.id}}" type="text" value="{{ address.last_name }}" name="address[last_name]" autocomplete="new-password" tabindex="-1">
+  </div>
+
+  <div class="form-element js-form-field js-required">
+    <label for="address_address1_{{address.id}}">Address 1</label>
+    <input id="address_address1_{{address.id}}" type="text" value="{{ address.address1 }}" name="address[address1]" autocomplete="new-password" tabindex="-1">
+  </div>
+  
+  <div class="form-element js-form-field">
+    <label for="address_address2_{{address.id}}">Address 2</label>
+    <input id="address_address2_{{address.id}}" type="text" value="{{ address.address2 }}" name="address[address2]" autocomplete="new-password" tabindex="-1">
+  </div>
+
+  <div class="form-element js-form-field js-required">
+    <label for="address_city_{{address.id}}">City</label>
+    <input id="address_city_{{address.id}}" type="text" value="{{ address.city }}" name="address[city]" autocomplete="new-password" tabindex="-1">
+  </div>
+
+  <div class="form-element select-native active js-required">
+    <label for="address_country_{{address.id}}">Country</label>
+    <select class="js-address-country" id="address_country_{{address.id}}" name="address[country]" data-value="{{ address.country }}" autocomplete="new-password" tabindex="-1">
+      {{ country_option_tags }}
+    </select>
+  </div>
+
+  <div class="form-element select-native active js-address-province-wrapper js-required">
+    <label for="address_province_{{address.id}}">State/Province</label>
+    <select id="address_province_{{address.id}}" class="js-address-province" data-value="{{ address.province }}" name="address[province]" autocomplete="new-password" tabindex="-1">
+    </select>
+  </div>
+
+  <div class="form-element js-form-field js-required">
+    <label for="address_zip_{{address.id}}">ZIP/Postal Code</label>
+    <input id="address_zip_{{address.id}}" type="text" value="{{ address.zip }}" name="address[zip]" autocomplete="new-password" tabindex="-1">
+  </div>
+
+  <div class="form-element-full">
+    <input id="address_default_{{address.id}}" type="checkbox" name="address[default]" tabindex="-1" {% if address == customer.default_address%}checked{% endif %}>
+    <label for="address_default_{{address.id}}">Default Address</label>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="form-actions__cancel js-cancel-edit-address" tabindex="-1">Cancel</button>
+    <button type="submit" class="form-actions__submit btn btn--lightbrown form-submit js-edit-address-submit" tabindex="-1">SUBMIT</button>
+  </div>
+{% endform %}

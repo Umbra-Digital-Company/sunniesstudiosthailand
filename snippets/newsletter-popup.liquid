@@ -1,0 +1,15 @@
+{%- if settings.subscribe_html != blank and settings.show_newsletter_popup -%}
+  <div id="popup-newsletter" class="popup mfp-hide">
+    <div class="shell">
+      <div class="popup-newsletter">
+        <div class="popup__inner">
+          <div class="popup__main">
+            <div class="popup__body">
+              {% comment %} {%- include 'subscribe-mailchimp' action: settings.subscribe_html, form_class: 'js-subscribe-form subscribe footer__subscribe', field_class: 'subscribe__field', field_placeholder: settings.subscribe_placeholder, button_class: 'subscribe__btn', button_text: settings.subscribe_btn, ajax: true, indx: 12 -%} {% endcomment %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}

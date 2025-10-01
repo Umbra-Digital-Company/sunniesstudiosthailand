@@ -1,0 +1,79 @@
+{%- assign _section = section.settings -%}
+{%- assign section_image = _section.image -%}
+
+{%- if section.blocks.size > 0 -%}
+	<section class="section-gift-guide-collection" id="ggc-2">
+		<div class="shell">
+			<div class="section__inner">
+				<div class="collection-grid">
+					{% if section_image != blank %}
+					<div class="collection-grid_banner">
+						<a href="{{ section.settings.image_url }}">
+							<div class="banner" style="background-image: url({{section_image | img_url: '3200x'}});"></div>
+						</a>
+					</div> <!-- /.collection-grid_banner -->
+					{% endif %}
+					<div class="collection-grid_product">
+						<div class="product-grid">
+							{% for block in section.blocks limit: 4 %}
+							<div class="product-grid--item">
+								{%- assign _block = block.settings -%}
+								{%- assign _product = all_products[_block.product_select] -%}
+	
+								{%- include 'product-item-carousel' with _product  -%}
+							</div> <!-- /.product-grid--item -->
+							{% endfor %}
+						</div> <!-- /.product-grid -->
+					</div> <!-- /.collection-grid_products -->
+				</div> <!-- /.collection-grid -->
+				{% if section.blocks.size > 4 %}
+				<div class="collection-grid extension">
+					<div class="collection-grid_product extension">
+						<div class="product-grid">
+							{% for block in section.blocks offset: 4 %}
+							<div class="product-grid--item extension">
+								{%- assign _block = block.settings -%}
+								{%- assign _product = all_products[_block.product_select] -%}
+	
+								{%- include 'product-item-carousel' with _product  -%}
+							</div> <!-- /.product-grid--item -->
+							{% endfor %}
+						</div> <!-- /.product-grid -->
+					</div> <!-- /.collection-grid_products -->
+				</div> <!-- /.collection-grid--extension -->
+				{% endif %}
+			</div><!-- /.section__inner -->
+		</div><!-- /.shell -->
+	</section><!-- /.section-gift-guide-collection -->
+{%- endif -%}
+
+{% schema %}
+{
+	"name": "Gift Guide Collection 2",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label": "Collection Banner"
+		},
+		{
+			"type": "url",
+			"id": "image_url",
+			"label": "Banner URL"
+		}
+	],
+	"blocks": [
+		{
+			"type": "product",
+			"name": "product",
+			"settings": [
+				{
+					"type": "product",
+					"id": "product_select",
+					"label": "Select Product"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

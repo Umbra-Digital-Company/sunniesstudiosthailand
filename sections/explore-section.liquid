@@ -1,0 +1,125 @@
+{%- assign _section = section.settings -%}
+{%- assign TtlSection = _section.page_section_title %}
+
+{%- if section.blocks.size > 0 -%}
+  <section class="section__explore">
+    <div class="explore__wrapper">
+      <div class="explore__wrapperInner">
+        <h2 class="explore__wrapperTitle">{{ TtlSection }}</h2>
+        <div class="exploreCards">
+          {%- for block in section.blocks -%}
+            {%- assign _block = block.settings -%}
+            {%- assign img = _block.explore_img -%}
+            {%- assign caption = _block.img_caption_link -%}
+
+            <div class="exploreCards__item">
+              <div class="exploreCards__itemLink">
+                <figure class="exploreCards__itemKv">
+                  <img src="{{img | image_url}}" alt="">
+                </figure>
+                <div class="exploreCards__itemCaption">
+                  {{ caption }}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+<style>
+  .explore__wrapper {
+  	padding: 100px;
+  }
+  .explore__wrapperTitle {
+  	font-size: 36px;
+  	font-weight: bold;
+  	font-family: 'AT-Surt-Regular';
+  }
+  .explore__wrapperInner {
+  	width: 100%;
+  	margin: 0 auto;
+  	max-width: 1240px;
+  }
+  .exploreCards {
+  	display: flex;
+  	margin-top: 60px;
+  	align-items: stretch;
+  	justify-content: space-between;
+
+  }
+  .exploreCards__item {
+  	width: 23.5%;
+  }
+  .exploreCards__itemLink {
+  	display: block;
+  	width: 100%;
+  	color: #352B27;
+  }
+  .exploreCards__itemKv {
+  	width: 100%;
+  	overflow: hidden;
+  }
+  .exploreCards__itemCaption {
+  	margin-top: 24px;
+  }
+  .exploreCards__itemCaption * {
+  	font-size: 16px;
+  	color: #352B27;
+  	line-height: 1.2;
+  	font-family: 'AT-Surt-Regular';
+  }
+  .exploreCards__itemCaption a:hover {
+  	color: #352B27;
+  }
+  @media only screen and (max-width: 767px) {
+      .explore__wrapper {
+          padding: 60px 16px;
+      }
+      .explore__wrapperTitle {
+          font-size: 28px;
+      }
+      .exploreCards {
+          flex-wrap: wrap;
+          margin-top: 26px;
+      }
+      .exploreCards__item {
+          width: 48.88%;
+      }
+      .exploreCards__item:nth-child(n+3) {
+          margin-top: 40px;
+      }
+  }
+</style>
+{% schema %}
+{
+  "name": "Explore",
+  "settings": [
+    {
+      "type": "text",
+      "id": "page_section_title",
+      "label": "Section Title"
+    }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "explore_items",
+      "name": "Explore Items",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "explore_img",
+          "label": "Select Image"
+        },
+        {
+          "type": "richtext",
+          "id": "img_caption_link",
+          "label": "Image Caption/Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

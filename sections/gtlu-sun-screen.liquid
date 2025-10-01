@@ -1,0 +1,277 @@
+<div class="gtlu-banner">
+  <div class="gtlu-banner__container">
+    <div class="gtlu-banner__media-desktop">
+     {% if section.settings.banner_video_desktop != blank %}
+       {{ section.settings.banner_video_desktop | video_tag: autoplay: true, loop: true, muted: true }}
+     {% else %}
+       {% unless section.settings.banner_image_desktop == blank %}
+         <img src="{{ section.settings.banner_image_desktop | image_url }}" />
+      {% endunless %}
+     {% endif %}
+    </div>
+    <div class="gtlu-banner__info">
+      <img src="{{ section.settings.banner_logo | image_url  }}" />
+      <p>{{ section.settings.banner_text }}</p>
+      <span>{{ section.settings.banner_price }}</span>
+    </div>
+    <div class="gtlu-banner__media">
+     {% if section.settings.banner_video != blank %}
+       {{ section.settings.banner_video | video_tag: autoplay: true, loop: true, muted: true }}
+     {% else %}
+       <img src="{{ section.settings.banner_image | image_url }}" />
+     {% endif %}
+    </div>
+  </div>
+</div>
+<main class="gtlu-main">
+  <div class="gtlu-main__intro">
+    <div>{{ section.settings.intro_description }}</div>
+    <a class="btn" href="{{ section.settings.intro_btn_link }}">{{ section.settings.intro_btn_text }}</a>
+  </div>
+</main>
+
+<style>
+  .gtlu-banner {
+    background-color: {{ section.settings.banner_bg_color }};
+  }
+  .gtlu-banner__info {
+    padding-top: 100px;
+    padding-bottom: 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    font-size: 14px;
+    color: var(--black_color);
+  }
+  .gtlu-banner__info img {
+    max-height: 40px;
+  }
+  .gtlu-banner__info p {
+    font-family: 'Radio Grotesk';
+    max-width: 50%;
+  }
+  .gtlu-banner__info span {
+    font-family: 'AT-Surt-Semibold';
+  }
+  .gtlu-banner__media img, .gtlu-banner__media video {
+    width: 100%;
+    object-fit: cover;
+  }
+  .gtlu-banner__media-desktop {
+    display: none;
+  }
+
+  .gtlu-main {
+    font-size: 14px;
+    font-family: 'Radio Grotesk';
+    color: var(--black_color);
+    max-width: 768px;
+    padding: 60px 40px; 
+    margin: 0 auto;
+  }
+  .gtlu-main__intro {
+    text-align: center;
+  }
+  .gtlu-main__intro > div a {
+    color: var(--black_color)
+  }
+  .gtlu-main__intro > a {
+    font-family: 'AT Surt Medium';
+    margin-top: 24px;
+    text-transform: unset;
+    padding: 16px 40px;
+    border: 1.5px solid transparent;
+  }
+  .gtlu-main__intro a:hover {
+    color: var(--black_color);
+    background-color: var(--neutral_eight_color);
+    border: 1.5px solid var(--black_color);
+  }
+
+  .gtlu-rx-parameters-desktop {
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background-color: var(--light_gray_color);
+    margin: 8px 0;
+    border-radius: 4px;
+    margin-top: 40px;
+    padding: 8px 0;
+  }
+  .gtlu-rx-parameters-desktop > div {
+    padding: 12px 24px;
+  }
+  .gtlu-rx-parameters-desktop .gtlu__rx-key, .gtlu-rx-parameters-desktop .gtlu__rx-glass {
+    font-family: 'AT-Surt-Semibold';
+  }
+  .gtlu-rx-parameters-desktop .gtlu__rx-key {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .gtlu-rx-parameters-desktop > div:not(.gtlu__rx-glass) {
+    text-align: center;
+  }
+  
+  .rx-info-icon__pop {
+    font-family: 'Radio Grotesk';
+    position: absolute;
+    top: 25px;
+    width: 200px;
+    background-color: var(--black_color);
+    display: block;
+    color: white;
+    padding: 16px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  
+  @media only screen and (min-width: 769px) {
+    .gtlu-banner{
+       height: 0;
+       padding-bottom: 26%;
+       position: relative;
+    }
+    .gtlu-banner__container{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100%;
+      margin: 0 auto;
+      position: absolute;
+      width: 100%;
+    }
+    .gtlu-banner__info{
+      grid-column-start: 2;
+      align-items: start;
+      justify-content: center;
+      font-size: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .gtlu-banner__info p {
+      max-width: 100%;
+    }
+    .gtlu-banner__media{
+      grid-row-start: 1;
+      margin-top: 100px;
+    }
+    .gtlu-banner__media-desktop{
+      display: block;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+    .gtlu-banner__media-desktop > img, .gtlu-banner__media-desktop > video {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    .gtlu-banner__media > img, .gtlu-banner__media > video{
+      height: 100%;
+      object-fit: contain;
+      display: none;
+    }
+
+    .gtlu-main {
+      font-size: 16px;
+      padding: 60px 0; 
+    }
+    .gtlu-rx-parameters-desktop {
+      display: grid;
+    }
+    .gtlu-rx-parameters-mobile {
+      display: none;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Guide to lens upgrade",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Banner"
+      },
+      {
+        "type": "color",
+        "id": "banner_bg_color",
+        "label": "Banner Background Color (Mobile)"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_logo",
+        "label": "Banner Logo"
+      },
+      {
+        "type": "textarea",
+        "id": "banner_text",
+        "label": "Banner Text"
+      },
+      {
+        "type": "text",
+        "id": "banner_price",
+        "label": "Banner Price"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_image",
+        "label": "Banner Image (Mobile)"
+      },
+      {
+        "type": "video",
+        "id": "banner_video",
+        "label": "Banner Video (Mobile)",
+        "info": "Overrides Banner Image (Mobile)"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_image_desktop",
+        "label": "Banner Image (Desktop)"
+      },
+      {
+        "type": "video",
+        "id": "banner_video_desktop",
+        "label": "Banner Video (Desktop)",
+        "info": "Overrides Banner Image (Desktop)"
+      },
+      {
+        "type": "header",
+        "content": "Intro"
+      },
+      {
+        "type": "richtext",
+        "id": "intro_description",
+        "label": "Intro Description"
+      },
+      {
+        "type": "text",
+        "id": "intro_btn_text",
+        "label": "Intro Button Text",
+        "default": "Shop All"
+      },
+      {
+        "type": "url",
+        "id": "intro_btn_link",
+        "label": "Intro Button Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_one_image",
+        "label": "How to upgrade - Step 1 Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_two_image",
+        "label": "How to upgrade - Step 2 Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "step_three_image",
+        "label": "How to upgrade - Step 3 Image"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,61 @@
+.three-item-list-container {
+  width: 100%;
+}
+
+.three-item-list-wrapper {
+  margin: 0 40px;
+  padding: 20px;
+  background: #f9f8f7;
+  border-radius: 8px;
+}
+
+.three-list-item {
+  display: flex;
+  align-items: center;
+  margin: 0 0 16px 0;
+}
+
+.three-list-item:last-child {
+  margin: 0;
+}
+
+.three-list-item img {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  margin: 0 16px 0 0;
+}
+
+.three-list-item p {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--back_color);
+  width: auto;
+}
+
+@media (min-width: 768px) {
+  .three-item-list-wrapper {
+    margin: 0 auto;
+    max-width: 818px;
+    padding: 24px;
+  }
+
+  .three-list-item {
+    margin: 0 0 12px 0;
+  }
+
+  .three-list-item:last-child {
+    margin: 0;
+  }
+
+  .three-list-item img {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+  }
+
+  .three-list-item p {
+    font-size: 16px;
+  }
+}

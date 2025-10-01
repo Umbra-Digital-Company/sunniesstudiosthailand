@@ -1,0 +1,122 @@
+{%- assign _section = section.settings -%}
+{%- assign section_title = _section.title -%}
+{%- assign section_logo_image = _section.logo_image -%}
+{%- assign section_logo_image_mobile = _section.logo_image_mobile -%}
+{%- assign section_image = _section.image -%}
+{%- assign section_image_mobile = _section.image_mobile -%}
+{%- assign _collection = section.settings.collection -%}
+
+{%- if section.blocks.size > 0 -%}
+	<section class="featured-products-carousel" id="gift-guide-collection-carousel">
+    <div class="section__inner">
+      <div class="shell">
+        <header class="section__head">
+          <h2>{{ section_title }}</h2>
+          <div class="section_text">
+            {{ section.settings.text }}
+          </div>
+        </header>
+      </div>
+
+      <div class="featured-image">
+        {%- if section_image != blank -%}
+        <div class="section__image section__image--desktop lazyload">
+          <img data-src="{{ section_image | img_url: 'master' }}" alt="" class="lazyload" />
+        </div>
+        {%- endif -%}
+
+        {%- if section_image_mobile != blank -%}
+        <div class="section__image section__image--mobile">
+          <img data-src="{{ section_image_mobile | img_url: 'master' }}" alt="" class="lazyload" />
+        </div>
+        {%- endif -%}
+      </div>
+
+      <div class="shell">
+        <div class="section--cta-wrap">
+          <a href="{{ section.settings.ctalink }}" class="section--cta">
+            {{ section.settings.ctatext }}
+          </a>
+        </div>
+
+        <div class="section__body">
+          <div class="slider slider-featured-products slider-featured-products--main slider-featured-collection">
+            {%- for block in section.blocks -%}
+              {% for product in _collection.products %}
+                  {%- assign _product = block.settings.product_select -%}
+                  {% if product.id == _product.id %}
+                    {%- include 'product-item-carousel' with _product  -%}
+                  {% endif %}
+              {% endfor %}
+            {%- endfor -%}
+          </div>
+        </div>
+
+      </div>
+    </div>
+	</section>
+{%- endif -%}
+
+{% schema %}
+{
+	"name": "Collection Carousel Two",
+	"settings": [
+		{
+			"type": "text",
+      "id": "title",
+      "label": "Title"
+		},
+		{
+      "type": "richtext",
+      "id": "text",
+      "label": "Content"
+    },
+		{
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }, 
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image mobile"
+    },
+		{
+      "id": "ctatext",
+      "type": "text",
+      "label": "Link text",
+      "default": "Shop all"
+    },
+    {
+      "id": "ctalink",
+      "type": "url",
+      "label": "Link URL"
+    },
+    {
+      "id": "collection",
+      "label": "Collection",
+      "type": "collection"
+    }
+	],
+	"max_blocks": 20,
+	"blocks": [
+		{
+			"type": "product",
+			"name": "product",
+			"settings": [
+				{
+					"type": "product",
+					"id": "product_select",
+					"label": "Select Product"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Collection Carousel Two"
+		}
+	]
+}
+{% endschema %}
+

@@ -1,0 +1,82 @@
+.sunnies-world-new-store-carousel {
+  width: 100%;
+  padding: 20px 0;
+  overflow: hidden;
+}
+
+.carousel-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.new-store-carousel {
+  display: flex;
+  gap: 0;
+  animation: scroll 20s linear infinite;
+  white-space: nowrap;
+}
+
+.store-button-wrapper {
+  flex-shrink: 0;
+  padding: 0 2px;
+}
+
+.store-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: transparent;
+  color: inherit;
+  text-decoration: none;
+  font-family: 'Radio Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid currentColor;
+  border-radius: 0;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-width: 120px;
+  text-align: center;
+}
+
+.store-button:hover {
+  background-color: currentColor;
+  color: #D2B48C;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause animation on hover */
+.new-store-carousel:hover {
+  animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+  .carousel-container {
+    padding: 0 16px;
+  }
+  
+  .store-button {
+    padding: 12px 24px;
+    font-size: 14px;
+    min-width: 120px;
+    margin: 0 4px;
+  }
+  
+  .new-store-carousel {
+    animation-duration: 15s;
+    gap: 0;
+  }
+  
+  .store-button-wrapper {
+    padding: 0 4px;
+  }
+}

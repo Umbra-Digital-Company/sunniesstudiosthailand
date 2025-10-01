@@ -1,0 +1,69 @@
+{%- if section.blocks.size > 0 -%}
+	<section class="section-gift-guide-navigation">
+		<div class="shell">
+			<div class="section__inner">
+				<div class="navigation-grid">
+					{% for block in section.blocks %}
+						{%- assign _block = block.settings -%}
+						<div class="nav-link" href="#{{ _block.btn_url }}">{{ _block.btn_text }}</div>
+					{% endfor %}
+				</div><!-- /.navigation-grid -->
+			</div><!-- /.section__inner -->
+		</div><!-- /.shell -->
+	</section><!-- /.section-gift-guide-navigation -->
+{%- endif -%}
+
+{% schema %}
+{
+	"name": "Gift Guide Navigations",
+	"max_blocks": 6,
+	"blocks": [
+        {
+            "type": "block",
+            "name": "Block",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "btn_text",
+                    "label": "Button Text"
+                },
+                {
+                    "type": "select",
+                    "id": "btn_url",
+                    "label": "Collection Section",
+                    "options": [
+                        {
+                            "value": "ggc-1",
+                            "label": "Collection 1"
+						},
+						{
+                            "value": "ggc-2",
+                            "label": "Collection 2"
+                        },
+						{
+                            "value": "ggc-3",
+                            "label": "Collection 3"
+                        },
+						{
+                            "value": "ggc-4",
+                            "label": "Collection 4"
+                        },
+						{
+                            "value": "ggc-5",
+                            "label": "Collection 5"
+                        },
+						{
+                            "value": "ggc-6",
+                            "label": "Collection 6"
+                        },
+						{
+                            "value": "cta-banner",
+                            "label": "CTA Banner"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

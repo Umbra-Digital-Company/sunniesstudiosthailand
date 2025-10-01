@@ -1,0 +1,98 @@
+{%- assign _section = section.settings -%}
+{%- assign section_title = _section.maintitle -%}
+{%- assign section_image = _section.image -%}
+{%- assign section_image_mobile = _section.image_mobile -%}
+{%- assign section_video = _section.video_url -%}
+
+<section class="section-feature">
+  <div class="section__inner">
+    <header class="section__head">
+      <h6>{{ section.settings.titleone }}</h6>
+      <h2>{{ section_title }}</h2>
+      <div class="section_text">
+        {{ section.settings.text }}
+      </div>
+      <div class="section--cta-">
+        <a class="btn" href="{{ section.settings.ctalink }}" class="section--cta">
+          {{ section.settings.ctatext }}
+        </a>
+      </div>
+    </header>
+  </div>
+  <div class="section__body">
+    <div class="featured-image">
+      {%- if section_image != blank -%}
+        <div class="section__image section__image--desktop">
+          <img data-src="{{ section_image | img_url: 'master' }}" alt="" class="lazyload">
+        </div>
+        {%- if section_image_mobile != blank -%}
+          <div class="section__image section__image--mobile">
+            <img data-src="{{ section_image_mobile | img_url: 'master' }}" alt="" class="lazyload">
+          </div>
+          <!-- /.section__image -->
+        {%- endif -%}
+        {%- if section_video != '' -%}
+          <a href="{{ section.settings.ctalink }}" class="block__image block__image--video">
+            <video autoplay muted loop playsinline style="right: 0;bottom: 0;width: 100vw;">
+              <source src="{{ section_video }}" type="video/mp4">
+            </video>
+          </a>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "One Column Section",
+  "settings": [
+    {
+      "id": "titleone",
+      "type": "text",
+      "label": "Title One"
+    },
+    {
+      "id": "maintitle",
+      "type": "text",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Content"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image mobile"
+    },
+    {
+      "id": "ctatext",
+      "type": "text",
+      "label": "Link text",
+      "default": "Shop all"
+    },
+    {
+      "id": "ctalink",
+      "type": "url",
+      "label": "Link URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "One Column Section"
+    }
+  ]
+}
+{% endschema %}

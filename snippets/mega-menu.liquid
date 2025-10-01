@@ -1,0 +1,84 @@
+{% comment %}Set variables{% endcomment %}
+{%- assign mega_blocks = '' -%}
+{%- assign menu_handle = handle -%}
+{%- assign menu_class_name = class | default: 'menu' -%}
+{%- assign menu_dropdown = menu_dropdown_flag | default: false -%}
+{%- assign prev_title = prev_title | default: menu_handle -%}
+
+{%- if menu_dropdown -%}
+  {%- assign menu_items_array = menu_handle -%}
+{%- else -%}
+  {%- assign menu_items_array = linklists[menu_handle].links -%}
+{%- endif -%}
+
+{% comment %}Class naming{% endcomment %}
+{%- assign menu_class_dropdown = '__dropdown' | prepend: menu_class_name -%}
+{%- assign menu_class_item  = '__item' | prepend: menu_class_name -%}
+{%- assign menu_class_have_dropdown = '__item--has-dropdown' | prepend: menu_class_name | prepend: ' ' -%}
+{%- assign menu_active_class = '--active' | prepend: menu_class_item -%}
+{%- assign menu_class_item_active_children = '--ancestor-active' | prepend: menu_class_item -%}
+
+{%- if menu_dropdown -%}
+  <ul class="{{menu_class_dropdown}}">
+{%- else -%}
+  <ul>
+{%- endif -%}
+  {%- for _link in menu_items_array -%}
+    {%- assign menu_dropdown = false -%}
+    {%- assign _link_handle = prev_title | append: '-' | append: _link.title | handle -%}
+
+    {%- if _link.links.size > 0 or linklists[_link_handle] != empty -%}
+      {%- assign menu_dropdown = true -%}
+      {%- if _link.links.size > 0 -%}
+        {%- assign menu_dropdown_items = _link.links -%}
+      {%- else -%}
+        {%- assign menu_dropdown_items = linklists[_link_handle].links -%}
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if _link.active -%}
+      {%- assign menu_class_item_name = menu_class_item | append: ' ' | append: menu_active_class -%}
+    {%- else -%}
+      {%- assign menu_class_item_name = menu_class_item -%}
+    {%- endif -%}
+
+    {%- capture list_classes -%}
+      {{- menu_class_item_name -}}
+      {%- if menu_dropdown -%}
+        {{- menu_class_have_dropdown | append: ' ' -}}
+      {%- endif -%}
+      {%- if _link.child_active -%}
+        {{- menu_class_item_active_children | append: ' ' -}}
+      {%- endif -%}
+    {%- endcapture -%}
+
+    {%- assign title_handle = _link.title | handle | prepend: '##' | append: '##'  -%}
+    {%- assign title_handle_end = _link.title | handle | prepend: '$$' | append: '$$' -%}
+      <li
+        class="{{list_classes}}{% if mega_blocks contains title_handle %} menu__item--block{% endif %}">
+        <span class="menu__item-normal">
+          <a href="{{ _link.url }}">
+            {{- _link.title -}}
+          </a>
+        </span>
+
+        {%- if mega_blocks contains title_handle -%}
+          {%- assign split_mega_blocks = mega_blocks | split: title_handle | last | split: title_handle_end | first | split: '|'  -%}
+
+          <div class="menu__mega-block">
+            <img src="{{split_mega_blocks[1]}}" style="margin-bottom: 10px;" />
+            <a class="menu__mega-link" href="{{ _link.url }}"></a>
+
+            <div class="menu__mega-inner">
+              <h2>{{split_mega_blocks[0]}}</h2>
+            </div><!-- /.menu__mega-inner -->
+          </div><!-- /.menu__mega-block -->
+        {%- endif -%}
+
+        {%- if menu_dropdown -%}
+          {%- assign prev_title_text = _link.title | handle -%}
+          {%- include 'mega-menu' handle: menu_dropdown_items, prev_title: prev_title_text, menu_dropdown_flag: true -%}
+        {%- endif -%}
+      </li>
+  {%- endfor -%}
+</ul>

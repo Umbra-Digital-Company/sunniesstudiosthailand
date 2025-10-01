@@ -1,0 +1,125 @@
+.collection-highlight-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+.collection-highlight-header {
+  padding: 80px 40px 40px 40px;
+}
+
+.collection-highlight-header img {
+  height: 32px;
+}
+
+.collection-highlight-header p {
+  text-align: center;
+  margin: 16px 0 0 0;
+  font-family: 'Radio Grotesk';
+  font-size: 16px;
+}
+
+.collection-highligh-images #right-image {
+  display: none;
+}
+
+.collection-highlight-wrapper #cta-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 40px 16px 44px 16px;
+  width: 100%;
+}
+
+.collection-highlight-wrapper #cta-wrapper a {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 100%;
+  color: var(--black_color);
+  text-decoration: none;
+  padding: 0 0 4px 0;
+  border-bottom: 1.5px solid var(--black_color);
+}
+
+#collection-highlight-products {
+  display: none;
+  transition: 0.3s;
+}
+
+.collection-highlight-products {
+  width: 100%;
+  padding: 0 16px;
+}
+
+.collection-highlight-pagination {
+  text-align: center;
+  margin: 8px 0 0 0;
+}
+
+.collection-highlight-pagination .swiper-pagination-bullet {
+  border: 1.5px solid var(--black_color);
+  background: transparent;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+}
+
+.collection-highlight-pagination
+  .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: var(--black_color);
+}
+
+@media (min-width: 768px) {
+  .collection-highlight-wrapper {
+    padding: 0 50px;
+  }
+
+  .collection-highlight-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 0 40px 0;
+  }
+
+  .collection-highlight-header img {
+    height: 60px;
+  }
+
+  .collection-highligh-images {
+    display: flex;
+  }
+
+  .collection-highligh-images #left-image {
+    width: 50%;
+    margin: 0 16px 0 0;
+  }
+
+  .collection-highligh-images #right-image {
+    display: block;
+    width: 50%;
+  }
+
+  .collection-highlight-products {
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .collection-highlight-pagination {
+    display: none;
+  }
+
+  .collection-highlight-wrapper #cta-wrapper {
+    padding: 60px 0 64px 0;
+  }
+
+  .collection-highlight-wrapper #cta-wrapper a {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .collection-highlight-wrapper {
+    padding: 0 100px;
+  }
+}

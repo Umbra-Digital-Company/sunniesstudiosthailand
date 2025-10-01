@@ -1,0 +1,836 @@
+{% liquid 
+  assign current_variant = product.selected_or_first_available_variant
+  assign selected_color = current_variant.option1 | handleize
+  assign specific_lifestyle = 'lifestyle-' | append: selected_color
+  assign item_type = ''
+  assign isMerch = false
+  assign isIconView = false
+  assign isRemoveVto = false
+  assign product_measurements = 'initial'
+
+  if product.tags contains 'merch'
+    assign item_type = 'merch'
+    assign isMerch = true
+
+    if product.tags contains 'icon-view'
+      assign isIconView = false
+    else
+      assign isIconView = true
+    endif
+  else     
+    assign item_type = 'studios_frame'
+    assign isIconView = false
+  endif
+
+  if product.tags contains "remove-vto"
+    assign isRemoveVto = true
+  else
+    assign isRemoveVto = false
+  endif
+
+  capture image_gallery
+    for image in product.images
+      assign image_color = image.alt | split: '::' | first | handleize
+      assign image_alt = image.alt | split: '::' | last
+      if image_color == selected_color
+        if image_alt != 'hidden'
+          render 'product-gallery-image' with image: image, alt: image_alt
+        endif
+      endif
+    endfor
+  endcapture
+
+  capture lifestyle_gallery
+    assign count = 0
+    for image in product.images
+      assign image_color = image.alt | split: '::' | first | downcase
+      assign image_alt = image.alt | split: '::' | last
+      if image_color == specific_lifestyle
+        assign count = count | plus: 1
+      endif
+    endfor
+
+    if count > 0
+      assign display_lifestyle = specific_lifestyle
+    else
+      assign display_lifestyle = 'lifestyle'
+    endif
+
+    for image in product.images
+      assign image_color = image.alt | split: '::' | first | downcase
+      assign image_alt = image.alt | split: '::' | last
+      if image_color == display_lifestyle
+        render 'product-gallery-image' with image: image, alt: image_alt
+      endif
+    endfor
+  endcapture
+
+  capture measurement_gallery
+    for image in product.images
+      assign image_color = image.alt | split: '::' | first | downcase
+      assign image_alt = image.alt | split: '::' | last
+      if image_color == 'measurement'
+      	assign product_measurements = product_measurements | append: ',' | append: image_color
+        render 'responsive-image' with image: image, alt: image_alt, image_class: "css-class", wrapper_class: "wrapper-css-class", max_width: 900, max_height: 500
+      endif
+    endfor
+  endcapture
+
+  capture desc_tags
+    assign arrangedTags = ''
+    assign hasArrangment = false
+    assign arrangedTagsByStar = ''
+    assign hasArrangmentByStar = false
+
+    for tag in product.tags
+      assign clean_tag = tag | downcase
+      if clean_tag contains 'arranged_desc'
+        assign split_label = tag | split: '::' | last | strip
+        assign split_tags = split_label | split: '-'
+        assign arrangedTags = split_tags
+        assign hasArrangment = true
+      endif
+    endfor
+    
+    for tag in product.tags
+      assign clean_tag = tag | downcase
+      if clean_tag contains 'arranged_by_star_desc'
+        assign split_label = tag | split: '::' | last | strip
+        assign split_tags = split_label | split: '*'
+        assign arrangedTagsByStar = split_tags
+        assign hasArrangmentByStar = true
+      endif
+    endfor
+
+    if isIconView == false
+      echo '<ul class="tags-list">'
+        if hasArrangment == true
+          for tag in arrangedTags
+            assign clean_tag = tag | downcase
+            assign content = tag | strip
+            assign classes = content | handleize
+            assign output = '<li class="tag-icon tag-icon__' | append: classes | append: '">' | append: content | append: '</li>'
+            echo output
+          endfor
+        elsif hasArrangmentByStar == true
+          for tag in arrangedTagsByStar
+            assign clean_tag = tag | downcase
+            assign content = tag | strip
+            assign classes = content | handleize
+            assign output = '<li class="tag-icon tag-icon__' | append: classes | append: '">' | append: content | append: '</li>'
+            echo output
+          endfor
+        else
+          for tag in product.tags
+            assign clean_tag = tag | downcase
+            if clean_tag contains 'desc'
+              assign content = tag | split: '::' | last | strip
+              assign classes = content | handleize
+              assign output = '<li class="tag-icon tag-icon__' | append: classes | append: '">' | append: content | append: '</li>'
+              echo output
+            endif
+          endfor
+        endif
+      echo '</ul>'
+    else
+      echo '<ul>'
+        for tag in productTags
+          assign clean_tag = tag | downcase
+          if clean_tag contains 'desc'
+            assign content = tag | split: '::' | last | strip
+            assign output = '<li>' | append: content | append: '</li>'
+            echo output
+          endif
+        endfor
+      echo '</ul>'
+    endif
+  endcapture
+%}
+
+<style>
+  .sun-extra-essentials-products-pagination {
+    text-align: center;
+    padding: 25px 0 0 0;
+  }
+  
+  .sun-extra-essentials-products-pagination .swiper-pagination-bullet {
+    background: transparent;
+    opacity: 1;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid var(--black_color);
+  }
+  
+  .sun-extra-essentials-products-pagination
+    .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background: var(--black_color);
+  }
+  .product-recommendations {
+    margin: 60px 0;
+  }
+  .product-recommendations h2 { 
+    text-align: center;
+    font-size: 24px;
+    padding: 0 0 25px 0;
+    text-transform: uppercase;
+  }
+  .product-recommendation-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    column-gap: 16px;
+    row-gap: 16px;
+  }
+  @media(min-width: 768px) {
+    .product-recommendations {
+      margin: 100px 0;
+    }
+    .product-recommendations h2 { 
+      text-align: left;
+      font-size: 36px;
+      padding: 0 0 50px 0;
+    }
+    .product-recommendation-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr;
+      column-gap: 24px;
+    }
+  }
+</style>
+
+<section class="Product" data-section-id="{{ section.id }}" data-section-type="product">
+  <div class="Ditto__popup-wrapper js-ditto-popup" id="DittoPopup">
+    <div class="Ditto__popup-background"></div>
+  </div>
+  <div class="Product__gallery js-gallery-wrapper">
+    <div class="Product__gallery-slides js-pdp-gallery">
+      {{ image_gallery }}
+    </div>
+    <div class="Product__gallery-navigation js-gallery-navigation">
+      <button type="button" class="prev js-pdp-gallery-prev">{% render 'icons', icon: 'left-arrow' %}</button>
+      <button type="button" class="next js-pdp-gallery-next">{% render 'icons', icon: 'right-arrow' %}</button>
+    </div>
+  </div>
+
+  {%- capture vto_section -%}
+  <div class="Product__details-vto">
+    <div class="Product__details-lifestyle"> 
+      <div class="js-lifestyle-gallery">
+        {{ lifestyle_gallery }}
+      </div>
+      <div class="Product__details-lifestyle__navigation js-lifestyle-navigation">
+        <button type="button" class="prev js-pdp-lifestyle-prev">{% render 'icons', icon: 'left-arrow' %}</button>
+        <button type="button" class="next js-pdp-lifestyle-next">{% render 'icons', icon: 'right-arrow' %}</button>
+      </div>      
+
+      <style type="text/css">
+        .show-hint {display: inline-block !important;}
+      </style>
+
+      {% unless isMerch %}
+        <p id="dittoHint" style="display:none;position: absolute;left: 0;bottom: 20px;z-index: 10;width: 100%;text-align: center;color: #fff;">SWIPE TO ROTATE</p>
+        {%- assign current_variant = product.selected_or_first_available_variant -%}
+        {% if isRemoveVto == false %}
+          <button type="button" class="Product__details-lifestyle__ditto btn btn--black js-toggle-ditto {{ current_variant.sku | prepend: 'vto-'}}">{{ settings.try_on }}</button>
+        {% endif %}
+      {% endunless %}
+    </div>
+  </div>
+  {%- endcapture -%}
+
+  {%- capture details_section -%}
+  <div class="Product__details-details">
+    <header class="Product__header">
+      <div class="Product__header-info">
+        <h1>{{ product.title }}</h1>
+
+        <div class="read-reviews-container">
+          <div class="heading-review-stars">
+            <img class="heading-rating-stars" src="{{ 'star.png' | asset_url }}" />
+            <img class="heading-rating-stars" src="{{ 'star.png' | asset_url }}" />
+            <img class="heading-rating-stars" src="{{ 'star.png' | asset_url }}" />
+            <img class="heading-rating-stars" src="{{ 'star.png' | asset_url }}" />
+            <img class="heading-rating-stars" src="{{ 'star.png' | asset_url }}" />
+          </div>
+
+          <a href="#reviews-section-desktop" class="heading-rating-link">Read reviews</a>
+        </div>
+      </div>
+
+      {% form 'product', product, class: 'Product__header-actions' %}
+        <input type="hidden" name="id" value="{{ current_variant.id }}" class="js-variant-id">
+        <input type="hidden" name="properties[_item_type]" value="{{item_type}}">
+
+        {% unless product.has_only_default_variant %}
+          <div class="Product__header-color js-color">
+            <div class="Product__header-color__title js-color-title{% unless current_variant.available %} unavailable{% endunless %}">
+              <span class="js-color-selected">
+                {% if product.handle contains 'digital-gift-card'%}Value: {{current_variant.option1}}{% else %}{{current_variant.option1}}{% endif %}
+              </span>
+            </div>
+
+            <div style="display: flex;">
+              {% for variant in product.variants %}
+                <button 
+                  type="button" 
+                  class="Product__header-color__option js-color-option{% if variant.option1 == current_variant.option1 %} selected{% endif %}{% unless variant.available %} unavailable{% endunless %}" 
+                  tabindex="0" data-variant-id="{{ variant.id }}">
+                  <div class="swatch-wrapper" title="{{ variant.option1 }}">
+                    <span data-handle-name="{{variant.option1 | handleize}}"></span>
+                  </div>
+                </button>
+              {% endfor %}
+            </div>
+          </div>
+        {% endunless %}
+
+        {% if current_variant.available %}
+        <button 
+          type="button" 
+          name="submit"
+          class="btn customize js-submit js-customize{% unless current_variant.available %} disabled{% endunless %}">
+            {{ settings.add_to_cart }}&nbsp;&mdash;&nbsp;
+
+            <div data-price-wrapper class="price">
+              <span data-product-price class="js-price">
+                ${{ current_variant.price | money_without_currency | remove: '.00' }}
+              </span>
+
+              <span>
+                <s data-compare-price class="js-compare-price">
+                  {% if current_variant.compare_at_price > current_variant.price %}
+                    ${{ current_variant.compare_at_price | money_without_currency | remove: '.00' }}
+                  {% endif %}
+                </s>
+              </span>
+            </div>
+        </button>
+        {% else %}
+          <div 
+            id="join_waitlist" 
+            class="btn customize" 
+            style="background-color: #AB9F92;color: #fff;cursor: pointer;"
+            onClick="openWaitlistModal({{ product.id }}, {{ current_variant.id }})">
+            Join the Waitlist
+          </div>
+        {% endif %}
+      {% endform %}
+    </header>
+
+    <div class="Product__details-description">
+      <div class="Product__details-description--footer">
+        <p class="shipping-footer">FREE SHIPPING ON ORDERS OVER $100</p>
+      </div>
+
+      <div class="Product__details-description-desc">
+        <div class="Product__details-description-desc-label">{{ product.description }}</div>
+        {{desc_tags}}
+        <div class="sustainable-pdp-carousel">
+        {% for tag in product.tags %}
+      		{% case tag %}
+              {% when "bio_acetate" %}
+                  <div class="material-pdp bio-acetate">
+                    <h4><img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Frame_160_9c27b90a-222c-4e47-939c-1f76f325da4b.png?v=1647927043">Biodegradable Acetate</h4>
+                    <p>Made when natural materials are turned into usable acetate through organic plasticizers. With reduced fossil carbon content, this material returns to the earth clean. <a href="https://ph.sunniesstudios.com/pages/our-materials">Learn more</a></p>
+                  </div>
+              {% when "plant_based" %}
+                  <div class="material-pdp plant-based">
+                    <h4><img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Frame_158.png?v=1647928208">PLANT-BASED PLASTIC</h4>
+                    <p>Made from castor seeds, a 100% renewable resource. It serves as a strong yet lightweight substitute for conventional plastic. <a href="https://ph.sunniesstudios.com/pages/our-materials">Learn more</a></p>       		
+                  </div>
+              {% when "recycled_poly" %}
+                  <div class="material-pdp recycled-poly">
+                    <h4><img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Frame_157.png?v=1647929075">RECYCLED POLYESTER</h4>
+                    <p>Helps keep existing plastics in the circular economy to minimize carbon emissions. It’s BPA-free and made from 100% recycled materials. <a href="https://ph.sunniesstudios.com/pages/our-materials">Learn more</a></p>
+                  </div>
+      		{% endcase %}
+        {% endfor %}
+      </div>
+      
+      {% if product.id != 4779915575350 %}
+        {% render 'discount-callout' %}
+      {% endif %}
+      </div>
+    </div>
+  </div>
+  {%- endcapture -%}
+
+  {%- capture measurement_section -%}
+    <div class="Product__details-measurements">
+      {% assign measurements_length = product_measurements | split: ',' | size %}
+      {% if isMerch != true or measurements_length > 1 %}
+        <h2 class="title">{{ settings.measurements }}</h2>
+        {{ measurement_gallery }}
+      {% endif %}
+    </div>
+  {%- endcapture -%}
+
+  {%- capture reviews_section -%}
+  <div class="Product__details-reviews">
+    <div role="tablist" aria-label="Product Details" class="tablist js-tablist" id="reviews-section-desktop">
+      <button role="tab" aria-selected="true" aria-controls="reviews-tab" id="reviews" class="active">reviews</button>  
+      <button role="tab" aria-selected="true" aria-controls="shipping-tab" id="shipping">
+        {% if product.title != "Digital Gift Card" %}
+          {{ settings.shipping_returns_tab }}
+        {% else %}      
+          Terms and Conditions
+        {% endif %}
+      </button>
+    </div>
+
+    <div tabindex="0" role="tabpanel" id="reviews-tab" aria-labelledby="reviews" class="panel js-desc-panel">
+      <div id="shopify-product-reviews" data-id="{{product.id}}">
+        <div class="yotpo yotpo-main-widget" data-product-id="{{ product.id }}" data-name="{{ product.title | escape }}" data-url="{{ shop.url }}{{ product.url }}" data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" data-description="{{ product.description | escape }}"></div>
+      </div>
+    </div>
+
+    <div tabindex="0" role="tabpanel" id="shipping-tab" aria-labelledby="shipping" hidden="" class="panel js-desc-panel">
+      {% if product.title != "Digital Gift Card" %}
+        <p>{{ settings.shipping_returns }}</p>
+      {% else %}      
+        <p>All Digital Gift Cards are only valid on sunniesstudios.com.</p>
+        <p>Shipping fees don't apply to digital gift cards.</p>
+        <p>Gift cards may be purchased via credit card only.</p>
+        <p>Gift cards don't expire and may be used multiple times, provided there is balance left on the card.</p>
+        <p>All gift card sales are final. Returns, exchanges and/or refunds are not available for gift cards.</p>      
+      {% endif %}
+    </div>
+  </div>
+  {%- endcapture -%}
+
+  {%- capture reviews_mobile_section -%}
+  <div class="Product__details-description-mobile">
+    <div class="Product__details-description--footer">
+      <p class="shipping-footer">FREE SHIPPING ON ORDERS OVER $100</p>
+    </div>
+
+    <div class="Product__details-description-desc" id="reviews-section-mobile">
+      <div class="Product__details-description-desc-label">{{ product.description }}</div>
+      {{desc_tags}}
+        <div class="sustainable-pdp-carousel-mobile">
+        {% for tag in product.tags %}
+      		{% case tag %}
+              {% when "bio_acetate" %}
+                  <div class="material-pdp bio-acetate">
+                    <h4><img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Frame_160_9c27b90a-222c-4e47-939c-1f76f325da4b.png?v=1647927043">Biodegradable Acetate</h4>
+                    <p>Made when natural materials are turned into usable acetate through organic plasticizers. With reduced fossil carbon content, this material returns to the earth clean. <a href="https://ph.sunniesstudios.com/pages/our-materials">Learn more</a></p>
+                  </div>
+              {% when "plant_based" %}
+                  <div class="material-pdp plant-based">
+                    <h4><img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Frame_158.png?v=1647928208">PLANT-BASED PLASTIC</h4>
+                    <p>Made from castor seeds, a 100% renewable resource. It serves as a strong yet lightweight substitute for conventional plastic. <a href="https://ph.sunniesstudios.com/pages/our-materials">Learn more</a></p>       		
+                  </div>
+              {% when "recycled_poly" %}
+                  <div class="material-pdp recycled-poly">
+                    <h4><img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Frame_157.png?v=1647929075">RECYCLED POLYESTER</h4>
+                    <p>Helps keep existing plastics in the circular economy to minimize carbon emissions. It’s BPA-free and made from 100% recycled materials. <a href="https://ph.sunniesstudios.com/pages/our-materials">Learn more</a></p>
+                  </div>
+      		{% endcase %}
+        {% endfor %}
+        </div>
+        <hr class="below-materials-line">
+
+        {% if product.id != 4779915575350 %}
+          {% render 'discount-callout' %}
+        {% endif %}
+    </div>
+
+    <div class="mobile-accordion-container">
+      <button class="details-accordion details-accordion-reviews" id="reviews" onclick="showReview()">
+        reviews
+      </button>
+      <div class="details-panel" id="review-details-panel">
+        <div id="shopify-product-reviews" data-id="{{product.id}}">
+          <div class="yotpo yotpo-main-widget" data-product-id="{{ product.id }}" data-name="{{ product.title | escape }}" data-url="{{ shop.url }}{{ product.url }}" data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" data-description="{{ product.description | escape }}"></div>
+        </div>
+      </div>
+
+      <button class="details-accordion">Measurement</button>
+      <div class="details-panel">
+        {% assign measurements_length = product_measurements | split: ',' | size %}
+      	{% if isMerch != true or measurements_length > 1 %}
+          <div class="Product__details-measurements">
+            {{ measurement_gallery }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {%- endcapture -%}
+
+  <div class="Product__details">
+    <div id="layout-container" style="width: 100%; margin-bottom: 50px"></div>
+  
+    <div class="Product__details-essentials">
+      <h2 class="title">{{section.settings.title}}</h2>
+      <div class="sun-extra-essentials-products-swiper">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+          {% if block.type == 'product' %}
+          <div class="swiper-slide">
+            {% render 'product-card' with block.settings.product_select as
+            product_data %}
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        <div class="sun-extra-essentials-products-pagination"></div>
+      </div>
+    </div>
+    <div class="product-recommendations"
+      data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4&intent=related">
+      {%- if recommendations.performed and recommendations.products_count > 0 -%}
+      <h2>You may also like</h2>
+      <div class="product-recommendation-items">
+        {% for product in recommendations.products %}
+        {% if product.type != 'Lens'%}
+        {% render 'product-card' with product as product_data %}
+        {% endif %}
+        {% endfor %}
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div id="sustainable-pdp-carousel-item-count">
+    {% for tag in product.tags %}
+    	{% case tag %}
+        	{% when "bio_acetate" %}
+            	<div></div>
+           	{% when "plant_based" %}
+                <div></div>
+            {% when "recycled_poly" %}
+                <div></div>
+      	{% endcase %}
+  	{% endfor %}
+  </div>
+</section>
+
+{% render '_shopify_data' %}
+
+
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product",
+        "name": "product",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product_select",
+            "label": "Select Product"
+          }
+        ]
+      }
+    ] 
+  }
+{% endschema %}
+
+<script>
+  const isMobile = window.innerWidth < 768;
+  const layout = document.getElementById("layout-container");
+
+  layout.innerHTML = isMobile ? `
+    <div class="Product__details-wrapper-mobile">
+      {{ details_section }}
+      {{ reviews_mobile_section }}
+      {{ vto_section }}
+    </div>
+  ` : `
+    <div class="Product__details-wrapper">
+      <div class="Product__details-top">
+        {{ vto_section }}
+        {{ details_section }}
+      </div>
+      <div class="Product__details-bottom">
+        {{ measurement_section }}
+        {{ reviews_section }}
+      </div>
+    </div>
+  `;
+
+  let hasTriggeredCount = 0;
+  const accordion = document.getElementsByClassName("details-accordion");
+
+  for (let i = 0; i < accordion.length; i++) {
+    accordion[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      const panel = this.nextElementSibling;
+      $(panel).toggle();
+    });
+  }
+
+function showReview() {
+  const isDesktop = window.outerWidth >= 768;
+  const reviewLabelOuter = document.getElementsByClassName("reviews-qa-label");
+  const reviewButton = document.querySelectorAll("[id=reviews]");
+  const totalNumberOfReviews = reviewLabelOuter.item(0).innerHTML.split(" ").find(Boolean);
+
+  if (isDesktop) {
+    $(".heading-rating-link").attr("href", "#reviews-section-desktop");
+  } else {
+    $(".heading-rating-link").attr("href", "#reviews-section-mobile");
+  }
+  
+  if (reviewButton) {
+    Array.from(reviewButton).forEach(button => {
+      const total = totalNumberOfReviews === "0.0" ? 0 : totalNumberOfReviews;
+      button.innerHTML = `Reviews (${total})`;
+    })
+  }
+
+  const filterText = document.getElementsByClassName("selected-bold selected pL0");
+  Array.from(filterText).forEach(text => {
+    text.innerHTML = "Filter Reviews"
+    text.setAttribute("id", "filter-dropdown-button")
+  });
+
+  const reviewLabel = document.getElementsByClassName("reviews-qa-label");
+  const userReviewCount = +reviewLabel.item(0).innerHTML.split(" ").find(Boolean);
+  const hasNoReview = userReviewCount === 0;
+
+  if (hasNoReview) {
+    Array.from(reviewLabel).forEach((labelEl, idx) => {
+      labelEl.innerHTML = "0.0 | 0 Reviews";
+      $(labelEl).css({ border: "none", padding: 0 })
+    })
+
+    $(".write-first-review-button")
+    .html("No reviews yet. Be the first to <b style='border-bottom: 3px solid #7e8082;  padding-bottom: 0.5rem'>write a review.</b>")
+    .css({
+      opacity: "1"
+    })
+
+    $(".heading-review-stars").hide();
+    $(".heading-rating-link").text("Write a review").css({ color: "#a7a5a4", "border-bottom-color": "#a7a5a4" });
+  }
+
+  const reviewDate = document.getElementsByClassName("yotpo-review-date");
+
+  Array.from(reviewDate).forEach(dateEl => {
+    const convertedDate = new Date(dateEl.innerHTML).toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric' });
+    dateEl.innerHTML = convertedDate;
+  })
+  
+  const reviewName = document.getElementsByClassName("yotpo-user-name");
+  Array.from(reviewName).forEach(nameEl => {
+    const firstName = nameEl.innerHTML.split(" ").find(Boolean);
+    if (firstName) {
+      nameEl.innerHTML = `${firstName.replace(/,/g, '')},`
+    }
+  })
+
+  initializeReviewForm();
+  keepChangeWhenNavigate();
+
+  const urlPath = window.location.href;
+  const isPaginatingReviews = urlPath.includes("yoReviewsPage");
+
+  if (isPaginatingReviews) {
+    if (isDesktop) {
+      scrollToReviews(".Product__details-reviews")
+
+    } else {
+      if (hasTriggeredCount === 0) {
+        openMobileReviewAccordion();  
+      }
+    }
+  }
+
+  const tmpFormHeaderLabel = Array.from($(".yotpo .write-review .yotpo-header .y-label")).filter(el => {
+    return el.classList.length === 1;
+  });
+
+  tmpFormHeaderLabel.forEach(label => {
+    const errorSpan = $(label).children()[0];
+    label.innerHTML = "Rating &nbsp"
+    $(label).append(errorSpan);
+  })
+
+  const tmpFormLabelsOne = Array.from($(".write-review .write-review-content .form-group .form-element .y-label")).filter(label => {
+    return label.classList.length === 1;
+  })
+
+  const tmpFormLabelsTwo = Array.from($(".write-review .yotpo-footer .connect-wrapper .form-element .y-label")).filter(label => {
+    return label.classList.length === 1;
+  })
+
+  const tmpFormLabels = [...tmpFormLabelsOne, ...tmpFormLabelsTwo]
+
+  tmpFormLabels.forEach(label => {
+    const errorSpan = $(label).children()[0];
+    label.innerHTML = ""
+    $(label).append(errorSpan);
+  })
+
+  const reviewSubmitBtn = $(".yotpo-submit");
+  reviewSubmitBtn.attr("value", "SUBMIT");
+
+  Array.from($(".yotpo-thankyou-content")).forEach(el => {
+    el.children[0].innerHTML = "Thanks for leaving a review!";
+  })
+
+  const yotpoSortButtons = $(".yotpo-drop-down-layout .yotpo-dropdown .list-category");
+  yotpoSortButtons.click(() => {
+    const maxSortInterval = 20;
+    let currentSortInterval = 0;
+
+    const sortUpdateInteraval = setInterval(() => {
+      const isFetched = $(".yotpo-nav-content .search-in-progress").hasClass("yotpo-hidden");
+      currentSortInterval++;
+
+      if (isFetched) {
+        keepChangeWhenNavigate();
+        clearInterval(sortUpdateInteraval)
+      }
+
+      if (currentSortInterval === maxSortInterval) {
+        clearInterval(sortUpdateInteraval)
+      }
+    }, 100);
+  })
+
+  $(".heading-rating-link").click(() => {
+    openMobileReviewAccordion();
+  })
+}
+
+function initializeReviewForm() {
+  const formTitle = document.querySelectorAll("input[name=review_title]");
+  formTitle.forEach(title => {
+    title.placeholder = "Review Title";
+  })
+
+  const formDescription = document.querySelectorAll("textarea[name=review_content]");
+  formDescription.forEach(desc => desc.placeholder = "Review Description")
+
+  const formName = document.querySelectorAll("input[name=display_name]");
+  formName.forEach(name => name.placeholder = "Name")
+
+  const formEmail = document.querySelectorAll("input[name=email]");
+  formEmail.forEach(email => email.placeholder = "Email")
+}
+
+function keepChangeWhenNavigate() {
+  const navigateIcons = document.getElementsByClassName("yotpo-page-element yotpo-icon");
+  Array.from(navigateIcons).forEach(icons => {
+    icons.onclick = function (evt) {
+      keepChangeWhenNavigate();
+    }
+  })
+
+  const paginationItems = document.getElementsByClassName("yotpo-pager");
+  const yotpoPaginationItems = Array.from(paginationItems).filter(pagination => !Array.from(pagination.classList).includes("yotpo-hidden"));
+
+  yotpoPaginationItems.forEach(pagination => {
+    const paginationChildren = Array.from(pagination.children);
+    const menuItemLen = paginationChildren.filter(items => items.getAttribute("role").includes("menuitem"))?.length || 0;
+
+    paginationChildren.forEach(items => {
+      const classList = Array.from(items.classList);
+      if (!classList.includes("yotpo-active") && !classList.includes("yotpo-icon")) {
+        items.style.display = "none";
+      }
+
+      if (classList.includes("yotpo-active")) {
+        const tmpInnerHtml = items.innerHTML
+        const tmp = tmpInnerHtml.includes("/") ? tmpInnerHtml.substring(0, tmpInnerHtml.lastIndexOf("/")) : tmpInnerHtml;
+        items.innerHTML = `${tmp}    /    ${menuItemLen}`;
+      }
+    })
+  })
+}
+
+function openMobileReviewAccordion() {
+  $("#review-details-panel").show();
+  $(".details-accordion-reviews").toggleClass("active");
+  scrollToReviews("#review-details-panel")
+  hasTriggeredCount = hasTriggeredCount + 1;
+}
+
+function scrollToReviews(reviewSection) {
+  const reviewTopOffset = $(reviewSection).offset().top;
+    $('html, body').animate({
+      scrollTop: reviewTopOffset - 100
+    }, 0);
+}
+
+const maximumInterval = 15;
+let currentInterval = 0;
+
+const initializeYotpo = setInterval(() => {
+  const navContent = document.getElementsByClassName("yotpo-nav-content");
+  const doesMainWidgetExist = !!navContent.length;
+  currentInterval++;
+
+  if (doesMainWidgetExist) {
+    showReview()
+    clearInterval(initializeYotpo)
+  }
+
+  if (currentInterval === maximumInterval) {
+    clearInterval(initializeYotpo)
+  }
+}, 1000);
+
+new Swiper(".sun-extra-essentials-products-swiper", {
+  slidesPerView: 2,
+  spaceBetween: 12,
+  slidesPerGroup: 2,
+  breakpoints: {
+    768: {
+      slidesPerView: 3,
+      spaceBetween: 16,
+      slidesPerGroup: 3,
+    },
+    1240: {
+      slidesPerView: 4,
+      spaceBetween: 24,
+      slidesPerGroup: 4,
+    },
+  },
+  pagination: {
+    el: ".sun-extra-essentials-products-pagination",
+    clickable: true,
+  },
+});
+
+const handleIntersection = (entries, observer) => {
+  if (!entries[0].isIntersecting) return;
+
+  observer.unobserve(productRecommendationsSection);
+
+  const url = productRecommendationsSection.dataset.url;
+
+  fetch(url)
+    .then(response => response.text())
+    .then(text => {
+      const html = document.createElement('div');
+      html.innerHTML = text;
+      const recommendations = html.querySelector('.product-recommendations');
+
+      if (recommendations && recommendations.innerHTML.trim().length) {
+        productRecommendationsSection.innerHTML = recommendations.innerHTML;
+      }
+    })
+    .catch(e => {
+      console.error(e);
+    });
+};
+
+const productRecommendationsSection = document.querySelector('.product-recommendations');
+const observer = new IntersectionObserver(handleIntersection, {rootMargin: '0px 0px 200px 0px'});
+
+observer.observe(productRecommendationsSection);
+</script>
+  

@@ -1,0 +1,40 @@
+{%- assign _section = section.settings -%}
+{%- assign section_image_d = _section.image_desktop -%}
+{%- assign section_image_m = _section.image_mobile -%}
+{%- assign section_content = _section.content -%}
+{%- assign section_button = _section.btn_text -%}
+{%- assign section_url = _section.cta_url -%}
+
+<section class="section-gift-guide-banner no-padding" id="cta-banner">
+	<div class="shell">
+		{% if section_image_d != blank %}
+			<a href="{{ section_url }}" class="section__image desktop cta-banner-ratio" style="background-image: url({{section_image_d | img_url: '3200x'}});"></a><!-- /.section__image -->
+		{% endif %}
+		{% if section_image_m != blank %}
+			<a href="{{ section_url }}" class="section__image mobile cta-banner-ratio" style="background-image: url({{section_image_m | img_url: '3200x'}});"></a><!-- /.section__image -->
+		{% endif %}
+	</div>
+</section><!-- /.section-gift-guide-banner -->
+
+{% schema %}
+{
+    "name": "CTA Banner",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image_desktop",
+            "label": "Desktop Banner"
+		},
+        {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Mobile Banner"
+		},
+		{
+			"type": "url",
+			"id": "cta_url",
+			"label": "URL"
+		}
+    ]
+}
+{% endschema %}

@@ -1,0 +1,402 @@
+/* .main-product-container {
+  padding: 0 16px;
+} */
+
+.desktop-product-vto-container {
+  display: none;
+}
+
+.product-details {
+  width: 100%;
+}
+
+.product-information-container {
+  margin: 0 0 24px 0;
+}
+
+.product-infomation-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-infomation-header h1 {
+  font-family: "AT Surt Medium";
+  font-size: 22px;
+  line-height: 32px;
+  color: #352B27;
+  margin: 0;
+  padding: 0;
+}
+
+.product-infomation-header #product-price {
+  font-family: "AT Surt Medium";
+  font-size: 18px;
+  line-height: 120%;
+  color: var(--black_color);
+}
+
+
+/* .product-information-review-stars {
+  margin: 0 8px 0 0;
+} */
+
+.product-information-review-stars img {
+  width: 12px;
+  height: 12px;
+  margin: 0 2px 0 0;
+}
+
+.product-information-review-info p {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 20px;
+  color: #352B27;
+  margin-top: 8px;
+  /* padding: 4px 0 0 0; */
+}
+
+#join_waitlist {
+  border: none;
+  outline: none;
+  width: 100%;
+  border-radius: 8px;
+  padding: 12px 40px;
+  font-family: "AT Surt Medium";
+  font-size: 14px !important;
+  line-height: 100%;
+  margin: 0 0 8px 0;
+  text-transform: none;
+}
+
+.product-gallery-container {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .main-product-container {
+    /* padding: 0 40px 0 24px; */
+    margin-right: 40px;
+  }
+
+  .main-product-wrapper > div:first-child{
+    align-self: start;
+    position: sticky;
+    top: 100px;
+    background: #e8e8e4;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .desktop-product-vto-container {
+    width: 100%;
+    display: block;
+  }
+
+  .product-details {
+    width: 100%;
+    padding: 0 0 0 24px;
+  }
+
+  .product-vto-wrapper {
+    position: relative;
+  }
+
+  #desktop-virtual-try-on-btn {
+    background: var(--neutral_eight_color);
+    border-radius: 8px;
+    padding: 16px 40px;
+    font-family: "AT Surt Medium";
+    font-size: 16px;
+    line-height: 100%;
+    color: var(--black_color);
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 33px;
+    width: 190px;
+    margin: 0 auto;
+    border: 1.5px solid transparent;
+    z-index: 2;
+    display: none;
+  }
+
+  #desktop-virtual-retake-try-on-btn {
+    background: var(--neutral_eight_color);
+    border-radius: 8px;
+    padding: 16px 40px;
+    font-family: "AT Surt Medium";
+    font-size: 16px;
+    line-height: 100%;
+    color: var(--black_color);
+    border: none;
+    outline: none;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border: 1.5px solid transparent;
+    z-index: 10;
+    display: none;
+    border: 1.5px solid #efefec;
+  }
+
+  #desktop-virtual-try-on-btn:hover,
+  #desktop-virtual-retake-try-on-btn:hover {
+    border: 1.5px solid var(--black_color);
+  }
+
+  #desktop-swipe-to-rotate-text {
+    position: absolute;
+    bottom: 33px;
+    font-family: "AT Surt Medium";
+    font-size: 16px;
+    line-height: 100%;
+    color: var(--white_color);
+    z-index: 10;
+    width: 100%;
+    display: none;
+  }
+
+  .desktop-product-vto-container .Overlay-canvas {
+    width: auto !important;
+  }
+
+  #desktop-vto-overlay {
+    text-align: center;
+    position: relative;
+  }
+
+  .product-information-container {
+    margin: 40px 0 0;
+  }
+
+  .product-infomation-header h1 {
+    font-size: 22px;
+  }
+
+  .product-infomation-header #product-price {
+    font-size: 18px;
+  }
+
+  .product-information-review-info p {
+    font-size: 14px;
+  }
+
+  #join_waitlist {
+    font-size: 14px;
+  }
+}
+/* Size guide START */
+.size-guide-container {
+  align-self: flex-start;
+  margin-bottom: 24px;
+}
+
+.size-guide-line {
+  font-family: 'Radio Grotesk';
+}
+
+.size-guide-modal-trigger--dynamic {
+  cursor: pointer;
+}
+
+.size-guide-modal-trigger--dynamic .size-guide {
+  text-decoration: underline;
+}
+
+.customize-flask-button:hover {
+    color: var(--black_color);
+    background: var(--neutral_eight_color);
+}
+.customize-flask-button {
+  text-align: center;
+    font-family: AT Surt Medium;
+    font-size: 14px;
+    line-height: 100%;
+    color: var(--neutral_eight_color);
+    outline: none;
+    border: none;
+    background: var(--black_color);
+    border-radius: 8px;
+    padding: 12px 40px;
+    border: 1.5px solid var(--black_color);
+    width: 100%;
+    cursor: pointer;
+  display: none;
+}
+.customize-flask-button[disabled=""] {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.product-description-details{
+  margin-top: 0px
+}
+.Product__header{
+  padding-bottom: 0px;
+}
+.customize-flask-button.mobile{
+  display: block;
+}
+.mobile-cta--wrapper {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 16px;
+    z-index: 100;
+    background-color: #f9f8f7;
+    border-top: 1.5px solid #efefec;
+}
+
+.product-information-review-stars:has(img) {
+  margin-right: 8px;
+  position: relative;
+  top: 3px;
+}
+
+@media (min-width: 768px) {
+  .size-guide-container {
+    margin-bottom: 40px;
+  }
+  .customize-flask-button:not(.mobile){
+    display: block;
+  }
+  /* .product-description-details{
+    margin-top: 30px;
+  } */
+  /* .Product__header{
+    padding-bottom: 24px;
+  } */
+  .mobile-cta--wrapper{
+    display: none;
+  }
+}
+/* Size guide END */
+
+.product-vto-wrapper {
+    max-height: 600px;
+    height: 100%;
+}
+
+.product-vto-wrapper img{
+  object-fit: contain;
+}
+.swiper-slide.flask-slide{
+  display: none;
+}
+.swiper-slide.flask-slide.show{
+  display: block;
+}
+
+.product-gallery-swipper .swiper-slide{
+  padding: 20px;
+}
+@media(max-width: 767px){
+  .product-gallery-swipper .swiper-slide{
+    padding: 0px;
+  }
+  .product-gallery-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.product-gallery-image{
+  margin-top: 0;
+}
+
+.desktopheader {
+  font-size: 14px !important;
+}
+
+[data-handle-name="burrata"] {
+  background: #E4DBCD;
+}
+[data-handle-name="chrome"] {
+  background: #898989;
+}
+[data-handle-name="oyster"] {
+  background: #8D8B7A;
+}
+[data-handle-name="gulaman"] {
+  background: #333F48;
+}
+[data-handle-name="pomodoro"] {
+  /* background: #333F48; */
+}
+[data-handle-name="chia"] {
+
+}
+[data-handle-name="mochi"] {
+  background: #FFBE9F;
+}
+[data-handle-name="creamsicle"] {
+  background: #FFBE9F;
+}
+[data-handle-name="ikura"] {
+  background: #E0774B;
+}
+[data-handle-name="buttermilk"] {
+  background: #F2F0A1;
+}
+[data-handle-name="pina"] {
+  background: #FDD26E;
+}
+[data-handle-name="nori"] {
+  background: #1D3C34;
+}
+[data-handle-name="guac"] {
+  background: #AA8A00;
+}
+[data-handle-name="key-lime"] {
+  background: #DAEB9F;
+}
+[data-handle-name="wasabi"] {
+  background: #B4C69F;
+}
+[data-handle-name="blueberry"] {
+  background: #435C78;
+}
+[data-handle-name="slush"] {
+  background: #89ABE3;
+}
+[data-handle-name="snow-cone"] {
+  background: #A6BBC8;
+}
+[data-handle-name="taro"] {
+  background: #C2A2BA;
+}
+[data-handle-name="punch"] {
+  background: #D25B73;
+}
+[data-handle-name="dough"] {
+  background: #D4B59E;
+}
+[data-handle-name="miso"] {
+  background: #A1561C;
+}
+[data-handle-name="macchiato"] {
+  background: #AA8066;
+}
+[data-handle-name="ganache"] {
+  background: #431E09;
+}
+[data-handle-name="slush"] {
+  background: #89ABE3;
+}
+
+.line-vertical {
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.rotate-90 {
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: transform 0.3s ease-in-out;
+}

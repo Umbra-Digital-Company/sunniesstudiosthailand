@@ -1,0 +1,102 @@
+{{ 'sunnies-world-scrolling-text.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign section_settings = section.settings
+  assign background_color = section_settings.background_color
+  assign text_color = section_settings.text_color
+  assign scroll_text = section_settings.scroll_text
+  assign show_section = section_settings.show_section
+  assign scroll_speed = section_settings.scroll_speed
+%}
+
+{% if show_section and scroll_text != blank %}
+  {% if section_settings.scroll_text_font_url != blank %}
+    <style>
+      @font-face {
+        font-family: 'Custom-Font';
+        src: url('{{ section_settings.scroll_text_font_url }}') format('woff2'),
+        url('{{ section_settings.scroll_text_font_url }}') format('woff'),
+        url('{{ section_settings.scroll_text_font_url }}') format('truetype'),
+        url('{{ section_settings.scroll_text_font_url }}') format('opentype'),
+        url('{{ section_settings.scroll_text_font_url }}') format('embedded-opentype'),
+        url('{{ section_settings.scroll_text_font_url }}') format('svg');
+        font-weight: 400;
+        font-style: normal;
+      }
+    </style>
+  {% endif %}
+<section class="sunnies-world-scrolling-text" style="background-color: {{ background_color }}; color: {{ text_color }};">
+  <div class="scrolling-container">
+    <div class="scrolling-text" style="animation-duration: {{ scroll_speed }}s;">
+      <div class="text-group">
+        <span class="text-item" {% if section_settings.scroll_text_font_url != blank %}style="font-family: 'Custom-Font';"{% endif %}>{{ scroll_text }}</span>
+        <span class="text-item" {% if section_settings.scroll_text_font_url != blank %}style="font-family: 'Custom-Font';"{% endif %}>{{ scroll_text }}</span>
+        <span class="text-item" {% if section_settings.scroll_text_font_url != blank %}style="font-family: 'Custom-Font';"{% endif %} >{{ scroll_text }}</span>
+        <span class="text-item" {% if section_settings.scroll_text_font_url != blank %}style="font-family: 'Custom-Font';"{% endif %}>{{ scroll_text }}</span>
+        <span class="text-item" {% if section_settings.scroll_text_font_url != blank %}style="font-family: 'Custom-Font';"{% endif %}>{{ scroll_text }}</span>
+        <span class="text-item" {% if section_settings.scroll_text_font_url != blank %}style="font-family: 'Custom-Font';"{% endif %}>{{ scroll_text }}</span>
+        <span class="text-item" {% if section_settings.scroll_text_font_url != blank %}style="font-family: 'Custom-Font';"{% endif %}>{{ scroll_text }}</span>
+      </div>
+      <div class="text-group">
+        <span class="text-item" {% if section_settings.scroll_text_font_url != blank %}style="font-family: 'Custom-Font';"{% endif %}>{{ scroll_text }}</span>
+        <span class="text-item" {% if section_settings.scroll_text_font_url != blank %}style="font-family: 'Custom-Font';"{% endif %}>{{ scroll_text }}</span>
+        <span class="text-item" {% if section_settings.scroll_text_font_url != blank %}style="font-family: 'Custom-Font';"{% endif %}>{{ scroll_text }}</span>
+        <span class="text-item" {% if section_settings.scroll_text_font_url != blank %}style="font-family: 'Custom-Font';"{% endif %}>{{ scroll_text }}</span>
+        <span class="text-item" {% if section_settings.scroll_text_font_url != blank %}style="font-family: 'Custom-Font';"{% endif %}>{{ scroll_text }}</span>
+        <span class="text-item" {% if section_settings.scroll_text_font_url != blank %}style="font-family: 'Custom-Font';"{% endif %}>{{ scroll_text }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Scrolling Text",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "scroll_text",
+      "label": "Scrolling text",
+      "default": "NEW STORE"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#D2B48C"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#B8860B"
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll speed (seconds)",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 20
+    },
+    {
+      "type": "url",
+      "id": "scroll_text_font_url",
+      "label": "Font URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scrolling Text"
+    }
+  ]
+}
+{% endschema %}

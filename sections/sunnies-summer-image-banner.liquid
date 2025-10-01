@@ -1,0 +1,388 @@
+{{ 'sunnies-summer-image-banner.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  capture is_mobile_outside_text
+    if section.settings.mobile_content_position == 'outside-text'
+      echo "true"
+    else
+      echo "false"
+    endif
+  endcapture
+
+  capture bottom_left
+    if section.settings.mobile_content_position == 'bottom-left'
+      echo "true"
+    else
+      echo "false"
+    endif
+  endcapture
+
+  capture mobile_content_alignment
+    if section.settings.mobile_content_position == 'middle-center'
+      echo "center"
+    elsif section.settings.mobile_content_position == 'top-center'
+      echo "flex-start"
+    elsif section.settings.mobile_content_position == 'bottom-left'
+      echo "flex-end"
+    else
+      echo "flex-end"
+    endif
+  endcapture
+
+  capture desktop_content_items_alignment
+    if section.settings.desktop_content_position == 'middle-left' or section.settings.desktop_content_position == 'middle-center' or section.settings.desktop_content_position == 'middle-right'
+      echo "center"
+    elsif section.settings.desktop_content_position == 'bottom-left' or section.settings.desktop_content_position == 'bottom-center' or section.settings.desktop_content_position == 'bottom-right'
+      echo "flex-end"
+    else
+      echo "center"
+    endif
+  endcapture
+
+  capture desktop_content_justify_alignment
+    if section.settings.desktop_content_position == 'middle-left' or section.settings.desktop_content_position == 'bottom-left'
+      echo "flex-start"
+    elsif section.settings.desktop_content_position == 'middle-center' or section.settings.desktop_content_position == 'bottom-center'
+      echo "center"
+    elsif section.settings.desktop_content_position == 'middle-right' or section.settings.desktop_content_position == 'bottom-right'
+      echo "flex-end"
+    else
+      echo "end"
+    endif
+  endcapture
+
+  capture text_direction
+    if section.settings.desktop_content_position == 'middle-left' or section.settings.desktop_content_position == 'bottom-left'
+      echo "left"
+    elsif section.settings.desktop_content_position == 'middle-center' or section.settings.desktop_content_position == 'bottom-center'
+      echo "center"
+    elsif section.settings.desktop_content_position == 'middle-right' or section.settings.desktop_content_position == 'bottom-right'
+      echo "right"
+    else
+      echo "end"
+    endif
+  endcapture
+
+  capture desktop_inner_content_alignment
+    if desktop_content_justify_alignment == "center"
+      echo "true"
+    else
+      echo "false"
+    endif
+  endcapture
+
+  capture image_position
+    if section.settings.image_position == 'top'
+      echo "flex-start"
+    elsif section.settings.image_position == 'center'
+      echo "center"
+    else
+      echo "flex-end"
+    endif
+  endcapture
+
+  capture text_position
+    if section.settings.text_position == 'top'
+      echo "flex-start"
+    elsif section.settings.text_position == 'center'
+      echo "center"
+    else
+      echo "flex-end"
+    endif
+  endcapture
+%}
+
+<div class='hidden-text' style="display: block; visibility: hidden; height: 0px; width: 0px; ">
+	{{ page_description }}
+</div>
+
+<div class="summer-2025 image-banner {% if section.settings.banner_type == 'standard' %}{% else %}basic{% endif %}">
+  {% if section.settings.banner_desktop contains '.mp4' or section.settings.banner_desktop contains '.mov'%}
+    <video class="section-video-banner bg-banner-desktop" autoplay loop muted playsinline>
+			<source 
+				src="{{ section.settings.banner_desktop | image_url: width: 1920 }}" 
+				type="video/mp4"
+			>
+    </video>
+  {% else %}
+    <img
+      loading="lazy"
+      class="section-image-banner bg-banner-desktop"
+      src="{{ section.settings.banner_desktop | image_url: width: 1920 }}"
+      width="{{ section.settings.banner_desktop.width }}"
+      height="{{ section.settings.banner_desktop.height }}"
+    >
+  {% endif %}
+
+
+  {% if section.settings.banner_mobile contains '.mp4' or section.settings.banner_mobile contains '.mov' %}
+    <video class="section-video-banner bg-banner-mobile" autoplay loop muted playsinline>
+      <source 
+				src="{{ section.settings.banner_mobile | image_url: width: 767 }}" 
+				type="video/mp4"
+    	>
+    </video>
+  {% else %}
+    <img 
+			loading="lazy"
+			class="section-image-banner bg-banner-mobile" 
+			src="{{ section.settings.banner_mobile | image_url: width: 767 }}" 
+			width="{{ section.settings.banner_mobile.width }}"
+			height="{{ section.settings.banner_mobile.height }}"
+    >
+  {% endif %}
+
+  <div
+    class="image-banner-content-wrapper"
+    style="
+      --mobile_content_alignment: {{ mobile_content_alignment }};
+      --desktop_content_items_alignment: {{ desktop_content_items_alignment }};
+      --text_direction: {{ text_direction }};
+      --desktop_content_justify_alignment: {{ desktop_content_justify_alignment }};
+    "
+    data-is-outside-text="{{ is_mobile_outside_text }}"
+  >
+    <div
+      class="image-banner-content"
+      data-is-outside-text="{{ is_mobile_outside_text }}"
+      data-inner-content-center="{{ desktop_inner_content_alignment }}"
+      style="--image_position: {{ image_position }}; --text_position: {{ text_position }};"
+    >
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'image' -%}
+						<div class="image-banner-heading-image" style="align-self: var(--image_position);">
+							{% if block.settings.image_content != blank %}
+								<img 
+									src="{{ block.settings.image_content | image_url: width: 1000 }}" 
+									alt="{{ block.settings.image_content.alt | escape }}"
+									width="{{ block.settings.image_content.width }}"
+									height="{{ block.settings.image_content.height }}"
+								>
+							{% endif %}
+						</div>
+
+          {%- when 'text' -%}
+						<p
+							class="image-banner-sub-copy"
+							data-is-black="{{ section.settings.is_content_dark }}"
+							text-outside="{{ section.settings.is_text_outside }}"
+							text-position="{{ section.settings.text_position }}"
+						>
+							{{ block.settings.text | escape }}
+						</p>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+
+
+<style>
+  @font-face {
+    font-family: heading-custom-font;
+    src: url({{ section.settings.heading_custom_font }});
+  }
+
+	{% if section.settings.mobile_content_position == 'bottom-left' %}
+		@media(max-width: 767px){
+			.image-banner-content{
+				align-items: flex-start;
+			}
+			.image-banner-sub-copy{
+				text-align: left;
+				padding-left: 0;
+			}
+		}  
+
+		@media(min-width: 421px) and (max-width: 767px){
+			.image-banner-content{
+				margin-left: 16px;
+			}
+		}
+	{% endif %}
+
+
+	{% if section.settings.mobile_content_position == 'top-center' %}
+		.wrapper:has(#top-bar-container) .image-banner-content-wrapper{
+				padding-top: 90px;
+			
+		}
+		.image-banner-content-wrapper {
+			padding-top: 90px;
+		}
+	{% endif %}
+  
+</style>
+
+{% schema %}
+{
+  "name": "Sunnies Summer Banner",
+  "tag": "section",
+  "class": "sunnies-summer-image-banner",
+  "settings": [
+    {
+      "type":"select",
+      "id":"banner_type",
+      "label":"Banner Type",
+      "options":[
+        {
+          "value":"basic",
+          "label":"Basic"
+        },
+        {
+          "value":"standard",
+          "label":"Standard"
+        }
+      ],
+      "default":"standard"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_desktop",
+      "label": "Image or video (Desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_mobile",
+      "label": "Image or video (Mobile)"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "value": "middle-left",
+          "label": "t:sections.image-banner.settings.desktop_content_position.option1.label"
+        },
+        {
+          "value": "middle-center",
+          "label": "t:sections.image-banner.settings.desktop_content_position.option2.label"
+        },
+        {
+          "value": "middle-right",
+          "label": "t:sections.image-banner.settings.desktop_content_position.option3.label"
+        },
+        {
+          "value": "bottom-left",
+          "label": "t:sections.image-banner.settings.desktop_content_position.option4.label"
+        },
+        {
+          "value": "bottom-center",
+          "label": "t:sections.image-banner.settings.desktop_content_position.option5.label"
+        },
+        {
+          "value": "bottom-right",
+          "label": "t:sections.image-banner.settings.desktop_content_position.option6.label"
+        }
+      ],
+      "default": "middle-center",
+      "label": "t:sections.image-banner.settings.desktop_content_position.label"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_position",
+      "options": [
+        {
+          "value": "bottom-center",
+          "label": "t:sections.image-banner.settings.mobile_content_position.option1.label"
+        },
+        {
+          "value": "middle-center",
+          "label": "t:sections.image-banner.settings.mobile_content_position.option2.label"
+        },
+        {
+          "value": "top-center",
+          "label": "t:sections.image-banner.settings.mobile_content_position.option3.label"
+        },
+        {
+          "value": "bottom-left",
+          "label": "t:sections.image-banner.settings.mobile_content_position.option5.label"
+        },
+        {
+          "value": "outside-text",
+          "label": "t:sections.image-banner.settings.mobile_content_position.option4.label"
+        }
+      ],
+      "default": "middle-center",
+      "label": "t:sections.image-banner.settings.mobile_content_position.label"
+    },
+		{
+			"type": "checkbox",
+			"id": "is_text_outside",
+			"label": "Text Outside Banner Content"
+		},
+    {
+      "type": "checkbox",
+      "id": "is_content_dark",
+      "label": "Dark Content"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text Position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" },
+        { "value": "top-right", "label": "Top Right" },
+        { "value": "top-center", "label": "Top Center" },
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "bottom-left", "label": "Bottom Left" },
+        { "value": "bottom-center", "label": "Bottom Center" },
+        { "value": "bottom-right", "label": "Bottom Right" }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image Content",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_content",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.image-banner.blocks.text.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:sections.image-banner.blocks.text.settings.text.label"
+        }
+      ]
+    },
+  ],
+  "presets": [
+    {
+      "name": "Sunnies Summer Image Banner",
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "text"
+        },
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,135 @@
+<div class="coa-in-store-promos">
+  <h2>{{ section.settings.heading }}</h2>
+  <div class="coa-in-store-promos__cards">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'promo' %}
+          {% if page.handle == block.settings.page.handle %}
+            <div class="coa-in-store-promos__card">
+              <img src="{{ block.settings.image | image_url}}" />
+              <h3>{{ block.settings.title }}</h3>
+              <button class="coa-in-store-promos__modal-trigger">See promo details</button>
+              <div class="coa-in-store-promos__promo-details">
+                {{ block.settings.details }}
+              </div>
+            </div>
+          {% endif %}
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+<style>
+  .coa-in-store-promos{
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    padding: 0 16px;
+    display: none;
+    padding-bottom: 60px;
+  }
+  .coa-in-store-promos:has(.coa-in-store-promos__card){
+    display: block;
+  }
+  .coa-in-store-promos > h2{
+    font-family: 'AT Surt Medium';
+    font-size: 28px;
+  }
+  .coa-in-store-promos__cards{
+    margin-top: 24px;
+  }
+  .coa-in-store-promos__card{
+    padding: 40px;
+    outline: 1.5px solid var(--light_gray_color);
+    background-color: #fff;
+  }
+  .coa-in-store-promos__card:hover{
+    outline-color: var(--black_color);
+    z-index: 2;
+    position: relative;
+  }
+  .coa-in-store-promos__card > img{
+    width: 100%;
+    object-fit: cover;
+  }
+  .coa-in-store-promos__card > h3{
+    font-family: 'AT Surt Medium';
+    font-size: 18px;
+    line-height: 120%;
+    margin-top: 24px;
+  }
+  .coa-in-store-promos__card > button{
+    margin-top: 24px;
+    border: none;
+    background: none;
+    border-bottom: 1.5px solid var(--black_color);
+    padding-bottom: 4px;
+  }
+  .coa-in-store-promos__promo-details{
+    display: none;
+  }
+  @media only screen and (min-width: 769px) {
+    .coa-in-store-promos{
+      font-size: 16px;
+      padding: 100px;
+    }
+    .coa-in-store-promos h2 {
+      font-size: 40px;
+    }
+    .coa-in-store-promos__cards{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+</style>
+
+<script>
+$('.coa-in-store-promos__modal-trigger').click(function(){
+  $('.promo-details-modal .promo-details-modal__content-body').html($(this).next('.coa-in-store-promos__promo-details').html())
+  $('.promo-details-modal').show()
+})
+</script>
+{% schema %}
+  {
+    "name": "COA In-store Promos",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Store Promos"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Promo",
+        "type": "promo",
+        "settings": [
+          {
+            "type": "page",
+            "id": "page",
+            "label": "Page for this promo"
+          },
+          {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "details",
+            "label": "Details"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "COA In-store Promos"
+      }
+    ]
+  }
+{% endschema %}

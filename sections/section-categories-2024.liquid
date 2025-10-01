@@ -1,0 +1,129 @@
+{{ "section-categories-2024.css" | asset_url | stylesheet_tag }}
+
+<div class="page-width-40">
+  <div class="heading-wrapper">
+    <h2>{{ collection.title }}</h2>
+    <span>{{ collection.description }}</span>
+    {% if section.settings.collection_header_link != 'blank' %}
+      <a href="{{ section.settings.collection_header_url }}">{{ section.settings.collection_header_text }}</a>
+    {% endif %}
+  </div>
+
+    <div class="category-wrapper">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="category-media-wrapper swiper-slide">
+              {% if block.settings.category_media contains '.mp4' %}
+                <video
+                  class=""
+                  autoplay
+                  loop
+                  muted
+                  playsinline>
+                  <source src="{{ block.settings.category_media }}" type="video/mp4">
+                </video>
+              {% else %}
+                <img
+                  class=""
+                  src="{{ block.settings.category_media }}"
+                  loading="lazy">
+              {% endif %}
+              <div class="category-link-wrapper">
+                <a class="category-link" href="{{ block.settings.category_link }}">{{ block.settings.cta_text }}</a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Dynamic Subcategories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "collection_header_text",
+      "label": "Link Text"
+    },
+    {
+      "type": "url",
+      "id": "collection_header_url",
+      "label": "Link URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_block",
+      "name": "Category Block",
+      "settings": [
+        {
+          "type": "url",
+          "id": "category_media",
+          "label": "Category Block Image/Video",
+          "info": "only .mp4 format for video"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA Text"
+        },
+        {
+          "type": "url",
+          "id": "category_link",
+          "label": "Category Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Dynamic Subcategories"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var swiperInstance = null;
+
+    function initializeSwiper() {
+      if (window.innerWidth <= 768) {
+        if (!swiperInstance) {
+          swiperInstance = new Swiper('.swiper-container', {
+            slidesPerView: 'auto',
+            spaceBetween: 4,
+            freeMode: true,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+          });
+        }
+      } else {
+        if (swiperInstance) {
+          swiperInstance.destroy(true, true);
+          swiperInstance = null;
+        }
+      }
+    }
+
+    // Initialize Swiper on load only if the category wrapper is visible
+    if (document.querySelector('.category-wrapper')) {
+      initializeSwiper();
+
+      // Reinitialize Swiper on window resize
+      window.addEventListener('resize', function() {
+        initializeSwiper();
+      });
+    }
+  });
+</script>

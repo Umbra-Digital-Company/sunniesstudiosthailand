@@ -1,0 +1,134 @@
+{{ 'summer-landing-page-2025.css' | asset_url | stylesheet_tag }}
+
+{% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'block_a' %}
+      <section class="block-a {% if block.settings.block-a-right-side-media == true %} row {% else %}row-reverse{% endif %}">
+        <div class="block-a__description" style="background-color: {{ block.settings.block-a-text-bg-color }}; color: {{ block.settings.block-a-text-color }}">
+          {% comment %} {% if block.settings.block-a-icon != blank  %}
+            <div class="block-a__description-icon {{ block.settings.block-a-icon-alignment }}">
+              <img src="{{ block.settings.block-a-icon | image_url }}" />
+            </div>
+          {% endif %}
+          <h3>{{ block.settings.block-a-text-title }}</h3> {% endcomment %}
+          <div class="block-a__text">
+            {{ block.settings.block-a-text }}
+          </div>
+        </div>
+        <div class="block-a__media">
+          {% if block.settings.block-a-video-desktop  %}
+          {{ block.settings.block-a-video-desktop | video_tag: autoplay: 'true', loop: 'true', class: 'block-a__video--desktop' }}
+          {% else %}
+            <img src="{{  block.settings.block-a-image-desktop | image_url }}" class="block-a__image--desktop" />
+          {% endif %}
+          
+          {% if block.settings.block-a-video-mobile  %}
+            {{ block.settings.block-a-video-mobile | video_tag: autoplay: 'true', loop: 'true', class: 'block-a__video--mobile' }}
+          {% else %}
+            <img src="{{ block.settings.block-a-image-mobile | image_url }}" class="block-a__image--mobile" />
+          {% endif %}
+          {% if block.settings.block-a-tag-label != blank %}
+            <a class="tag-link" href="{{ block.settings.block-a-tag-link }}" target="_blank">
+            {{ block.settings.block-a-tag-label }}
+            </a>
+          {% endif %}
+        </div>
+      </section>
+  {% endcase %}
+{% endfor %}
+
+<script>
+  $(document).ready(function() {
+    const interviewModal = $("#interview-modal")
+    const interviewModalTrigger = $("#interview-modal-trigger")
+    const interViewModalClose = $("#interview-modal-close")
+    const interviewVideoMobile = $(".interview-video--mobile")
+    const interviewVideosDesktop = $(".interview-video--desktop")
+    
+    interviewModalTrigger.click(function(){
+      interviewModal.show()     
+    })
+    interViewModalClose.click(function(){
+      interviewVideoMobile.trigger('pause');
+      interviewVideosDesktop.trigger('pause');
+      interviewModal.hide()     
+    })
+  });
+</script>
+{% schema %}
+  {
+    "name": "Summer Landing Page 2025",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Banner"
+      },
+    ],
+    "blocks": [
+      {
+        "type": "block_a",
+        "name": "Block A",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "block-a-text",
+            "label": "Text"
+          },
+          {
+            "type": "color",
+            "id": "block-a-text-color",
+            "label": "Text Color"
+          },
+          {
+            "type": "color",
+            "id": "block-a-text-bg-color",
+            "label": "Text Background Color"
+          },
+          {
+            "type": "checkbox",
+            "id": "block-a-right-side-media",
+            "label": "Right side media"
+          },
+          {
+            "type": "image_picker",
+            "id": "block-a-image-desktop",
+            "label": "Image (Desktop)"
+          },
+          {
+            "type": "video",
+            "id": "block-a-video-desktop",
+            "label": "Video (Desktop)",
+            "info": "Overrides Image (Desktop)"
+          },
+          {
+            "type": "image_picker",
+            "id": "block-a-image-mobile",
+            "label": "Image (Mobile)"
+          },
+          {
+            "type": "video",
+            "id": "block-a-video-mobile",
+            "label": "Video (Mobile)",
+            "info": "Overrides Image (Mobile)"
+          },
+          {
+            "type": "url",
+            "id": "block-a-tag-link",
+            "label": "Tag Link"
+          },
+          {
+            "type": "text",
+            "id": "block-a-tag-label",
+            "label": "Tag Label"
+          }
+        ]
+      }
+    ],
+        "presets": [
+            {
+            "name": "Summer Landing Page 2025",
+            "category": "Landing Page"
+            }
+        ]
+  }
+{% endschema %}

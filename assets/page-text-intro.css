@@ -1,0 +1,28 @@
+.page-text-intro-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 260px;
+  padding: 64px 20px 16px 20px;
+}
+
+.page-text-intro-container h1 {
+  font-family: "AT Surt Medium";
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 120%;
+  text-align: center;
+  color: var(--back_color);
+}
+
+@media (min-width: 768px) {
+  .page-text-intro-container {
+    height: 375px;
+    padding: 80px 0 0 0;
+  }
+
+  .page-text-intro-container h1 {
+    font-size: 40px;
+  }
+}

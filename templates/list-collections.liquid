@@ -1,0 +1,22 @@
+<div class="section-blocks section-blocks--collections">
+    <div class="shell">
+        <div class="block-items">
+            {% for collection in collections %}
+                <div class="block-item{{color_class}}">
+                    <div class="block__inner">
+                        <a href="{{ collection.url }}" class="block__hover"></a><!-- /.block__hover -->
+
+                        <a href="{{ collection.url }}" class="block__image zoom-in-effect">
+                            <span style="background-image: url({{ collection.image | img_url: '1450x'}})"></span>
+                        </a>
+
+                        <div class="block__content">
+                            <h3>{{ collection.title }}</h3>
+                        </div><!-- /.block__content -->
+                    </div><!-- /.block__inner -->
+                </div><!-- /.block-item -->
+            {% endfor %}
+        </div><!-- /.block-items -->
+    </div><!-- /.shell -->
+</div>
+<!-- /.section-blocks section-blocks--collections -->

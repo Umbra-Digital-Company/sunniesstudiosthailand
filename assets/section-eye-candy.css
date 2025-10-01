@@ -1,0 +1,151 @@
+.eye-candy-section {
+    padding: 40px;
+}
+
+.ec-container{
+    display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+  position: relative;
+}
+
+.ec-header {
+    padding: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+img.bss-pl-frontend {
+    display: none !important;
+}
+.ec-header--title{
+  
+/* Text xl/Medium */
+font-family: 'Radio Grotesk';
+font-size: 22px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%; /* 33px */
+  width: 30%;
+}
+.ec-header--description{
+  
+/* Text md/Regular */
+font-family: 'Radio Grotesk';
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 142.857% */
+}
+
+
+.ec-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 4px;
+  row-gap: 4px
+}
+
+.ec-desktop{
+ display: block; 
+}
+.ec-mobile{
+ display: none; 
+  position: relative;
+}
+
+.ec-content--image-banner{
+ width: 100%; 
+  transform-origin: left;
+}
+
+span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background: #352B27;
+}
+span.swiper-pagination-bullet {
+    background: transparent;
+}
+
+span.swiper-pagination-bullet {
+    background: transparent;
+    border: 1px solid #352B27;
+  opacity: 1;
+}
+
+.ec-swiper-pagination {
+    position: absolute;
+    bottom: 16px !important;
+    z-index: 9;
+    display: flex;
+    justify-content: center;
+}
+
+
+@media(min-width: 768px){
+  .ec-content.image-75 {
+    grid-template-columns: 3fr 1fr;
+  }
+
+  .ec-content.image-50 {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  .ec-content.image-25 {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  
+  .image-75 .ec-content--image,
+  .image-50 .ec-content--image{
+    aspect-ratio: 3/1;
+  }
+
+  .ec-content.image-100 {
+    grid-template-columns: 1fr;
+  }
+  .ec-content.image-100 .ec-content--image {
+    aspect-ratio: 3/1;
+  }
+  .ec-content--image.mobile{
+    display: none
+  }
+}
+
+
+@media(max-width: 767px){
+  .ec-content--image.desktop{
+    display: none
+  }
+ .ec-desktop{
+   display: none; 
+  } 
+  .ec-mobile{
+   display: block; 
+  }
+  .eye-candy-section {
+    padding: 16px;
+  }
+  .ec-header {
+    padding: 36px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 12px;
+  }
+  .ec-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    
+  }
+  .ec-content--image.mobile{
+    height: auto;
+    aspect-ratio: 1 / 1.69;
+  }
+  .ec-header--title{
+    width: 100%;
+  }
+}
+
+.ec-content .swiper-slide,
+.ec-content .swiper-slide .product-card{
+  max-height: fit-content;
+}

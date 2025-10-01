@@ -1,0 +1,170 @@
+{{ 'product-card-eye-candy.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign product_first_variant = product_data.selected_or_first_available_variant
+  assign item_type = ''
+
+  if product_data.tags contains 'merch' or product.type == 'Gift Cards'
+    assign item_type = 'merch'
+  elsif product_data.tags contains 'sun'
+    assign item_type = 'studios_frame'
+  elsif product_data.tags contains 'anti-rad' or product_data.tags contains 'readers'
+    assign item_type = 'G100'
+  elsif product_data.tags contains 'flask'
+    assign item_type = 'flask'
+  endif
+%}
+
+<div class="product-card product-card-eye-candy">
+  <div class="product-card-images">
+    {% for variant in product_data.variants %}
+      <img
+        alt="{{ variant.image.alt }}"
+        class="product-card-image"
+        data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}"
+        data-variant-id="{{ variant.id }}"
+        loading="lazy"
+        src="{{ variant.image | img_url: 'master' }}"
+        onClick="handleRedirectProductCard('{{ variant.url }}')">
+    {% endfor %}
+    
+    <div class="product-card-actions" data-variant-id="{{ product_first_variant.id }}">
+      {% for variant in product_data.variants %}
+        {% liquid
+          assign is_preorder = false
+          if variant.inventory_policy == "continue" and variant.inventory_quantity <= 0
+            assign is_preorder = true
+          else
+            assign is_preorder = false
+          endif
+        %}
+        <div
+          class="product-card-actions-buttons"
+          data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}"
+          data-is-available="{{ variant.available }}"
+          data-variant-id="{{ variant.id }}">
+          {% if product_data.tags contains 'prescription' %}
+            <a class="desktop" href="{{ variant.url }}">
+              {% if is_preorder %}
+                {{ 'products.product.quick_preorder' | t }}{% else %}Select lenses{% endif %}
+            </a>
+
+            <a class="mobile" href="{{ variant.url }}">
+              <svg class="plus_icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 3V13" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 8L13 8" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          
+          {% elsif product_data.template_suffix contains 'apparel' %}
+            <a class="desktop" href="{{ variant.url }}">
+            
+              {% if is_preorder %}
+                {{ 'products.product.quick_preorder' | t }}{% else %}Select size{% endif %}
+            </a>
+            <a class="mobile" href="{{ variant.url }}">
+              <svg class="plus_icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 3V13" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 8L13 8" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+
+          {% else %}
+            <a
+              href="#"
+              class="js-quick-add"
+              data-item-type="{{item_type}}"
+              {% if is_preorder %}data-pre-order="true"{% endif %}>
+              {% if is_preorder %}
+                {{ 'products.product.quick_preorder' | t }}
+              {% else %}
+                <div class="add_to_bag">{{ 'products.product.quick_add' | t }}</div>
+                <svg class="plus_icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <path d="M8 3V13" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M3 8L13 8" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+                {% endif %}
+            </a>
+          {% endif %}
+          <a
+            href="javascript:void(0)"
+            id="joint-the-waitlist-button"
+            onClick="openWaitlistModal({{ product_data.id }}, {{ variant.id }})">Join the waitlist</a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="product-card-details">
+    <div class="product-card-details-wrapper">
+      <div class="title-wrapper" onClick="handleRedirectProductCard('{{ product_first_variant.url }}')">
+        <h3>{{ product_data.title }}</h3>
+        <ul class="product-card-prices">
+          {% for variant in product_data.variants %}
+            <li data-variant-id="{{ variant.id }}" data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}">
+              ${{ variant.price | money_without_currency | remove: '.00' }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      
+      <ul class="product-card-variants {{ product_data.variants.size }}">
+        {% for variant in product_data.variants %}
+          <li data-variant-id="{{ variant.id }}" data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}">
+            {{ variant.option1 }}
+          </li>
+        {% endfor %}
+      </ul>
+      <ul class="product-card-swatches {% if product_data.variants.size >= 6%}swiper-no-swiping{% endif %}">
+        {% if product_data.template_suffix contains 'apparel' %}
+          {% comment %}
+            Swatch will only show first variant with unique color option
+          {% endcomment %}
+          {% assign product_colors = null %}
+          {% assign has_available_variant = false %}
+          {% liquid 
+            for variant in product_data.variants
+              if variant.available
+                assign has_available_variant = true
+              endif
+            endfor
+          %}
+          {% for variant in product_data.variants %}
+            {% unless product_colors contains variant.option1 %}
+              <li
+                class="{% if product_first_variant.id == variant.id %}current-active-swatch{% endif %}"
+                data-variant-id="{{ variant.id }}"
+                data-is-available="{{ has_available_variant }}"
+                id="product-card-swatch">
+                <div
+                  data-handle-name="{{variant.option1 | handle}}"
+                  data-is-available="{{ has_available_variant }}"
+                  data-variant-id="{{ variant.id }}"></div>
+                {% unless has_available_variant %}
+                  <div id="variant-not-available" data-variant-id="{{ variant.id }}"></div>
+                {% endunless %}
+              </li>
+              {% assign product_colors = product_colors | append: ',' | append: variant.option1 %}
+            {% endunless %}
+          {% endfor %}
+        {% else %}
+          {% for variant in product_data.variants %}
+            <li
+              class="{% if product_first_variant.id == variant.id %}current-active-swatch{% endif %}"
+              data-variant-id="{{ variant.id }}"
+              data-is-available="{{ variant.available }}"
+              id="product-card-swatch">
+              <div
+                data-handle-name="{{variant.option1 | handle}}"
+                data-is-available="{{ variant.available }}"
+                data-variant-id="{{ variant.id }}"></div>
+              {% unless variant.available %}
+                <div id="variant-not-available" data-variant-id="{{ variant.id }}"></div>
+              {% endunless %}
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>

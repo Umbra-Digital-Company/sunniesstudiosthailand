@@ -1,0 +1,70 @@
+{{ 'sunnies-world-banner.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign section_settings = section.settings
+  assign background_color = section_settings.background_color
+  assign banner_image = section_settings.banner_image
+  assign show_section = section_settings.show_section
+  assign banner_height = section_settings.banner_height
+  assign image_alt = section_settings.image_alt
+%}
+
+{% if show_section and banner_image != blank %}
+<section class="sunnies-world-banner" style="background-color: {{ background_color }}; height: {{ banner_height }}px;">
+  <div class="banner-container">
+    <img 
+      src="{{ banner_image | image_url: width: 800 }}" 
+      alt="{{ image_alt | default: 'Banner image' }}"
+      class="banner-image"
+      width="800"
+      height="auto"
+      loading="eager"
+    >
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Sunnies World Banner",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show banner",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text",
+      "default": "Banner image"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#D2B48C"
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "label": "Banner height (px)",
+      "min": 40,
+      "max": 200,
+      "step": 2,
+      "default": 56
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sunnies World Banner"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,54 @@
+{{ 'summer-landing-page-2025.css' | asset_url | stylesheet_tag }}
+
+<section class="section-seven">
+  <div class="section-seven__media">
+    {% if section.settings.section-seven-image-desktop != blank %}
+      <img src="{{ section.settings.section-seven-image-desktop | image_url }}" class="section-seven__image--desktop" />
+      <img src="{{ section.settings.section-seven-image-mobile | image_url }}" class="section-seven__image--mobile" />
+      {% if section.settings.section-seven-tag-label != blank %}
+        <a class="tag-link" href="{{ section.settings.section-seven-tag-link }}">
+        {{ section.settings.section-seven-tag-label }}
+        </a>
+      {% endif %}
+    {% endif %}
+  </div>
+</section>
+
+
+{% schema %}
+    {
+      "name": "Summer Section 7",
+      "settings": [
+        {
+        "type": "header",
+        "content": "Section 7"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-seven-image-desktop",
+        "label": "Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-seven-image-mobile",
+        "label": "Image (Mobile)"
+      },
+      {
+        "type": "url",
+        "id": "section-seven-tag-link",
+        "label": "Tag Link"
+      },
+      {
+        "type": "text",
+        "id": "section-seven-tag-label",
+        "label": "Tag Label"
+      }
+      ],
+        "presets": [
+            {
+            "name": "Summer Section 7",
+            "category": "Landing Page"
+            }
+        ]
+    }
+  {% endschema %}

@@ -1,0 +1,9 @@
+.blog-content {
+  margin: 30px 0;
+}
+
+@media (min-width: 768px) {
+  .blog-content {
+    margin: 60px 0;
+  }
+}

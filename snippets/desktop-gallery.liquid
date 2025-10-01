@@ -1,0 +1,151 @@
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign selected_color = current_variant.option1 | handleize
+  if template contains 'apparel'
+    assign color_handleize = current_variant.option1 | handleize
+    assign size_handleize = current_variant.option2 | handleize
+    assign selected_color = color_handleize | append: "-" | append: size_handleize
+  endif
+  if template contains 'flask' and current_variant.option2 
+    assign color_handleize = current_variant.option1 | handleize
+    assign size_handleize = current_variant.option2 | handleize
+    assign selected_color = color_handleize | append: "-" | append: size_handleize
+  endif
+  assign specific_lifestyle = 'lifestyle-' | append: selected_color | strip
+  assign extra_video_desktop = product.metafields.media.extra_video_desktop_mobile.value | first
+%}
+
+<div id="product-gallery-container" data-product-sku="{{ product.selected_or_first_available_variant.sku }}">
+  <div class="product-gallery-wrapper product-gallery-swipper">
+    {% if product.title == 'Sunnies Flask' %}
+    <div class="product-img-wrapper">
+    {% assign image_count = 0 %}
+    {% assign lifestyle_image_displayed = true %}
+    
+    {% unless extra_video_desktop == blank %}
+      {{ extra_video_desktop | video_tag: autoplay: true, loop: true, muted:true, class: "main-product-video-desktop" }}
+    {% endunless %} 
+
+    {% for media in product.media %}
+      {% assign image_color = media.alt | split: '::' | first | strip | downcase %}
+      {% assign image_alt = media.alt | split: '::' | last %}
+      {% if image_color == specific_lifestyle and lifestyle_image_displayed == true %}
+        <div>
+          {% if media.media_type == "image" %}
+            <div class="product-gallery-image important" style="margin-bottom: 4px;">
+              <img src="{{ media | img_url: 'master' }}" alt="{{ image_alt | strip }}" loading="lazy">
+            </div>
+          {% elsif media.media_type == "video" %}
+            {{ media | video_tag: autoplay: true, muted: true, loop: true, class: "product-gallery-image" }}
+          {% endif %}
+        </div>
+        {% assign lifestyle_image_displayed = true %}
+        {% assign image_count = image_count | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+
+      {% unless product.title == "Sunnies Flask" %}
+      {% for media in product.media %}
+        {% assign image_color = media.alt | split: '::' | first | handleize %}
+        {% assign image_alt = media.alt | split: '::' | last %}
+
+        {% assign has_mobile = 'false' %}
+        {% if image_alt contains 'mobile' %}
+          {% assign has_mobile = 'true' %}
+        {% endif %}
+
+        {% if image_color == selected_color %}
+          {% if image_count < 5 %}
+            <div class="product-gallery--wrapper-2">
+              {% if media.media_type == "image" %}
+                <div class="product-gallery-image important product-scale">
+                  <img
+                    src="{{ media.src | image_url: master }}"
+                    loading="lazy"
+                >
+                </div>
+              {% elsif media.media_type == "video" %}
+                {{ media | video_tag: autoplay: true, muted: true, loop: true, class: "product-gallery-image" }}
+              {% endif %}
+            </div>
+            {% assign image_count = image_count | plus: 1 %}
+          {% else %}
+            {% break %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {% endunless %}
+    </div>
+      {% else %}
+        <div class="product-img-wrapper">
+      {% assign image_count = 0 %}
+      {% assign lifestyle_image_displayed = false %}
+
+      {% if product.title == 'Boot' or product.title == 'Pebble Cap' or product.title == 'Loop' or product.title == 'Bottle'%}
+      {{ extra_video_desktop | video_tag: autoplay: true, loop: true, muted:true, class: "main-product-video-desktop" }}
+      {% endif %}
+
+      {% unless product.title == 'Boot' or product.title == 'Pebble Cap' or product.title == 'Loop' or product.title == 'Bottle'%}
+      {% for media in product.media %}
+        {% assign image_color = media.alt | split: '::' | first | strip | downcase %}
+        {% assign image_alt = media.alt | split: '::' | last %}
+
+        {% if image_color == specific_lifestyle and lifestyle_image_displayed == false %}
+          <div>
+            {% if media.media_type == "image" %}
+              <div class="product-gallery-image important">
+                <img src="{{ media | img_url: 'master' }}" alt="{{ image_alt | strip }}" loading="lazy">
+              </div>
+            {% elsif media.media_type == "video" %}
+              {{ media | video_tag: autoplay: true, muted: true, loop: true, class: "product-gallery-image" }}
+            {% endif %}
+          </div>
+          {% assign lifestyle_image_displayed = true %}
+          {% assign image_count = image_count | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+      {% endunless %}
+
+      {% for media in product.media %}
+        {% assign image_color = media.alt | split: '::' | first | handleize %}
+        {% assign image_alt = media.alt | split: '::' | last %}
+
+        {% assign has_mobile = 'false' %}
+        {% if image_alt contains 'mobile' %}
+          {% assign has_mobile = 'true' %}
+        {% endif %}
+
+        {% if image_color == selected_color %}
+          {% if image_count < 5 %}
+            <div class="product-gallery--wrapper-2">
+              {% if media.media_type == "image" %}
+                <div class="product-gallery-image important product-scale">
+                  <img
+                    src="{{ media.src | image_url: master }}"
+                    loading="lazy"
+                >
+                </div>
+              {% elsif media.media_type == "video" %}
+                {{ media | video_tag: autoplay: true, muted: true, loop: true, class: "product-gallery-image" }}
+              {% endif %}
+            </div>
+            {% assign image_count = image_count | plus: 1 %}
+          {% else %}
+            {% break %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+    
+  </div>
+</div>
+
+<style>
+.product-gallery--wrapper-2:first-of-type {
+  display: none;
+}
+.product-gallery--wrapper-2:nth-child(2) {
+  margin-top: 0;
+}
+</style>

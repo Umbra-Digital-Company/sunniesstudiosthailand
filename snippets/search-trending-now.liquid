@@ -1,0 +1,44 @@
+{{ 'trending-now.css' |  asset_url |  stylesheet_tag }}
+{% if settings.enable_trending_cards %}
+    <div class="search-trending-container">
+        <div class="trending-header"><span>Trending now</span></div>
+        <div class="trending-card-wrapper">
+
+        {% if settings.trending-text_1 != blank %}
+            <a class="trending-card" href="{{ settings.trending-link_1 }}">
+                <img class="card-image" src="{{ settings.trending_image_1 |  image_url }}">
+                <span class="card-title">{{ settings.trending-text_1 }}</span>
+            </a>
+        {% endif %}
+        
+        {% if settings.trending-text_2 != blank %}
+            <a class="trending-card" href="{{ settings.trending-link_2 }}">
+                <img class="card-image" src="{{ settings.trending_image_2 |  image_url }}">
+                <span class="card-title">{{ settings.trending-text_2 }}</span>
+            </a>
+        {% endif %}
+        
+        {% if settings.trending-text_3 != blank %}
+            <a class="trending-card" href="{{ settings.trending-link_3 }}">
+                <img class="card-image" src="{{ settings.trending_image_3 |  image_url }}">
+                <span class="card-title">{{ settings.trending-text_3 }}</span>
+            </a>
+        {% endif %}
+        
+        {% if settings.trending-text_4 != blank %}
+            <a class="trending-card" href="{{ settings.trending-link_4 }}">
+                <img class="card-image" src="{{ settings.trending_image_4 |  image_url }}">
+                <span class="card-title">{{ settings.trending-text_4 }}</span>
+            </a>
+        {% endif %}
+        </div>
+    </div>
+{% else %}
+        {% comment %} <style>
+            @media(min-width: 768px){
+                body.expand-search .search-container{
+                    padding-bottom: 100%;
+                }
+            }
+        </style> {% endcomment %}
+{% endif %}

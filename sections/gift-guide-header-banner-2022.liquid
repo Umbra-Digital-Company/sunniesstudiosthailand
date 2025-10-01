@@ -1,0 +1,148 @@
+<div class="banner">
+  <div class="banner__container">
+    <img class="banner__snowflake" />
+    <img class="banner__snowflake" />
+    <img class="banner__snowflake" />
+    <img class="banner__snowflake" />
+    <img class="banner__snowflake" />
+    <img class="banner__snowflake" />
+    <img class="banner__image" src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/all_i_want_for_xmas_is_sunnies.png?v=1668664753" alt="All I want for Xmas is Sunnies" />
+    <p class="banner__text">{{ section.settings.text }}</p>
+  </div> 
+</div>
+
+{% schema %}
+  {
+    "name": "GGuide Header Banner",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image_desktop",
+            "label": "Banner Image (Desktop)"
+		},
+        {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Banner Image (Mobile)"
+		},
+		{
+			"type": "text",
+			"id": "text",
+			"label": "Text"
+		}
+    ]
+  }
+{% endschema %}
+
+<style>
+  .banner {
+    background-image: url('{{ section.settings.image_mobile | image_url }}');
+    height: calc(100vh - 100px);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .banner__container {
+    position: absolute;
+    right: 10%;
+    top: 20%;
+    width: max-content;
+  }
+  .banner__container .banner__snowflake{
+    position: absolute;
+    width: 12.6px;
+    content:url("https://cdn.shopify.com/s/files/1/0172/4383/2374/files/snowflake.svg?v=1668863726")
+  }
+  .banner__container .banner__snowflake:nth-child(1){
+    left: 12%;
+    top: -5%;
+  }
+  .banner__container .banner__snowflake:nth-child(2){
+    right: 7%;
+    top: 2%;
+  }
+  .banner__container .banner__snowflake:nth-child(3){
+    left: -4%;
+    top: 38%;
+  }
+  .banner__container .banner__snowflake:nth-child(4){
+    right: -12%;
+    top: 34%;
+  }
+  .banner__container .banner__snowflake:nth-child(5){
+    left: -16%;
+    top: 80%;
+  }
+  .banner__container .banner__snowflake:nth-child(6){
+    right: -10%;
+    top: 90%;
+  }
+  .banner__container .banner__image {
+    height: 198px;
+    width: 165px;
+    object-fit: contain;
+    object-position: center;
+  }
+  .banner__container .banner__text {
+    text-align: center;
+    font-family: 'PPE-Editorial';
+    font-weight: 200;
+    color: white;
+    font-size: 18px;
+    margin-top: 12px;
+  }
+  @media only screen and (min-width: 768px) {
+    .banner {
+      background-image: url('{{ section.settings.image_desktop | image_url }}');
+      height: calc(100vh);
+    }
+    .banner__container {
+      position: absolute;
+      left: 10%;
+      top: 60%;
+      transform: translateY(-50%);
+    }
+    .banner__container .banner__image {
+      height: auto;
+      width: auto;
+    }
+    .banner__container .banner__snowflake{
+      width: 20.5px
+    }
+    .banner__container .banner__snowflake:nth-child(1){
+      left: -2%;
+      top: -8%;
+    }
+    .banner__container .banner__snowflake:nth-child(2){
+      right: 8%;
+      top: -6%;
+    }
+    .banner__container .banner__snowflake:nth-child(3){
+      left: -24%;
+      top: 28%;
+    }
+    .banner__container .banner__snowflake:nth-child(4){
+      right: -16%;
+      top: 42%;
+    }
+    .banner__container .banner__snowflake:nth-child(5){
+      left: -10%;
+      top: 80%;
+    }
+    .banner__container .banner__snowflake:nth-child(6){
+      right: -8%;
+      top: 84%;
+    }
+     .banner__container .banner__text {
+      font-size: 22px;
+      font-weight: 300;
+      margin-top: 44px;
+    }   
+  }
+  @media only screen and (min-width: 1200px) {
+    .banner {
+      background-image: url('{{ section.settings.image_desktop | image_url }}');
+      height: calc(100vh);
+    }    
+  }
+</style>

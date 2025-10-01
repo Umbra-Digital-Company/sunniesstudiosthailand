@@ -1,0 +1,104 @@
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign selected_color = current_variant.option1 | handleize
+  if template contains 'apparel'
+    assign color_handleize = current_variant.option1 | handleize
+    assign size_handleize = current_variant.option2 | handleize
+    assign selected_color = color_handleize | append: "-" | append: size_handleize
+  endif
+  if template contains 'flask' and current_variant.option2 
+    assign color_handleize = current_variant.option1 | handleize
+    assign size_handleize = current_variant.option2 | handleize
+    assign selected_color = color_handleize | append: "-" | append: size_handleize
+  endif
+  assign specific_lifestyle = 'lifestyle-' | append: selected_color | strip
+%}
+<style>
+  .product-vto-wrapper {
+    overflow: hidden;
+  }
+  .vto-gallery-navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 100%;
+  }
+  .vto-gallery-navigation > button {
+    background-color: #fff;
+    height: 48px;
+    width: 48px;
+    border: none;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .vto-gallery-navigation > button:first-child > img {
+    height: 16px;
+    transform: rotate(90deg);
+  }
+  .vto-gallery-navigation > button:nth-child(2) > img {
+    height: 16px;
+    transform: rotate(-90deg);
+  }
+</style>
+<div class="desktop-product-vto-container">
+  <div class="product-vto-wrapper" id="product-vto-wrapper">
+    {% assign mediaCount = 0 %}
+    <div id="vto-image-wrapper" class="swiper-wrapper">
+      {% for media in product.media %}
+        {% assign image_color = media.alt | split: '::' | first | strip | downcase %}
+        {% assign image_alt = media.alt | split: '::' | last %}
+
+        {% if image_color == selected_color %}
+          {% if media.media_type == "image" %}
+            <img
+              src="{{ media | img_url: '900x' }}"
+              alt="{{ image_alt | strip }}"
+              class="swiper-slide"
+              loading="lazy"
+            >
+          {% endif %}
+          {% if media.media_type == "video" %}
+           {{ media | video_tag: autoplay: true, muted: true, loop: true, class: "swiper-slide"  }}
+          {% endif %}
+          {% assign mediaCount = mediaCount | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% comment %} {% if mediaCount > 1 %}
+      <div class="vto-gallery-navigation">
+        <button class="vto-gallery-navigation__prev"><img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/VTO_Arrow.svg?v=1614088971" /></button>
+        <button class="vto-gallery-navigation__next"><img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/VTO_Arrow.svg?v=1614088971" /></button>
+      </div>
+    {% endif %} {% endcomment %}
+    {% unless template == 'product.merch' or template == 'product.apparel' or template contains 'flask' %}
+    <button id="desktop-virtual-try-on-btn">Virtual Try On</button>
+    {% endunless %}
+  </div>
+  <div id="desktop-vto-overlay" data-product-sku="{{ product.selected_or_first_available_variant.sku }}">
+    <button id="desktop-virtual-retake-try-on-btn">Retake</button>
+    <span id="desktop-swipe-to-rotate-text">Swipe to rotate</span>
+  </div>
+</div>
+<script>
+
+  function initializeVTOGallerySwiper(){
+    const vtoGallerySwiper = new Swiper(".product-vto-wrapper", {
+      loop: true,
+      navigation: {
+        nextEl: '.vto-gallery-navigation__next',
+        prevEl: '.vto-gallery-navigation__prev',
+      },
+      allowTouchMove: false,
+      spaceBetween: 10,
+      centeredSlides: true
+    })
+  }
+  initializeVTOGallerySwiper();
+  
+</script>

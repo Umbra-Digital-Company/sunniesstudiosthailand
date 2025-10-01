@@ -1,0 +1,18 @@
+{%- assign block_product_1 = all_products['anti-fog-wipe'] -%}
+{%- assign block_product_2 = all_products['clean-lens'] -%}
+
+<section class="products-upsell">
+  <div class="Product">
+
+    <h2>Extra Essentials</h2>
+
+    <div class="product-listing">
+      <div class="product-listing__item">
+        {%- render 'product-item-upsell' with block_product_1 -%}
+      </div>
+      <div class="product-listing__item">
+        {%- render 'product-item-upsell' with block_product_2 -%}
+      </div>
+    </div>
+  </div>
+</section>

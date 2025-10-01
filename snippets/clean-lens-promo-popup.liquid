@@ -1,0 +1,342 @@
+<style>
+  .clean-lens-promo-container {
+    position: fixed;
+    left: 40px;
+    bottom: 40px;
+    z-index: 99;
+  }
+
+  #clean-lens-promo-wrapper {
+    display: flex;
+  	align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: #E9EAE5;
+  }
+
+  #clean-lens-promo-checkmark {
+  	position: absolute;
+    top: -5px;
+    right: -5px;
+  }
+
+  #clean-lens-promo-checkmark-mobile {
+  	display: none;
+  }
+
+  #clean-lens-promo-popup {
+  	display: none;
+    align-items: center;
+    padding: 20px;
+    position: absolute;
+    width: 397px;
+    background-color: #E9EAE5;
+    bottom: 61px;
+    left: 0px;
+    border-radius: 12px;
+  }
+
+  #clean-lens-promo-popup-wrapper {
+  	margin: 0 0 0 12px;
+    font-family: 'Radio Grotesk';
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 24px;
+    color: #352B27;
+  }
+
+  #clean-lens-promo-popup-price-wrapper {
+  	padding-top: 8px;
+  }
+
+  #clean-lens-promo-popup-price {
+
+    font-weight: 700;
+    color: #579BBD;
+  }
+
+  #clean-lens-promo-popup-price strike {
+  	color: #D7D6D0;
+  }
+
+  #clean-lens-promo-popup-body {
+  	margin-bottom: 16px;
+  }
+
+  #clean-lens-promo-popup-footer {
+  	padding-top: 16px;
+    border-top: 1px solid #D7D6D0;
+  }
+
+  #clean-lens-promo-popup-footer a {
+    color: #352B27;
+  }
+
+  #clean-lens-promo-popup-link-out {
+  	color: #579BBD;
+    font-weight: bold;
+  }
+
+  #clean-lens-promo-icon {
+  	pointer-events: none;
+    display: flex;
+  }
+
+  #clean-lens-promo-popup-copy-eligible {
+  	display: none;
+  }
+
+  @media(max-width: 500px) {
+  	.clean-lens-promo-container {
+      left: 16px;
+      bottom: 9px
+    }
+
+    #clean-lens-promo-wrapper {
+      width: 40px;
+      height: 40px;
+    }
+
+    #clean-lens-promo-checkmark {
+      display: none;
+    }
+
+    #clean-lens-promo-checkmark-mobile {
+      display: block;
+      position: absolute;
+      top: -5px;
+      right: -3px;
+    }
+
+    #clean-lens-promo-popup {
+      padding: 16px;
+      width: 90vw;
+      bottom: 50px;
+    }
+
+    #clean-lens-promo-popup-wrapper {
+      margin: 0 0 0 12px;
+      font-size: 12px;
+      line-height: 21px;
+    }
+  }
+</style>
+
+<div class="clean-lens-promo-container">
+  <div id="clean-lens-promo-wrapper">
+    <div id="clean-lens-promo-icon"></div>
+
+    <div id="clean-lens-promo-checkmark">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.833252" y="0.833008" width="18.3333" height="18.3333" rx="9.16667" fill="white"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.833252 9.99967C0.833252 4.93717 4.93742 0.833008 9.99992 0.833008C15.0624 0.833008 19.1666 4.93717 19.1666 9.99967C19.1666 15.0622 15.0624 19.1663 9.99992 19.1663C4.93742 19.1663 0.833252 15.0622 0.833252 9.99967ZM14.3999 7.73301C14.5103 7.61453 14.5704 7.45782 14.5676 7.29591C14.5647 7.13399 14.4991 6.9795 14.3846 6.86499C14.2701 6.75048 14.1156 6.68489 13.9537 6.68203C13.7918 6.67917 13.6351 6.73927 13.5166 6.84968L8.54159 11.8247L6.48325 9.76634C6.36477 9.65594 6.20807 9.59584 6.04615 9.5987C5.88423 9.60155 5.72974 9.66715 5.61523 9.78166C5.50072 9.89617 5.43513 10.0507 5.43227 10.2126C5.42942 10.3745 5.48952 10.5312 5.59992 10.6497L8.09992 13.1497C8.21711 13.2667 8.37596 13.3325 8.54159 13.3325C8.70721 13.3325 8.86606 13.2667 8.98325 13.1497L14.3999 7.73301Z" fill="#6CA951"/>
+      </svg>
+    </div>
+
+    <div id="clean-lens-promo-checkmark-mobile">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.666656" y="0.666748" width="14.6667" height="14.6667" rx="7.33333" fill="white"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.666656 8.00008C0.666656 3.95008 3.94999 0.666748 7.99999 0.666748C12.05 0.666748 15.3333 3.95008 15.3333 8.00008C15.3333 12.0501 12.05 15.3334 7.99999 15.3334C3.94999 15.3334 0.666656 12.0501 0.666656 8.00008ZM11.52 6.18675C11.6083 6.09196 11.6564 5.9666 11.6541 5.83707C11.6518 5.70753 11.5993 5.58394 11.5077 5.49233C11.4161 5.40073 11.2925 5.34825 11.163 5.34596C11.0335 5.34368 10.9081 5.39176 10.8133 5.48008L6.83332 9.46008L5.18666 7.81342C5.09187 7.7251 4.96651 7.67701 4.83698 7.6793C4.70744 7.68158 4.58385 7.73406 4.49224 7.82567C4.40063 7.91728 4.34816 8.04087 4.34587 8.1704C4.34359 8.29993 4.39167 8.4253 4.47999 8.52008L6.47999 10.5201C6.57374 10.6137 6.70082 10.6663 6.83332 10.6663C6.96582 10.6663 7.09291 10.6137 7.18666 10.5201L11.52 6.18675Z" fill="#6CA951"/>
+      </svg>
+    </div>
+
+    <div id="clean-lens-promo-popup">
+      <img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/acf4eac894ac6c05bdca8449ed5fffc6.png?v=1650278812">
+      <div id="clean-lens-promo-popup-wrapper">
+        <div id="clean-lens-promo-popup-body">
+          <div id="clean-lens-promo-popup-copy-not-eligble">
+            <p>
+              Buy any
+              <a href="https://sunniesstudios.com/collections/anti-rad-eyewear" id="clean-lens-promo-popup-link-out"
+                >Anti-rad Eyewear</a
+              >
+            </p>
+            <p>
+              to get a free gift from us:
+              <a
+                href="https://sunniesstudios.com/collections/anti-radiation-eyewear/products/clean-lens"
+                id="clean-lens-promo-popup-link-out"
+                >Clean Lens</a
+              >
+            </p>
+          </div>
+
+          <div id="clean-lens-promo-popup-copy-eligible">
+            <p>
+              Yay, you just got
+              <a
+                href="https://sunniesstudios.com/collections/anti-radiation-eyewear/products/clean-lens"
+                id="clean-lens-promo-popup-link-out"
+                >Clean Lens</a
+              >
+              for Free!
+            </p>
+          </div>
+
+          <div id="clean-lens-promo-popup-price-wrapper">
+            <span id="clean-lens-promo-popup-price"><strike>$5.00</strike> $0.00</span>
+          </div>
+        </div>
+
+        <div id="clean-lens-promo-popup-footer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+   const cleanLensVariantId = 39301263032438;
+   let hasBeenToggled = false;
+   const giftIcon = window.innerWidth < 768 ? `
+  	<svgwidth="24" height="17" viewBox="0 0 24 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+     <path d="M17.7233 0.724609H6.27669C3.22883 0.724609 0.758057 3.08647 0.758057 5.99997V11C0.758057 13.9135 3.22883 16.2753 6.27669 16.2753H17.7233C20.7712 16.2753 23.2419 13.9135 23.2419 11V5.99997C23.2419 3.08647 20.7712 0.724609 17.7233 0.724609Z" fill="#579BBD" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+     <path d="M11.765 0.724609V16.2753" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+     <path d="M11.765 8.50724C11.765 8.50724 10.6128 5.47825 8.74796 4.7971C6.59508 3.9855 5.71574 6.02898 7.03475 7.27536C8.55086 8.69565 11.765 8.50724 11.765 8.50724Z" fill="#579BBD" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+     <path d="M11.5982 8.85498C11.5982 8.85498 9.80921 13.2028 6.74667 11.0434L11.5982 8.85498Z" fill="#579BBD"/>
+     <path d="M11.5982 8.85498C11.5982 8.85498 9.80921 13.2028 6.74667 11.0434" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+     <path d="M12.1289 8.50724C12.1289 8.50724 13.3418 5.47825 15.1611 4.7971C17.314 3.9855 18.1933 6.02898 16.8895 7.27536C15.3733 8.69565 12.1289 8.50724 12.1289 8.50724Z" fill="#579BBD" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+     <path d="M12.1289 8.30439C11.0221 7.73917 13.7208 13.0435 17.1927 11.0435L12.1289 8.30439Z" fill="#579BBD"/>
+     <path d="M12.1289 8.30439C11.0221 7.73917 13.7208 13.0435 17.1927 11.0435" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+     <path d="M0.758057 8.50708H23.2419" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+     </svg>
+  	`: `
+     <svg width="30" height="21" viewBox="0 0 30 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+     <path d="M22.1541 0.89502H7.8458C4.03598 0.89502 0.94751 3.81261 0.94751 7.41164V13.5881C0.94751 17.1871 4.03598 20.1047 7.8458 20.1047H22.1541C25.9639 20.1047 29.0524 17.1871 29.0524 13.5881V7.41164C29.0524 3.81261 25.9639 0.89502 22.1541 0.89502Z" fill="#579BBD" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+     <path d="M14.7063 0.89502V20.1047" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+     <path d="M14.7062 10.5088C14.7062 10.5088 13.2659 6.76708 10.9349 5.92565C8.24381 4.92309 7.14463 7.44739 8.7934 8.98703C10.6885 10.7415 14.7062 10.5088 14.7062 10.5088Z" fill="#579BBD" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+     <path d="M14.4978 10.9385C14.4978 10.9385 12.2615 16.3093 8.43335 13.6418L14.4978 10.9385Z" fill="#579BBD"/>
+     <path d="M14.4978 10.9385C14.4978 10.9385 12.2615 16.3093 8.43335 13.6418" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+     <path d="M15.1611 10.5088C15.1611 10.5088 16.6772 6.76708 18.9514 5.92565C21.6425 4.92309 22.7417 7.44739 21.1119 8.98703C19.2167 10.7415 15.1611 10.5088 15.1611 10.5088Z" fill="#579BBD" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+     <path d="M15.161 10.2582C13.7776 9.56001 17.1509 16.1124 21.4908 13.6419L15.161 10.2582Z" fill="#579BBD"/>
+     <path d="M15.161 10.2582C13.7776 9.56001 17.1509 16.1124 21.4908 13.6419" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+     <path d="M0.94751 10.5088H29.0524" stroke="#E9EAE5" stroke-width="0.5" stroke-miterlimit="10"/>
+       </svg>`;
+
+   	const downIcon = window.innerWidth < 768 ? `
+       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M2.66675 5.3335L8.00008 10.6668L13.3334 5.3335" stroke="white" stroke-width="1.33333" stroke-linecap="square"/>
+       </svg>
+       ` : `
+       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M4.00024 8L12.0002 16L20.0002 8" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+       </svg>`;
+
+   window.addEventListener('DOMContentLoaded', (event) => {
+   	$("#clean-lens-promo-icon").html(giftIcon);
+     handleCleanLensPromo();
+
+     setTimeout(() => {
+         if (!hasBeenToggled) {
+     		$("#clean-lens-promo-popup").css({ display: 'flex' });
+         	$("#clean-lens-promo-wrapper").css({ backgroundColor: "#579BBD" });
+         	$("#clean-lens-promo-icon").html(downIcon);
+     	}
+
+     }, 30 * 1000)
+   });
+
+   $("#clean-lens-promo-wrapper").click(function () {
+     const isHidden = $("#clean-lens-promo-popup").is(":hidden");
+     hasBeenToggled = true;
+
+     if (!isHidden) {
+       $("#clean-lens-promo-popup").css({ display: 'none' });
+       $("#clean-lens-promo-wrapper").css({ backgroundColor: "#E9EAE5" });
+       $("#clean-lens-promo-icon").html(giftIcon);
+     } else {
+       $("#clean-lens-promo-popup").css({ display: 'flex' });
+       $("#clean-lens-promo-wrapper").css({ backgroundColor: "#579BBD" });
+       $("#clean-lens-promo-icon").html(downIcon);
+     }
+   });
+
+   function handleCleanLensPromo() {
+     fetch('/cart.js', {
+       method: 'GET',
+       headers: {
+         'Content-Type': 'application/json'
+       },
+     })
+     .then(async (res) => {
+     	const { items } = await res.json();
+
+         if (!!items.length) {
+           const antiRadItems = items.filter(item => item.product_type === "Anti-Radiation Frame");
+           const cleanLensItems = items.filter(item => item.variant_id === cleanLensVariantId);
+           const hasCleanLens = !!cleanLensItems.length;
+           const antiRadLength = antiRadItems?.map(item => item.quantity)?.reduce((a, b) => a + b, 0) ?? 0;
+           const cleanLensLength = cleanLensItems?.map(item => item.quantity)?.reduce((a, b) => a + b, 0) ?? 0;
+           const hasAntiRad = !!antiRadItems.length;
+
+           hasAntiRad ? eligibleForFreeCleanLens() : notEligibleForFreeCleanLens();
+
+           if (hasAntiRad && !hasCleanLens) {
+             addCleanLensToCart();
+           }
+
+           if (cleanLensLength < antiRadLength) {
+           	updateCleanLensQuanity(antiRadLength);
+           }
+         }
+     })
+     .catch(err => console.error(err));
+   }
+
+   function eligibleForFreeCleanLens() {
+   	$("#clean-lens-promo-popup-copy-eligible").show();
+     $("#clean-lens-promo-popup-copy-not-eligble").hide();
+   }
+
+   function notEligibleForFreeCleanLens() {
+   	$("#clean-lens-promo-popup-copy-eligible").hide();
+     $("#clean-lens-promo-popup-copy-not-eligble").show();
+   }
+
+   function addCleanLensToCart() {
+   	const addData = {
+       'items': [{
+         'id': cleanLensVariantId,
+         'quantity': 1,
+       }]
+     }
+
+     fetch('/cart/add.js', {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify(addData)
+     })
+     .then(res => {
+       if (res.status === 200) {
+       	window.location.reload();
+       }
+     })
+     .catch(err => console.error(err));
+   }
+
+   function updateCleanLensQuanity(antiRadItemsCount) {
+   	const data = {
+       	'id': `${cleanLensVariantId}`,
+         'quantity': +antiRadItemsCount,
+     }
+
+     fetch('/cart/change.js', {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify(data)
+     })
+     .then(res => {
+       if (res.status === 200) {
+       	window.location.reload();
+       }
+     })
+     .catch(err => console.error(err));
+   }
+</script>

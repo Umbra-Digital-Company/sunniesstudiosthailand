@@ -1,0 +1,87 @@
+{{ 'search.css' | asset_url | stylesheet_tag }}
+{{ 'product-card-search.css' | asset_url | stylesheet_tag }}
+
+{% comment %} Minor adjustment {% endcomment %}
+<style>
+  .product-card-image[data-first-available="true"] {
+    object-fit: cover !important;
+  }
+</style>
+
+
+<section class="section-search-results">
+  <div class="main-search-container"> <div class="main-search-wrapper">
+    <div class="search-result-container">
+      <div class="search-main-wrapper">
+        <h4 class="search-main-title"></h4>
+        <p class="search-term-hide">Are you trying to look for: <span class="search-identify"></span></p>
+      </div>
+      <div class="search-info-collect-wrapper">
+        <div class="search-wrap">
+            <h4>Information</h4>
+            <div class="search-information-wrapper">
+              <div class="search-information-description">
+                <span></span>
+              </div>
+          </div>
+        </div>
+        <div>
+          <div class="search-wrap">
+            <h4>Collections</h4>
+            <div class="search-collection-container">
+              <div class="search-collection-prompt"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
+    {% paginate search.results by 40 %}
+    <div class="main-search-items">
+      {% for search_type in search.types %}
+        {% for searched_item in search.results %}
+          {% if search_type == 'page' %}
+            <div class="page-card">
+              <a href="{{ searched_item.url }}" style="color: var(--soft-black-700, #352B27); font-family: 'AT-Surt-Semibold'; font-size: 14px; font-style: normal; line-height: 20px; display: flex; flex-direction: column;">
+                <p>{{ searched_item.title }}</p>
+              </a>
+            </div>
+          {% endif %}
+
+          {% if search_type == 'product' %}
+            {% assign block_product = searched_item %}
+            {% assign block_product_type = block_product.type | downcase %}
+      
+            {% if block_product_type == 'readers frame' %}
+              {% render 'readers-product-card' with block_product as product_data %}
+            {% elsif block_product_type contains 'hidden' or block_product_type == 'lens' %}
+              {{  }}
+            {% else %}
+              {% render 'product-card' with block_product as product_data %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+    {% comment %} <div class="main-search-pagination">
+      <a href="{{ paginate.previous.url }}" id="search-pagination-previous">
+        <img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Vector_fc6cc8b4-d795-4fb6-8ed4-77b64847dbed.svg?v=1665388793"
+          loading="lazy" />
+      </a>
+      <p>{{ paginate.current_page }} / {{ paginate.pages }}</p>
+      <a href="{{ paginate.next.url }}" id="search-pagination-next">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Vector_fc6cc8b4-d795-4fb6-8ed4-77b64847dbed.svg?v=1665388793"
+          loading="lazy" />
+      </a>
+    </div> {% endcomment %}
+    {% endpaginate %}
+
+  </div>
+  </div>
+  </section>
+  <section class="section-featured-settings">
+    {% section 'section-search-recommend' %}
+  </section>
+  
+  
+<script src="{{'search-result.js' | asset_url}}"> </script>

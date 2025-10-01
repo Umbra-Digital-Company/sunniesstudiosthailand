@@ -1,0 +1,29 @@
+{{ 'section-page-intro.css' | asset_url | stylesheet_tag }}
+
+<div class="section-page-intro-container">
+  <img src="{{ section.settings.desktop_image | image_url: width: 1440 }}" id="page-intro-desktop-image" loading="lazy">
+  <img src="{{ section.settings.mobile_image | image_url: width: 390 }}" id="page-intro-mobile-image" loading="lazy">
+</div>
+
+{% schema %}
+{
+  "name": "Page Intro",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Intro"
+    }
+  ]
+}
+{% endschema %}

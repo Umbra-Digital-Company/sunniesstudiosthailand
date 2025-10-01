@@ -1,0 +1,74 @@
+{{ 'summer-landing-page-2025.css' | asset_url | stylesheet_tag }}
+
+<section class="section-eight">
+  <div class="section-eight__description">
+    <div class="section-eight__text">
+      {% if section.settings.section-eight-icon-top != blank  %}<img src="{{ section.settings.section-eight-icon-top | image_url }}" />{% endif %}
+        {{ section.settings.section-eight-text }}
+      {% if section.settings.section-eight-icon-bottom != blank  %}<img src="{{ section.settings.section-eight-icon-bottom | image_url }}" />{% endif %}
+    </div>
+  </div>
+  <div class="section-eight__media">
+    <img src="{{ section.settings.section-eight-image-desktop | image_url }}" class="section-eight__image--desktop" />
+    <img src="{{ section.settings.section-eight-image-mobile | image_url }}" class="section-eight__image--mobile" />
+    {% if section.settings.section-eight-tag-label != blank %}
+      <a class="tag-link" href="{{ section.settings.section-eight-tag-link }}">
+      {{ section.settings.section-eight-tag-label }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+
+{% schema %}
+    {
+      "name": "Summer Section 8",
+      "settings": [
+        {
+        "type": "header",
+        "content": "Section 8"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-eight-icon-top",
+        "label": "Icon Top"
+      },
+      {
+        "type": "richtext",
+        "id": "section-eight-text",
+        "label": "Text"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-eight-icon-bottom",
+        "label": "Icon Bottom"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-eight-image-desktop",
+        "label": "Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "section-eight-image-mobile",
+        "label": "Image (Mobile)"
+      },
+      {
+        "type": "url",
+        "id": "section-eight-tag-link",
+        "label": "Tag Link"
+      },
+      {
+        "type": "text",
+        "id": "section-eight-tag-label",
+        "label": "Tag Label"
+      },
+      ],
+        "presets": [
+            {
+            "name": "Summer Section 8",
+            "category": "Landing Page"
+            }
+        ]
+    }
+  {% endschema %}

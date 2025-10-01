@@ -1,0 +1,30 @@
+{{ 'page-text-intro.css' | asset_url | stylesheet_tag }}
+
+<div class="page-text-intro-container" style="background-color: {{ section.settings.background_color }}">
+  <h1>{{ section.settings.title }}</h1>
+</div>
+
+{% schema %}
+{
+  "name": "Page Text Intro",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#F4EFE6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Text Intro"
+    }
+  ]
+}
+{% endschema %}

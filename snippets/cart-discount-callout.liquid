@@ -1,0 +1,84 @@
+{%liquid 
+  assign is_eligible = false
+
+  assign discount_include_sun = settings.discount_include_sun
+  assign discount_include_optical = settings.discount_include_optical
+  assign discount_include_reader = settings.discount_include_reader
+  assign discount_include_antirad = settings.discount_include_antirad
+  assign discount_include_merch = settings.discount_include_merch
+
+  assign discount_minimum_purchase_amount = settings.discount_minimum_purchase_amount
+  assign product_to_be_excluded = settings.product_to_be_excluded
+
+  assign all_eligble_product_for_calculations = 0
+
+  for item in cart.items
+    if product_to_be_excluded.id != item.product.id
+      if item.product.type == 'Sun frame' and discount_include_sun
+      assign all_eligble_product_for_calculations = all_eligble_product_for_calculations | plus: item.final_line_price 
+      endif
+
+      if item.product.type == 'Optical frame' and discount_include_optical
+      assign all_eligble_product_for_calculations = all_eligble_product_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Lens' and discount_include_optical
+      assign all_eligble_product_for_calculations = all_eligble_product_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Readers frame' and discount_include_reader
+      assign all_eligble_product_for_calculations = all_eligble_product_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Anti-Radiation Frame' and discount_include_antirad
+      assign all_eligble_product_for_calculations = all_eligble_product_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Merch' and discount_include_merch
+      assign all_eligble_product_for_calculations = all_eligble_product_for_calculations | plus: item.final_line_price 
+      endif
+    endif
+  endfor
+
+  assign total_discount_cart_price = all_eligble_product_for_calculations | divided_by: 100
+
+  if total_discount_cart_price >= discount_minimum_purchase_amount 
+  assign is_eligible = true
+  else
+  assign is_eligible = false
+  endif
+%}
+
+<div class="cart-discount-callout-container"
+  style="display: {% if settings.enable_discount_callout %}block{% else %}none{% endif %};">
+  <div class="cart-discount-callout-wrapper">
+    <img src="{{ settings.discount_callout_image }}" loading="lazy"
+      id="callout-img" />
+    <div class="cart-discount-callout-content">
+      <section>
+        <h4 id="cart-callout-title">
+          {% if is_eligible %}
+          {{ settings.cart_discount_callout_title_eligible }}
+          {% else %}
+          {{ settings.cart_discount_callout_title_not_eligible }}
+          {% endif %}
+        </h4>
+        <p id="cart-callout-description">
+          {% if is_eligible %}
+          {{ settings.cart_discount_callout_description_eligible }}
+          {% else %}
+          {{ settings.cart_discount_callout_description_not_eligible }}
+          {% endif %}
+        </p>
+      </section>
+      <div class="cart-discount-callout-actions">
+        <button id="cart-discount-callout-button" onclick="addMiniProduct('39857287594102')">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Union.svg?v=1666083086"
+            loading="lazy" />
+          <span>Add</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

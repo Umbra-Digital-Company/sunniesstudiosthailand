@@ -1,0 +1,28 @@
+.section-page-intro-container {
+  width: 100%;
+  margin: 64px 0 0 0;
+}
+
+#page-intro-desktop-image {
+  display: none;
+  width: 100%;
+}
+
+#page-intro-mobile-image {
+  display: block;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .section-page-intro-container {
+    margin: 115px 0 0 0;
+  }
+
+  #page-intro-desktop-image {
+    display: block;
+  }
+
+  #page-intro-mobile-image {
+    display: none;
+  }
+}

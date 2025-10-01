@@ -1,0 +1,187 @@
+.contact-email a {
+  color: inherit;
+  text-decoration: underline;
+  transition: opacity .4s;
+  font-size: 14px;
+  font-family: 'Radio Grotesk';
+  line-height: 20px;
+}
+.section-contact .section__body .contact-form-container .contact-email {
+    margin-bottom: 24px;
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+}
+.section-contact .contact-form-container .section__head {
+    margin-bottom: 0;
+    /* safe overwrite */
+}
+.form-label-title {
+    font-size: 12px;
+    font-family: 'Radio Grotesk';
+    color: #756F6D;
+    line-height: 16px;
+    margin-bottom: 6px;
+}
+.contact-email a:hover {
+    opacity: .65;
+}
+.transparent-color {
+  color: rgba(0, 0, 0, 0);
+}
+.contact-form-mx {
+    max-width: 100%;
+}
+.contact-form-body {
+    display: flex;
+    max-width: 1008px;
+    gap: 140px;
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+}
+.contact-form-container {
+    width: 468px
+}
+.contact-address-container {
+    width: 400px;
+}
+.form-base.form-base.form-base .form__actions .btn {
+min-width: 100%;
+}
+.contact-form-mx {
+    max-width: 100% !important;
+    display: flex;
+    justify-content: center;
+}
+.contact-form-container .section__head h1, .section-contact .section__body .contact-email {
+    text-align: start;
+}   
+.contact-form-container .section__head h1, .contact-address-container .contact-address h1 {
+    text-transform: none;
+    font-size: 28px;
+    font-family: "AT Surt Medium";
+    line-height: 36px;
+    color: #352b27;
+    margin-bottom: 12px;
+    margin-top: 0;
+}
+.contact-address-container .contact-address h1 {
+    margin-bottom: 16px;
+}
+.contact-address {
+    margin-top: 0 !important
+}
+.contact-info-wrapper {
+    padding: 24px;
+    background-color: #F8F6F5;
+    border-radius: 6px;
+}
+.contact-info-wrapper div:not(:last-child) {
+    margin-bottom: 16px;
+}
+.contact-info-wrapper div div {
+    width: 100%;
+    border-bottom: 1px solid #D7D6D0;
+    margin-top: 16px;
+}
+.contact-info-wrapper div p {
+    font-size: 14px;
+    font-family: 'Radio Grotesk';
+    line-height: 20px;
+    color: #554D4A;
+}
+.contact-info-wrapper div h4 {
+    font-size: 14px;
+    font-family: "AT-Surt-SemiBold";
+    color: #352b27;
+    text-transform: none;
+    line-height: 20px;
+    margin-bottom: 12px;
+}
+.contact-number-wrapper span {
+    display: flex;
+    gap: 16px;
+}
+.contact-socials-wrapper span:not(:last-child) {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    /* row-gap: 8px; */
+    margin-bottom: 8px;
+}
+.contact-message-container, .contact-message-container #field-contact-message {
+    height: 120px;
+}
+.contact-info-wrapper div a {
+    font-size: 14px;
+    font-family: 'Radio Grotesk';
+    color: #554D4A;
+}
+.form-base.form-base.form-base .form__row input {
+    height: 40px;
+}
+.contact-form-container  .form__actions button {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    text-transform: none;
+    font-weight: 100;
+    font-family: 'Radio Grotesk';
+    line-height: 20px;
+}
+.form-base.form-base.form-base .field, .form-base.form-base.form-base select {
+    border: 1px solid #d7d6d0;
+    padding: 8px 10px;
+    border-radius: 4px;
+    background: transparent;
+    font-family: 'Radio Grotesk';
+    font-weight: 100;
+    font-size: 14px;
+    transition: border-color 0.4s;
+    width: 100%;
+    margin: 0;
+    color: #352b27;
+    text-transform: none;
+}
+.form-base.form-base.form-base .form__row {
+    margin-bottom: 16px;
+}
+.section-contact {
+    padding-bottom: 0;
+}
+.form-base.form-base.form-base .form__message--success {
+    font-size: 14px;
+    color: #28a745;
+    line-height: 20px;
+    font-family: 'Radio Grotesk';
+}
+@media (max-width: 767px) {
+    .contact-form-body {
+        flex-direction: column;
+        gap: 40px;
+    }
+    .contact-form-container, .contact-address-container {
+        width: 100%;
+    }
+    .shell-contact {
+        padding: 32px 16px;
+    }
+    .contact-form-container .section__head h1, .contact-address-container .contact-address h1 {
+        font-size: 22px;
+        line-height: 36px;
+    }
+    .contact-email {
+        color: #554D4A;
+    }
+    .form-base.form-base.form-base .form__body {
+        margin-bottom: 24px;
+    }
+}
+@media (min-width: 768px) {
+    .contact-form-container .form__body {
+        width: 100%;
+    }
+    .contact-form-mx {
+        padding-bottom: 40px;
+    }
+}

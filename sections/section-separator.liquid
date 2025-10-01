@@ -1,0 +1,40 @@
+{%- assign _section = section.settings -%}
+{%- assign section_text_color = _section.text_color -%}
+
+
+    <section class="section-separator">
+      <div class="shell">
+       	<hr style="border: 1px solid {{section_text_color}}; border-bottom:0; border-left:0; border-right:0;" />
+      </div><!-- /.shell -->
+    </section><!-- /.section-separator -->
+
+
+{% schema %}
+
+{
+    "name": "Section Separator",
+    "settings": [
+        {
+            "type": "select",
+            "id": "text_color",
+            "label": "Separator Color",
+            "options": [
+                {
+                    "value": "#cbb8a8",
+                    "label": "Light"
+                }, {
+                    "value": "#393333",
+                    "label": "Dark"
+                }
+            ]
+        }
+    ],
+    
+    "presets": [
+        {
+            "name": "Section Separator"
+        }
+    ]
+}
+
+{% endschema %}

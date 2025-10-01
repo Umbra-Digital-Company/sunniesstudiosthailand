@@ -1,0 +1,279 @@
+{{ 'section-eye-candy.css' | asset_url | stylesheet_tag }}
+{% liquid
+
+  assign image_block = section.blocks.eye_candy_image.settings
+  assign counter = 0
+  
+%}
+
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'product_card' %}
+          {% assign counter = counter | plus: 1 %}
+        {% endcase %}
+      {% endfor %}
+  {%-capture count_class-%}
+      {% if counter == 1%}
+        image-75
+      {% elsif counter == 2%}
+        image-50
+      {% elsif counter == 3%}
+        image-25
+      {% elsif counter == 0%}
+        image-100
+      {% endif %}
+  {% endcapture %}
+  
+  {%-capture card_counter -%}
+      {% if counter > 3%}
+        enable
+      {% endif %}
+  {% endcapture %}
+  
+<section class="eye-candy-section {{ section.id }}">
+  <div class="ec-container">
+    <div class="ec-header" style="background-color: {{ section.settings.header_background }}">
+      <h3 class="ec-header--title" style="color:{{ section.settings.header_text_color }}">{{ section.settings.header_title }}</h3>
+      <div class="ec-header--description" style="color:{{ section.settings.header_text_color }}">{{ section.settings.header_description }}</div>
+    </div>
+
+        <div class="featured-product-nav-buttons">
+          <div class="featured-products-swiper-prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="featured-products-swiper-next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8.625 12L13 8L8.625 4M13 8L3 8" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+    <div class="ec-content {{ count_class | strip }} swiper-wrapper">
+
+
+      
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'eye_candy_image' %}  
+            <img class="ec-content--image desktop swiper-slide" src="{{ block.settings.eye_candy_image }}" loading="lazy">
+      
+            <img class="ec-content--image mobile swiper-slide" src="{{ block.settings.mobile_eye_candy_image }}" loading="lazy">
+
+          {% when 'product_card' %}
+            <div class="product_card swiper-slide">
+              {% if block.settings.card_version == "version_1" %}
+                {% render 'product-card-eye-candy',  product_data: block.settings.product_card %}
+              {% else %}
+                {% render 'product-card-eye-candy-v2',  product_data: block.settings.product_card, variant_name: block.settings.product_variant %}
+              {% endif %}
+            </div>
+        {% endcase %}
+      {% endfor %}
+      
+    </div>
+  </div>
+</section>
+
+      <style>
+        .{{ section.id }} .featured-product-nav-buttons {
+          width: calc(100% + 50px);
+          left: -25px;
+          height: 115%;
+          display: none;
+          align-items: center;
+          justify-content: space-between;
+          position: absolute;
+        }
+
+        .featured-products-swiper-next.swiper-button-disabled,
+        .featured-products-swiper-prev.swiper-button-disabled{
+          opacity: 0;
+        }
+
+        .{{ section.id }} .featured-product-nav-buttons div {
+            z-index: 2;
+            cursor: pointer;
+            background: var(--white_color);
+            box-shadow: 0 2px 2px 1px #0000001a;
+            border-radius: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+        }
+        
+      </style>
+              
+{% if section.settings.enable_slider == 'enable' or card_counter contains 'enable' %}
+  <style>
+    
+    .{{ section.id }} .featured-product-nav-buttons div {
+        display: flex;
+    }
+    .{{ section.id }} .featured-product-nav-buttons {
+      display: flex;
+  }
+    .{{ section.id }} .ec-content--image{
+      
+          aspect-ratio: .6 !important;
+      max-height: 650px;
+    }
+    
+    .{{ section.id }} .ec-content{
+      display: flex !important;
+    column-gap: unset !important;
+    }
+
+    @media(max-width: 767px){
+      .{{ section.id }} .product-card-v2 .product-card-images{
+        aspect-ratio: 1 / 1.25;
+      }
+      .{{ section.id }} .ec-content--image{
+          aspect-ratio: unset;
+      }
+      .{{ section.id }} .swiper-slide{
+        max-width: unset;
+      }
+      .{{ section.id }} .featured-product-nav-buttons {
+          display: none;
+      }
+      
+    }
+  </style>
+  <script>
+    new Swiper(".{{ section.id }} .ec-container", {
+    slidesPerView: 1.25,
+    spaceBetween: 4,
+    slidesPerGroup: 1,
+    breakpoints: {
+      768: {
+        slidesPerView: 4,
+        slidesPerGroup: 4,
+      }
+    }
+      ,
+    navigation: {
+      nextEl: ".featured-products-swiper-next",
+      prevEl: ".featured-products-swiper-prev",
+    },
+  });
+  </script>
+{% endif %}
+
+{{ 'product-card-eye-candy.js' | asset_url | script_tag }}
+{% schema %}
+  {
+    "name": "Eye Candy Section",
+    "settings":[
+      {
+        "type":"color",
+        "id":"header_background",
+        "label":"Header Background Color"
+      },
+      {
+        "type":"color",
+        "id":"header_text_color",
+        "label":"Header Text Color"
+      },
+      {
+        "type":"text",
+        "id":"header_title",
+        "label":"Header Title"
+      },
+      {
+        "type":"richtext",
+        "id":"header_description",
+        "label":"Header Description"
+      },
+      {
+        "type":"select",
+        "id":"enable_slider",
+        "label":"Enable Product Slider",
+        "options":[
+          {
+            "value":"enable",
+            "label":"Enable"
+          },
+          {
+            "value":"disable",
+            "label":"Disable"
+          }
+      ],
+          "default":"disable"
+      }
+    ],
+    "blocks":[
+      {
+        "type":"eye_candy_image",
+        "name":"Image Card",
+        "limit":1,
+        "settings":[
+          {
+          "type":"url",
+          "id":"eye_candy_image",
+          "label":"Desktop Image Card"
+          },
+          {
+          "type":"url",
+          "id":"mobile_eye_candy_image",
+          "label":"Mobile Image Card"
+          }
+        ]
+      },
+      {
+        "type":"product_card",
+        "name":"Product Card",
+        "settings":[
+          {
+            "type": "radio",
+            "id": "card_version",
+            "label": "Product Card Version",
+            "options": [
+              {
+                "value": "version_1",
+                "label": "Version 1"
+              },
+              {
+                "value": "version_2",
+                "label": "Version 2"
+              }
+            ],
+            "default": "version_1",
+            "info":"Version 1 will ignore the Product Variant field"
+          },
+          {
+          "type":"product",
+          "id":"product_card",
+          "label":"Product"
+          },
+          {
+          "type":"text",
+          "id":"product_variant",
+          "label":"Product Variant"
+          }
+        ]
+      }
+    ],
+    "presets":[
+      {
+        "name":"Eye Candy Section",
+        "blocks":[
+          {
+            "type":"eye_candy_image"
+          },
+          {
+            "type":"product_card"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

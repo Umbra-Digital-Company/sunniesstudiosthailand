@@ -1,0 +1,112 @@
+{{ 'section-eye-candy.css' | asset_url | stylesheet_tag }}
+{% liquid
+
+  assign image_block = section.blocks.eye_candy_image.settings
+  
+%}
+<section class="eye-candy-image-banner-section">
+
+      <div class="ec-desktop">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'desktop_image' %}  
+        <a href="{{ block.settings.image_hyperlink }}">
+                <img class="ec-content--image-banner" src="{{ block.settings.desktop_image }}" loading="lazy">
+          </a>
+          {% endcase %}
+        {% endfor %}
+      </div>
+  
+      <div class="ec-mobile ec-mobile-{{ section.id }}">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'mobile_image' %}
+                <a class="swiper-slide" target="_blank" href="{{ block.settings.image_hyperlink }}">
+                  <img class="ec-content--image-banner " src="{{ block.settings.mobile_image }}" loading="lazy">
+                </a>
+            {% endcase %}
+          {% endfor %}
+        </div>
+        <div class='ec-swiper-pagination'></div>
+      </div>
+</section>
+
+<script>
+  new Swiper(".ec-mobile-{{ section.id }}", {
+    // effect: "flip",
+    // limitRotation: true,
+    touchStartPreventDefault: false,
+    pagination: {
+      el: ".ec-swiper-pagination",
+      clickable: true,
+    }
+  });
+
+  
+</script>
+{% schema %}
+  {
+    "name": "Image Banner Carousel",
+    "blocks":[
+      {
+        "type":"desktop_image",
+        "name":"Desktop Image",
+        "limit":1,
+        "settings":[
+          {
+          "type":"url",
+          "id":"desktop_image",
+          "label":"Desktop Image"
+          },
+          {
+          "type":"url",
+          "id":"image_hyperlink",
+          "label":"Hyperlink"
+          }
+        ]
+      },
+      {
+        "type":"mobile_image",
+        "name":"Mobile Image Slide",
+        "settings":[
+          {
+          "type":"url",
+          "id":"mobile_image",
+          "label":"Image Slide for Mobile"
+          },
+          {
+          "type":"url",
+          "id":"image_hyperlink",
+          "label":"Hyperlink"
+          }
+        ]
+      }
+    ],
+    "presets":[
+      {
+        "name":"Image Banner Carousel",
+        "blocks":[
+          {
+            "type":"desktop_image"
+          },
+          {
+            "type":"mobile_image"
+          },
+          {
+            "type":"mobile_image"
+          },
+          {
+            "type":"mobile_image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

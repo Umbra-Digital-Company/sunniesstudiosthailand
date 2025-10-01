@@ -1,0 +1,149 @@
+{{ 'collections-group.css' | asset_url | stylesheet_tag }}
+
+
+<div class="collection-grid">
+  <div class="collections">
+    {% for block in section.blocks %}
+
+      {% liquid
+        assign alignment = ''
+      
+        if block.settings.content_alignment == 'left'
+          assign alignment = 'left-alignment'
+        elsif block.settings.content_alignment == 'center'
+          assign alignment = 'center-alignment'
+        else
+          assign alignment = 'right-alignment'
+        endif
+      %}
+    
+      {% if block.settings.card_type == 'card-1' %}
+      <div class="collection-block {{ alignment }}" style="background-image: url({{ block.settings.collection_image.src | image_url }})">
+        <div class="collection-details-container">
+          <div class="collection-details">
+            <h5>{{ block.settings.collection_title }}</h5>
+            <p>{{ block.settings.description }}</p>
+          </div>
+          <a class="collection-link" href="{{ block.settings.collection_id.url }}" target="_blank">{{ block.settings.button_text }}</a>
+        </div>
+      </div>
+    {% elsif block.settings.card_type == 'card-2' %}
+        <div class="collection-block_wf">
+          <div class="collection-details-image-container" style="background-image: url({{ block.settings.collection_image.src | image_url }})">
+            <div class="collection-details">
+              <h5>{{ block.settings.collection_title }}</h5>
+            </div>
+          </div>
+          <div class="collection-details-footer" style="background-color: {{ block.settings.footer_color }}">
+            <div class="collection-details">
+              <p>{{ block.settings.description }}</p>
+              <a class="collection-link--cta" href="{{ block.settings.collection_id.url }}" target="_blank">{{ block.settings.button_text }}</a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Feature Card",
+    
+      "blocks":[
+        {
+        "type":"collection",
+        "name":"Feature Card",
+          "settings":[
+            {
+              "type":"text",
+              "id":"collection_title",
+              "label":"Card Title"
+            },
+             {
+              "type":"select",
+              "id":"card_type",
+              "label":"Feature Card Type",
+              "options":[
+                {
+                  "value":"card-1",
+                  "label":"Card 1"
+                },
+                {
+                  "value":"card-2",
+                  "label":"Card 2"
+                }
+                
+              ],
+              "default":"card-1"
+            },
+             {
+              "type":"select",
+              "id":"content_alignment",
+              "label":"Card 1 Content Alignment",
+              "options":[
+                {
+                  "value":"left",
+                  "label":"Bottom Left"
+                },
+                {
+                  "value":"center",
+                  "label":"Bottom Center"
+                },
+                {
+                  "value":"right",
+                  "label":"Bottom Right"
+                }
+                
+              ],
+              "default":"left"
+            },
+            {
+              "type":"color",
+              "id":"footer_color",
+              "label":"Footer Color",
+              "info":"Footer background color for Card Type 2"
+            },
+            {
+              "type":"color",
+              "id":"text_color",
+              "label":"Text Color",
+              "default":"#FFFFFF"
+            },
+            {
+              "type":"image_picker",
+              "id":"collection_image",
+              "label":"Block Image"
+            },
+            {
+              "type":"text",
+              "id":"description",
+              "label":"Card Description"
+            },
+            {
+              "type":"text",
+              "id":"button_text",
+              "label":"Button Text"
+            },
+            {
+              "type":"url",
+              "id":"button_url",
+              "label":"Button URL"
+            }
+          ]
+      }
+      ],
+      "presets": [
+    {
+    "name": "Collections Grid"
+    }
+  ]
+    
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

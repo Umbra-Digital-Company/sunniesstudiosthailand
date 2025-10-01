@@ -1,0 +1,522 @@
+<div class="summary-desktop">
+  <div class="summary-content header-section">
+    {% comment %} {% render 'sunnies-logo-dark', class: 'logo-dark' %} {% endcomment %}
+    {% render 'sunnies-logo-summer' %}
+  </div>
+  <div class="summary-content bottle-section active" data-filled="filled">
+    <div class="summary-content_header bottle-section_header">
+      <svg class="section-indicator filled" xmlns="http://www.w3.org/2000/svg" width="16" height="17"
+        viewBox="0 0 16 17" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M7.99984 1.16669C3.94984 1.16669 0.666504 4.45002 0.666504 8.50002C0.666504 12.55 3.94984 15.8334 7.99984 15.8334C12.0498 15.8334 15.3332 12.55 15.3332 8.50002C15.3332 4.45002 12.0498 1.16669 7.99984 1.16669ZM11.1785 7.26002C11.237 7.19312 11.2816 7.11518 11.3096 7.0308C11.3375 6.94642 11.3483 6.8573 11.3414 6.76868C11.3344 6.68006 11.3097 6.59373 11.2689 6.51477C11.228 6.43582 11.1718 6.36582 11.1035 6.30892C11.0352 6.25201 10.9563 6.20933 10.8712 6.1834C10.7862 6.15746 10.6969 6.1488 10.6084 6.15791C10.52 6.16702 10.4343 6.19372 10.3563 6.23644C10.2784 6.27917 10.2098 6.33705 10.1545 6.40669L7.28784 9.84602L5.8045 8.36202C5.67877 8.24058 5.51037 8.17339 5.33557 8.1749C5.16077 8.17642 4.99356 8.24654 4.86996 8.37014C4.74635 8.49375 4.67624 8.66096 4.67472 8.83575C4.6732 9.01055 4.7404 9.17895 4.86184 9.30469L6.86184 11.3047C6.92734 11.3702 7.00577 11.4213 7.09211 11.4547C7.17846 11.4882 7.27084 11.5033 7.36335 11.4991C7.45586 11.4949 7.54649 11.4715 7.62945 11.4303C7.7124 11.3892 7.78587 11.3312 7.84517 11.26L11.1785 7.26002Z"
+          fill="var(--summer-yellow-color)" />
+      </svg>
+
+      <svg class="section-indicator empty" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17"
+        fill="none">
+        <path d="M7.99992 5.83334V8.50001M7.99992 8.50001V11.1667M7.99992 8.50001H10.6666M7.99992 8.50001H5.33325"
+          stroke="var(--text-color)" stroke-linecap="round" />
+        <path
+          d="M7.99992 15.1667C11.6818 15.1667 14.6666 12.1819 14.6666 8.50001C14.6666 4.81811 11.6818 1.83334 7.99992 1.83334C4.31802 1.83334 1.33325 4.81811 1.33325 8.50001C1.33325 12.1819 4.31802 15.1667 7.99992 15.1667Z"
+          stroke="var(--text-color)" />
+      </svg>
+      <svg class="section-indicator unavailable" width="16" height="17" viewBox="0 0 20 21" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M9.99984 18.8337C14.6022 18.8337 18.3332 15.1027 18.3332 10.5003C18.3332 5.89795 14.6022 2.16699 9.99984 2.16699C5.39746 2.16699 1.6665 5.89795 1.6665 10.5003C1.6665 15.1027 5.39746 18.8337 9.99984 18.8337Z"
+          fill="#928D8C" />
+        <path
+          d="M12.795 7.70468L9.99951 10.5002M9.99951 10.5002L7.20401 13.2957M9.99951 10.5002L12.795 13.2957M9.99951 10.5002L7.20401 7.70468"
+          stroke="white" stroke-linecap="round" />
+      </svg>
+
+      <h3>Bottle</h3>
+    </div>
+    <div class="summary-content_options">
+      <div class="size-section">
+        <span class="option-name">Size</span>
+        <span id="bottle-size-text" class="option-value">25oz</span>
+      </div>
+      <div class="color-section">
+        <div class="color-info classic">
+          <span class="option-name">Classic</span>
+          <span id="bottle-color-text-classic" class="option-value"></span>
+        </div>
+        {% assign body_index = 0 %}
+        <div id="summary-body-options" class="form summary-body-options">
+          {% for variant in body_component.variants %}
+          {% unless variant.metafields.custom.limited == true %}
+
+          <label>
+            <input type="radio" data-slider_index="{{ body_index }}" data-color-type="classic"
+              data-main_variant='{% for variant_main in main_bottle.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+              data-image="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}"
+              name="summary-body-component"
+              class="body_component_radio {% unless variant.available %}disabled{% endunless %}"
+              data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+              data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+              dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+              data-variant_color="{{ variant.metafields.custom.swatch_color }}"
+              style="background-color: {{ variant.metafields.custom.swatch_color }};">
+          </label>
+
+          {% assign body_index = body_index | plus: 1 %}
+          {% endunless %}
+          {% endfor %}
+
+        </div>
+        <div class="color-info limited">
+          <span class="option-name">Limited</span>
+          <span id="bottle-color-text-limited" class="option-value"></span>
+        </div>
+        <div id="summary-body-options" class="form summary-body-options">
+          {% for variant in body_component.variants %}
+          {% if variant.metafields.custom.limited == true %}
+
+          <label>
+            <input type="radio" data-slider_index="{{ body_index }}" data-color-type="limited"
+              data-main_variant='{% for variant_main in main_bottle.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+              data-image="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}"
+              name="summary-body-component"
+              class="body_component_radio {% unless variant.available %}disabled{% endunless %}"
+              data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+              data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+              dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+              data-variant_color="{{ variant.metafields.custom.swatch_color }}"
+              style="background-color: {{ variant.metafields.custom.swatch_color }};">
+          </label>
+
+          {% assign body_index = body_index | plus: 1 %}
+          {% endif %}
+          {% endfor %}
+
+        </div>
+        <div class="unavailable-info">
+          This color is coming soon. Select another color to proceed.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="summary-content cap-section" data-filled="empty">
+
+    <div class="summary-content_header cap-section_header">
+      <svg class="section-indicator filled" xmlns="http://www.w3.org/2000/svg" width="16" height="17"
+        viewBox="0 0 16 17" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M7.99984 1.16669C3.94984 1.16669 0.666504 4.45002 0.666504 8.50002C0.666504 12.55 3.94984 15.8334 7.99984 15.8334C12.0498 15.8334 15.3332 12.55 15.3332 8.50002C15.3332 4.45002 12.0498 1.16669 7.99984 1.16669ZM11.1785 7.26002C11.237 7.19312 11.2816 7.11518 11.3096 7.0308C11.3375 6.94642 11.3483 6.8573 11.3414 6.76868C11.3344 6.68006 11.3097 6.59373 11.2689 6.51477C11.228 6.43582 11.1718 6.36582 11.1035 6.30892C11.0352 6.25201 10.9563 6.20933 10.8712 6.1834C10.7862 6.15746 10.6969 6.1488 10.6084 6.15791C10.52 6.16702 10.4343 6.19372 10.3563 6.23644C10.2784 6.27917 10.2098 6.33705 10.1545 6.40669L7.28784 9.84602L5.8045 8.36202C5.67877 8.24058 5.51037 8.17339 5.33557 8.1749C5.16077 8.17642 4.99356 8.24654 4.86996 8.37014C4.74635 8.49375 4.67624 8.66096 4.67472 8.83575C4.6732 9.01055 4.7404 9.17895 4.86184 9.30469L6.86184 11.3047C6.92734 11.3702 7.00577 11.4213 7.09211 11.4547C7.17846 11.4882 7.27084 11.5033 7.36335 11.4991C7.45586 11.4949 7.54649 11.4715 7.62945 11.4303C7.7124 11.3892 7.78587 11.3312 7.84517 11.26L11.1785 7.26002Z"
+          fill="var(--summer-yellow-color)" />
+      </svg>
+
+      <svg class="section-indicator empty" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17"
+        fill="none">
+        <path d="M7.99992 5.83334V8.50001M7.99992 8.50001V11.1667M7.99992 8.50001H10.6666M7.99992 8.50001H5.33325"
+          stroke="var(--text-color)" stroke-linecap="round" />
+        <path
+          d="M7.99992 15.1667C11.6818 15.1667 14.6666 12.1819 14.6666 8.50001C14.6666 4.81811 11.6818 1.83334 7.99992 1.83334C4.31802 1.83334 1.33325 4.81811 1.33325 8.50001C1.33325 12.1819 4.31802 15.1667 7.99992 15.1667Z"
+          stroke="var(--text-color)" />
+      </svg>
+      <svg class="section-indicator unavailable" width="16" height="17" viewBox="0 0 20 21" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M9.99984 18.8337C14.6022 18.8337 18.3332 15.1027 18.3332 10.5003C18.3332 5.89795 14.6022 2.16699 9.99984 2.16699C5.39746 2.16699 1.6665 5.89795 1.6665 10.5003C1.6665 15.1027 5.39746 18.8337 9.99984 18.8337Z"
+          fill="#928D8C" />
+        <path
+          d="M12.795 7.70468L9.99951 10.5002M9.99951 10.5002L7.20401 13.2957M9.99951 10.5002L12.795 13.2957M9.99951 10.5002L7.20401 7.70468"
+          stroke="white" stroke-linecap="round" />
+      </svg>
+
+      <h3>Cap</h3>
+    </div>
+    <div class="summary-content_options">
+      <div class="color-section">
+        <div class="color-info classic">
+          <span class="option-name">Classic</span>
+          <span id="cap-color-text-classic" class="option-value"></span>
+        </div>
+        {% assign cap_index = 0 %}
+        <div id="summary-cap-options" class="form summary-cap-options">
+          {% for variant in cap_component.variants %}
+          {% unless variant.metafields.custom.limited == true %}
+
+          <label>
+            <input type="radio" data-slider_index="{{ cap_index }}" data-color-type="classic"
+              data-main_variant='{% for variant_main in main_cap.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+              data-image="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}"
+              name="summary-cap-component"
+              class="cap_component_radio {% unless variant.available %}disabled{% endunless %}"
+              data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+              data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+              dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+              data-variant_color="{{ variant.metafields.custom.swatch_color }}"
+              style="background-color: {{ variant.metafields.custom.swatch_color }};">
+          </label>
+
+          {% assign cap_index = cap_index | plus: 1 %}
+          {% endunless %}
+          {% endfor %}
+
+        </div>
+        <div class="color-info limited">
+          <span class="option-name">Limited</span>
+          <span id="cap-color-text-limited" class="option-value"></span>
+        </div>
+        <div id="summary-cap-options" class="form summary-cap-options">
+          {% for variant in cap_component.variants %}
+          {% if variant.metafields.custom.limited == true %}
+
+          <label>
+            <input type="radio" data-slider_index="{{ cap_index }}" data-color-type="limited"
+              data-main_variant='{% for variant_main in main_cap.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+              data-image="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}"
+              name="summary-cap-component"
+              class="cap_component_radio {% unless variant.available %}disabled{% endunless %}"
+              data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+              data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+              dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+              data-variant_color="{{ variant.metafields.custom.swatch_color }}"
+              style="background-color: {{ variant.metafields.custom.swatch_color }};">
+          </label>
+
+          {% assign cap_index = cap_index | plus: 1 %}
+          {% endif %}
+          {% endfor %}
+        </div>
+        <div class="unavailable-info">
+          This color is coming soon. Select another color to proceed.
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="summary-content loop-section" data-filled="empty" data-loop>
+
+    <div class="summary-content_header loop-section_header">
+      <svg class="section-indicator filled" xmlns="http://www.w3.org/2000/svg" width="16" height="17"
+        viewBox="0 0 16 17" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M7.99984 1.16669C3.94984 1.16669 0.666504 4.45002 0.666504 8.50002C0.666504 12.55 3.94984 15.8334 7.99984 15.8334C12.0498 15.8334 15.3332 12.55 15.3332 8.50002C15.3332 4.45002 12.0498 1.16669 7.99984 1.16669ZM11.1785 7.26002C11.237 7.19312 11.2816 7.11518 11.3096 7.0308C11.3375 6.94642 11.3483 6.8573 11.3414 6.76868C11.3344 6.68006 11.3097 6.59373 11.2689 6.51477C11.228 6.43582 11.1718 6.36582 11.1035 6.30892C11.0352 6.25201 10.9563 6.20933 10.8712 6.1834C10.7862 6.15746 10.6969 6.1488 10.6084 6.15791C10.52 6.16702 10.4343 6.19372 10.3563 6.23644C10.2784 6.27917 10.2098 6.33705 10.1545 6.40669L7.28784 9.84602L5.8045 8.36202C5.67877 8.24058 5.51037 8.17339 5.33557 8.1749C5.16077 8.17642 4.99356 8.24654 4.86996 8.37014C4.74635 8.49375 4.67624 8.66096 4.67472 8.83575C4.6732 9.01055 4.7404 9.17895 4.86184 9.30469L6.86184 11.3047C6.92734 11.3702 7.00577 11.4213 7.09211 11.4547C7.17846 11.4882 7.27084 11.5033 7.36335 11.4991C7.45586 11.4949 7.54649 11.4715 7.62945 11.4303C7.7124 11.3892 7.78587 11.3312 7.84517 11.26L11.1785 7.26002Z"
+          fill="var(--summer-yellow-color)" />
+      </svg>
+
+      <svg class="section-indicator empty" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17"
+        fill="none">
+        <path d="M7.99992 5.83334V8.50001M7.99992 8.50001V11.1667M7.99992 8.50001H10.6666M7.99992 8.50001H5.33325"
+          stroke="var(--text-color)" stroke-lineloop="round" />
+        <path
+          d="M7.99992 15.1667C11.6818 15.1667 14.6666 12.1819 14.6666 8.50001C14.6666 4.81811 11.6818 1.83334 7.99992 1.83334C4.31802 1.83334 1.33325 4.81811 1.33325 8.50001C1.33325 12.1819 4.31802 15.1667 7.99992 15.1667Z"
+          stroke="var(--text-color)" />
+      </svg>
+      <svg class="section-indicator unavailable" width="16" height="17" viewBox="0 0 20 21" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M9.99984 18.8337C14.6022 18.8337 18.3332 15.1027 18.3332 10.5003C18.3332 5.89795 14.6022 2.16699 9.99984 2.16699C5.39746 2.16699 1.6665 5.89795 1.6665 10.5003C1.6665 15.1027 5.39746 18.8337 9.99984 18.8337Z"
+          fill="#928D8C" />
+        <path
+          d="M12.795 7.70468L9.99951 10.5002M9.99951 10.5002L7.20401 13.2957M9.99951 10.5002L12.795 13.2957M9.99951 10.5002L7.20401 7.70468"
+          stroke="white" stroke-linecap="round" />
+      </svg>
+
+
+      <h3>Loop</h3>
+    </div>
+    <div class="summary-content_options">
+      <div class="loop-options">
+        
+        <div class="loop-choices">
+          <div class="loop-choice active" id="add_loop">
+            <span>Add Loop</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <g clip-path="url(#clip0_137_5135)">
+                <path d="M5.3335 8.3335L7.3335 10.3335L10.6668 6.3335" stroke="var(--text-color)" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path
+                  d="M8.00016 14.6668C11.6821 14.6668 14.6668 11.6821 14.6668 8.00016C14.6668 4.31826 11.6821 1.3335 8.00016 1.3335C4.31826 1.3335 1.3335 4.31826 1.3335 8.00016C1.3335 11.6821 4.31826 14.6668 8.00016 14.6668Z"
+                  stroke="var(--text-color)" />
+              </g>
+            </svg>
+            {% comment %} <span class="content-label" style="margin-top: -8px; width: 100%;">(Optional)</span> {% endcomment %}
+            <span class="loop_desc">Designed for the Sunnies Flask, the Loop is a short, durable, silicone strap to make carrying your flask easier.</span>
+          </div>
+          <div class="loop-choice" id="no_loop">
+            <span>No Loop</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <g clip-path="url(#clip0_137_5135)">
+                <path d="M5.3335 8.3335L7.3335 10.3335L10.6668 6.3335" stroke="var(--text-color)" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path
+                  d="M8.00016 14.6668C11.6821 14.6668 14.6668 11.6821 14.6668 8.00016C14.6668 4.31826 11.6821 1.3335 8.00016 1.3335C4.31826 1.3335 1.3335 4.31826 1.3335 8.00016C1.3335 11.6821 4.31826 14.6668 8.00016 14.6668Z"
+                  stroke="var(--text-color)" />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="color-section">
+        <div class="color-info classic">
+          <span class="option-name">Classic</span>
+          <span id="loop-color-text-classic" class="option-value"></span>
+        </div>
+        {% assign loop_index = 0 %}
+        <div id="summary-loop-options" class="form summary-loop-options">
+          {% for variant in loop_component.variants %}
+          {% unless variant.metafields.custom.limited == true %}
+
+          <label>
+            <input type="radio" data-slider_index="{{ loop_index }}" data-color-type="classic"
+              data-main_variant='{% for variant_main in main_loop.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+              data-image="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}"
+              name="summary-loop-component"
+              class="loop_component_radio {% unless variant.available %}disabled{% endunless %}"
+              data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+              data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+              dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+              data-variant_color="{{ variant.metafields.custom.swatch_color }}"
+              style="background-color: {{ variant.metafields.custom.swatch_color }};">
+          </label>
+
+          {% assign loop_index = loop_index | plus: 1 %}
+          {% endunless %}
+          {% endfor %}
+
+        </div>
+        <div class="color-info limited">
+          <span class="option-name">Limited</span>
+          <span id="loop-color-text-limited" class="option-value"></span>
+        </div>
+        <div id="summary-loop-options" class="form summary-loop-options">
+          {% for variant in loop_component.variants %}
+          {% if variant.metafields.custom.limited == true %}
+
+          <label>
+            <input type="radio" data-slider_index="{{ loop_index }}" data-color-type="limited"
+              data-main_variant='{% for variant_main in main_loop.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+              data-image="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}"
+              name="summary-loop-component"
+              class="loop_component_radio {% unless variant.available %}disabled{% endunless %}"
+              data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+              data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+              dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+              data-variant_color="{{ variant.metafields.custom.swatch_color }}"
+              style="background-color: {{ variant.metafields.custom.swatch_color }};">
+          </label>
+
+          {% assign loop_index = loop_index | plus: 1 %}
+          {% endif %}
+          {% endfor %}
+        </div>
+        <div class="unavailable-info">
+          This color is coming soon. Select another color to proceed.
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="summary-content boot-section" data-filled="empty" data-boot>
+
+    <div class="summary-content_header boot-section_header">
+      <svg class="section-indicator filled" xmlns="http://www.w3.org/2000/svg" width="16" height="17"
+        viewBox="0 0 16 17" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M7.99984 1.16669C3.94984 1.16669 0.666504 4.45002 0.666504 8.50002C0.666504 12.55 3.94984 15.8334 7.99984 15.8334C12.0498 15.8334 15.3332 12.55 15.3332 8.50002C15.3332 4.45002 12.0498 1.16669 7.99984 1.16669ZM11.1785 7.26002C11.237 7.19312 11.2816 7.11518 11.3096 7.0308C11.3375 6.94642 11.3483 6.8573 11.3414 6.76868C11.3344 6.68006 11.3097 6.59373 11.2689 6.51477C11.228 6.43582 11.1718 6.36582 11.1035 6.30892C11.0352 6.25201 10.9563 6.20933 10.8712 6.1834C10.7862 6.15746 10.6969 6.1488 10.6084 6.15791C10.52 6.16702 10.4343 6.19372 10.3563 6.23644C10.2784 6.27917 10.2098 6.33705 10.1545 6.40669L7.28784 9.84602L5.8045 8.36202C5.67877 8.24058 5.51037 8.17339 5.33557 8.1749C5.16077 8.17642 4.99356 8.24654 4.86996 8.37014C4.74635 8.49375 4.67624 8.66096 4.67472 8.83575C4.6732 9.01055 4.7404 9.17895 4.86184 9.30469L6.86184 11.3047C6.92734 11.3702 7.00577 11.4213 7.09211 11.4547C7.17846 11.4882 7.27084 11.5033 7.36335 11.4991C7.45586 11.4949 7.54649 11.4715 7.62945 11.4303C7.7124 11.3892 7.78587 11.3312 7.84517 11.26L11.1785 7.26002Z"
+          fill="var(--summer-yellow-color)" />
+      </svg>
+
+      <svg class="section-indicator empty" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17"
+        fill="none">
+        <path d="M7.99992 5.83334V8.50001M7.99992 8.50001V11.1667M7.99992 8.50001H10.6666M7.99992 8.50001H5.33325"
+          stroke="var(--text-color)" stroke-lineboot="round" />
+        <path
+          d="M7.99992 15.1667C11.6818 15.1667 14.6666 12.1819 14.6666 8.50001C14.6666 4.81811 11.6818 1.83334 7.99992 1.83334C4.31802 1.83334 1.33325 4.81811 1.33325 8.50001C1.33325 12.1819 4.31802 15.1667 7.99992 15.1667Z"
+          stroke="var(--text-color)" />
+      </svg>
+      <svg class="section-indicator unavailable" width="16" height="17" viewBox="0 0 20 21" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M9.99984 18.8337C14.6022 18.8337 18.3332 15.1027 18.3332 10.5003C18.3332 5.89795 14.6022 2.16699 9.99984 2.16699C5.39746 2.16699 1.6665 5.89795 1.6665 10.5003C1.6665 15.1027 5.39746 18.8337 9.99984 18.8337Z"
+          fill="#928D8C" />
+        <path
+          d="M12.795 7.70468L9.99951 10.5002M9.99951 10.5002L7.20401 13.2957M9.99951 10.5002L12.795 13.2957M9.99951 10.5002L7.20401 7.70468"
+          stroke="white" stroke-linecap="round" />
+      </svg>
+      <h3>Boot</h3>
+    </div>
+    <div class="summary-content_options">
+      <div class="boot-options">
+        {% comment %}<span class="content-label">(Optional)</span> {% endcomment %}
+        <div class="boot-choices">
+          <div class="boot-choice" id="add_boot">
+            <span class="add_boot_span">Add Boot <div class="boot_price--container"><span class="boot_price">+ $10</span></div></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <g clip-path="url(#clip0_137_5135)">
+                <path d="M5.3335 8.3335L7.3335 10.3335L10.6668 6.3335" stroke="var(--text-color)" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M8.00016 14.6668C11.6821 14.6668 14.6668 11.6821 14.6668 8.00016C14.6668 4.31826 11.6821 1.3335 8.00016 1.3335C4.31826 1.3335 1.3335 4.31826 1.3335 8.00016C1.3335 11.6821 4.31826 14.6668 8.00016 14.6668Z"
+                  stroke="var(--text-color)"></path>
+              </g>
+            </svg>
+            
+            
+            <span class="content-label" style="margin-top: -8px; width: 100%;">(Optional)</span>
+            <span class="boot_desc">Designed for the Sunnies Flask, the Boot is made with durable silicone to protect your flask from bumps and dirt.</span>
+          </div>
+          <div class="boot-choice active" id="no_boot">
+            <span>No Boot</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <g clip-path="url(#clip0_137_5135)">
+                <path d="M5.3335 8.3335L7.3335 10.3335L10.6668 6.3335" stroke="var(--text-color)" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M8.00016 14.6668C11.6821 14.6668 14.6668 11.6821 14.6668 8.00016C14.6668 4.31826 11.6821 1.3335 8.00016 1.3335C4.31826 1.3335 1.3335 4.31826 1.3335 8.00016C1.3335 11.6821 4.31826 14.6668 8.00016 14.6668Z"
+                  stroke="var(--text-color)"></path>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="color-section hidden">
+        <div class="color-info classic">
+          <span class="option-name">Classic</span>
+          <span id="boot-color-text-classic" class="option-value"></span>
+        </div>
+        {% assign boot_index = 0 %}
+        <div id="summary-boot-options" class="form summary-boot-options">
+          {% for variant in boot_component.variants %}
+          {% unless variant.metafields.custom.limited == true %}
+
+          <label>
+            <input type="radio" data-slider_index="{{ boot_index }}" data-color-type="classic"
+              data-main_variant='{% for variant_main in main_boot.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+              data-image="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}"
+              name="summary-boot-component"
+              class="boot_component_radio {% unless variant.available %}disabled{% endunless %}"
+              data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+              data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+              dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+              data-variant_color="{{ variant.metafields.custom.swatch_color }}"
+              style="background-color: {{ variant.metafields.custom.swatch_color }};">
+          </label>
+
+          {% assign boot_index = boot_index | plus: 1 %}
+          {% endunless %}
+          {% endfor %}
+
+        </div>
+        <div class="color-info limited">
+          <span class="option-name">Limited</span>
+          <span id="boot-color-text-limited" class="option-value"></span>
+        </div>
+        <div id="summary-boot-options" class="form summary-boot-options">
+          {% for variant in boot_component.variants %}
+          {% if variant.metafields.custom.limited == true %}
+
+          <label>
+            <input type="radio" data-slider_index="{{ boot_index }}" data-color-type="limited"
+              data-main_variant='{% for variant_main in main_boot.variants %}{% if variant_main.title == variant.title %}{{ variant_main.id }}{% endif %}{% endfor %}'
+              data-image="{% if variant.metafields.custom.preview_image != blank %}{{ variant.metafields.custom.preview_image | image_url }}{% endif %}"
+              name="summary-boot-component"
+              class="boot_component_radio {% unless variant.available %}disabled{% endunless %}"
+              data-name="{{ variant.title | downcase }}" data-variant_id='{{ variant.id }}'
+              data-background="{{ variant.metafields.custom.customization_page_background_color }}"
+              dark-text-mode="{{ variant.metafields.custom.customization_dark_mode }}"
+              data-variant_color="{{ variant.metafields.custom.swatch_color }}"
+              style="background-color: {{ variant.metafields.custom.swatch_color }};">
+          </label>
+
+          {% assign boot_index = boot_index | plus: 1 %}
+          {% endif %}
+          {% endfor %}
+        </div>
+        <div class="unavailable-info">
+          This color is coming soon. Select another color to proceed.
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="summary-content engraving-section" data-filled="empty">
+
+    <div class="summary-content_header engraving-section_header">
+      <svg class="section-indicator filled" xmlns="http://www.w3.org/2000/svg" width="16" height="17"
+        viewBox="0 0 16 17" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M7.99984 1.16669C3.94984 1.16669 0.666504 4.45002 0.666504 8.50002C0.666504 12.55 3.94984 15.8334 7.99984 15.8334C12.0498 15.8334 15.3332 12.55 15.3332 8.50002C15.3332 4.45002 12.0498 1.16669 7.99984 1.16669ZM11.1785 7.26002C11.237 7.19312 11.2816 7.11518 11.3096 7.0308C11.3375 6.94642 11.3483 6.8573 11.3414 6.76868C11.3344 6.68006 11.3097 6.59373 11.2689 6.51477C11.228 6.43582 11.1718 6.36582 11.1035 6.30892C11.0352 6.25201 10.9563 6.20933 10.8712 6.1834C10.7862 6.15746 10.6969 6.1488 10.6084 6.15791C10.52 6.16702 10.4343 6.19372 10.3563 6.23644C10.2784 6.27917 10.2098 6.33705 10.1545 6.40669L7.28784 9.84602L5.8045 8.36202C5.67877 8.24058 5.51037 8.17339 5.33557 8.1749C5.16077 8.17642 4.99356 8.24654 4.86996 8.37014C4.74635 8.49375 4.67624 8.66096 4.67472 8.83575C4.6732 9.01055 4.7404 9.17895 4.86184 9.30469L6.86184 11.3047C6.92734 11.3702 7.00577 11.4213 7.09211 11.4547C7.17846 11.4882 7.27084 11.5033 7.36335 11.4991C7.45586 11.4949 7.54649 11.4715 7.62945 11.4303C7.7124 11.3892 7.78587 11.3312 7.84517 11.26L11.1785 7.26002Z"
+          fill="var(--summer-yellow-color)" />
+      </svg>
+
+      <svg class="section-indicator empty" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17"
+        fill="none">
+        <path d="M7.99992 5.83334V8.50001M7.99992 8.50001V11.1667M7.99992 8.50001H10.6666M7.99992 8.50001H5.33325"
+          stroke="var(--text-color)" stroke-lineengraving="round" />
+        <path
+          d="M7.99992 15.1667C11.6818 15.1667 14.6666 12.1819 14.6666 8.50001C14.6666 4.81811 11.6818 1.83334 7.99992 1.83334C4.31802 1.83334 1.33325 4.81811 1.33325 8.50001C1.33325 12.1819 4.31802 15.1667 7.99992 15.1667Z"
+          stroke="var(--text-color)" />
+      </svg>
+      <svg class="section-indicator unavailable" width="16" height="17" viewBox="0 0 20 21" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M9.99984 18.8337C14.6022 18.8337 18.3332 15.1027 18.3332 10.5003C18.3332 5.89795 14.6022 2.16699 9.99984 2.16699C5.39746 2.16699 1.6665 5.89795 1.6665 10.5003C1.6665 15.1027 5.39746 18.8337 9.99984 18.8337Z"
+          fill="#928D8C" />
+        <path
+          d="M12.795 7.70468L9.99951 10.5002M9.99951 10.5002L7.20401 13.2957M9.99951 10.5002L12.795 13.2957M9.99951 10.5002L7.20401 7.70468"
+          stroke="white" stroke-linecap="round" />
+      </svg>
+
+      <h3>Engraving</h3>
+    </div>
+    <div class="summary-content_options">
+      <span class="content-label">Free engraving with every purchase. Max. of 8 characters.</span>
+      <div class="engraving-info">
+        <span class="option-name">Placement</span>
+        <span id="engraving-placement-text" class="option-value">Bottom</span>
+      </div>
+      <form id="summary-engraving-options" class="summary-engraving-options">
+        <label class="desktop-summary-placement-label" for="top-placement">
+          <input class="desktop-summary-placement" type="radio" name="engraving-placement" data-placement="top"
+            id="top-placement">
+          Top
+        </label>
+        <label class="desktop-summary-placement-label" for="middle-placement">
+          <input class="desktop-summary-placement" type="radio" name="engraving-placement" data-placement="middle"
+            id="middle-placement">
+          Middle
+        </label>
+        <label class="desktop-summary-placement-label" for="bottom-placement">
+          <input class="desktop-summary-placement" type="radio" name="engraving-placement" data-placement="bottom"
+            id="bottom-placement" checked>
+          Bottom
+        </label>
+      </form>
+      <input type="text" id="engraving" class="engraving-input" placeholder="Add text here" maxlength="8">
+      <div class="summary-engraving-emojis">
+        <p class="emoji-error"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <g clip-path="url(#clip0_3066_6758)">
+        <path d="M6 1C3.23858 1 1 3.23858 1 6C1 8.76142 3.23858 11 6 11C8.76142 11 11 8.76142 11 6C11 3.23858 8.76142 1 6 1Z" stroke="#B44720"/>
+        <path d="M6 8.5L6 5.5M6 3.75L6 3.5" stroke="#B44720" stroke-linecap="round"/>
+        </g>
+        <defs>
+        <clipPath id="clip0_3066_6758">
+        <rect width="12" height="12" fill="white" transform="translate(12 12) rotate(-180)"/>
+        </clipPath>
+        </defs>
+        </svg> These characters cannot be engraved: <span id="emoji-characters"></span>.</p>
+        <div class="emoji-wrapper">
+          <span>Emoji</span>
+          <div class="emoji-button-container">
+            <button class="button-emoji" value="♡" aria-label="heart">♡</button><button class="button-emoji" aria-label="smiley" value="☻">☻</button>
+            <button class="button-emoji" aria-label="flower" value="✿">✿</button>
+            <button class="button-emoji" aria-label="star" value="☆">☆</button>
+            <button class="button-emoji" aria-label="sparkle" value="⟡">⟡</button>
+            <button class="button-emoji" aria-label="moon" value="☾">☾</button>
+            <button class="button-emoji" aria-label="paw" value="🐾">🐾</button>
+            <button class="button-emoji" aria-label="yin yang" value="☯">☯</button>
+            <button class="button-emoji" aria-label="crown" value="🜲">🜲</button>
+            <button class="button-emoji" aria-label="sun" value="𖤓">𖤓</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

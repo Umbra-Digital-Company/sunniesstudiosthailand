@@ -1,0 +1,164 @@
+{{ 'section-featured-products-v2.css' | asset_url | stylesheet_tag }}
+
+{%- assign _section = section.settings -%}
+{%- assign section_title = _section.title -%}
+
+{%- if section.blocks.size > 0 -%}
+  <section id="{{ section.id }}" class="section-featured-products section-featured-products-v2 v2">
+    <div class="section__inner">
+      {%- if section_title != blank -%}
+        <div class="shell">
+          <header class="section__head">
+            <h2>{{ section_title }}</h2>
+            <a href="{{ section.settings.ctalink }}" class="section--cta default">
+              {{ section.settings.ctatext }}
+            </a>
+          </header>
+        </div>
+      {%- endif -%}
+
+      <div class="featured-product-nav-buttons">
+        <div class="featured-products-swiper-prev">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="featured-products-swiper-next">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8.625 12L13 8L8.625 4M13 8L3 8" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="featured-products-swiper featured-products-swiper-v2" id="featured-products-wrapper">
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <div class="swiper-slide">
+              {% assign block_product = block.settings.product_select %}
+              {% assign custom_link = block.settings.custom_link %}
+              {% assign block_collection = block.settings.product_collection %}
+              {% assign variant_highlight = block.settings.variant_name %}
+              {% assign block_product_type = block_product.type | downcase %}
+              {% assign custom_image = block.settings.image %}
+
+                {% render 'product-card-v2',  custom_link: custom_link, product_data: block_product, variant_name: variant_highlight, product_collection: block_collection, custom_image: custom_image  %}
+            </div>
+            <style>
+            {% if block.settings.variant_name != empty %}duc
+              .product-card-images[data-variant-name='{{ block.settings.variant_name }}'] img.product-card-image:not([data-variant-name='{{ block.settings.variant_name }}']) {
+                display: none;
+              }
+              {% unless block.settings.product_select.tags contains "merch" %}
+                .product-card-images[data-variant-name='{{ block.settings.variant_name }}']  %img.product-card-image[data-variant-name='{{ block.settings.variant_name }}'] {
+                    display: block !important;
+                }
+              {% endunless %}
+            {% endif %}
+            </style>
+          {%- endfor -%}
+        </div>
+        {% comment %}
+            <div class="featured-products-pagination"></div>
+        {% endcomment %}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+<script>
+  new Swiper("#{{ section.id }} .featured-products-swiper-v2", {
+  slidesPerView: 1.5,
+  spaceBetween: 4,
+  slidesPerGroup: 1,
+  loopFillGroupWithBlank: true,
+  breakpoints: {
+    768: {
+      slidesPerView: 4,
+      spaceBetween: 4,
+      slidesPerGroup: 4,
+    }
+  },
+  // pagination: {
+  //   el: ".featured-products-pagination",
+  //   clickable: true,
+  // },
+  navigation: {
+    nextEl: "#{{ section.id }} .featured-products-swiper-next",
+    prevEl: "#{{ section.id }} .featured-products-swiper-prev",
+  },
+  on: {
+    init: function () {
+      document.querySelectorAll(".featured-products-swiper-v2").forEach(swiperEl => swiperEl.style.display = "block")
+    }
+  },
+});
+
+</script>
+
+{% schema %}
+{
+  "name": "Featured Products V2",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "id": "ctatext",
+      "type": "text",
+      "label": "Link text",
+      "default": "Shop all"
+    },
+    {
+      "id": "ctalink",
+      "type": "url",
+      "label": "Link URL"
+    }
+  ],
+  "max_blocks": 20,
+  "blocks": [
+    {
+      "type": "product",
+      "name": "product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product_select",
+          "label": "Select Product"
+        },
+        {
+          "type": "url",
+          "id": "custom_link",
+          "label": "Custom Link",
+          "info": "This will override chosen product link."
+        },
+        {
+          "type": "text",
+          "id": "variant_name",
+          "label": "Variant Name",
+          "info": "Variant to highlight"
+        },
+        {
+          "type":"collection",
+          "id":"product_collection",
+          "label":"Product Collection"
+        },
+        {
+          "type":"header",
+          "content":"For Sunnies Flask"
+        },
+        {
+          "type":"image_picker",
+          "id":"image",
+          "label":"Custom Image for Flask"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products V2"
+    }
+  ]
+}
+{% endschema %}

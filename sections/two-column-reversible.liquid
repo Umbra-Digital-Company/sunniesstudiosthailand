@@ -1,0 +1,49 @@
+{{ 'two-column-reversible.css' | asset_url | stylesheet_tag }}
+
+<div class="anti-rad-section-one {% unless section.settings.reverse == false %} anti-rad-section-one--reverse {% endunless %}">
+  <div class="section-one-image">
+    <img src="{{ section.settings.banner }}">
+  </div>
+  <div class="section-one-content">
+    <span class="one">{{ section.settings.headline }}</span>
+    <span class="two">{{ section.settings.description }}</span>
+    {% unless section.settings.sub == blank %}<span class="three">{{ section.settings.sub }}</span>{% endunless %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "50/50 Reversible",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "reverse",
+        "label": "Reverse",
+        "default": false
+      },
+      {
+        "type": "url",
+        "id": "banner",
+        "label": "50/50 Image (.PNG/.JPG/.GIF)"
+      },
+      {
+        "type": "text",
+        "id": "headline",
+        "label": "Section Headline"
+      }, {
+        "type": "richtext",
+        "id": "description",
+        "label": "Section Description"
+      }, {
+        "type": "richtext",
+        "id": "sub",
+        "label": "Section Sub"
+      }
+    ],
+    "presets": [
+      {
+        "name": "50/50 Reversible"
+      }
+    ]
+  }
+{% endschema %}

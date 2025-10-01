@@ -1,0 +1,1336 @@
+{{  'spotlight-selection.css' | asset_url | stylesheet_tag }}
+{% liquid 
+  assign counter = 0
+  assign _section = section.settings
+
+%}
+
+{% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'product_card' %}
+    {% assign counter = counter | plus: 1 %}
+  {% endcase %}
+{% endfor %}
+
+{%-capture count_class-%}
+  {% if counter == 1%}
+    image-75
+  {% elsif counter == 2%}
+    image-50
+  {% elsif counter == 3%}
+    image-25
+  {% elsif counter == 0%}
+    image-100
+  {% endif %}
+{% endcapture %}
+
+<div class="{{ section.id }}{{ section.index }} spotlight-selection-section">
+  {% if section.settings.header_logo != blank or section.settings.mobile_header_logo != blank %}
+    <div class="ss-header" style="background-color: {{ section.settings.header_background }}">
+      <div class="ss-header-image-logo desktop" style="width: {{ section.settings.header_logo.width }}px; height: {{ section.settings.header_logo.height }}px;">
+        <img 
+          src="{{ section.settings.header_logo | image_url: width: section.settings.header_logo.width }}" 
+          loading="lazy" 
+          width="100%"
+          height="100%"
+        >
+      </div>
+      <div class="ss-header-image-logo mobile" style="width: {{ section.settings.mobile_header_logo.width }}px; height: {{ section.settings.mobile_header_logo.height }}px;">
+        <img 
+          loading="lazy" 
+          width="100%"
+          height="100%"
+          src="{{ section.settings.mobile_header_logo | image_url: width: section.settings.mobile_header_logo.width }}" 
+        >
+      </div>
+      <div class="ss-header--description-main" style="color:{{ section.settings.header_main_text_color }}">
+        {{ section.settings.main_text }}
+      </div>
+      <div class="ss-header--description" style="color:{{ section.settings.header_text_color }}">
+        <a href="{{ section.settings.sub_text_link }}" style="color:{{ section.settings.header_text_color }}">
+          {{ section.settings.sub_text }}
+        </a>
+      </div>
+    </div>
+  {% endif %}
+  <div class="ss-content-container" reverse-display="{{ section.settings.reverse_display }}">
+    {% case section.settings.banner_type %}
+      {% when 'static' %}
+        <div class="ss-content-image-banner" style="width: {{ section.settings.ss_image_width }}%; min-height: {{ section.settings.ss_image_height }}px">
+          {% if _section.image_text_main != blank %} 
+            <div class="ss-content-image-banner-overlay"></div>
+          {% endif %}
+          <div class="ss-content-image-banner-text" style="
+            display: {{ _section.ss_content_image_banner_text_display }};
+          ">
+            <div class="ss-content-image-banner-text-wrapper">
+              <h6 style="font-family: '{{ _section.image_text_font_family }}'; 
+                font-size: {{ _section.image_text_font_size }}px; 
+                line-height: {{ _section.image_text_line_height }}px;
+                color: {{ _section.image_text_color }}"
+              >{{ _section.image_text_main }}</h6>
+              <span style="
+                color: {{ _section.image_text_color }};
+              ">{{ _section.image_text_sub }}</span>
+            </div>
+          </div>
+          {% if section.settings.ss_image != blank %}
+            <img class="ss-content-image-banner-desktop"
+              src="{{ section.settings.ss_image | image_url: width: 1500 }}" 
+              loading="lazy" 
+              width="100%"
+              height="100%">
+          {% endif %}
+          {% if section.settings.mobile_ss_image != blank %}
+            <img class="ss-content-image-banner-mobile"
+              loading="lazy" 
+              width="100%"
+              height="100%"
+              src="{{ section.settings.mobile_ss_image | image_url: width: 800 }}" 
+            >
+          {% endif %}
+        </div>
+      {% when 'carousel' %}
+        {% assign has_carousel_images = false %}
+        {% if section.settings.ss_image != blank or 
+              section.settings.carousel_image_2 != blank or 
+              section.settings.carousel_image_3 != blank or 
+              section.settings.carousel_image_4 != blank %}
+          {% assign has_carousel_images = true %}
+        {% endif %}
+        
+        {% if has_carousel_images %}
+        <div class="ss-content-image-banner-carousel swiper" style="width: {{ section.settings.ss_image_width }}%; min-height: {{ section.settings.ss_image_height }}px">
+          <div class="swiper-wrapper">
+            {% if section.settings.ss_image != blank %}
+            <div class="swiper-slide ss-content-banner-slide ss-content-image-banner">
+              {% if _section.image_text_main != blank %}
+              <div class="ss-content-image-banner-overlay"></div>
+              {% endif %}
+              <div class="ss-content-image-banner-text" style="
+                        display: {{ _section.ss_content_image_banner_text_display }};
+                      ">
+                <div class="ss-content-image-banner-text-wrapper">
+                  <h6 style="
+                            color: {{ _section.image_text_color }};
+                            font-size: {{ _section.image_text_font_size }}px;
+                            font-family: '{{ _section.image_text_font_family }}';
+                          ">{{ _section.image_text_main }}</h6>
+                  <span style="
+                            color: {{ _section.image_text_color }};
+                          ">{{ _section.image_text_sub }}</span>
+                </div>
+              </div>
+              <img class="ss-content-image-banner-desktop"
+              src="{{ section.settings.ss_image | image_url: width: 1500 }}" 
+              loading="lazy" 
+              width="100%"
+              height="100%">
+              {% if section.settings.mobile_ss_image != blank %}
+              <img class="ss-content-image-banner-mobile" loading="lazy" width="100%" height="100%"
+                src="{{ section.settings.mobile_ss_image | image_url: width: section.settings.mobile_ss_image.width }}">
+              {% endif %}
+            </div>
+            {% endif %}
+        
+            {% if section.settings.carousel_image_2 != blank %}
+            <div class="swiper-slide ss-content-banner-slide ss-content-image-banner">
+              {% if _section.carousel_text_main_2 != blank %}
+              <div class="ss-content-image-banner-overlay"></div>
+              {% endif %}
+              <div class="ss-content-image-banner-text" style="
+                        display: {{ section.settings.carousel_text_display_2 }};
+                      ">
+                <div class="ss-content-image-banner-text-wrapper">
+                  <h6 style="
+                            color: {{ section.settings.carousel_text_color_2 }};
+                            font-size: {{ _section.image_text_font_size }}px;
+                            font-family: '{{ _section.image_text_font_family }}';
+                          ">{{ section.settings.carousel_text_main_2 }}</h6>
+                  <span style="
+                            color: {{ section.settings.carousel_text_color_2 }};
+                          ">{{ section.settings.carousel_text_sub_2 }}</span>
+                </div>
+              </div>
+              <img class="ss-content-image-banner-desktop"
+              src="{{ section.settings.carousel_image_2 | image_url: width: 1500 }}" 
+              loading="lazy" 
+              width="100%"
+              height="100%">
+              {% if section.settings.carousel_mobile_image_2 != blank %}
+              <img class="ss-content-image-banner-mobile" loading="lazy" width="100%" height="100%"
+                src="{{ section.settings.carousel_mobile_image_2 | image_url: width: section.settings.carousel_mobile_image_2.width }}">
+              {% endif %}
+            </div>
+            {% endif %}
+        
+            {% if section.settings.carousel_image_3 != blank %}
+            <div class="swiper-slide ss-content-banner-slide ss-content-image-banner">
+              {% if _section.carousel_text_main_3 != blank %}
+              <div class="ss-content-image-banner-overlay"></div>
+              {% endif %}
+              <div class="ss-content-image-banner-text" style="
+                        display: {{ section.settings.carousel_text_display_3 }};
+                      ">
+                <div class="ss-content-image-banner-text-wrapper">
+                  <h6 style="
+                            color: {{ section.settings.carousel_text_color_3 }};
+                            font-size: {{ _section.image_text_font_size }}px;
+                            font-family: '{{ _section.image_text_font_family }}';
+                          ">{{ section.settings.carousel_text_main_3 }}</h6>
+                  <span style="
+                            color: {{ section.settings.carousel_text_color_3 }};
+                          ">{{ section.settings.carousel_text_sub_3 }}</span>
+                </div>
+              </div>
+              <img class="ss-content-image-banner-desktop"
+              src="{{ section.settings.carousel_image_3 | image_url: width: 1500 }}" 
+              loading="lazy" 
+              width="100%"
+              height="100%">
+              {% if section.settings.carousel_mobile_image_3 != blank %}
+              <img class="ss-content-image-banner-mobile" loading="lazy" width="100%" height="100%"
+                src="{{ section.settings.carousel_mobile_image_3 | image_url: width: section.settings.carousel_mobile_image_3.width }}">
+              {% endif %}
+            </div>
+            {% endif %}
+        
+            {% if section.settings.carousel_image_4 != blank %}
+            <div class="swiper-slide ss-content-banner-slide ss-content-image-banner">
+              {% if _section.carousel_text_main_4 != blank %}
+              <div class="ss-content-image-banner-overlay"></div>
+              {% endif %}
+              <div class="ss-content-image-banner-text" style="
+                        display: {{ section.settings.carousel_text_display_4 }};
+                      ">
+                <div class="ss-content-image-banner-text-wrapper">
+                  <h6 style="
+                            color: {{ section.settings.carousel_text_color_4 }};
+                            font-size: {{ _section.image_text_font_size }}px;
+                            font-family: '{{ _section.image_text_font_family }}';
+                          ">{{ section.settings.carousel_text_main_4 }}</h6>
+                  <span style="
+                            color: {{ section.settings.carousel_text_color_4 }};
+                          ">{{ section.settings.carousel_text_sub_4 }}</span>
+                </div>
+              </div>
+              <img class="ss-content-image-banner-desktop"
+              src="{{ section.settings.carousel_image_4 | image_url: width: 1500 }}" 
+              loading="lazy" 
+              width="100%"
+              height="100%">
+              {% if section.settings.carousel_mobile_image_4 != blank %}
+              <img class="ss-content-image-banner-mobile" loading="lazy" width="100%" height="100%"
+                src="{{ section.settings.carousel_mobile_image_4 | image_url: width: section.settings.carousel_mobile_image_4.width }}">
+              {% endif %}
+            </div>
+            {% endif %}
+        
+            {% if section.settings.carousel_image_5 != blank %}
+            <div class="swiper-slide ss-content-banner-slide ss-content-image-banner">
+              {% if _section.carousel_text_main_5 != blank %}
+              <div class="ss-content-image-banner-overlay"></div>
+              {% endif %}
+              <div class="ss-content-image-banner-text" style="
+                      display: {{ section.settings.carousel_text_display_5 }};
+                      ">
+                <div class="ss-content-image-banner-text-wrapper">
+                  <h6 style="
+                        color: {{ section.settings.carousel_text_color_5 }};
+                        font-size: {{ _section.image_text_font_size }}px;
+                        font-family: '{{ _section.image_text_font_family }}';
+                        ">{{ section.settings.carousel_text_main_5 }}</h6>
+                  <span style="
+                        color: {{ section.settings.carousel_text_color_5 }};
+                        ">{{ section.settings.carousel_text_sub_5 }}</span>
+                </div>
+              </div>
+              <img class="ss-content-image-banner-desktop"
+              src="{{ section.settings.carousel_image_5 | image_url: width: 1500 }}" 
+              loading="lazy" 
+              width="100%"
+              height="100%">
+              {% if section.settings.carousel_mobile_image_5 != blank %}
+              <img class="ss-content-image-banner-mobile" loading="lazy" width="100%" height="100%"
+                src="{{ section.settings.carousel_mobile_image_5 | image_url: width: section.settings.carousel_mobile_image_5.width }}">
+              {% endif %}
+            </div>
+            {% endif %}
+        
+            {% if section.settings.carousel_image_6 != blank %}
+            <div class="swiper-slide ss-content-banner-slide ss-content-image-banner">
+              {% if _section.carousel_text_main_6 != blank %}
+              <div class="ss-content-image-banner-overlay"></div>
+              {% endif %}
+              <div class="ss-content-image-banner-text" style="
+                      display: {{ section.settings.carousel_text_display_6 }};
+                      ">
+                <div class="ss-content-image-banner-text-wrapper">
+                  <h6 style="
+                        color: {{ section.settings.carousel_text_color_6 }};
+                        font-size: {{ _section.image_text_font_size }}px;
+                        font-family: '{{ _section.image_text_font_family }}';
+                        ">{{ section.settings.carousel_text_main_6 }}</h6>
+                  <span style="
+                        color: {{ section.settings.carousel_text_color_6 }};
+                        ">{{ section.settings.carousel_text_sub_6 }}</span>
+                </div>
+              </div>
+              <img class="ss-content-image-banner-desktop"
+              src="{{ section.settings.carousel_image_6 | image_url: width: 1500 }}" 
+              loading="lazy" 
+              width="100%"
+              height="100%">
+              {% if section.settings.carousel_mobile_image_6 != blank %}
+              <img class="ss-content-image-banner-mobile" loading="lazy" width="100%" height="100%"
+                src="{{ section.settings.carousel_mobile_image_6 | image_url: width: section.settings.carousel_mobile_image_6.width }}">
+              {% endif %}
+            </div>
+            {% endif %}
+        
+            {% if section.settings.carousel_image_7 != blank %}
+            <div class="swiper-slide ss-content-banner-slide ss-content-image-banner">
+              {% if _section.carousel_text_main_7 != blank %}
+              <div class="ss-content-image-banner-overlay"></div>
+              {% endif %}
+              <div class="ss-content-image-banner-text" style="
+                      display: {{ section.settings.carousel_text_display_7 }};
+                      ">
+                <div class="ss-content-image-banner-text-wrapper">
+                  <h6 style="
+                        color: {{ section.settings.carousel_text_color_7 }};
+                        font-size: {{ _section.image_text_font_size }}px;
+                        font-family: '{{ _section.image_text_font_family }}';
+                        ">{{ section.settings.carousel_text_main_7 }}</h6>
+                  <span style="
+                        color: {{ section.settings.carousel_text_color_7 }};
+                        ">{{ section.settings.carousel_text_sub_7 }}</span>
+                </div>
+              </div>
+              <img class="ss-content-image-banner-desktop"
+              src="{{ section.settings.carousel_image_7 | image_url: width: 1500 }}" 
+              loading="lazy" 
+              width="100%"
+              height="100%">
+              {% if section.settings.carousel_mobile_image_7 != blank %}
+              <img class="ss-content-image-banner-mobile" loading="lazy" width="100%" height="100%"
+                src="{{ section.settings.carousel_mobile_image_7 | image_url: width: section.settings.carousel_mobile_image_7.width }}">
+              {% endif %}
+            </div>
+            {% endif %}
+        
+            {% if section.settings.carousel_image_8 != blank %}
+            <div class="swiper-slide ss-content-banner-slide ss-content-image-banner">
+              {% if _section.carousel_text_main_8 != blank %}
+              <div class="ss-content-image-banner-overlay"></div>
+              {% endif %}
+              <div class="ss-content-image-banner-text" style="
+                      display: {{ section.settings.carousel_text_display_8 }};
+                      ">
+                <div class="ss-content-image-banner-text-wrapper">
+                  <h6 style="
+                        color: {{ section.settings.carousel_text_color_8 }};
+                        font-size: {{ _section.image_text_font_size }}px;
+                        font-family: '{{ _section.image_text_font_family }}';
+                        ">{{ section.settings.carousel_text_main_8 }}</h6>
+                  <span style="
+                        color: {{ section.settings.carousel_text_color_8 }};
+                        ">{{ section.settings.carousel_text_sub_8 }}</span>
+                </div>
+              </div>
+              <img class="ss-content-image-banner-desktop"
+              src="{{ section.settings.carousel_image_8 | image_url: width: 1500 }}" 
+              loading="lazy" 
+              width="100%"
+              height="100%">
+              {% if section.settings.carousel_mobile_image_8 != blank %}
+              <img class="ss-content-image-banner-mobile" loading="lazy" width="100%" height="100%"
+                src="{{ section.settings.carousel_mobile_image_8 | image_url: width: section.settings.carousel_mobile_image_8.width }}">
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+        
+          {% if section.settings.show_carousel_navigation %}
+          <div class="banner-carousel-navigation">
+            <div class="banner-carousel-prev">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="#352B27" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="banner-carousel-next">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8.625 12L13 8L8.625 4M13 8L3 8" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+          {% endif %}
+        
+          {% if section.settings.show_carousel_pagination %}
+          <div class="banner-carousel-pagination"></div>
+          {% endif %}
+        </div>
+        {% else %}
+        <!-- Show nothing if no carousel images are available -->
+        {% endif %}
+    {% endcase %}
+
+    <div class="ss-container">
+      {% if section.blocks.size > 3 or section.settings.force_display_nav %}
+        <div class="featured-product-nav-buttons">
+          <div class="featured-products-swiper-prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="featured-products-swiper-next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8.625 12L13 8L8.625 4M13 8L3 8" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      {% endif %}
+      <div class="ss-content {{ count_class | strip }} swiper-wrapper">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'product_card' %}
+              <div class="product_card swiper-slide"> 
+                {% assign custom_image = block.settings.image %}
+                  {% case section.settings.card_version %}
+                    {% when "version_1" %}
+                        {% render 'product-card-spotlight-selection',  
+                        product_data: block.settings.product_card, 
+                        product_variant_color: block.settings.product_variant_color, 
+                        size_variant: block.settings.size_variant,
+                        override_url: block.settings.product_card_url,
+                        custom_image: block.settings.image,
+                        kids_background: block.settings.kids_background,
+                        kids_text_color: block.settings.kids_text_color,
+                        kids_font_family: block.settings.kids_font_family,
+                        kids_font_size: block.settings.kids_font_size,
+                        kids_border_radius: block.settings.kids_border_radius,
+                        kids_border_color: block.settings.kids_border_color,
+                        kids_border_size: block.settings.kids_border_size,
+                        kids_highlight_label_text: block.settings.kids_highlight_label_text,
+                        kids_display: block.settings.kids_display,
+                        override_link_templates: block.settings.override_link_templates,
+                        override_button_text: block.settings.override_button_text,
+                        robo_flask_override_link: block.settings.robo_flask_override_link,
+                        pebble_flask_override_link: block.settings.pebble_flask_override_link,
+                        enable_model_preview: block.settings.enable_model_preview,
+                        model_image_schema: block.settings.model_image_schema,
+                      %}
+                    {% when "version_2" %}
+                      {% render 'product-card-eye-candy',  
+                        product_data: block.settings.product_card, 
+                        size_variant: block.settings.size_variant,
+                        override_url: block.settings.product_card_url,
+                        custom_image: block.settings.image,
+                        kids_background: block.settings.kids_background,
+                        kids_text_color: block.settings.kids_text_color,
+                        kids_font_family: block.settings.kids_font_family,
+                        kids_font_size: block.settings.kids_font_size,
+                        kids_border_radius: block.settings.kids_border_radius,
+                        kids_border_color: block.settings.kids_border_color,
+                        kids_border_size: block.settings.kids_border_size,
+                        kids_highlight_label_text: block.settings.kids_highlight_label_text,
+                        kids_display: block.settings.kids_display,
+                        override_link_templates: block.settings.override_link_templates,
+                        override_button_text: block.settings.override_button_text,
+                        robo_flask_override_link: block.settings.robo_flask_override_link,
+                        pebble_flask_override_link: block.settings.pebble_flask_override_link,
+                        enable_model_preview: block.settings.enable_model_preview,
+                        model_image_schema: block.settings.model_image_schema,
+                      %}
+                  {% endcase %}
+              </div>
+          {% endcase %}
+        {% endfor %} 
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ss-content-image-banner {
+    position: relative;
+  }
+
+  .ss-content-image-banner-desktop {
+    display: block; /* Show by default */
+  }
+  
+  .ss-content-image-banner-mobile {
+    display: none; /* Hide on larger screens */
+  }
+  
+  /* Show the mobile image and hide the desktop image on smaller screens */
+  @media (max-width: 768px) {
+    .ss-content-image-banner-desktop {
+      display: none;
+    }
+  
+    .ss-content-image-banner-mobile {
+      display: block;
+    }
+  }
+  
+  .{{ section.id }}{{ section.index }} .ss-container .featured-product-nav-buttons {
+    width: 100%;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    padding: 0 8px;
+    display: none;
+  }
+
+  .{{ section.id }}{{ section.index }} .ss-container .featured-product-nav-buttons div {
+    z-index: 2;
+    cursor: pointer;
+    background: var(--white_color);
+    box-shadow: 0 2px 2px 1px #0000001a;
+    border-radius: 100%;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    transition: all 300ms ease;
+    border: 1px solid transparent;
+  }
+  
+  /* Kids Highlight Label [Ron] */
+  .kids-highlight-label {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-size: 11px;
+    padding: 8px;
+  }
+
+  .{{ section.id }}{{ section.index }} .ss-container .featured-product-nav-buttons div:hover {
+    border: 1px solid var(--black_color);
+  }
+
+  @media(max-width: 500px){
+    .{{ section.id }}{{ section.index }} .ss-container .ss-content{
+      display: flex !important;
+      column-gap: unset !important;
+    }
+  }
+</style>
+
+{% if section.blocks.size > 2 or section.settings.force_display_nav %}
+  <style>
+    .{{ section.id }}{{ section.index }} .ss-container .featured-product-nav-buttons {
+      opacity: 0;
+      transition: opacity 500ms ease-in-out;
+      display: flex;
+    }
+
+    .{{ section.id }}{{ section.index }} .ss-container:hover .featured-product-nav-buttons {
+      opacity: 1;
+      transition: opacity 500ms ease-in-out;
+    }
+
+    .{{ section.id }}{{ section.index }} .ss-container .featured-product-nav-buttons div {
+      display: flex;
+    }
+    .{{ section.id }}{{ section.index }} .ss-container .ss-content{
+      display: flex !important;
+      column-gap: unset !important;
+    }
+
+    @media(max-width: 767px){
+      .{{ section.id }}{{ section.index }} .product-card-v2 .product-card-images{
+        aspect-ratio: 1 / 1.25;
+      }
+      .{{ section.id }}{{ section.index }} .ss-content--image{
+        aspect-ratio: unset;
+      }
+      .{{ section.id }}{{ section.index }} .swiper-slide{
+        max-width: unset;
+      }
+      .{{ section.id }}{{ section.index }} .ss-container .featured-product-nav-buttons {
+        display: none;
+      }
+      .{{ section.id }}{{ section.index }} .ss-container .featured-product-nav-buttons div {
+        display: none;
+      }
+    }
+    .swiper-button-lock {
+      opacity: 0 !important;
+    }
+  </style>
+{% endif %}
+
+{% if template.suffix contains 'back-to-school' %}
+  <style>
+  .product-card-swatches li {
+    min-width: 20px !important;
+    min-height: 20px !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .product-card-swatches li div {
+    width: 15px !important;
+    height: 15px !important;
+  } 
+  .product-card-swatches {
+    margin: 0 0 22px 0 !important;
+  }
+  </style>
+{% endif %}
+
+{% comment %} Image Container Carousel {% endcomment %}
+ <script>
+  // Product card carousel initialization (existing)
+  new Swiper(".{{ section.id }}{{ section.index }} .ss-container", {
+    slidesPerView: 1.3,
+    slidesPerGroupAuto: true,
+    spaceBetween: 4,
+    breakpoints: {
+      500: {
+        slidesPerView: 1.5,
+        slidesPerGroup: 5,
+      },
+      768: {
+        slidesPerView: 2,
+        slidesPerGroup: 1,
+      },
+      1024: {
+        slidesPerView: Number({{ section.settings.desktop_card_count }}),
+        slidesPerGroup: 1,
+      },
+    },
+    navigation: {
+      nextEl: ".featured-products-swiper-next",
+      prevEl: ".featured-products-swiper-prev",
+    }
+  });
+  
+  // Banner carousel initialization - only load if banner type is carousel
+  {% if section.settings.banner_type == 'carousel' %}
+    {% if section.settings.ss_image != blank or 
+          section.settings.carousel_image_2 != blank or 
+          section.settings.carousel_image_3 != blank or 
+          section.settings.carousel_image_4 != blank %}
+    new Swiper(".{{ section.id }}{{ section.index }} .ss-content-image-banner-carousel", {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      // loop: true,
+      // autoplay: {
+      //   delay: {{ section.settings.carousel_autoplay_delay | default: 5000 }},
+      //   disableOnInteraction: false
+      // },
+      effect: "{{ section.settings.carousel_transition_effect | default: 'slide' }}",
+      navigation: {
+        nextEl: ".banner-carousel-next",
+        prevEl: ".banner-carousel-prev",
+      },
+      pagination: {
+        el: ".banner-carousel-pagination",
+        clickable: true,
+      },
+    });
+
+    function updateBannerNavOpacity(swiper) {
+      var prev = document.querySelector('.banner-carousel-prev');
+      var next = document.querySelector('.banner-carousel-next');
+      if (!prev || !next) return;
+
+      prev.style.opacity = '1';
+      next.style.opacity = '1';
+
+      if (swiper.isBeginning) {
+        prev.style.opacity = '0.1';
+      }
+      if (swiper.isEnd) {
+        next.style.opacity = '0.1';
+      }
+    }
+    {% endif %}
+  {% endif %}
+</script>
+
+<script src="{{ 'product-card-eye-candy.js' | asset_url }}" async></script>
+
+{% schema %}
+  {
+    "name": "Spotlight Selection",
+    "settings":[
+      {
+        "type":"color",
+        "id":"header_background",
+        "label":"Header Background Color"
+      },
+      {
+        "type":"color",
+        "id":"header_text_color",
+        "label":"Header Text Color"
+      },
+      {
+        "type":"color",
+        "id":"header_main_text_color",
+        "label":"Header Main Text Color"
+      },
+      {
+        "type":"image_picker",
+        "id":"header_logo",
+        "label":"Header Logo"
+      },
+      {
+        "type":"image_picker",
+        "id":"mobile_header_logo",
+        "label":"MobileHeader Logo"
+      },
+      {
+        "type":"text",
+        "id":"sub_text",
+        "label":"Header Sub Text"
+      },
+      {
+        "type":"text",
+        "id":"main_text",
+        "label":"Header Main Text"
+      },
+      {
+        "type":"url",
+        "id":"sub_text_link",
+        "label":"Header Sub Text Link"
+      },
+      {
+        "type": "checkbox",
+        "id": "force_display_nav",
+        "label": "Force Display Navigation Arrows",
+        "default": false,
+        "info": "Show navigation arrows even when there are fewer than 4 blocks"
+      },
+      {
+        "type": "number",
+        "id": "ss_image_width",
+        "label": "Image Card Width (%)",
+        "info": "This is the width of the image card in percentage. Adjust according to your design. Default is 33%.",
+        "default": 33
+      },
+      {
+        "type": "number",
+        "id": "ss_image_height",
+        "label": "Image Card Height(px)",
+        "info": "This is the height of the image card in pixels. Adjust according to your design. Default is 520px.",
+        "default": 520
+      },
+      {
+        "type":"select",
+        "id":"reverse_display",
+        "label":"Reverse Display",
+        "options":[
+          {
+            "value":"enable",
+            "label":"Enable"
+          },
+          {
+            "value":"disable",
+            "label":"Disable"
+          }
+        ],
+        "default":"disable"
+      },
+      {
+        "type":"select",
+        "id":"card_version",
+        "label":"Card Version",
+        "options":[
+          {
+            "value":"version_1",
+            "label":"Version 1"
+          },
+          {
+            "value":"version_2",
+            "label":"Version 2"
+          }
+        ],
+        "default":"version_1"
+      },
+      {
+        "type":"number",
+        "id":"desktop_card_count",
+        "label":"Desktop Card Count",
+        "default":3
+      },
+      {
+        "type": "header",
+        "content": "Image Card Settings [Main]"
+      },
+      {
+        "type":"image_picker",
+        "id":"ss_image",
+        "label":"Desktop Image Card"
+      },
+      {
+        "type":"image_picker",
+        "id":"mobile_ss_image",
+        "label":"Mobile Image Card"
+      },
+      {
+        "type":"text",
+        "id":"image_text_main",
+        "label":"Image Text Main"
+      },
+      {
+        "type":"text",
+        "id":"image_text_sub",
+        "label":"Image Text Sub"
+      },
+      {
+        "type":"color",
+        "id":"image_text_color",
+        "label":"Image Text Color",
+        "default":"#FFFFFF"
+      },
+      {
+        "type":"number",
+        "id":"image_text_font_size",
+        "label":"Image Text Font Size",
+        "default": 34
+      },
+      {
+        "type":"select",
+        "id":"image_text_font_family",
+        "label":"Image Text Font Family",
+        "options":[
+          {
+            "value":"AT Surt",
+            "label":"AT Surt"
+          },
+          {
+            "value":"Better Season - Demo",
+            "label":"Better Season - Demo"
+          }
+        ],
+        "default":"Better Season - Demo"
+      },
+      {
+        "type":"select",
+        "id":"ss_content_image_banner_text_display",
+        "label":"Image Text Display",
+        "options":[
+          {
+            "value":"none",
+            "label":"Hidden"
+          },
+          {
+            "value":"block",
+            "label":"Visible"
+          }
+        ],
+        "default":"block"
+      },
+      {
+        "type": "header",
+        "content": "Switchable Image Card Settings"
+      },
+      {
+        "type": "select",
+        "id": "banner_type",
+        "label": "[IMPORTANT] Switch Type",
+        "options": [
+          {
+            "value": "static",
+            "label": "Static"
+          },
+          {
+            "value": "carousel",
+            "label": "Carousel"
+          }
+        ],
+        "default": "static"
+      },
+      {
+        "type": "header",
+        "content": "Image Card Settings [Carousel]"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_image_2",
+        "label":"Carousel Image 2"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_mobile_image_2",
+        "label":"Carousel Mobile Image 2"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_main_2",
+        "label":"Carousel Text Main 2"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_sub_2",
+        "label":"Carousel Text Sub 2"
+      },
+      {
+        "type":"color",
+        "id":"carousel_text_color_2",
+        "label":"Carousel Text Color 2",
+        "default":"#FFFFFF"
+      },
+      {
+        "type":"select",
+        "id":"carousel_text_display_2",
+        "label":"Carousel Text Display 2",
+        "options":[
+          {
+            "value":"none",
+            "label":"Hidden"
+          },
+          {
+            "value":"block",
+            "label":"Visible"
+          }
+        ],
+        "default":"block"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_image_3",
+        "label":"Carousel Image 3"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_mobile_image_3",
+        "label":"Carousel Mobile Image 3"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_main_3",
+        "label":"Carousel Text Main 3"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_sub_3",
+        "label":"Carousel Text Sub 3"
+      },
+      {
+        "type":"color",
+        "id":"carousel_text_color_3",
+        "label":"Carousel Text Color 3",
+        "default":"#FFFFFF"
+      },
+      {
+        "type":"select",
+        "id":"carousel_text_display_3",
+        "label":"Carousel Text Display 3",
+        "options":[
+          {
+            "value":"none",
+            "label":"Hidden"
+          },
+          {
+            "value":"block",
+            "label":"Visible"
+          }
+        ],
+        "default":"block"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_image_4",
+        "label":"Carousel Image 4"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_mobile_image_4",
+        "label":"Carousel Mobile Image 4"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_main_4",
+        "label":"Carousel Text Main 4"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_sub_4",
+        "label":"Carousel Text Sub 4"
+      },
+      {
+        "type":"color",
+        "id":"carousel_text_color_4",
+        "label":"Carousel Text Color 4",
+        "default":"#FFFFFF"
+      },
+      {
+        "type":"select",
+        "id":"carousel_text_display_4",
+        "label":"Carousel Text Display 4",
+        "options":[
+          {
+        "value":"none",
+        "label":"Hidden"
+          },
+          {
+        "value":"block",
+        "label":"Visible"
+          }
+        ],
+        "default":"block"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_image_5",
+        "label":"Carousel Image 5"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_mobile_image_5",
+        "label":"Carousel Mobile Image 5"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_main_5",
+        "label":"Carousel Text Main 5"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_sub_5",
+        "label":"Carousel Text Sub 5"
+      },
+      {
+        "type":"color",
+        "id":"carousel_text_color_5",
+        "label":"Carousel Text Color 5",
+        "default":"#FFFFFF"
+      },
+      {
+        "type":"select",
+        "id":"carousel_text_display_5",
+        "label":"Carousel Text Display 5",
+        "options":[
+          {
+        "value":"none",
+        "label":"Hidden"
+          },
+          {
+        "value":"block",
+        "label":"Visible"
+          }
+        ],
+        "default":"block"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_image_6",
+        "label":"Carousel Image 6"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_mobile_image_6",
+        "label":"Carousel Mobile Image 6"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_main_6",
+        "label":"Carousel Text Main 6"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_sub_6",
+        "label":"Carousel Text Sub 6"
+      },
+      {
+        "type":"color",
+        "id":"carousel_text_color_6",
+        "label":"Carousel Text Color 6",
+        "default":"#FFFFFF"
+      },
+      {
+        "type":"select",
+        "id":"carousel_text_display_6",
+        "label":"Carousel Text Display 6",
+        "options":[
+          {
+        "value":"none",
+        "label":"Hidden"
+          },
+          {
+        "value":"block",
+        "label":"Visible"
+          }
+        ],
+        "default":"block"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_image_7",
+        "label":"Carousel Image 7"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_mobile_image_7",
+        "label":"Carousel Mobile Image 7"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_main_7",
+        "label":"Carousel Text Main 7"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_sub_7",
+        "label":"Carousel Text Sub 7"
+      },
+      {
+        "type":"color",
+        "id":"carousel_text_color_7",
+        "label":"Carousel Text Color 7",
+        "default":"#FFFFFF"
+      },
+      {
+        "type":"select",
+        "id":"carousel_text_display_7",
+        "label":"Carousel Text Display 7",
+        "options":[
+          {
+        "value":"none",
+        "label":"Hidden"
+          },
+          {
+        "value":"block",
+        "label":"Visible"
+          }
+        ],
+        "default":"block"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_image_8",
+        "label":"Carousel Image 8"
+      },
+      {
+        "type":"image_picker",
+        "id":"carousel_mobile_image_8",
+        "label":"Carousel Mobile Image 8"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_main_8",
+        "label":"Carousel Text Main 8"
+      },
+      {
+        "type":"text",
+        "id":"carousel_text_sub_8",
+        "label":"Carousel Text Sub 8"
+      },
+      {
+        "type":"color",
+        "id":"carousel_text_color_8",
+        "label":"Carousel Text Color 8",
+        "default":"#FFFFFF"
+      },
+      {
+        "type":"select",
+        "id":"carousel_text_display_8",
+        "label":"Carousel Text Display 8",
+        "options":[
+          {
+        "value":"none",
+        "label":"Hidden"
+          },
+          {
+        "value":"block",
+        "label":"Visible"
+          }
+        ],
+        "default":"block"
+      },
+      {
+        "type":"checkbox",
+        "id":"show_carousel_navigation",
+        "label":"Show Carousel Navigation",
+        "default": true
+      },
+      {
+        "type":"checkbox",
+        "id":"show_carousel_pagination",
+        "label":"Show Carousel Pagination",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Flask Build Override Settings"
+      },
+      {
+        "type": "text",
+        "id": "override_link_templates",
+        "label": "Templates with Custom Links",
+        "default": "sunnies-kids,summer-2025",
+        "info": "Comma-separated list of template suffixes that will use custom links for flasks"
+      }
+    ],
+    "blocks":[
+      {
+        "type":"product_card",
+        "name":"Product Card",
+        "settings":[
+          {
+          "type": "checkbox",
+          "id": "enable_model_preview",
+          "label": "Enable model preview on hover",
+          "default": false
+          },
+          {
+          "type": "image_picker",
+          "id": "model_image_schema",
+          "label": "Custom Hover Model Image",
+          "info": "Image to be used for model preview. This will be shown on hover. If not set, the product image will be used."
+          },
+          {
+          "type":"product",
+          "id":"product_card",
+          "label":"Product"
+          },
+          {
+          "type":"text",
+          "id":"product_variant_color",
+          "label":"Product Variant Color"
+          },
+          {
+            "type": "text",
+            "id": "size_variant",
+            "label": "Size Variant",
+            "info": "This will only work on products where second variant is 'Size'. Leaving this blank will default to first option"
+          },
+          {
+            "type": "url",
+            "id": "product_card_url",
+            "label": "Custom Product Card URL",
+            "info": "Alternate URL for the product card. This will override the product URL."
+          },
+          {
+          "type":"image_picker",
+          "id":"image",
+          "label":"Custom Image",
+          "info": "Alternate Image for the product card. This will override the default image."
+          },
+          {
+            "type": "header",
+            "content": "Kids Highlight Label"
+          },
+          {
+            "type": "select",
+            "id": "kids_display",
+            "label": "Display Kids Highlight Label",
+            "options": [
+              {
+                "value": "none",
+                "label": "Hidden"
+              },
+              {
+                "value": "block",
+                "label": "Visible"
+              }
+            ],
+            "default": "block"
+          },
+          {
+            "type": "text",
+            "id": "kids_highlight_label_text",
+            "label": "Kids Highlight Label Text"
+          },
+          {
+            "type": "color",
+            "id": "kids_background",
+            "label": "Kids Label Background Color",
+            "default": "#FFFFFF"
+          },
+          {
+            "type": "color",
+            "id": "kids_text_color",
+            "label": "Kids Label Text Color",
+            "default": "#352b27"
+          },
+          {
+            "type": "text",
+            "id": "kids_font_family",
+            "label": "Kids Label Font Family",
+            "default": "AT Surt"
+          },
+          {
+            "type": "range",
+            "id": "kids_font_size",
+            "min": 10,
+            "max": 20,
+            "step": 1,
+            "default": 11,
+            "label": "Kids Label Font Size"
+          },
+          {
+            "type": "range",
+            "id": "kids_border_radius",
+            "min": 0,
+            "max": 50,
+            "step": 1,
+            "default": 4,
+            "label": "Kids Label Border Radius"
+          },
+          {
+            "type": "color",
+            "id": "kids_border_color",
+            "label": "Kids Label Border Color",
+            "default": "#352B27"
+          },
+          {
+            "type": "range",
+            "id": "kids_border_size",
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "default": 1,
+            "label": "Kids Label Border Size"
+          },
+          {
+            "type": "header",
+            "content": "Flask Build Button Override Settings"
+          },
+          {
+            "type": "text",
+            "id": "override_button_text",
+            "label": "Custom Button Text",
+            "default": "Build your Flask",
+            "info": "Text to display on flask buttons when using custom links"
+          },
+          {
+            "type": "text",
+            "id": "robo_flask_override_link",
+            "label": "For Robo Flask Custom Link",
+            "info": "This will override the default link for Pebble Flask. If you want to use the default link, leave this blank.[*]Example: /products/robo-flask?source=sunnies-flask&size=16oz&bottle=red panda&cap=red panda"
+          },
+          {
+            "type": "text",
+            "id": "pebble_flask_override_link",
+            "label": "For Pebble Flask Custom Link",
+            "info": "This will override the default link for Pebble Flask. If you want to use the default link, leave this blank. [*]Example: /products/pebble-flask?source=sunnies-flask&size=16oz&bottle=red panda&cap=red panda"
+          }
+        ]
+      }
+    ],
+    "presets":[
+      {
+        "name":"Spotlight Selection",
+        "blocks":[
+          {
+            "type":"product_card"
+          },
+          {
+            "type":"product_card"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

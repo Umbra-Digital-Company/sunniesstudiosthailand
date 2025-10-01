@@ -1,0 +1,21 @@
+<div class="product-information-container">
+  <div class="product-infomation-header">
+    <h1>{{ product.title }}
+    </h1>
+    <p id="product-price">${{ product.selected_or_first_available_variant.price | divided_by: 100 }}
+    </p>
+  </div>
+  <div class="product-information-reviews"
+    id="product-information-reviews"
+    data-product-id="{{ product.id }}">
+    <div class="product-information-review-stars"
+      id="product-information-review-stars"></div>
+    <div class="product-information-review-info">
+      <p id="product-info-review-text">
+        <span id="rating"></span>
+        (<span id="num-of-reviews">0</span>
+        reviews)</p>
+    </div>
+  </div>
+  <div class="space-liner"></div>
+</div>

@@ -1,0 +1,231 @@
+.collections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+}
+.collections.flex {
+  display: flex;
+}
+.collection-block {
+  display: flex;
+  /* aspect-ratio: 1; */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 40px;
+  padding-top: 75%;
+  align-items: flex-end;
+  /* margin-bottom: 4px; */
+}
+.collection-details-container{
+  
+    display: flex;
+    flex-direction: column;
+}
+.collection-block.left-alignment{
+    justify-content: flex-start;
+}
+.collection-block.center-alignment{
+    justify-content: center;
+}
+.collection-block.right-alignment{
+    justify-content: flex-end;
+}
+.collection-block.left-alignment .collection-details-container{
+  
+    align-items: flex-start;
+    text-align: left;
+}
+.collection-block.center-alignment .collection-details-container{
+  
+    align-items: center;
+    text-align: center;
+}
+.collection-block.right-alignment .collection-details-container{
+  
+    align-items: flex-end;
+    text-align: right;
+}
+
+.collection-details {
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+}
+.collection-details-footer {
+    padding: 40px;
+  flex-grow: 1;
+}
+.collection-block_wf {
+  margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.collection-block_wf .collection-details{
+  max-width: 480px;
+  row-gap: 24px;
+}
+
+.collection-block_wf .collection-details:has(a){
+  
+    min-height: 140px;
+    display: flex;
+    justify-content: space-between;
+}
+.collection-details h5{
+  color: var(--base-white, #FFF);
+  
+  /* Text xl/Medium */
+  font-family: AT Surt Medium;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 33px */
+}
+.collection-details p{
+  color: var(--base-white, #FFF);
+  
+  /* Text md/Regular */
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+}
+.collection-block_wf .collection-details p{
+  color: #FFF;
+  font-family: 'Radio Grotesk';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 125%; /* 22.5px */
+}
+.collection-link{
+  
+    color: var(--base-white, #FFF);
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 1px solid white;
+  margin-top: 24px;
+  display: inline-block;
+}
+.collection-link--cta {
+    display: flex;
+    padding: 12px 40px;
+    background: white;
+    width: fit-content;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    color: var(--soft-black-700, #352B27);
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  text-decoration: none;
+}
+.collection-link--cta:hover{
+  
+    color: inherit;
+    border-color: var(--main-color);
+}
+
+.collection-details-image-container {
+    aspect-ratio: 1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 40px;
+}
+.cta-container {
+    display: flex;
+    column-gap: 8px;
+}
+.collection-feature-header h2 {
+  font-family: 'Radio Grotesk';
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 150%
+}
+.collection-feature-header {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    margin: 40px 40px 24px
+}
+.collection_block_cta_wrapper {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px
+}
+.collection_block_cta_wrapper p {
+  font-family: 'Radio Grotesk';
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 125%;
+  letter-spacing: 0%;
+  color: #6C8FAF
+}
+.collection_block_cta_wrapper a, .collection_block_cta_wrapper span {
+  font-family: 'Radio Grotesk';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%; 
+  vertical-align: middle;
+  color: #FFF;
+  background: #6C8FAF;
+  border: 1px solid #6C8FAF;
+  padding: 12px 40px;
+  text-decoration: none;
+  border-radius: 8px;
+  width: fit-content;
+  transition: all 0.3s ease
+}
+.collection_block_cta_wrapper a:hover {
+  color: #FFF;
+  background: #4A6B8F;
+}
+@media(max-width: 767px){
+  .collection-block_wf .collection-details:has(a){
+  
+    min-height: unset;
+}
+  .collections{
+    grid-template-columns: auto;
+  }
+  .collection-details-footer,
+  .collection-details-image-container{
+    padding: 40px 16px;
+  }
+  .collection-block{
+    aspect-ratio: 1 / 1.5;
+    padding: 40px 16px;
+  }
+  .collection-block_wf .collection-details p {
+    font-size: 14px;
+  }
+  .collections.flex{
+    flex-direction: column;
+  }
+  .collection-feature-header {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    margin: 40px 16px 16px 16px
+  }
+  .collection_block_cta_wrapper {
+    padding: 40px 16px
+  }
+}

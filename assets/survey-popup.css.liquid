@@ -1,0 +1,215 @@
+#grapevine-form input[type="radio"] {
+  -webkit-appearance: none; 
+  -moz-appearance: none;
+  appearance: none;
+  width: 16px; 
+  height: 16px;
+  border: 1px solid #352B27; 
+  border-radius: 2px;
+  outline: none; 
+  position: relative;
+  background-color: #fff;
+}
+#grapevine-form input[type="radio"] {
+  -webkit-appearance: none; 
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%; 
+  height: 100%;
+  border: 1px solid #352B27; 
+  border-radius: 2px;
+  outline: none; 
+  position: relative;
+  background-color: #fff;
+}
+#grapevine-form input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 12px;
+  height: 12px;
+  background-color: #352B27;
+  border-radius: 1px;
+}
+.survey-popup {
+  position: fixed; 
+  z-index: 10; 
+  box-sizing: border-box;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%; 
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+.survey-popup__content {
+  background-color: #fefefe;
+  margin: auto;
+  width: 90%;
+  max-height:666px;
+  height: 666px;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.survey-popup__content > div > img {
+  display: flex;
+  width: 100%;
+  height:230px;
+  object-fit: cover;
+  content:url({{ settings.survey_popup_image_mobile | image_url }});
+}
+.survey-popup__form {
+  padding: 33px 16px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.survey-popup__form > h3 {
+  display: none;
+  font-family: 'AT Surt Medium';
+  font-size: 28px;
+  color: #352B27;
+}
+.survey-popup__form > small {
+  display: none;
+  margin-top: 12px;
+  color: #352B27;
+  font-size: 12px;
+}
+.survey-popup__form > a {
+  display: none;
+}
+.survey-popup__form:has(#hdyh_form_thankyou) > h3,
+.survey-popup__form:has(#hdyh_form_thankyou) > small,
+.survey-popup__form:has(#hdyh_form_thankyou) > a {
+  display: block;
+}
+.survey-popup__form:has(#hdyh_form_thankyou) #grapevine-form > h2 {
+  display: none;
+}
+#grapevine-form {
+  border: none;
+  padding: 0;
+}
+#grapevine-form > h2 {
+  font-family: 'AT Surt Medium';
+  font-size: 20px;
+}
+#grapevine-form > #hdyh_form {
+  margin-top: 24px !important;
+}
+#grapevine-form > #hdyh_form .radio-wrapper, #grapevine-form > #hdyh_form .checkbox-wrapper {
+  margin-bottom: 18px;
+}
+#grapevine-form > #hdyh_form .radio__input {
+  padding-right: 12px;
+  height: 16px;
+  width: 16px;
+  display: flex;
+}
+#grapevine-form > #hdyh_form .radio__input + label {
+  font-family: 'Radio Grotesk';
+  font-size: 16px;
+  color: #352B27;
+  line-height: 100%;
+}
+
+#grapevine-form > #hdyh_form .radio-wrapper.top-level-option-wrapper:last-child {
+  margin-bottom: 0;
+}
+
+#hdyh_form  div#hdyh_choice_radios {
+  margin-bottom: 0px;
+}
+
+#grapevine-form > #hdyh_form #hdyh_submit_button, .survey-popup__form > a {
+  margin-top: 24px;
+  padding: 16px 40px !important;
+  border-radius: 8px !important;
+  background-color: #352B27 !important;
+  border: 1.5px solid transparent;
+  font-size: 14px;
+  outline: none !important;
+  color: #fff !important;
+  width: max-content;
+  cursor: pointer;
+}
+#grapevine-form > #hdyh_form #hdyh_submit_button:hover, .survey-popup__form > a:hover {
+  border-color: #352B27;
+  background-color: #fff !important;
+  color: #352B27 !important;
+}
+.survey-popup__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 32px;
+  width: 32px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+.survey-popup__close > img {
+  height: 16px;
+  width: 16px;
+}
+#hdyh_form_thankyou {
+  color: #352B27 !important;
+}
+
+#hdyh_choice_radios {
+ margin-bottom:0px;
+}
+  
+@media only screen and (min-width: 1054px){
+  .survey-popup__content {
+    height: 600px;
+    max-width: 1024px;
+  }
+  .survey-popup__content > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+  }
+  .survey-popup__content > div > img {
+    content:url({{ settings.survey_popup_image_desktop | image_url }});
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .survey-popup__content > div > .survey-popup__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  .survey-popup__form > h3 {
+    font-size: 40px;
+  }
+  #grapevine-form > #hdyh_form #hdyh_submit_button, .survey-popup__form > a {
+    font-size: 16px;
+  }
+  .survey-popup__close {
+    height: 48px;
+    width: 48px;
+    top: 16px;
+    right: 16px;
+  }
+  .survey-popup__close > img {
+    height: 21px;
+    width: 21px;
+  }
+  #hdyh_form_thankyou {
+    font-size: 16px;
+  }
+}

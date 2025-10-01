@@ -1,0 +1,418 @@
+.product-card.product-card-v2 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    overflow: hidden;
+  }
+  
+  .product-card-v2 .product-card-images {
+      /* aspect-ratio: 1; */
+    cursor: pointer;
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg_color);
+    position: relative;
+  }
+  
+  .product-card-image {
+    display: none;
+  }
+  
+  .product-card-image[data-first-available="true"] {
+    display: block;
+    object-fit: contain;
+  }
+  
+  .product-card-details {
+    padding: 12px;
+  }
+  
+  .wishlist-vector a, button, input[type=button], input[type=file], input[type=image], input[type=reset], input[type=submit], label[for] {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    stroke: #352B27;
+  }
+  
+  .wishlist-vector a svg:hover {
+    fill:#B44720;
+    stroke: none;
+  }
+  .wishlist-vector a svg.active{
+    fill:#B44720;
+    stroke: none;
+  }
+  
+  a.product_collection {
+      color: var(--soft-black-400, #AEAAA9);
+      font-family: 'Radio Grotesk';
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      text-decoration: none;
+  }
+  
+  p.product_variant {
+      color: var(--soft-black-400, #AEAAA9);
+      font-family: 'Radio Grotesk';
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      text-decoration: none;
+      margin-bottom: 4px;
+    cursor: pointer;
+  }
+  
+  .product-card-details-wrapper {
+      display: flex;
+      flex-direction: column;
+  }
+  .product-card-details-wrapper .title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 4px 0;
+    cursor: pointer;
+    gap: 8px;
+  }
+  
+  .product-card-details-wrapper .title-wrapper h3 {
+    font-family: "AT Surt Medium";
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    color: var(--black_color);
+  }
+  
+  .product-card-prices li {
+    font-family: "AT Surt Medium";
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--black_color);
+  }
+  
+  .product-card-variants {
+    list-style-type: none;
+    font-family: 'Radio Grotesk';
+    font-size: 11px;
+    line-height: 150%;
+    color: #AEAAA9
+  }
+  
+  .product-card-variants li {
+    display: none;
+  }
+  
+  .product-card-variants li[data-first-available="true"] {
+    display: block;
+  }
+  
+  .product-card-prices {
+    list-style-type: none;
+    min-width: auto;
+  }
+  
+  .product-card-prices li {
+    display: none;
+  }
+  
+  .product-card-prices li[data-first-available="true"] {
+    display: block;
+  }
+  
+  .product-card-swatches {
+    list-style-type: none;
+    display: flex;
+    overflow-x: auto;
+  }
+  
+  .product-card-swatches::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .product-card-swatches li {
+    border-radius: 100%;
+    margin: 0 2px 2px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    min-height: 20px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    transition: all .2s ease-in-out;
+    border: 0.63px solid rgba(53, 43, 39, 0);
+  }
+  
+  .product-card-swatches li:hover {
+    border: 0.63px solid rgba(53, 43, 39, .2);
+  }
+  .product-card-swatches .current-active-swatch:hover {
+    border: 0.63px solid var(--black_color);
+  }
+  
+  .product-card-swatches li[data-is-available="false"] {
+    border: 0.63px solid #D7D6D0;
+  }
+  
+  /* .product-card-swatches li:has(#variant-not-available) {
+    border: 0.63px solid #D7D6D0;
+  } */
+  
+  .product-card-swatches .current-active-swatch {
+    border: 0.63px solid var(--black_color) !important;
+  }
+  
+  
+  #variant-not-available {
+    position: absolute;
+    height: 100%;
+    width: 0.63px;
+    background-color: #D7D6D0;
+    transform: rotateY(0deg) rotate(45deg);
+  }
+  
+  .product-card-swatches li div {
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+  }
+  
+  .product-card-actions-buttons {
+    display: none;
+    position: initial !important;
+  }
+  
+  .product-card-actions-buttons a {
+    text-decoration: none;
+    font-family: "AT Surt Medium";
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+    color: var(--black_color);
+    width: 100%;
+    background: var(--neutral_eight_color);
+    border-radius: 4px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid transparent;
+  }
+  
+  .product-card-actions-buttons a:hover {
+    border: 1px solid var(--black_color);
+  }
+  
+  .product-card-actions-buttons[data-first-available="true"] {
+    display: flex;
+  }
+  
+  .product-card-actions-buttons[data-is-available="false"] a {
+    display: none;
+  }
+  
+  .product-card-actions-buttons[data-is-available="false"]
+    #joint-the-waitlist-button {
+    display: flex;
+  }
+  
+  .product-card-actions-buttons[data-is-available="true"] a {
+    display: flex;
+  }
+  
+  .product-card-actions-buttons[data-is-available="true"]
+    #joint-the-waitlist-button {
+    display: none;
+  }
+  .plus-x {
+    padding-bottom: 0.5mm;
+  }
+  
+  @media (min-width: 768px) {
+    .product-card-details {
+      padding: 16px 16px 0;
+    }
+  
+   .product-card-v2 .product-card-images {
+          aspect-ratio: 1 / 1.25;
+    }
+  
+    .product-card-details-wrapper .title-wrapper h3 {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+    }
+  
+    .product-card-prices li {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 20px;
+    }
+  
+    .product-card-swatches {
+      /* margin: 15px 0 24px 0; */
+      margin-top: 8px;
+    }
+  
+    .product-card-swatches li {
+      margin: 0 2px 0 0;
+      min-width: 20px;
+      min-height: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  
+    .product-card-swatches li div {
+      width: 15px;
+      height: 15px;
+    }
+  
+    .product-card-actions-buttons a {
+      font-size: 14px;
+      line-height: 20px;
+      border-radius: 8px;
+      height: 44px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .product-card-v2 .product-card-images {
+          aspect-ratio: 1 / 1.25;
+    }
+  }
+  
+  @media (min-width: 1440px) {
+    .product-card-v2 .product-card-images {
+      aspect-ratio: 1 / 1.25;
+    }
+  }
+  
+  .no-hover {
+    pointer-events: none; 
+    cursor: default; 
+  }
+  
+  .no-hover:hover {
+    background-color: transparent; 
+    color: inherit;
+  }
+  
+  .more-swatches {
+    font-family: 'Radio Grotesk';
+    font-size: 11px;
+  }
+  
+  .wishlist {
+    position: relative;
+  }
+  
+  .wishlist-vector {
+    position: absolute;
+    z-index: 10;
+    top: 12px;
+    right: 12px;
+    border-radius: 999px;
+    background-color: white;
+    color: black;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .variant-display-min-hide {
+    display: none;
+  }
+  /* Product Card Size */
+  @media (max-width: 768px) {
+    .product-card.product-card-v2, .swiper-slide {
+      width: 193px;
+    }
+  }
+  @media (max-width: 431px) {
+    .product-card-details-wrapper .title-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+    .product-card-prices {
+      margin-top: 8px;
+      display: flex;
+      text-align: start;
+      position: absolute;
+      top: 42px;
+    }
+     /* .product-card-v2 .product-card-images {
+      height: 325px;
+     }
+     .product-card-hover span {
+      background-size: 150% !important;
+     } */
+    .product-card-swatches {
+      margin-top: 30px;
+      /* margin-bottom: 0; */
+    }
+    .product-card-details-wrapper .title-wrapper h3 {
+     line-height: 20px;
+    }
+    .product-card-variants li[data-first-available=true] {
+     margin-top: 2px;
+    }
+  }
+  
+  .price-compare {
+    text-decoration: line-through;
+    color: #756F6D;
+    margin-right: 4px;
+  }
+  
+  .price-highlight {
+    color: #B44720;
+  }
+  .product-card-hover {
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    opacity: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  .product-card-hover:hover {
+    opacity: 1;
+  }
+  .product-card-hover span{
+    width: 100%;
+    height: 100%;
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: 140%;
+  }
+  .product-card-actions{
+    position: absolute;
+    margin: 16px;
+    width: 90%;
+    bottom: 0;
+  }
+  .product-card-v2{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  .plus-x{
+    padding: 3px 0 0 0;
+  }

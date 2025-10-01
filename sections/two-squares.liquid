@@ -1,0 +1,74 @@
+{{ 'two-squares.css' | asset_url | stylesheet_tag }}
+
+<div class="four-square-bottom">
+  <div class="four-square-content"  style="text-center">
+    <div class="wrapper-alignment">
+    <h5>{{ section.settings.bottom_title }}</h5>
+    {{ section.settings.bottom_conten_one }}
+    </div>
+  </div>
+  <div class="hover-effect-wrapper">
+    <div class="dot dot-1" onclick="toggle(1)">
+      <div class="heading"><span class="circle pulse"></span>BPA-Free</div>
+      <div class="content">
+        Nylon is BPA-free, eliminating a chemical substance linked to numerous health hazards
+      </div>
+    </div>
+    <div class="dot dot-2" onclick="toggle(2)">
+      <div class="heading"><span class="circle pulse"></span>Responsibly-made</div>
+      <div class="content">
+        Nylon lenses are more sustainably-produced compared to polycarbonate lenses, reducing environmental impact
+      </div>
+    </div>
+    <div class="dot dot-3" onclick="toggle(3)">
+      <div class="heading"><span class="circle pulse"></span>Impact Resistant</div>
+      <div class="content">
+        Pliable nylon lenses guarantee greater impact resistance compared to other materials
+      </div>
+    </div>
+    <div class="dot dot-4" onclick="toggle(4)">
+      <div class="heading"><span class="circle pulse"></span>Unique Optical Quality</div>
+      <div class="content">
+        Nylon lenses guarantee a 70% higher ABBE value* compared to polycarbonate and glass lenses, resulting in better optical performance for physical activities​
+      </div>
+    </div>
+    <img class="four-sqaure-image" src="{{ section.settings.bottom_image }}" loading="lazy" />
+  </div>
+</div>
+
+</div>
+</div>
+<script>
+  const toggle = (dotNum) => {
+   $(`.dot.dot-${dotNum}`).toggleClass('open');
+   $(`.dot:not(.dot-${dotNum})`).removeClass('open'); 
+  }
+</script>
+
+{%- schema -%}
+{
+"name": "Two Squares",
+"settings": [
+{
+"type": "url",
+"id": "bottom_image",
+"label": "Image"
+},
+{
+"type": "text",
+"id": "bottom_title",
+"label": "Title"
+},
+{
+"type": "richtext",
+"id": "bottom_conten_one",
+"label": "Content"
+}
+],
+"presets": [
+{
+"name": "Two Squares"
+}
+]
+}
+{%- endschema -%}

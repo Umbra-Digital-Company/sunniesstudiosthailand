@@ -1,0 +1,96 @@
+<section class="gtlu-main__benefits">
+  <h2>{{ section.settings.heading }}</h2>
+  <ul>
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'benefit' %}
+          <li>{{ block.settings.icon | image_url | img_tag }} {{ block.settings.label }}</li>
+      {% endcase %}
+    {% endfor %}
+  </ul>
+</section>
+
+<style>
+  .gtlu-main__benefits {
+    font-size: 14px;
+    font-family: 'Radio Grotesk';
+    color: var(--black_color);
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .gtlu-main__benefits > h2 {
+    font-family: 'AT Surt Medium';
+    margin: 0;
+    font-size: 28px;
+  }
+  .gtlu-main__benefits ul {
+    list-style: none;
+    margin-top: 24px;
+    display: grid;
+    gap: 16px;
+  }
+  .gtlu-main__benefits li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .gtlu-main__benefits li img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+  @media only screen and (min-width: 769px) {
+    .gtlu-main__benefits {
+      padding: 0;
+      font-size: 16px;
+    }
+    .gtlu-main__benefits h2  {
+      font-size: 32px;
+    }
+    .gtlu-main__benefits ul {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+{% schema %}
+  {
+    "name": "GTLU Benefits",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Benefit",
+        "type": "benefit",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Label"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "GTLU Benefits"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,89 @@
+{%- assign _section = section.settings -%}
+{%- assign section_text_color = _section.text_color -%}
+
+{%- if section.blocks.size > 0 -%}
+    <section class="section-blocks">
+        <div class="shell">
+            <div class="block-items">
+                {%- for block in section.blocks -%}
+                    {%- assign _block = block.settings -%}
+                    {%- assign block_image = _block.image -%}
+                    {%- assign block_title = _block.title -%}
+                    {%- assign block_content = _block.content -%}
+                    {%- assign block_item_url = _block.block_url -%}
+
+                    <div class="block-item{{color_class}}">
+                        <div class="block__inner">
+
+                            {%- if block_image != blank -%}
+                                <a href="{{block_item_url}}" class="block__image">
+                                    <span style="background-image: url({{block_image | img_url: '1450x'}})"></span>
+                                
+                                    {%- if block_title != blank -%}
+                                        <div class="block__content">
+                                            {%- if block_title != blank -%}
+                                                <h3 style="color: {{section_text_color}};">{{ block_title }}</h3>
+                                            {%- endif -%}
+                                        </div><!-- /.block__content -->
+                                    {%- endif -%}
+                                </a>
+                            {%- endif -%}
+                            
+                        </div><!-- /.block__inner -->
+                    </div><!-- /.block-item -->
+                {%- endfor -%}
+            </div><!-- /.block-items -->
+        </div><!-- /.shell -->
+    </section><!-- /.section-blocks -->
+{%- endif -%}
+
+{% schema %}
+
+{
+    "name": "50/50 Section",
+    "max_blocks": 2,
+    "settings": [
+        {
+            "type": "select",
+            "id": "text_color",
+            "label": "Text Color",
+            "options": [
+                {
+                    "value": "#ffffff",
+                    "label": "White"
+                }, {
+                    "value": "#352b27",
+                    "label": "Black"
+                }
+            ]
+        }
+    ],
+    "blocks": [
+        {
+            "type": "box",
+            "name": "Block",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                }, {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                }, {
+                    "type": "url",
+                    "id": "block_url",
+                    "label": "Block Url"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "50/50 Section"
+        }
+    ]
+}
+
+{% endschema %}

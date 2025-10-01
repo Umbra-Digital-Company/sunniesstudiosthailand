@@ -1,0 +1,65 @@
+<section class="book-recommendations">
+  <h3 class="book-reco-heading">{{ section.settings.title }}</h3>
+  <div class="book-reco-text">{{ section.settings.text }}</div>
+  <div class="books-container">
+    {% for block in section.blocks %}
+      <div class="book-item">
+        <figure class="book-image">
+          <img src="{{ block.settings.book_img | img_url: 'master' }}" alt="Book image">
+        </figure>
+        <div class="book-info">
+          <div class="book-title">{{ block.settings.book_title }}</div>
+          <div class="book-desc">
+            {{ block.settings.book_desc }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Book Recommendations",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text content"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "book_item",
+      "name": "Book Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "book_img",
+          "label": "Book image"
+        },
+        {
+          "type": "richtext",
+          "id": "book_title",
+          "label": "Book title"
+        },
+        {
+          "type": "richtext",
+          "id": "book_desc",
+          "label": "Book description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Book Recommendations"
+    }
+  ]
+}
+{% endschema %}

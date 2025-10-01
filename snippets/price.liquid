@@ -1,0 +1,47 @@
+{%- assign output = '' -%}
+{%- assign echo = echo | default: true -%}
+{%- assign __product = price | default: product -%}
+
+{%- if __product != empty -%}
+	{%- if echo == true -%}
+		{% if __product.compare_at_price > __product.price %}
+			<ins class="price__amount">
+				<span class="money">
+					{%- if no_trailing_zeroes -%}
+						{{ __product.price | money_without_currency | remove: '.00' | prepend: '$' }}
+					{%- else -%}
+						{{ __product.price | money }}
+					{%- endif -%}
+				</span><!-- /.money -->
+			</ins>
+
+			<del class="price__amount">
+				<span class="money">
+					{%- if no_trailing_zeroes -%}
+						{{ __product.compare_at_price  | money_without_currency | remove: '.00' | prepend: '$' }}
+					{%- else -%}
+						{{ __product.compare_at_price | money }}
+					{%- endif -%}
+				</span><!-- /.money -->
+			</del>
+		{%- else -%}
+			<span class="price__amount">
+				<span class="money">
+					{%- if no_trailing_zeroes -%}
+						{{ __product.price | money_without_currency | remove: '.00' | prepend: '$' }}
+					{%- else -%}
+						{{ __product.price | money }}
+					{%- endif -%}
+				</span><!-- /.money -->
+			</span>
+		{%- endif -%}
+	{%- else -%}
+		{%- capture output -%}
+			{%- include 'price' with __product, echo: true -%}
+		{%- endcapture -%}
+
+		{%- assign output = output | strip_newlines | remove: '	' | replace: '"', "'" -%}
+	{%- endif -%}
+{%- endif -%}
+
+{%- assign __product = '' -%}

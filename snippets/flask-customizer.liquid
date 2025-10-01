@@ -1,0 +1,60 @@
+{% comment %}
+loop_component
+body_component
+cap_component
+boot_component
+{% endcomment %}
+
+{% liquid 
+
+  assign background_color_metafield = ""
+
+%}
+
+  {% if page.url contains '?source=sunnies-flask' %}
+    <div class="temp_blocker"></div>
+  {% else %}
+    <div class="test_block">{{ request.url }}</div>
+  {% endif %}
+
+{{ 'flask-customizer.css' |  asset_url |  stylesheet_tag }}
+{% comment %} <div class="flask-customization-main" data-mode="light" style="background: var(--background-color); --dark-color: #424144; --light-color: #ffffff; --text-color: #424144; color: var(--text-color); --background-color: var(--light-color)"> {% endcomment %}
+<div class="flask-customization-main" data-cap-type="{{ default_cap_type }}" data-size="25oz" data-mode="light" style="background: var(--background-color); --dark-color: #424144; --light-color: #ffffff; --text-color: #352B27; --flask-color: #352B27; --border-color: #B5161C; --summer-red-color: #B5161C; --summer-yellow-color: #EECC33; color: var(--text-color); --background-color: var(--light-color)">
+  <div class="flask-summer-border flask-summer-top-border">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  <div class="onboarding-section">
+    {% render 'flask-customizer-onboarding' with  onboarding_step_1_media: section.settings.onboarding_step_1_media,
+    onboarding_step_1_header: section.settings.onboarding_step_1_header,
+    onboarding_step_1_description: section.settings.onboarding_step_1_description,
+    onboarding_step_2_media: section.settings.onboarding_step_2_media,
+    onboarding_step_2_header: section.settings.onboarding_step_2_header,
+    onboarding_step_2_description: section.settings.onboarding_step_2_description,
+    onboarding_step_3_media: section.settings.onboarding_step_3_media,
+    onboarding_step_3_header: section.settings.onboarding_step_3_header,
+    onboarding_step_3_description: section.settings.onboarding_step_3_description,
+    onboarding_step_4_media: section.settings.onboarding_step_4_media,
+    onboarding_step_4_header: section.settings.onboarding_step_4_header,
+    onboarding_step_4_description: section.settings.onboarding_step_4_description
+    %}
+    
+  </div>
+  <div class="summary-section">
+    {% render 'flask-customizer-summary-desktop' with background_color: section.settings.customizer_background-color, loop_component: loop_component, body_component: body_component, cap_component: cap_component, boot_component: boot_component, main_bottle: product.metafields.custom.main_flask_body_product.value, main_cap: product.metafields.custom.main_flask_cap_product.value, main_loop: product.metafields.custom.main_flask_loop_product.value  %}
+    {% render 'flask-customizer-summary-mobile' with background_color: section.settings.customizer_background-color, loop_component: loop_component, body_component: body_component, cap_component: cap_component, boot_component: boot_component, main_bottle: product.metafields.custom.main_flask_body_product.value, main_cap: product.metafields.custom.main_flask_cap_product.value, main_loop: product.metafields.custom.main_flask_loop_product.value %} 
+  </div>
+  <div class="preview-section">
+    {% render 'flask-customizer-preview-header' %}
+    {% render 'flask-customizer-preview-main' with background_color: section.settings.customizer_background-color, loop_component: loop_component, body_component: body_component, cap_component: cap_component, boot_component: boot_component, main_bottle: product.metafields.custom.main_flask_body_product.value, main_cap: product.metafields.custom.main_flask_cap_product.value, main_loop: product.metafields.custom.main_flask_loop_product.value %}
+    {% render 'flask-customizer-preview-randomizer' %}
+    {% render 'flask-customizer-preview-footer' %}
+    {% render 'flask-customizer-preview-popup' %}
+  </div>
+  <div class="flask-summer-border flask-summer-bottom-border">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>  
+</div>

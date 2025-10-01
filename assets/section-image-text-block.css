@@ -1,0 +1,234 @@
+.collections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4px;
+}
+
+.main_title {
+  text-align: center;
+  font-size: 28px;
+  font-family: 'Radio Grotesk';
+  line-height: 36px;
+  color: #352B27;
+  margin: 0 0 40px 0;
+}
+
+.collection-block {
+    display: flex;
+    aspect-ratio: 1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 40px 118px 56px 40px;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.collection-details-container{
+  
+    display: flex;
+    flex-direction: column;
+}
+.collection-block.left-alignment{
+    justify-content: flex-start;
+}
+.collection-block.center-alignment{
+    justify-content: center;
+}
+.collection-block.right-alignment{
+    justify-content: flex-end;
+}
+.collection-block.left-alignment .collection-details-container{
+    align-items: flex-start;
+    text-align: left;
+    justify-content: space-between;
+    height: 100%;
+}
+.collection-block.center-alignment .collection-details-container{
+  
+    align-items: center;
+    text-align: center;
+}
+.collection-block.right-alignment .collection-details-container{
+  
+    align-items: flex-end;
+    text-align: right;
+}
+
+.collection-details {
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+}
+.collection-details-footer {
+    padding: 40px;
+  flex-grow: 1;
+}
+.collection-block_wf {
+  margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+}
+.collection-block_wf .collection-details{
+  max-width: 480px;
+  row-gap: 24px;
+}
+
+.collection-block_wf .collection-details:has(a){
+  
+    min-height: 140px;
+    display: flex;
+    justify-content: space-between;
+}
+.collection-details h5{
+  color: var(--base-white, #FFF);
+  font-family: 'Radio Grotesk';
+  font-size: 22px;
+  line-height: 32px; 
+}
+.collection-details-container h4{
+  color: var(--base-white, #FFF);
+  font-family: "AT-Surt-SemiBold";
+  font-size: 14px;
+  line-height: 20px; 
+}
+.collection-details p{
+  color: var(--base-white, #FFF);
+  
+  /* Text md/Regular */
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+}
+.collection-block_wf .collection-details p{
+  color: #FFF;
+  font-family: 'Radio Grotesk';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 125%; /* 22.5px */
+}
+.collection-link{
+    color: var(--base-white, #FFF);
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    font-style: normal;
+    line-height: 20px;
+    text-decoration: none;
+    margin-top: 16px;
+    display: inline-block;
+}
+.collection-link--cta {
+    display: flex;
+    padding: 12px 40px;
+    background: white;
+    width: fit-content;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    color: var(--soft-black-700, #352B27);
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  text-decoration: none;
+}
+.collection-link--cta:hover{
+  
+    color: inherit;
+    border-color: var(--main-color);
+}
+
+.collection-details-image-container {
+    aspect-ratio: 1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 40px;
+}
+.cta-container {
+    display: flex;
+    column-gap: 8px;
+}
+@media(max-width: 767px){
+  .collection-block_wf .collection-details:has(a){
+  
+    min-height: unset;
+}
+  .collections{
+    grid-template-columns: auto;
+  }
+  .collection-details-footer,
+  .collection-details-image-container{
+    padding: 40px 16px;
+  }
+  .collection-block{
+    aspect-ratio: 1;
+    padding: 56px 40px;
+  }
+    .heightset{
+    height: 718px;
+  }
+  .collection-block_wf .collection-details p {
+    font-size: 14px;
+  }
+}
+  .collections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4px;
+  }
+
+  .collection-block-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .collection-details-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .additional-title {
+    font-size: 22px;
+    font-family: 'Radio Grotesk';
+    color: #352B27;
+    text-align: start;
+    margin: 0 0 16px 0;
+  }
+
+   .additional-block {
+    padding: 40px;
+    background: #EEEBE8;
+    height: 187px;
+   }
+
+  .additional-block p {
+    font-size: 14px;
+    font-family: 'Radio Grotesk';
+    color: #352B27;
+  }
+
+  /* Responsive adjustments for mobile */
+  @media(max-width: 767px) {
+    .collections {
+      grid-template-columns: auto;
+    }
+    .additional-block h1 {
+      font-size: 22px;
+    }
+    .additional-block p {
+      font-size: 14px;
+    }
+    .additional-block {
+    padding: 40px 16px;
+    background: #EEEBE8;
+    height: 208px;
+   }
+
+  }

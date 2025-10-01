@@ -1,0 +1,38 @@
+{{ 'summer-landing-page-2025.css' | asset_url | stylesheet_tag }}
+
+<section class="section-two">
+  {% if section.settings.section-two-video-desktop != blank %}
+    <div class="section-two__media-wrapper">
+      {{ section.settings.section-two-video-mobile | video_tag: autoplay: 'true', loop: 'true', class: "section-two__video--mobile" }}
+      {{ section.settings.section-two-video-desktop | video_tag: autoplay: 'true', loop: 'true', class: "section-two__video--desktop" }} 
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+    {
+      "name": "Summer Section 2",
+      "settings": [
+        {
+        "type": "header",
+        "content": "Section 2"
+      },
+      {
+        "type": "video",
+        "id": "section-two-video-desktop",
+        "label": "Video (Desktop)"
+      },
+      {
+        "type": "video",
+        "id": "section-two-video-mobile",
+        "label": "Video (Mobile)"
+      }
+      ],
+        "presets": [
+            {
+            "name": "Summer Section 2",
+            "category": "Landing Page"
+            }
+        ]
+    }
+  {% endschema %}

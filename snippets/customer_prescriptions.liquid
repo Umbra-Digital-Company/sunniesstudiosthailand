@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="{{ 'customerPrescriptions.css' | asset_url }}">
+
+<div id="customer-prescription">
+  <ul id="customer-prescription-list">
+    <li id="my-prescription-loader">
+      <div id="my-prescription-loading-spinner"></div>
+    </li>
+  </ul>
+  <div id="customer-prescription-need-new-prescription">
+    <h3>Need a new prescription?</h3>
+    <img alt="Need a new prescription?"
+      src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/94084dd18ef33624ee14c1d511eb3f33.png?v=1658988928"
+      width="328px" height="328px" loading="lazy" />
+    <p>
+      Get your eyes checked by our doctors in any of our stores or outside your
+      doorstep.
+    </p>
+    <a href="https://sunnieshomeoptical.com/booking/" target="_blank">Book Home Optical</a>
+    <a href="https://sunnieshomeoptical.com/appointment/" target="_blank">Book an in-store exam</a>
+  </div>
+</div>
+
+<script src={{ 'customerPrescriptions.js' | asset_url }}></script>

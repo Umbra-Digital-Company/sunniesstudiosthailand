@@ -1,0 +1,139 @@
+{{ 'section-image-text-block.css' | asset_url | stylesheet_tag }}
+
+<div class="collection-grid">
+  <h1 class="main_title">{{ section.settings.main_title }}</h1>
+  <div class="collections">
+    {% for block in section.blocks %}
+
+      {% liquid
+        assign alignment = ''
+
+        if block.settings.content_alignment == 'left'
+          assign alignment = 'left-alignment'
+        elsif block.settings.content_alignment == 'center'
+          assign alignment = 'center-alignment'
+        else
+          assign alignment = 'left-alignment'
+        endif
+
+        if block.settings.option_1_height == true
+            assign heightset = 'heightset'
+          else 
+            assign heightset = 'heightset-none'
+          endif  
+      %}
+
+      <!-- Parent Container -->
+      <div class="collection-block-wrapper" style="margin-bottom: {{ block.settings.bottom_margin }}px">
+        <!-- First Collection Block -->
+        <div class="collection-block {{ heightset }} {{ alignment }}" style="background-image: url({{ block.settings.collection_image.src | image_url }});">
+          <div class="collection-details-container">
+            <div class="collection-details">
+              {% if block.settings.collection_title != empty %}
+                <h5 style="color: {{ block.settings.text_color }}">{{ block.settings.collection_title }}</h5>
+              {% endif %}
+            </div>
+            <div>
+              {% if block.settings.description != empty %}
+                <h4 style="color: {{ block.settings.text_color }}">{{ block.settings.description }}</h4>
+              {% endif %}
+              {% if block.settings.messagearea != empty %}
+                <a
+                  class="collection-link"
+                  href="{{ block.settings.button_url }}"
+                  target="_blank"
+                  style='color: {{ block.settings.text_color }}; border-color: {{ block.settings.text_color }};'>{{ block.settings.messagearea }}</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Second Optional Collection Block (Additional Details) -->
+        {% if block.settings.additional_title != empty or block.settings.additional_description != empty %}
+          <div class="additional-block">
+            <h1 class="additional-title">{{ block.settings.additional_title }}</h1>
+            <p>{{ block.settings.additional_description }}</p>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Brand Showcase",
+    "settings": [
+      {
+        "type": "text",
+        "id": "main_title",
+        "label": "Title",
+        "default": "Our Brands"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "feature-card",
+        "name": "Showcase Card",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "option_1_height",
+            "label": "Set height for no additional block(mobile)",
+            "default": false
+          },
+          {
+            "type": "text",
+            "id": "collection_title",
+            "label": "Brand Title"
+          },
+          {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color",
+            "default": "#FFFFFF"
+          },
+          {
+            "type": "image_picker",
+            "id": "collection_image",
+            "label": "Block Image"
+          },
+          {
+            "type": "range",
+            "id": "bottom_margin",
+            "min": 0,
+            "max": 4,
+            "step": 2,
+            "label": "Collection block wrapper margin (px)",
+            "default": 0
+          },
+          {
+            "type": "text",
+            "id": "description",
+            "label": "Card Title"
+          },
+          {
+            "type": "textarea",
+            "id": "messagearea",
+            "label": "Card Description"
+          },
+          {
+            "type": "text",
+            "id": "additional_title",
+            "label": "Additional Block Title (Optional)"
+          },
+          {
+            "type": "textarea",
+            "id": "additional_description",
+            "label": "Additional Block Description (Optional)"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Brand Showcase"
+      }
+    ]
+  }
+{% endschema %}

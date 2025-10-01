@@ -1,0 +1,167 @@
+{% comment %} {% liquid
+  assign image = page.metafields.event.event.value.image
+  assign date_start = page.metafields.event.event.value.date_start | date: "%b %d, %Y"
+  assign date_end = page.metafields.event.event.value.date_end | date: "%b %d, %Y"
+  assign time_start = page.metafields.event.event.value.time_start | date: "%I:%M %p"
+  assign time_end = page.metafields.event.event.value.time_end | date: "%I:%M %p"
+  assign stores = page.metafields.event.event.value.stores.value | map: "name"
+%} {% endcomment %}
+{% liquid
+  assign image = page.metafields.event.image
+  assign date_start = page.metafields.event.start_date | date: "%b %d, %Y"
+  assign date_end = page.metafields.event.end_date | date: "%b %d, %Y"
+  assign time_start = page.metafields.event.start_time | date: "%I:%M %p"
+  assign time_end = page.metafields.event.end_time | date: "%I:%M %p"
+  assign stores = page.metafields.event.stores.value
+%}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/add-to-calendar-button@1/assets/css/atcb.min.css">
+<div class="coa-in-store {{ section.id }}">
+  <div class="coa-in-store__event-details">
+    <img src="{{ image | file_url }}" />
+    <div class="coa-in-store__event-info">
+      <h2>{{ page.title }}</h2>
+      {% unless date_start == blank %}
+        <div>
+          <span>Date</span>
+          <time datetime="{{ date_start }} - {{ date_end }}">{{ date_start }}{% unless date_end == blank %} - {% endunless %}{{ date_end }}</time>
+          <time>{{ time_start }}{% unless time_end == blank %} - {% endunless %}{{ time_end }}</time>
+        </div>
+      {% endunless %}
+      {% unless stores == blank %}
+        <div>
+          <span>Stores</span>
+          <ul>
+            {% for store in stores %}
+              <li>{{ store }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endunless %}
+      <p>{{ page.content }}</p>
+      <div class="coa-in-store__event-actions">
+        {% render "event-signup-fun-run" %}
+        {% unless date_start == blank %}
+        {% render 'add-to-calendar', title: page.title, content: page.content, date_start: page.metafields.event.start_date, date_end: page.metafields.event.end_date %}    
+        {% endunless %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .coa-in-store {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+  }
+  .coa-in-store__event-details > img {
+    width: 100%;
+    object-fit: cover;
+  }
+  .coa-in-store__event-info {
+    padding: 60px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: baseline;
+  }
+  .coa-in-store__event-info > h2 {
+    font-family: 'AT Surt Medium';
+    font-size: 28px;
+  }
+  .coa-in-store__event-info > div > span {
+    font-size: 14px;
+    font-family: 'AT-Surt-Semibold';
+    line-height: 100%;
+  }
+  .coa-in-store__event-info > div > time {
+    margin-top: 8px;
+    display: block;
+  }
+  .coa-in-store__event-info > div > ul {
+    padding: 0 24px;
+    margin-top: 8px;
+  }
+  .coa-in-store__event-actions {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+  }
+  .coa-in-store__event-actions > button {
+    padding: 16px 40px;
+    background: none;
+    border: 1.5px solid transparent;
+    background-color: var(--black_color);
+    color: #fff;
+    border-radius: 8px;
+    line-height: 100%;
+    font-family: 'AT Surt Medium';
+  }
+  .coa-in-store__event-actions > button:hover {
+    background-color: #fff;
+    border-color: var(--black_color);
+    color: var(--black_color)
+  }
+  .coa-in-store__event-actions > button ~ .atcb-initialized .atcb-button {
+    background-color: #fff !important;
+    color: var(--black_color);
+    border-color: var(--black_color);
+  }
+  .{{ section.id}} li{
+    margin-left: 2em;
+  }
+
+  @media only screen and (min-width: 769px) {
+     .coa-in-store {
+      font-size: 16px;
+      padding: 0 100px;
+    }
+    .coa-in-store__event-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .coa-in-store__event-info {
+      justify-content: center;
+      padding: 40px;
+    }
+    .coa-in-store__event-info > h2{
+      font-size: 40px;
+    }
+    .coa-in-store__event-info > div {
+      width: 100%;
+    }
+    .coa-in-store__event-info > div > span {
+      font-size: 16px;
+    }
+    .coa-in-store__event-info > div > ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 24px;
+    }
+  }
+</style>
+<style>
+  .btn-primary {
+    font-family: 'AT Surt Medium';
+    font-size: 14px;
+    text-transform: unset;
+    padding: 16px 40px;
+    border: 1.5px solid transparent;
+  }
+  .btn-primary:hover {
+    color: var(--black_color);
+    background-color: var(--neutral_eight_color);
+    border: 1.5px solid var(--black_color);
+  }
+  @media only screen and (min-width: 769px) {
+    .btn-primary {
+      font-size: 16px;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "COA In-store Event",
+    "settings": []
+  }
+{% endschema %}

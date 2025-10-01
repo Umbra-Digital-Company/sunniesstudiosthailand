@@ -1,0 +1,330 @@
+#customer-prescription-list {
+  list-style-type: none;
+}
+
+#customer-prescription-list li:nth-child(1) {
+  padding-top: 0;
+}
+
+#customer-prescription-list li {
+  padding: 40px 0;
+  border-bottom: 1.5px solid #efefec;
+}
+
+#customer-prescription-list li:last-child {
+  border-bottom: none;
+}
+
+#customer-prescription-list li h3 {
+  font-family: 'Radio Grotesk';
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 18px;
+  color: #352b27;
+  margin: 0 0 8px 0;
+}
+
+#customer-prescription-list li p {
+  font-family: 'Radio Grotesk';
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: #352b27;
+  margin: 0 0 16px 0;
+}
+
+#customer-prescription-list table {
+  width: 100%;
+  border: 1.5px solid #efefec;
+  border-radius: 4px;
+}
+
+#customer-prescription-list table th,
+#customer-prescription-list table td {
+  padding: 14px 16px;
+}
+
+#customer-prescription-list table th,
+#customer-prescription-list table #prescription-row-label {
+  font-family: 'Radio Grotesk';
+  font-weight: 650;
+  font-size: 14px;
+  line-height: 14px;
+  text-align: right;
+  color: #352b27;
+}
+
+#customer-prescription-list table #prescription-row-label {
+  text-align: left;
+}
+
+#customer-prescription-list table td {
+  font-family: 'Radio Grotesk';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  text-align: right;
+  color: #352b27;
+}
+
+#customer-prescription-list table colgroup .prescription-label-column {
+  width: 40%;
+}
+
+#customer-prescription-list table colgroup .prescription-left-eye-column {
+  width: 30%;
+}
+
+#customer-prescription-list table colgroup .prescription-right-eye-column {
+  width: 30%;
+}
+
+#customer-prescription-need-new-prescription {
+  padding: 20px 0 0 0;
+}
+
+#customer-prescription-need-new-prescription h3 {
+  font-family: 'Radio Grotesk';
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 18px;
+  color: #352b27;
+  margin: 0 0 24px 0;
+}
+
+#customer-prescription-need-new-prescription img {
+  width: 100%;
+  margin: 0 0 24px 0;
+}
+
+#customer-prescription-need-new-prescription p {
+  font-family: 'Radio Grotesk';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000000;
+  margin: 0 0 24px 0;
+}
+
+#customer-prescription-need-new-prescription a {
+  display: block;
+  padding: 16px 40px;
+  margin: 0 0 16px 0;
+  width: 100%;
+  background: #352b27;
+  color: #fdfdfd;
+  border: 1.5px solid #352b27;
+  border-radius: 8px;
+  font-family: 'Radio Grotesk';
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14px;
+  text-decoration: none;
+  text-align: center;
+}
+
+#customer-prescription-need-new-prescription a:last-child {
+  margin: 0;
+  background: #fdfdfd;
+  color: #352b27;
+}
+
+#my-prescription-loader {
+  display: flex;
+  justify-content: center;
+}
+
+#my-prescription-loading-spinner {
+  border: 8px solid #352b27;
+  border-radius: 50%;
+  border-top: 8px solid #fff;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+}
+
+#customer-prescription-no-prescription-label {
+  display: flex;
+  align-items: center;
+  height: 50vh;
+}
+
+#customer-prescription-no-prescription-label span {
+  color: #352b27;
+  font-family: 'Radio Grotesk';
+  opacity: 0.5;
+}
+
+#customer-prescription-no-prescription-label a {
+  color: #352b27;
+  font-family: 'Radio Grotesk';
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 768px) {
+  #customer-prescription {
+    display: flex;
+    width: 100%;
+  }
+
+  #customer-prescription-list {
+    width: 65%;
+    padding: 0 20px;
+  }
+
+  #customer-prescription-need-new-prescription {
+    width: 35%;
+    padding: 0 20px;
+  }
+
+  #customer-prescription-list {
+    padding: 0 20px;
+  }
+
+  #customer-prescription-need-new-prescription {
+    padding: 0 20px;
+  }
+
+  #customer-prescription-list li h3 {
+    font-size: 18px;
+    line-height: 18px;
+    margin: 0 0 12px 0;
+  }
+
+  #customer-prescription-list li p {
+    font-size: 12px;
+    line-height: 12px;
+    margin: 0 0 24px 0;
+  }
+
+  #customer-prescription-list table th,
+  #customer-prescription-list table #prescription-row-label {
+    font-size: 14px;
+    line-height: 14px;
+  }
+
+  #customer-prescription-list table td {
+    font-size: 14px;
+    line-height: 14px;
+  }
+
+  #customer-prescription-need-new-prescription h3 {
+    font-size: 18px;
+    line-height: 18px;
+  }
+
+  #customer-prescription-need-new-prescription p {
+    font-size: 14px;
+    line-height: 14px;
+    margin: 0 0 20px 0;
+  }
+
+  #customer-prescription-no-prescription-label {
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 1024px) {
+  #customer-prescription {
+    display: flex;
+    width: 100%;
+  }
+
+  #customer-prescription-list {
+    width: 65%;
+    padding: 0 40px;
+  }
+
+  #customer-prescription-need-new-prescription {
+    width: 35%;
+    padding: 0 40px;
+  }
+
+  #customer-prescription-list li h3 {
+    font-size: 20px;
+    line-height: 20px;
+    margin: 0 0 12px 0;
+  }
+
+  #customer-prescription-list li p {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    margin: 0 0 24px 0;
+  }
+
+  #customer-prescription-list table th {
+    padding: 24px 16px 16px 16px;
+  }
+
+  #customer-prescription-list table td {
+    padding: 16px 16px;
+  }
+
+  #customer-prescription-list table th,
+  #customer-prescription-list table #prescription-row-label {
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  #customer-prescription-list table #prescription-row-label {
+    text-align: left;
+  }
+
+  #customer-prescription-list table td {
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  #customer-prescription-list table colgroup .prescription-label-column {
+    width: 50%;
+  }
+
+  #customer-prescription-list table colgroup .prescription-left-eye-column {
+    width: 25%;
+  }
+
+  #customer-prescription-list table colgroup .prescription-right-eye-column {
+    width: 25%;
+  }
+
+  #customer-prescription-need-new-prescription h3 {
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  #customer-prescription-need-new-prescription p {
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0 0 40px 0;
+  }
+
+  #customer-prescription-need-new-prescription a {
+    padding: 20px 40px;
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  #customer-prescription-no-prescription-label {
+    align-items: flex-start;
+  }
+}

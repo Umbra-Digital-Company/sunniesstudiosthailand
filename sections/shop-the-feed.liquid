@@ -1,0 +1,508 @@
+<div class="shop-the-feed">
+  {% if template contains 'flask' %}
+
+  <h2>@sunniesflask in the world</h2>
+    {%  else %}
+    <h2>Shop the feed</h2>
+    {% endif %}
+  <div class='swiper shop-the-feed__swiper'>
+    <div class='swiper-wrapper'></div>
+    <!-- <div class='shop-the-feed__pagination'></div> -->
+  </div>
+  
+
+  <div class='shop-the-feed__nav'>
+    <div class='shop-the-feed__button-prev'>
+      <img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Vector.svg?v=1660974657" alt="previous" loading="lazy">
+    </div>
+    <div class='shop-the-feed__button-next'>
+      <img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Vector_1f4ceb8f-13b3-49f2-a497-6e2caefe25f1.svg?v=1660974674" alt="next" loading="lazy">
+    </div>
+  </div>  
+
+  <div class="shop-the-feed__modals"></div>
+</div>
+
+<style>
+  .shop-the-feed {
+    padding: 0 16px;
+    position: relative;
+    display: block;
+    text-align: center;
+    margin: 40px auto 0;
+  }
+  .shop-the-feed h2 {
+    color: var(--soft-black-700, #352B27);
+    font-size: 22px;
+    line-height: 150%; /* 33px */
+    font-family: 'AT Surt Medium';
+    text-align: left;
+    margin-bottom: 16px;
+  }   
+  .shop-the-feed__swiper {
+    overflow: visible;
+  }
+  .shop-the-feed__img-wrapper {
+    padding-bottom: 100%;
+    width: 100%;
+    position: relative;
+  }
+  .shop-the-feed__img-wrapper > img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .shop-the-feed__swiper .swiper-slide {
+    /* border: 1.5px solid transparent; */
+    cursor: pointer;
+  }
+  .shop-the-feed__swiper .swiper-slide:hover {
+    /* border: 1.5px solid var(--black_color); */
+  }
+  .shop-the-feed__pagination {
+    padding-top: 28px;
+  }
+  .shop-the-feed__pagination .swiper-pagination-bullet {
+    border: 1.5px solid var(--black_color);
+    background: unset;
+    opacity: 1;
+  }
+  .shop-the-feed__pagination .swiper-pagination-bullet-active {
+    background: var(--black_color);
+  }
+  .shop-the-feed__nav {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 47%;
+    width: 95%;
+    display: none;
+  }
+  .shop-the-feed__button-prev, .shop-the-feed__button-next {
+    z-index: 2;
+    cursor: pointer;
+    background: var(--white_color);
+    box-shadow: 0 0 9.6px #352b271a;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+  }
+  .shop-the-feed__modal {
+    display: none;
+    position: fixed; 
+    z-index: 98;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.1); 
+  }
+  .shop-the-feed__modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    min-height: 100%;
+    font-family: 'Radio Grotesk';
+    font-size: 12px;
+    text-align: left;
+  }
+  .shop-the-feed__modal-close, .shop-the-feed__modal-close--desktop {
+    border: none;
+    height: 32px;
+    width: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border-radius: 100%;
+    right: 8px;
+    top: 8px;
+    background-color: rgba(255, 255, 255,0.6);
+  }
+  .shop-the-feed__modal-close:hover, .shop-the-feed__modal-close--desktop:hover {
+    background-color: var(--bg_color);
+  }
+  .shop-the-feed__modal-close > img {
+    height: 17px;
+    width: 17px;
+    fill: var(--black_color);
+  }
+  .shop-the-feed__modal-close--desktop {
+    display: none;
+    height: 48px;
+    width: 48px;
+  }
+  .shop-the-feed__modal-close--desktop > img {
+    height: 21px;
+    width: 21px;
+    fill: var(--black_color);
+  }
+  .shop-the-feed__modal-details-wrapper {
+    padding: 16px;
+    position: relative;
+  }
+  .shop-the-feed__modal-media {
+    width: 100%;
+    aspect-ratio: 1;
+  }
+  .shop-the-feed__modal-media > * {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .shop-the-feed__modal-details {
+    height: 100%;
+    overflow: auto;
+  }
+  .shop-the-feed__modal-caption {
+    white-space: break-spaces;
+  }
+  .shop-the-feed__modal-details::-webkit-scrollbar {
+    width: 0;
+  }
+  .shop-the-feed__modal-details > hr {
+    border: 1.5px solid var(--light_gray_color);
+    margin: 16px 0;
+  }
+  .shop-the-feed__instagram-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    margin-top: 16px;
+    color: var(--black_color);
+  }
+  .shop-the-feed__instagram-link:hover {
+    color: inherit;
+  }
+  .shop-the-feed__instagram-link > img {
+    height: 20px;
+    width: 20px;
+  }
+  @media only screen and (min-width: 769px){
+    .shop-the-feed {
+      padding: 0 40px;
+    }
+    
+    .shop-the-feed h2 {
+      margin-bottom: 16px;
+    }
+    .shop-the-feed__nav {
+      display: flex;
+    }
+    .shop-the-feed__modal {
+      padding: 50px 16px 0;
+    }
+    .shop-the-feed__modal-content {
+      font-size: 14px;
+      max-width: 1240px;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 600px;
+      min-height: unset;
+    }
+    .shop-the-feed__modal-close {
+      display: none;
+    }
+    .shop-the-feed__modal-close--desktop {
+      display: flex;
+    }
+    .shop-the-feed__modal-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100%;
+    }
+    .shop-the-feed__modal-details-wrapper {
+      padding: 60px;
+    }
+    .shop-the-feed__modal-details-wrapper > hr {
+      margin: 24px 0;
+    }
+    .shop-the-feed__modal-media {
+      aspect-ratio: unset;
+    }
+    .shop-the-feed__instagram-link {
+      margin-top: 24px;
+    }
+  }
+  @media only screen and (min-width: 1201px){
+    .shop-the-feed__modal-wrapper {
+      height: 100%;
+      display: flex;
+    }
+    .shop-the-feed__modal-media {
+      width: 600px;
+      height: 600px;
+      flex-shrink: 0;
+    }
+  }
+</style>
+
+<script>
+  const shopTheFeed = $(".shop-the-feed")
+  
+  async function getPosts(){
+    try {
+      {% if template contains 'flask' %}
+      const res = await fetch("https://instafeed.nfcube.com/feed/v5?limit=8&account=sunniesstudios.myshopify.com&fu=0&fid={{section.settings.feed_id_flask}}", {
+        headers: {
+          'X-API-Key': "{{ section.settings.api_key }}"
+        }
+      });
+      {% else %}
+      const res = await fetch("https://instafeed.nfcube.com/feed/v5?limit=8&account=sunniesstudios.myshopify.com&fu=0&fid={{section.settings.feed_id_shop}}", {
+        headers: {
+          'X-API-Key': "{{ section.settings.api_key }}"
+        }
+      });
+      {% endif %}
+      
+      if (!res.ok) {
+        // console.error(`API error: ${res.status}`);
+        throw new Error(`API returned ${res.status}`);
+      }
+      
+      const result = await res.json();
+      // console.log('API Response:', result);
+      
+      if (!result.data) {
+        console.error('No data in response');
+        return [];
+      }
+      
+      return result.data;
+    } catch (error) {
+      console.error("Error fetching Instagram posts:", error);
+      return [];
+    }
+  }
+  
+  async function getProductMiniCard(handle){
+    const res = await fetch(window.Shopify.routes.root + `${handle}?section_id=mini-product-card-api`);
+    const htmlString = await res.text();
+    return htmlString
+  }
+  
+  function renderPosts(posts){
+     posts.forEach((post, index) => {
+       // Append thumbnails
+       shopTheFeed.find(".swiper-wrapper").append(`{{}}
+         <div class='swiper-slide' data-slide-id="${index}">
+           <div class="shop-the-feed__img-wrapper">
+             <img src='${post.images.standard_resolution.url}' />
+           </div>
+         </div>
+       `)
+       
+       // Append modals
+       shopTheFeed.find(".shop-the-feed__modals").append(`
+         <div class="shop-the-feed__modal" data-modal-id="${index}">
+          <div class="shop-the-feed__modal-content">
+            <button class="shop-the-feed__modal-close">
+              <img src="{{ 'close-icon.svg' |  asset_url }}" />
+            </button>
+            <div class="shop-the-feed__modal-wrapper">
+              <div class="shop-the-feed__modal-media">
+                <img src="${post.images.standard_resolution.url}" />
+              </div>
+              <div class="shop-the-feed__modal-details-wrapper">
+                <button class="shop-the-feed__modal-close--desktop">
+                  <img src="{{ 'close-icon.svg' |  asset_url }}" />
+                </button>
+                <div class="shop-the-feed__modal-details">
+                  <div class="shop-the-feed__modal-caption">${post.caption.text}</div>
+                  <a href="${post.link}" target="_blank" class="shop-the-feed__instagram-link">
+                    <img src="{{ 'instagram-icon.svg' |  asset_url }}" />
+                    <span>See on Instagram</span>
+                  </a>
+                  <hr>
+                  <div class="shop-the-feed__tagged-products"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       `)
+     })
+     
+    initSwiper()
+  }
+
+  async function renderProductMiniCards(containerElement, handles){
+    const apiCalls = handles.map(handle => getProductMiniCard(handle))
+
+    const htmlStrings = await Promise.all(apiCalls)
+    htmlStrings.forEach(htmlString => {
+      containerElement.insertAdjacentHTML("beforeend",  $(htmlString).html())
+    })
+    initializeMiniProductCard(containerElement)
+  }
+  
+  function initSwiper(){
+    const shopTheFeedSwiper = new Swiper('.shop-the-feed__swiper', {
+      slidesPerView: 1.5,
+      spaceBetween: 4,
+      breakpoints: {
+        769: {
+          slidesPerView: 4
+        }
+      },
+      pagination: {
+        el: '.shop-the-feed__pagination',
+      },
+      navigation: {
+        nextEl: '.shop-the-feed__button-next',
+        prevEl: '.shop-the-feed__button-prev',
+      }
+    });
+  }
+  
+  function openModal(modalId){
+    $(`[data-modal-id="${modalId}"]`).show()
+  }
+  
+  function closeModal(closeButtonEl){
+    $(closeButtonEl).closest(".shop-the-feed__modal").hide()
+  }
+
+  function initializeMiniProductCard(containerElement) {
+    const miniProductCards = $(containerElement).find(".mini-product-card");
+    miniProductCards.each((i, miniProductCard) => {
+      const $miniProductCard = $(miniProductCard)
+      const swatches = $miniProductCard.find(".mini-product-card-swatch")
+      const submitButton = $miniProductCard.find(".mini-product-card-actions")
+      const productVariants = $miniProductCard.find(".mini-product-card-variants > li")
+      const variantPrices = $miniProductCard.find(".mini-product-card-prices > li")
+      const variantImages = $miniProductCard.find(".mini-product-card-images > img")
+      const productSwatches = $miniProductCard.find(".mini-product-card-swatch")
+      const variantButtons = $miniProductCard.find(".mini-product-card-actions-buttons")
+      
+      swatches.each((i, swatch) => {
+        $(swatch).click(function(){
+          const selectedVariantId = $(this).data("variantId")
+          // Set button variant ID
+          submitButton.data("variantId", selectedVariantId)
+
+          // Show selected variant label
+          productVariants.each((i, productVariant) => {
+            const $productVariant = $(productVariant)
+            if($productVariant.data("variantId") === selectedVariantId){
+              $productVariant.show()
+            }else{
+              $productVariant.hide()
+            }
+          })
+          
+          // Show selected variant price
+          variantPrices.each((i, variantPrice) => {
+            const $variantPrice = $(variantPrice)
+            if($variantPrice.data("variantId") === selectedVariantId){
+              $variantPrice.show()
+            }else{
+              $variantPrice.hide()
+            }
+          })
+          
+          // Show selected variant image
+          variantImages.each((i, variantImage) => {
+            const $variantImage = $(variantImage)
+            if($variantImage.data("variantId") === selectedVariantId){
+              $variantImage.show()
+            }else{
+              $variantImage.hide()
+            }
+          })
+          
+          // Set active swatch
+          productSwatches.each((i, productSwatch) => {
+            const $productSwatch = $(productSwatch)
+            if($productSwatch.data("variantId") === selectedVariantId){
+              $productSwatch.addClass("current-active-swatch")
+            }else{
+              $productSwatch.removeClass("current-active-swatch")
+            }
+          })
+          
+          // Show selected variant submit button
+          variantButtons.each((i, variantButton) => {
+            const $variantButton = $(variantButton)
+            if($variantButton.data("variantId") === selectedVariantId){
+              $variantButton.show()
+            }else{
+              $variantButton.hide()
+            }
+          })
+        })
+      })
+    });
+  }
+
+  
+  async function init(){
+    const posts = await getPosts()
+    renderPosts(posts)
+    
+    // Add thumbnail click listener
+    $(".shop-the-feed__swiper .swiper-slide").click(function(){
+      openModal($(this).data("slideId"))
+    })
+    $(".shop-the-feed__modal-close").click(function(){
+      closeModal(this)
+    })
+    $(".shop-the-feed__modal-close--desktop").click(function(){
+      closeModal(this)
+    })
+
+    // Render each post tagged products
+    posts.forEach((post, index) => {
+      const containerElement = document.querySelector(`[data-modal-id="${index}"] .shop-the-feed__tagged-products`)
+      const handles = post.tagged_products.map(tagged_product => tagged_product.handle) || []
+      renderProductMiniCards(containerElement, handles)
+    })
+
+    
+  }
+  init() 
+</script>
+
+{% schema %}
+{
+  "name": "Shop the feed",
+  "settings": [
+    {
+      "type": "text",
+      "id": "api_key",
+      "label": "API Key",
+      "default": "0196aeda-3a9a-7e12-8024-4ea2dae2fae2",
+      "info": "API key for Instagram feed service"
+    },
+    {
+      "type": "text",
+      "id": "feed_id_shop",
+      "label": "Shop Feed ID",
+      "default": "34091",
+      "info": "Feed ID for shop Instagram posts"
+    },
+    {
+      "type": "text",
+      "id": "feed_id_flask",
+      "label": "Flask Feed ID",
+      "default": "34091",
+      "info": "Feed ID for flask Instagram posts"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop the feed",
+      "category": "Social media"
+    }
+  ]
+}
+{% endschema %}

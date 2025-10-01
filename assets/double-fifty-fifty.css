@@ -1,0 +1,113 @@
+.double-fifty-fifty-container {
+  width: 100%;
+}
+
+.double-fifty-fifty-wrapper {
+  padding: 0 40px;
+}
+
+.double-fifty-fifty-wrapper h2 {
+  font-family: "AT Surt Medium";
+  font-size: 28px;
+  line-height: 120%;
+  color: var(--black_color);
+  margin: 0 0 24px 0;
+}
+
+.double-fifty-fifty-wrapper .double-fifty-fifty-description {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--black_color);
+  margin: 0 0 40px 0;
+}
+
+.top-fifty-fifty {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 40px 0;
+}
+
+.top-fifty-fifty img,
+.bottom-fifty-fifty img {
+  width: 100%;
+  margin: 0 0 24px 0;
+}
+
+.bottom-fifty-fifty {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.fifty-fifty-content {
+  width: 100%;
+}
+
+.content-spacer {
+  height: 24px;
+}
+
+.content-text {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--black_color);
+}
+
+.content-text-bold {
+  font-family: "AT-Surt-SemiBold";
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--black_color);
+}
+
+@media (min-width: 768px) {
+  .double-fifty-fifty-wrapper {
+    padding: 0;
+    width: 818px;
+    margin: 0 auto;
+  }
+
+  .double-fifty-fifty-wrapper h2 {
+    font-size: 32px;
+  }
+
+  .double-fifty-fifty-wrapper .double-fifty-fifty-description {
+    font-size: 16px;
+  }
+
+  .top-fifty-fifty {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .bottom-fifty-fifty {
+    flex-direction: row;
+  }
+
+  .top-fifty-fifty img,
+  .bottom-fifty-fifty img {
+    width: 50%;
+    margin: 0;
+  }
+
+  .fifty-fifty-content {
+    width: 50%;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .content-spacer {
+    height: 32px;
+  }
+
+  .content-text {
+    font-size: 16px;
+  }
+
+  .content-text-bold {
+    font-size: 16px;
+  }
+}

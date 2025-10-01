@@ -1,0 +1,92 @@
+.sunnies-world-copy-cta {
+  width: 100%;
+  padding: 64px 0 40px;
+}
+
+.copy-cta-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.copy-cta-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.copy-cta-title {
+  font-size: 28px;
+  font-weight: 400;
+  margin: 0 0 32px 0;
+  line-height: 1.2;
+  color: inherit;
+  text-align: center;
+  display: block;
+}
+
+.copy-cta-description {
+  font-family: 'Radio Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 0 0 40px 0;
+  color: inherit;
+}
+
+.copy-cta-description p {
+  margin: 0 0 0px 0;
+}
+
+.copy-cta-description p:last-child {
+  margin-bottom: 0;
+}
+
+.copy-cta-button-wrapper {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.copy-cta-button {
+  display: inline-block;
+  padding: 12px 40px;
+  background-color: #352B27;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-family: 'Radio Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  border: 1px solid #352B27;
+}
+
+.copy-cta-button:hover {
+  color: #352B27;
+  background-color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+  .sunnies-world-copy-cta {
+    padding: 40px 0;
+  }
+  
+  .copy-cta-container {
+    padding: 0 16px;
+  }
+  
+  .copy-cta-content {
+    text-align: center;
+  }
+  
+  .copy-cta-title {
+    margin-bottom: 24px;
+  }
+  
+  .copy-cta-button {
+    font-size: 14px;
+  }
+}

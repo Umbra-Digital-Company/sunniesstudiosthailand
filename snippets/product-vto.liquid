@@ -1,0 +1,88 @@
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign selected_color = current_variant.option1 | handleize
+  if template contains 'apparel'
+    assign color_handleize = current_variant.option1 | handleize
+    assign size_handleize = current_variant.option2 | handleize
+    assign selected_color = color_handleize | append: "-" | append: size_handleize
+  endif
+  assign specific_lifestyle = 'lifestyle-' | append: selected_color | strip
+%}
+<style>
+  .vto-gallery-navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 100%;
+  }
+  .vto-gallery-navigation > button {
+    background-color: #fff;
+    height: 48px;
+    width: 48px;
+    border: none;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .vto-gallery-navigation > button:first-child > img {
+    height: 16px;
+    transform: rotate(90deg);
+  }
+  .vto-gallery-navigation > button:nth-child(2) > img {
+    height: 16px;
+    transform: rotate(-90deg);
+  }
+</style>
+<div class="desktop-product-vto-container">
+  <div class="vto-image-wrapper product-vto-wrapper" id="product-vto-wrapper">
+    <div id="vto-image-wrapper" class="swiper-wrapper">
+    
+    {% assign image_count = 0 %}
+
+      {% for media in product.media %}
+        {% assign image_color = media.alt | split: '::' | first | strip | downcase | replace: ' ', '-' %}
+        {% assign image_alt = media.alt | split: '::' | last %}
+        {% if image_color == selected_color %}
+          {% if media.media_type == "image" %}
+
+            {% if image_count < 1 %}
+            <img
+              src="{{ media | img_url: '900x' }}"
+              alt="{{ image_alt | strip }}"
+              class="swiper-slide"
+              loading="lazy"
+            >
+          {% endif %}
+          {% if media.media_type == "video" %}
+           {{ media | video_tag: autoplay: true, muted: true, loop: true, class: "swiper-slide"  }}
+          {% endif %}
+          {% assign image_count = image_count | plus: 1 %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    </div>
+    {% unless template == 'product.merch' or template == 'product.apparel' %}
+      <button id="desktop-virtual-try-on-btn">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8.32394 7.75C8.32394 8.44036 7.7643 9 7.07394 9H2.25C1.55964 9 1 8.44036 1 7.75V4.25C1 3.55964 1.55964 3 2.25 3H7.07394C7.7643 3 8.32394 3.55964 8.32394 4.25M8.32394 7.75V7.02633L9.74493 8.32075C10.2265 8.75946 11 8.41777 11 7.76631V4.23354C11 3.58208 10.2265 3.24039 9.74493 3.6791L8.32394 4.97352V4.25M8.32394 7.75V4.25" stroke="#352B27"/>
+      </svg>
+        Try on
+      </button>
+    {% endunless %}
+  </div>
+  <div id="desktop-vto-overlay" data-product-sku="{{ product.selected_or_first_available_variant.sku }}">
+    <button id="desktop-virtual-retake-try-on-btn">Retake</button>
+    <span id="desktop-virtual-close">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13.333 13.3335L2.66634 2.66683" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M13.333 2.6665L2.66634 13.3332" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M2.66699 2.6665L13.3337 13.3332" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </span>
+  </div>
+</div>

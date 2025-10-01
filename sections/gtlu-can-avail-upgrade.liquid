@@ -1,0 +1,156 @@
+{% assign blocks = section.blocks %}
+
+<section class="gtlu-main__avail">
+  <h2>{{ section.settings.heading }}</h2>
+  <p>{{ section.settings.subheading }}</p>
+  <div class="gtlu-rx-parameters-mobile">
+    {% render 'gtlu-rx-parameters-dropdown' with blocks: blocks %}
+  </div>
+  <div class="gtlu-rx-parameters-desktop">
+    <div></div>
+    <div class="gtlu__rx-key">Sphere (SPH) <rx-info-icon iconSrc="{{ 'info-icon.svg' | asset_url }}" text="Indicates eyeglass prescription power"></div>
+    <div class="gtlu__rx-key">Cylinder (CYL) <rx-info-icon iconSrc="{{ 'info-icon.svg' | asset_url }}" text="Correction number needed for astigmatism"></div>
+    <div class="gtlu__rx-key">Addition (ADD) <rx-info-icon iconSrc="{{ 'info-icon.svg' | asset_url }}" text="Added magnifying power on the lower part of prescription lenses"></rx-info-icon></div>
+
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'vision_type' %}
+          <div class="gtlu__rx-glass">{{ block.settings.name }}</div>
+          {% assign value = block.settings.value | split: ', ' %}
+          <div>{{ value[0] }}</div>
+          <div>{{ value[1] }}</div>
+          <div>{{ value[2] }}</div>
+      {% endcase %}
+    {% endfor %}
+  </div>   
+</section>
+
+<style>
+  .gtlu-main__avail {
+    font-size: 14px;
+    font-family: 'Radio Grotesk';
+    color: var(--black_color);
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .gtlu-main__avail > h2  {
+    font-family: 'AT Surt Medium';
+    margin: 0;
+    font-size: 28px;
+  }
+  .gtlu-main__avail > p{
+    margin-top: 24px;
+  }
+  .gtlu-rx-parameters-desktop {
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background-color: var(--light_gray_color);
+    margin: 8px 0;
+    border-radius: 4px;
+    margin-top: 40px;
+    padding: 8px 0;
+  }
+  .gtlu-rx-parameters-desktop > div {
+    padding: 12px 24px;
+  }
+  .gtlu-rx-parameters-desktop .gtlu__rx-key, .gtlu-rx-parameters-desktop .gtlu__rx-glass {
+    font-family: 'AT-Surt-Semibold';
+  }
+  .gtlu-rx-parameters-desktop .gtlu__rx-key {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .gtlu-rx-parameters-desktop > div:not(.gtlu__rx-glass) {
+    text-align: center;
+  }
+  @media only screen and (min-width: 769px) {
+    .gtlu-main__avail {
+      padding: 0;
+      font-size: 16px;
+    }
+    .gtlu-main__avail > h2  {
+      font-size: 32px;
+    }
+    .gtlu-rx-parameters-mobile {
+      display: none;
+    }
+    .gtlu-rx-parameters-desktop {
+      display: grid;
+    }
+  }
+</style>
+
+<script>
+class RxInfoIcon extends HTMLElement {
+  constructor(){
+    super();
+    
+    const iconSrc = this.getAttribute('iconSrc');
+    const text = this.getAttribute('text');
+    
+    this.innerHTML = `
+    <div style='position: relative; display: flex;'>
+      <img src="${iconSrc}" />
+      <div class="rx-info-icon__pop" style='display: none; position: absolute'>
+        <p>${text}</p>
+      </div>
+    </div
+    `
+    const icon = this.querySelector('img');
+    const pop = this.querySelector('.rx-info-icon__pop');
+    
+    icon.onmouseover = function(){
+        pop.style.display = 'block'
+    }
+     icon.onmouseleave = function(){
+        pop.style.display = 'none'
+    }
+  }
+}
+customElements.define('rx-info-icon', RxInfoIcon)
+</script>
+{% schema %}
+  {
+    "name": "GTLU Can Avail Upgrade",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Vision Type",
+        "type": "vision_type",
+        "settings":[
+          {
+            "type": "text",
+            "id": "name",
+            "label": "Name"
+          },
+          {
+            "type": "text",
+            "id": "value",
+            "label": "Value",
+            "info": "Comma separated values (SPH, CYL, ADD)"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "GTLU Can Avail Upgrade"
+      }
+    ]
+  }
+{% endschema %}
+

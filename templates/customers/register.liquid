@@ -1,0 +1,53 @@
+{{ "account-setup.css" | asset_url | stylesheet_tag }}
+<div class="Customer Login">
+    {% comment %} {% render '_login-register-header'%} {% endcomment %}
+
+    <div class="login_header_wrapper">
+      <h1>Sign Up</h1>
+      <p>Create an account and get 10% off your first eyewear purchase.</p>
+    </div>
+  
+    <div class="form-success hide" data-reset-success>{{ 'customer.recover_password.success' | t }}</div>
+  
+    <div data-register-form id="register-form-toggle">
+      {% render '_register-form' %}
+    </div>
+  
+    {% comment %} <div data-login-form id="login-form-toggle">
+      {% render '_login-form' %}
+    </div>   {% endcomment %}
+  
+    <div class="hide" data-recover-form>
+      {% render '_forgot-password' %}
+    </div>
+</div>
+
+<script>
+  const isLoginTwo = window.location.pathname.includes("login");
+  const loginFormTwo = document.getElementById("login-form-toggle");
+  const registerFormTwo = document.getElementById("register-form-toggle");
+  if (isLoginTwo) {
+  	loginFormTwo.setAttribute("class", "");
+    registerFormTwo.setAttribute("class", "hide");
+  } else {
+  	loginFormTwo.setAttribute("class", "hide");
+    registerFormTwo.setAttribute("class", "");
+  }
+  
+  login.onclick = () => {
+  	login.setAttribute("class", "active");
+    register.setAttribute("class", "");
+    
+    loginFormTwo.setAttribute("class", "");
+    registerFormTwo.setAttribute("class", "hide");
+  }
+  
+  register.onclick = () => {
+  	login.setAttribute("class", "");
+    register.setAttribute("class", "active");
+    
+    loginFormTwo.setAttribute("class", "hide");
+    registerFormTwo.setAttribute("class", "");
+  }
+    
+</script>

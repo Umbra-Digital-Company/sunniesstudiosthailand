@@ -1,0 +1,209 @@
+
+  {% comment %} test {% endcomment %}
+<div class="flask-sec-c">
+  <h2>Shop by component</h2>
+  <div>
+    <div>
+      <img src="{{ section.settings.bottle_image_mobile | image_url }}" loading="lazy" alt="Sunnies flask bottle" height="400" width="400">
+      <img src="{{ section.settings.bottle_image_desktop | image_url }}" loading="lazy" alt="Sunnies flask bottle" height="400" width="400">
+      <img src="{{ section.settings.bottle_image_desktop_hover | image_url }}" loading="lazy" alt="Sunnies flask bottle" height="400" width="400">
+      <a href="{{ section.settings.bottle_link }}">Bottle</a>
+    </div>
+    <div>
+      <img src="{{ section.settings.loop_image_mobile | image_url }}" loading="lazy" alt="Sunnies flask loop" height="400" width="400">
+      <img src="{{ section.settings.loop_image_desktop | image_url }}" loading="lazy" alt="Sunnies flask loop" height="400" width="400">
+      <img src="{{ section.settings.loop_image_desktop_hover | image_url }}" loading="lazy" alt="Sunnies flask loop" height="400" width="400">
+      <a href="{{ section.settings.loop_link }}">Loop</a>
+    </div>
+    <div>
+      <img src="{{ section.settings.cap_image_mobile | image_url }}" loading="lazy" alt="Sunnies flask cap" height="400" width="400">
+      <img src="{{ section.settings.cap_image_desktop | image_url }}" loading="lazy" alt="Sunnies flask cap" height="400" width="400">
+      <img src="{{ section.settings.cap_image_desktop_hover | image_url }}" loading="lazy" alt="Sunnies flask cap" height="400" width="400">
+      <a href="{{ section.settings.cap_link }}">Cap</a>
+    </div>
+    <div>
+      <img src="{{ section.settings.boot_image_mobile | image_url }}" loading="lazy" alt="Sunnies flask boot" height="400" width="400">
+      <img src="{{ section.settings.boot_image_desktop | image_url }}" loading="lazy" alt="Sunnies flask boot" height="400" width="400">
+      <img src="{{ section.settings.boot_image_desktop_hover| image_url }}" loading="lazy" alt="Sunnies flask boot" height="400" width="400">
+      <a href="{{ section.settings.boot_link }}">Boot</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .flask-sec-c {
+    padding: 40px 16px;
+  }
+  .flask-sec-c > h2 {
+    color: var(--soft-black-700, #352B27);
+    font-size: 22px;
+    font-family: 'Replica';
+  }
+  .flask-sec-c > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .flask-sec-c > div > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .flask-sec-c > div > div > a {
+    line-height: 20px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--soft-black-700, #352B27);
+    color: var(--soft-black-700, #352B27);
+    font-size: 14px;
+    font-family: 'Replica'
+  }
+  .flask-sec-c > div > div > img {
+    width: 100%;
+  }
+  .flask-sec-c > div > div > img:nth-child(2), .flask-sec-c > div > div > img:nth-child(3) {
+    display: none;
+  }
+  
+  @media only screen and (min-width: 1024px) {
+    .flask-sec-c {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .flask-sec-c > div {
+      display: flex;
+      flex-direction: row;
+      gap: 4px;
+      justify-content: flex-start;
+    }
+    .flask-sec-c > h2 {
+      font-size: 22px;
+    }
+    .flask-sec-c > div > div {
+      width: 100%;
+    }
+    .flask-sec-c > div > div > img {  
+      width: 100%;
+    }
+    .flask-sec-c > div > div > img:nth-child(1) {
+      display: none;
+    }
+    .flask-sec-c > div > div > img:nth-child(2) {
+      display: block;
+    }
+    .flask-sec-c > div > div:hover > img:nth-child(2) {
+      display: none;
+    }
+    .flask-sec-c > div > div:hover > img:nth-child(3) {
+      display: block;
+    }
+  } 
+
+   @media only screen and (min-width: 1284px) {
+    .flask-sec-c {
+      width: max-content;
+    }
+    .flask-sec-c > div {
+      justify-content: center;
+    }
+    .flask-sec-c > div > div {
+      width: auto;
+    }
+    .flask-sec-c > div > div > img {
+      width: 337px;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Flask Section C",
+    "settings": [
+       {
+        "type": "image_picker",
+        "id": "bottle_image_mobile",
+        "label": "Bottle Image (Mobile)"
+      },
+      {
+        "type": "image_picker",
+        "id": "bottle_image_desktop",
+        "label": "Bottle Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "bottle_image_desktop_hover",
+        "label": "Bottle Image (Desktop)(Hover)"
+      },
+      {
+        "type": "url",
+        "id": "bottle_link",
+        "label": "Bottle Link"
+      },
+       {
+        "type": "image_picker",
+        "id": "loop_image_mobile",
+        "label": "Loop Image (Mobile)"
+      },
+      {
+        "type": "image_picker",
+        "id": "loop_image_desktop",
+        "label": "Loop Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "loop_image_desktop_hover",
+        "label": "Loop Image (Desktop)(Hover)"
+      },
+         {
+        "type": "url",
+        "id": "loop_link",
+        "label": "Loop Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "cap_image_mobile",
+        "label": "Cap Image (Mobile)"
+      },
+      {
+        "type": "image_picker",
+        "id": "cap_image_desktop",
+        "label": "Cap Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "cap_image_desktop_hover",
+        "label": "Cap Image (Desktop)(Hover)"
+      },
+      {
+        "type": "url",
+        "id": "cap_link",
+        "label": "Cap Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "boot_image_mobile",
+        "label": "Boot Image (Mobile)"
+      },
+      {
+        "type": "image_picker",
+        "id": "boot_image_desktop",
+        "label": "Boot Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "boot_image_desktop_hover",
+        "label": "Boot Image (Desktop)(Hover)"
+      },
+      {
+        "type": "url",
+        "id": "boot_link",
+        "label": "Boot Link"
+      }
+    ]
+  }
+{% endschema %}

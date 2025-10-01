@@ -1,0 +1,35 @@
+.article-featured-products {
+  padding: 60px 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.article-featured-products-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 16px 0;
+}
+
+.article-featured-products-header h2 {
+  font-family: "AT Surt Medium";
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 120%;
+  color: var(--black_color);
+}
+
+@media (min-width: 768px) {
+  .article-featured-products {
+    padding: 100px 16px;
+  }
+
+  .article-featured-products-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 32px 0;
+  }
+
+  .article-featured-products-header h2 {
+    font-size: 40px;
+  }
+}

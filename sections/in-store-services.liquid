@@ -1,0 +1,87 @@
+{% unless page.metafields.store.store_data.value.services.value == blank %}
+  <div class="in-store-services">
+    <h2>In-store services</h2>
+    <ul>
+      {% assign services = page.metafields.store.store_data.value.services.value %}
+      {% for service in services %}
+        <li>
+          <img src="{{ service.icon | file_url }}" >
+          <h3>{{ service.name }}</h3>
+          <p>{{ service.description }}</p>
+          {% unless service.link_label == blank or service.link_url == blank %}
+            <a href="{{ service.link_url }}" target="_blank">{{ service.link_label }}</a>
+          {% endunless %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endunless %}
+  <style>
+    .in-store-services {
+      padding: 0 16px;
+      color: var(--black_color);
+    }
+    .in-store-services > h2 {
+      font-family: 'AT Surt Medium';
+      font-size: 28px;
+    }
+    .in-store-services > ul {
+      margin-top: 24px;
+      list-style-type: none;
+      display: grid;
+      gap: 40px;
+    }
+    .in-store-services > ul > li > img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+    .in-store-services > ul > li > h3 {
+      margin-top: 16px;
+      list-style-type: none;
+      font-family: 'AT Surt Medium';
+      font-size: 18px;
+    }
+    .in-store-services > ul > li > p {
+      font-family: 'AT Surt Medium';
+      font-size: 12px;
+      color: #B5B3B2;
+      margin-top: 8px;
+    }
+    .in-store-services > ul > li > a {
+      font-family: 'AT Surt Medium';
+      font-size: 14px;
+      text-decoration: none;
+      color: var(--black_color);
+      display: inline-block;
+      border-bottom: 1.5px solid var(--black_color);
+      margin-top: 16px;
+    }
+    @media only screen and (min-width: 1025px){
+      .in-store-services {
+        padding: 0 100px;
+      }
+      .in-store-services > h2 {
+        font-size: 40px;
+      }
+      .in-store-services > ul {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .in-store-services > ul > li > h3 {
+        font-size: 20px;
+      }
+      .in-store-services > ul > li > p {
+        font-size: 14px;
+      }
+      .in-store-services > ul > li > a {
+        font-size: 16px;
+      }
+    }
+  </style>
+  {% schema %}
+    {
+      "name": "In-store services",
+      "settings": []
+    }
+  {% endschema %}
+  

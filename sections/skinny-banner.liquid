@@ -1,0 +1,230 @@
+{{ 'skinny-banner.css' | asset_url | stylesheet_tag }}
+{% assign mobile_image = section.settings.mobile-image-pick %}
+<style>
+
+  
+.fifty-image-with-text{
+--main-color-section: {{ section.settings.content_color }};
+  background-image: url('{{ section.settings.left_image | image_url }}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+}
+  
+  @media(max-width: 767px){
+    .fifty-image-with-text{
+      background-image: url('{{ section.settings.right_image | image_url }}');
+    }
+    {% if content_alignment == 'left' %}
+      .right-image{
+        display: none;
+      }
+    {% elsif content_alignment == 'right' %}
+      .left-image{
+        display: none;
+      }
+    {% else %}
+      .right-image,
+    .left-image{
+        display: flex;
+      }
+    {% endif %}
+  }
+
+  {% capture alignment %}
+    
+    {% if section.settings.content_alignment == 'left' %}
+    
+        middle-left
+    
+     {% elsif section.settings.content_alignment == 'center' %}
+    
+        middle-center
+    
+     {% elsif section.settings.content_alignment == 'right' %}
+    
+        middle-right
+
+     {% elsif section.settings.content_alignment == 'bottom-left' %}
+    
+        bottom-left
+    
+     {% elsif section.settings.content_alignment == 'bottom-center' %}
+    
+       bottom-center
+    
+     {% elsif section.settings.content_alignment == 'bottom-right' %}
+    
+        bottom-right
+    
+     {% endif %}
+      
+  {% endcapture %}
+
+  {% capture mobile_alignment %}
+    
+    {% if section.settings.mobile_content_alignment == 'left' %}
+    
+        middle-left
+    
+     {% elsif section.settings.mobile_content_alignment == 'center' %}
+    
+        middle-center
+    
+     {% elsif section.settings.mobile_content_alignment == 'right' %}
+    
+        middle-right
+
+     {% elsif section.settings.mobile_content_alignment == 'bottom-left' %}
+    
+        bottom-left
+    
+     {% elsif section.settings.mobile_content_alignment == 'bottom-center' %}
+    
+       bottom-center
+    
+     {% elsif section.settings.mobile_content_alignment == 'bottom-right' %}
+    
+        bottom-right
+    
+     {% endif %}
+      
+  {% endcapture %}  
+
+</style>
+<div>
+  <div class="fifty-image-with-text {{ alignment | strip }} mobile-{{ mobile_alignment | strip }}">
+    <div class="text-container">
+      <h5>{{ section.settings.title }}</h5>
+      {{ section.settings.subcopy }}
+      <a class="fifty-image--link" href="{{ section.settings.cta-url }}">{{ section.settings.cta-text }}</a>
+    </div>
+    <!-- <div class="images-container">
+      <div class="fifty-image left-image" style="background-image: url({{ section.settings.left_image | image_url }})"></div>
+      <div class="fifty-image right-image" style="background-image: url({{ section.settings.right_image | image_url }})"></div>
+    </div> -->
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Skinny Banner",
+ 
+          "settings":[
+            
+            {
+              "type":"image_picker",
+              "id":"left_image",
+              "label":"Desktop Image"
+            },
+            {
+              "type":"image_picker",
+              "id":"right_image",
+              "label":"Mobile Image"
+            },
+            {
+              "type":"select",
+              "id":"content_alignment",
+              "label":"Desktop Alignment",
+              "options":[
+                {
+                  "value":"left",
+                  "label":"Middle Left"
+                },
+                {
+                  "value":"center",
+                  "label":"Middle Center"
+                },
+                {
+                  "value":"right",
+                  "label":"Middle Right"
+                },
+                {
+                  "value":"bottom-left",
+                  "label":"Bottom Left"
+                },
+                {
+                  "value":"bottom-center",
+                  "label":"Bottom Center"
+                },
+                {
+                  "value":"bottom-right",
+                  "label":"Bottom Right"
+                }
+              ],
+              "default":"center"
+            },
+            {
+              "type":"select",
+              "id":"mobile_content_alignment",
+              "label":"Mobile Alignment",
+              "options":[
+                {
+                  "value":"left",
+                  "label":"Middle Left"
+                },
+                {
+                  "value":"center",
+                  "label":"Middle Center"
+                },
+                {
+                  "value":"right",
+                  "label":"Middle Right"
+                },
+                {
+                  "value":"bottom-left",
+                  "label":"Bottom Left"
+                },
+                {
+                  "value":"bottom-center",
+                  "label":"Bottom Center"
+                },
+                {
+                  "value":"bottom-right",
+                  "label":"Bottom Right"
+                }
+              ],
+              "default":"bottom-center"
+            },
+            {
+              "type":"color",
+              "id":"content_color",
+              "label":"Text Color",
+              "default":"#FFFFFF"
+            },
+            {
+              "type":"text",
+              "id":"title",
+              "label":"Title Text"
+            },
+            {
+              "type":"richtext",
+              "id":"subcopy",
+              "label":"Subcopy Text"
+            },
+            {
+              "type":"text",
+              "id":"cta-text",
+              "label":"CTA Text"
+            },
+            {
+              "type":"url",
+              "id":"cta-url",
+              "label":"CTA Link"
+            }
+            
+          ],
+      "presets": [
+    {
+    "name": "Skinny Banner"
+    }
+  ]
+    
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

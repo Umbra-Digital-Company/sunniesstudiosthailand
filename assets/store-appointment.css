@@ -1,0 +1,806 @@
+
+
+/* GENERAL Styles */
+div#top-bar-container {
+    display: none;
+}
+[disabled=''] {
+  cursor: not-allowed !important;
+}
+.success a,
+.success a:active,
+.success a:visited,
+
+a#cancelLink {
+    color: inherit;
+}
+.store-appointment,
+.appointment-success {
+  margin-top: 0px;
+  max-width: 610px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+}
+
+.store-appointment h3,
+.appointment-success h3 {
+  color: var(--soft-black-700, #352B27);
+
+  /* Desktop/Heading/H3 */
+  font-family: 'AT Surt Medium';
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  padding-top: 60px;
+  /* 48px */
+}
+
+.store-appointment h5,
+.appointment-success h5 {
+  color: var(--soft-black-700, #352B27);
+
+  /* Desktop/Heading/H5 */
+  font-family: 'AT Surt Medium';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  /* 28.8px */
+}
+
+.store-appointment div,
+.appointment-success div {
+  color: var(--black, #383530);
+
+  /* Body */
+  font-family: 'Radio Grotesk';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  /* 150% */
+}
+
+.appointment-container {
+  max-width: 610px;
+  margin: auto;
+  padding: 40px 0;
+  border-bottom: 1.5px solid #EFEFEC;
+}
+
+.store-appointment select {
+    background: url(dropdown_icon.svg);
+    background-size: 10.6px;
+    background-position: calc(100% - 12px) 50%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    color: var(--soft-black-700, #352B27);
+    font-family: 'Radio Grotesk';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    width: 100%;
+    padding: 10px 12px;
+    height: 40px;
+    border-radius: 4px;
+  border: 1.5px solid var(--soft-black-200, #EFEFEC);
+}
+.appointment-button:hover {
+    border-color: #352B27;
+    color: #352B27;
+    background: transparent;
+}
+.appointment-button,
+div.appointment-button{
+  display: flex;
+  padding: 16px 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  border-radius: 8px;
+  background: var(--v-2-primary-black-primary, #352B27);
+  color: var(--neutral-1, #FDFDFD);
+  font-family: 'Radio Grotesk';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+  border: 1px solid transparent;
+}
+
+.appointment-button:disabled {
+  background: #E3E3E3;
+  border-color: transparent;
+  color: #B0AEAF;
+}
+
+
+/* GENERAL Styles End */
+
+
+/* Store Location Section */
+
+
+div#location-edit,
+div#schedule-edit {
+  text-decoration: underline;
+  letter-spacing: normal;
+  cursor: pointer;
+}
+
+.location-subheading-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.store-appointment .store-location-description {
+  color: var(--soft-black-400, #959190);
+}
+
+.store-appointment .store-location-container select {
+  margin-bottom: 40px
+}
+
+div.store-branch-text {
+  color: var(--soft-black-400, #959190);
+
+  /* Desktop/Label/M */
+  font-family: 'Radio Grotesk';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+  /* 16px */
+  margin-bottom: 8px;
+}
+
+.location-details-wrapper {
+  overflow: hidden;
+  margin-top: 40px;
+}
+
+.store-location-button {
+
+  margin-right: 0;
+  margin-left: auto;
+}
+
+/* Date and Time section */
+
+.schedule-subheading-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.store-appointment .store-schedule-description {
+  color: var(--soft-black-400, #959190);
+  margin-top: 16px;
+}
+
+.schedule-details-wrapper {
+  margin-top: 40px;
+}
+
+.store-schedule-button {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+
+.calendar-container {
+  background: #fff;
+  width: 100%;
+  border-radius: 8px;
+    position: relative;
+}
+.calendar-spinner,
+.time-spinner{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.spinner {
+    border: 4px solid transparent;
+    border-radius: 50%;
+    border-top: 4px solid darkgray;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 0.5s linear infinite;
+    width: 100px;
+    height: 100px;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.time-container {
+  margin: 40px 0;
+    position: relative;
+}
+
+.calendar-container header {
+  display: flex;
+  align-items: center;
+  padding: 25px 30px 10px;
+  justify-content: center;
+  position: relative;
+}
+
+header .calendar-navigation {
+display: flex;
+    position: absolute;
+    width: 100%;
+    justify-content: space-between;
+}
+
+header .calendar-navigation span {
+  height: 36px;
+  width: 36px;
+  margin: 0 1px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 38px;
+  border-radius: 8px;
+  user-select: none;
+  color: #aeabab;
+  font-size: 1.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+span#calendar-prev svg {
+  padding-top: 1px;
+  margin-bottom: -1px;
+}
+
+.calendar-navigation span:last-child {
+  /* margin-right: -10px; */
+}
+
+header .calendar-navigation span:hover {
+  background: #f2f2f2;
+}
+
+header .calendar-current-date {
+  color: var(--soft-black-700, #352B27);
+  text-align: center;
+
+  /* Desktop/Label/M */
+  font-family: 'Radio Grotesk';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+  /* 16px */
+}
+
+.calendar-body {
+  /* padding: 20px; */
+}
+
+
+.calendar-body ul {
+  list-style: none;
+  flex-wrap: wrap;
+  display: flex;
+  text-align: center;
+  gap: 8px;
+}
+
+.calendar-body .calendar-dates {
+  margin-bottom: 20px;
+}
+
+.calendar-weekdays {
+  margin: 16px 0;
+}
+
+.calendar-body li {
+  width: calc(100% / 7 - 8px);
+  font-size: 1.07rem;
+  color: #414141;
+  padding: 8px 0;
+}
+
+.calendar-body .calendar-weekdays li {
+  color: var(--soft-black-400, #959190);
+
+  /* Desktop/Text/M */
+  font-family: 'Radio Grotesk';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 24px */
+}
+
+.calendar-body .calendar-dates li {
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 8px 0;
+  color: var(--soft-black-700, #352B27);
+
+  /* Desktop/Text/M */
+  font-family: 'Radio Grotesk';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 24px */
+}
+
+.calendar-dates li.inactive.hidden {
+  display: none;
+}
+
+.calendar-dates li.inactive {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.calendar-dates li.active {
+  color: #fff;
+}
+
+.calendar-dates li::before {
+  position: absolute;
+  /* content: ""; */
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.calendar-dates li:not(.inactive):hover {
+
+  background: var(--soft-black-200, #EFEFEC);
+}
+
+.calendar-dates li.active {
+  border-radius: 4px;
+  background: var(--soft-black-200, #EFEFEC);
+  color: #352B27;
+}
+
+.calendar-dates li.active::before {
+  background: #6332c5;
+}
+
+.calendar-dates li:not(.active):hover::before {
+  background: #e4e1e1;
+}
+
+header .calendar-navigation span.hidden {
+  visibility: hidden;
+  pointer-events: none
+}
+
+div.time-header {
+  color: var(--soft-black-400, #959190);
+
+  /* Desktop/Label/M */
+  font-family: 'Radio Grotesk';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+  /* 16px */
+  margin-bottom: 16px;
+}
+
+.time-slot-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.time-slots {
+  display: flex;
+  padding: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid var(--soft-black-200, #EFEFEC);
+  background: #FFF;
+  width: calc(20% - 7px);
+  cursor: pointer;
+}
+
+.time-slots.active,
+.time-slots:hover{
+  background: #EFEFEC;
+}
+
+.time-slots.inactive:hover {
+    background: unset;
+}
+.time-slots.inactive {
+    color: #aaa;
+}
+
+/* customer details section  */
+
+.customer-subheading-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.customer-details-wrapper {
+  margin-top: 40px;
+  flex-wrap: wrap;
+  gap: 24px 16px;
+  display: flex;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 100%;
+}
+
+.input-wrapper label:not(.container) {
+    color: #959190;
+}
+
+.first-name,
+.last-name {
+  flex-basis: calc(50% - 8px);
+  flex-shrink: 1;
+  flex-grow: 0;
+}
+
+.store-appointment .customer-description {
+  color: var(--soft-black-400, #959190);
+}
+
+.store-appointment input {
+  margin: unset;
+  padding: 10px 12px;
+  color: var(--soft-black-700, #352B27);
+  font-family: 'Radio Grotesk';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  text-transform: capitalize;
+  border-radius: 4px;
+  border: 1.5px solid var(--soft-black-200, #EFEFEC);
+  background: #FFF;
+}
+
+.store-appointment input[type="email"] {
+  text-transform: unset;
+}
+
+/* .store-appointment input[type="checkbox"]:before {
+  border: 1px solid #393334;
+  border-radius: 4px;
+  height: 20px;
+  position: relative;
+  top: unset;
+  width: 20px;
+} */
+/* 
+.your-checkbox::-webkit-before {
+  border: 1px solid #393334;
+  border-radius: 4px;
+  height: 20px;
+  position: relative;
+  top: unset;
+  width: 20px;
+}
+.your-checkbox::-webkit-after {
+  border-radius: 4px;
+  display: block;
+  height: 16px;
+  left: 2px;
+  position: absolute;
+  top: 4px;
+  width: 16px;
+
+} 
+
+.store-appointment input[type='checkbox']:after {
+  border-radius: 4px;
+  display: block;
+  height: 16px;
+  left: 2px;
+  position: absolute;
+  top: 4px;
+  width: 16px;
+
+}
+*/
+.store-appointment input[type=checkbox] {
+    border: 1px solid #393334;
+    border-radius: 4px;
+    height: 18px;
+    position: relative;
+    top: unset;
+    visibility: visible;
+    appearance: none;
+    padding: 0;
+    flex: 0 0 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.store-appointment input[type=checkbox]:before {
+    display: none;
+    content:""
+}
+.store-appointment input[type=checkbox]:after {
+    background: transparent;
+    content: "";
+    height: calc(100% - 2px);
+    width: calc(100% - 2px);
+    position: relative;
+    top: unset;
+    left: unset;
+    border-radius: 4px;
+}
+.store-appointment input[type=checkbox]:checked:after {
+    background: #393334;
+}
+
+
+
+
+.store-appointment input[type="checkbox"] {
+
+  width: 20px;
+}
+
+.tc .container {
+
+  display: flex;
+  flex-direction: row-reverse;
+  column-gap: 12px;
+}
+
+.error label,
+.error-message div {
+  color: #B44720;
+}
+
+.error-message {
+  display: none;
+  flex-direction: column;
+  flex-basis: 100%;
+}
+
+.error-1 .error-message,
+.error-2 .error-message,
+.error-3 .error-message{
+  display: flex;
+}
+
+
+.error-message .required-fields-error,
+.error-message .tc-error,
+.error-message .booking-error{
+  display: none;
+}
+
+.error-1 .error-message .required-fields-error,
+.error-2 .error-message .tc-error,
+.error-3 .error-message .booking-error{
+  display: block;
+}
+
+.error input {
+  border-color: #B44720;
+}
+
+
+.confirmation-button {
+  margin: 26px 0 0 auto;
+}
+
+/* success page */
+.appointment-success {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 40px;
+}
+
+.appointment-success .cancel a {
+  /* color: #352B27; */
+}
+
+.success-description {
+  text-align: center;
+}
+
+.appointment-detail-wrapper {
+  display: flex;
+  padding: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
+  border-radius: 4px;
+  border: 1px solid var(--soft-black-200, #EFEFEC);
+}
+
+.appointment-detail-wrapper p {
+  color: #959190;
+    text-align: left;
+}
+
+/* mobile */
+@media(max-width: 767px) {
+
+  .appointment-detail-wrapper{
+    margin: 0 16px;
+  }
+  .store-appointment {
+    padding: 0 16px
+  }
+
+  .store-appointment h3,
+  .appointment-success h3 {
+    /* Mobile/Heading/H3 */
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    /* 33.6px */
+  }
+  
+  .appointment-success h3{
+    text-align: center;
+    padding: 40px 16px 0;
+  }
+
+  .store-appointment h5,
+  .appointment-success h5 {
+    color: var(--soft-black-700, #352B27);
+
+    /* Mobile/Heading/H4 */
+    font-family: 'Radio Grotesk';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    /* 24px */
+  }
+
+  .store-appointment div,
+  .appointment-success div {
+    color: var(--soft-black-700, #352B27);
+    text-align: center;
+
+    /* Mobile/Text/M */
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    /* 21px */
+  }
+  .store-appointment .store-location-description,
+  .store-appointment .store-schedule-description,
+  .store-appointment .customer-description,
+  .store-appointment div.time-header{
+    color: var(--soft-black-400, #959190);
+
+    /* Mobile/Text/M */
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    /* 21px */
+    text-align: left;
+  }
+  .success-description {
+    padding: 0 16px;
+  }
+
+  div.store-branch-text {
+    color: var(--soft-black-400, #959190);
+
+    /* Mobile/Label/M */
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%;
+    /* 14px */
+  }
+
+  .store-appointment select {
+    color: var(--soft-black-700, #352B27);
+
+    /* Mobile/Text/M */
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    /* 21px */
+  }
+
+  .store-location-button {
+
+    /* Mobile/Label/M */
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%;
+    /* 14px */
+  }
+
+  div.time-slots {
+    color: var(--soft-black-700, #352B27);
+
+    /* Mobile/Text/M */
+    font-family: 'Radio Grotesk';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    /* 21px */
+
+    width: calc(25% - 7px);
+  }
+  div.store-branch-text, .input-wrapper label {
+    text-align: left;
+  }
+  .appointment-button, div.appointment-button{
+    color: #FDFDFD;
+  }
+}
+
+.collapsed {
+  display: none !important;
+}

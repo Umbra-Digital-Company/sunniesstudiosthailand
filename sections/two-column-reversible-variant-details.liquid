@@ -1,0 +1,208 @@
+{{ 'two-column-reversible.css' | asset_url | stylesheet_tag }}
+<style>
+  .anti-rad-section-one__benefits {
+    margin-top: 24px;
+  }
+  .anti-rad-section-one__benefits > h4 {
+    font-family: 'AT-Surt-SemiBold';
+    font-size: 14px;
+  }
+  .anti-rad-section-one__benefits-selector > div > label {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    background-color: white;
+    border-radius: 100%;
+    border: 1px solid transparent;
+  }
+  .anti-rad-section-one__benefits-selector {
+    display: flex;
+    margin-top: 16px;
+  }
+  .anti-rad-section-one__benefits-selector > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 60px;
+  }
+  .anti-rad-section-one__benefits-selector > div > input {
+    display: none;
+  }
+  .anti-rad-section-one__benefits-selector > div > span {
+    line-height: 100%;
+    display: none;
+    font-size: 12px;
+  }
+  .anti-rad-section-one__benefits-selector > div > input:checked + label {
+    border-color: var(--black_color)
+  }
+  .anti-rad-section-one__benefits-selector > div > input:checked ~ span {
+    display: block;
+  }
+  .anti-rad-section-one__benefits-selector > div > label > img {
+    height: 32px;
+    width: 32px;
+    border-radius: 100%;
+  }
+  .anti-rad-section-one__benefits-details {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+    margin-top: 16px;
+  }
+  .anti-rad-section-one__benefits-details:first-of-type {
+    display: flex;
+  }
+  .anti-rad-section-one__benefits-details > li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .anti-rad-section-one__benefits-details > li > svg {
+    fill: var(--black_color);
+  }
+  .anti-rad-section-one__benefits-details > li > span {
+    font-size: 14px;
+  }
+  @media only screen and (min-width: 1281px){
+    .anti-rad-section-one__benefits {
+      margin-top: 40px;
+    }
+    .anti-rad-section-one__benefits > h4 {
+      font-size: 16px;
+    }
+    .anti-rad-section-one__benefits-details > li > span {
+      font-size: 16px;
+    }
+    .anti-rad-section-one__benefits-selector {
+      margin-top: 24px;
+    }
+    .anti-rad-section-one__benefits-details {
+      margin-top: 24px;
+    }
+  }
+</style>
+
+<div class="anti-rad-section-one {% unless section.settings.reverse == false %} anti-rad-section-one--reverse {% endunless %}">
+  <div class="section-one-image">
+    <img src="{{ section.settings.banner }}">
+  </div>
+  <div class="section-one-content">
+    <span class="one">{{ section.settings.headline }}</span>
+    <span class="two">{{ section.settings.description }}</span>
+    {% unless section.settings.sub == blank %}<span class="three">{{ section.settings.sub }}</span>{% endunless %}
+    <div class="anti-rad-section-one__benefits">
+      <h4>{{ section.settings.benefits_title }}</h4>
+      <div class="anti-rad-section-one__benefits-selector">
+        {%- for block in section.blocks -%}
+          {% case block.type %}
+            {% when 'variant' %}
+              <div>
+                <input type="radio" name="variant" id="{{ block.settings.variant_name }}"  value="{{ block.settings.variant_name }}" {% if forloop.index0 == 0 %} checked{% endif %}>
+                <label for="{{ block.settings.variant_name }}">{{ block.settings.variant_image | image_url: width: 32 | image_tag }}</label>
+                <span>{{ block.settings.variant_name }}</span>
+              </div>
+          {% endcase %}
+        {%- endfor -%}
+      </div>
+      {%- for block in section.blocks -%}
+        {% case block.type %}
+          {% when 'variant' %}
+            <ul class="anti-rad-section-one__benefits-details" data-variant="{{ block.settings.variant_name }}">
+              {% assign benefits_array = block.settings.variant_benefits | split: ", " %}
+              {% for benefit in benefits_array %}
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                    <path fill={{ block.settings.variant_benefits_icon_color }} fill-rule="evenodd" clip-rule="evenodd" d="M11 0C4.925 0 0 4.925 0 11C0 17.075 4.925 22 11 22C17.075 22 22 17.075 22 11C22 4.925 17.075 0 11 0ZM15.768 9.14C15.8558 9.03964 15.9226 8.92274 15.9646 8.79617C16.0065 8.6696 16.0227 8.53591 16.0123 8.40298C16.0018 8.27005 15.9648 8.14056 15.9036 8.02213C15.8423 7.90369 15.758 7.79871 15.6555 7.71334C15.5531 7.62798 15.4346 7.56396 15.3071 7.52506C15.1796 7.48616 15.0455 7.47316 14.9129 7.48683C14.7802 7.50049 14.6517 7.54055 14.5347 7.60463C14.4178 7.66872 14.3149 7.75554 14.232 7.86L9.932 13.019L7.707 10.793C7.5184 10.6108 7.2658 10.51 7.0036 10.5123C6.7414 10.5146 6.49059 10.6198 6.30518 10.8052C6.11977 10.9906 6.0146 11.2414 6.01233 11.5036C6.01005 11.7658 6.11084 12.0184 6.293 12.207L9.293 15.207C9.39126 15.3052 9.50889 15.3818 9.63842 15.4321C9.76794 15.4823 9.9065 15.505 10.0453 15.4986C10.184 15.4923 10.32 15.4572 10.4444 15.3954C10.5688 15.3337 10.6791 15.2467 10.768 15.14L15.768 9.14Z"/>
+                  </svg>
+                  <span>{{ benefit }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+        {% endcase %}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+<script>
+  $("input[name=variant]").change(function(){
+    const val = $(this).val()
+    $(".anti-rad-section-one__benefits-details").hide()
+    $(`.anti-rad-section-one__benefits-details[data-variant=${val}]`).css("display", "flex")
+  })
+</script>
+{% schema %}
+  {
+    "name": "50/50 Reversible",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "reverse",
+        "label": "Reverse",
+        "default": false
+      },
+      {
+        "type": "url",
+        "id": "banner",
+        "label": "50/50 Image (.PNG/.JPG/.GIF)"
+      },
+      {
+        "type": "text",
+        "id": "headline",
+        "label": "Section Headline"
+      }, 
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Section Description"
+      },
+      {
+        "type": "richtext",
+        "id": "sub",
+        "label": "Section Sub"
+      }, 
+      {
+        "type": "text",
+        "id": "benefits_title",
+        "label": "Benefits Title"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "variant",
+        "name": "Variant",
+        "settings": [
+          {
+            "type": "text",
+            "id": "variant_name",
+            "label": "Name"
+          },
+          {
+            "type": "image_picker",
+            "id": "variant_image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "variant_benefits",
+            "label": "Benefits"
+          },
+          {
+            "type": "color",
+            "id": "variant_benefits_icon_color",
+            "label": "Check Icon Color"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "50/50 Reversible Lens Benefits"
+      }
+    ]
+  }
+{% endschema %}

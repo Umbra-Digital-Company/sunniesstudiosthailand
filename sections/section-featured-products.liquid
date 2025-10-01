@@ -1,0 +1,92 @@
+{{ 'section-featured-products.css' | asset_url | stylesheet_tag }}
+
+{%- assign _section = section.settings -%}
+{%- assign section_title = _section.title -%}
+
+{%- if section.blocks.size > 0 -%}
+  <section class="section-featured-products">
+    <div class="shell">
+      <div class="section__inner">
+        <div class="featured-product-nav-buttons">
+          <div class="featured-products-swiper-prev">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/Vector.svg?v=1660977516"
+              alt="previous"
+              loading="lazy"
+            >
+          </div>
+          <div class="featured-products-swiper-next">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0268/4141/5798/files/Vector_b3a31c7e-ae76-4149-a931-a8ecef41d51b.svg?v=1660977530"
+              alt="next"
+              loading="lazy"
+            >
+          </div>
+        </div>
+        {%- if section_title != blank -%}
+          <header class="section__head">
+            <h2>{{ section_title }}</h2>
+            <a href="{{ section.settings.ctalink }}" class="section--cta">
+              {{ section.settings.ctatext }}
+            </a>
+          </header>
+        {%- endif -%}
+        <div class="featured-products-swiper" id="featured-products-wrapper">
+          <div class="swiper-wrapper">
+            {%- for block in section.blocks -%}
+              <div class="swiper-slide">
+                {% render 'product-card' with block.settings.product_select as product_data %}
+              </div>
+            {%- endfor -%}
+          </div>
+          <div class="featured-products-pagination"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+<script src="{{ 'section-featured-products.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "id": "ctatext",
+      "type": "text",
+      "label": "Link text",
+      "default": "Shop all"
+    },
+    {
+      "id": "ctalink",
+      "type": "url",
+      "label": "Link URL"
+    }
+  ],
+  "max_blocks": 20,
+  "blocks": [
+    {
+      "type": "product",
+      "name": "product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product_select",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,66 @@
+.full-content-section {
+	text-align: center;
+}
+
+.full-content-section h2 {
+    font-family: "AT Surt Medium";
+    font-size: 28px;
+  padding: 0 16px;
+}
+
+.full-content-section p {
+  	margin: 24px auto;
+	max-width: 800px;
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    line-height: 150%;
+    color: var(--black_color);
+    text-align: center;
+  padding: 0 16px;
+}
+
+.full-content-section .block__cta {
+	padding-bottom: 40px;
+}
+
+.full-content-section .block__cta .btn {
+	text-transform: initial;
+    font-family: "AT Surt Medium";
+    font-size: 14px;
+    padding: 16px 40px;
+}
+
+.full-content-section .block__cta .btn:hover {
+	background: #fff;
+    border: 1.5px solid #352b27;
+    color: #352b27;
+}
+
+@media (min-width:768px) {
+  .full-content-section {
+    padding: 0 60px;
+  }
+  
+  .full-content-section h2 {
+      font-size: 32px;
+  }
+  
+  .full-content-section p {
+  	margin: 40px auto;
+    font-size: 16px;
+  }
+
+  .full-content-section .adjustment p {
+    margin: 24px auto 60px;
+  }
+
+  .full-content-section .block__cta .btn {
+    font-size: 16px;
+  }
+}
+
+@media (min-width:1200px) {
+  .full-content-section {
+    padding: 0 100px;
+  }
+}

@@ -1,0 +1,32 @@
+<div class="simple-text-container" style="width: 100%">
+  <div
+    class="simple-text-wrapper"
+    style="{% if section.settings.is_contained %}max-width: 818px; margin: 0 auto;{% endif %}"
+  >
+    <p>{{ section.settings.text }}</p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Simple Text",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_contained",
+      "label": "Is Contained",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Simple Text"
+    }
+  ]
+}
+{% endschema %}

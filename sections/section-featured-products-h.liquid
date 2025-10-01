@@ -1,0 +1,76 @@
+{%- assign _section = section.settings -%}
+{%- assign section_title = _section.title -%}
+
+{%- if section.blocks.size > 0 -%}
+	<section class="section-featured-products">
+		<div class="shell">
+			<div class="section__inner">
+				{%- if section_title != blank -%}
+					<header class="section__head">
+						<h2>{{section_title}}</h2>      
+              <a href="{{ section.settings.ctalink }}" class="section--cta default">
+                {{ section.settings.ctatext }}
+              </a>
+					</header>
+				{%- endif -%}
+				<div class="section__body">
+					<div class="slider slider-featured-products slider-featured-products--main">
+						{%- for block in section.blocks -%}
+						  {%- assign _block = block.settings -%}
+						  {%- assign _product = all_products[_block.product_select] -%}
+						  {%- include 'product-item-carousel' with _product  -%}
+						{%- endfor -%}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{%- endif -%}
+
+<style>
+	.slider-featured-products { display: none !important; }
+	.slider.slick-initialized { display: block !important; }
+</style>
+
+{% schema %}
+{
+	"name": "Featured Product Carousel",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title"
+		},
+		{
+      "id": "ctatext",
+      "type": "text",
+      "label": "Link text",
+      "default": "Shop all"
+    },
+    {
+      "id": "ctalink",
+      "type": "url",
+      "label": "Link URL"
+    }
+	],
+	"max_blocks": 20,
+	"blocks": [
+		{
+			"type": "product",
+			"name": "product",
+			"settings": [
+				{
+					"type": "product",
+					"id": "product_select",
+					"label": "Select Product"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Featured Product Carousel"
+		}
+	]
+}
+{% endschema %}

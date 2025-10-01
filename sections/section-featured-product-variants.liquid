@@ -1,0 +1,122 @@
+{{ 'section-featured-products.css' | asset_url | stylesheet_tag }}
+{{ 'section-featured-product-variants.css' | asset_url | stylesheet_tag }}
+
+{%- assign _section = section.settings -%}
+{%- assign section_title = _section.title -%}
+
+{%- if section.blocks.size > 0 -%}
+  <section class="section-featured-products">
+    <div class="shell">
+      <div class="section__inner">
+        {%- if section_title != blank -%}
+          <header class="section__head">
+            <h2>{{ section_title }}</h2>
+            <a href="{{ section.settings.ctalink }}" class="section--cta default">
+              {{ section.settings.ctatext }}
+            </a>
+          </header>
+        {%- endif -%}
+        {% comment %}
+        <div class="featured-products-swiper" id="featured-products-wrapper">
+          <div class="swiper-wrapper">
+            {%- for block in section.blocks -%}
+              <div class="swiper-slide">
+                {% assign variant_link = block.settings.variant_link %}
+                {% assign variant_image = block.settings.variant_image %}
+                {% assign variant_title = block.settings.variant_title %}
+                {% assign variant_price = block.settings.variant_price %}
+                <img src="{{ variant_image | image_url }}" />
+                <p>{{ variant_title }}</p>
+                <p>{{ variant_price }}</p>
+              </div>
+            {%- endfor -%}
+          </div>
+          <div class="featured-products-pagination"></div>
+        </div>
+        {% endcomment %}
+        <div class="featured-variants">
+          {%- for block in section.blocks -%}
+            <div class="featured-variants__card">
+              {% assign variant_link = block.settings.variant_link %}
+              {% assign variant_image = block.settings.variant_image %}
+              {% assign variant_title = block.settings.variant_title %}
+              {% assign variant_price = block.settings.variant_price %}
+              <a href="{{ variant_link }}">
+              <img src="{{ variant_image | image_url }}" />
+              </a>
+              <p class="featured-variants__title">{{ variant_title }}</p>
+              <p class="featured-variants__price">{{ variant_price | times: 100 | money_without_trailing_zeros | replace: '₱', 'P'  }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+<style>
+  .bss_pl_img {
+    display: none !important;
+    opacity: 0 !important;
+  }
+</style>
+
+<script src="{{ 'section-featured-products.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Featured Product Variants",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "id": "ctatext",
+      "type": "text",
+      "label": "Link text",
+      "default": "Shop all"
+    },
+    {
+      "id": "ctalink",
+      "type": "url",
+      "label": "Link URL"
+    }
+  ],
+  "max_blocks": 20,
+  "blocks": [
+    {
+      "type": "product",
+      "name": "product",
+      "settings": [
+        {
+          "type": "url",
+          "id": "variant_link",
+          "label": "Product Variant Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "variant_image",
+          "label": "Product Variant Image"
+        },
+        {
+          "type": "text",
+          "id": "variant_title",
+          "label": "Product Variant Title"
+        },
+        {
+          "type": "number",
+          "id": "variant_price",
+          "label": "Product Variant Price"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Product Variants"
+    }
+  ]
+}
+{% endschema %}

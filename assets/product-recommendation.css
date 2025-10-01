@@ -1,0 +1,61 @@
+.product-recommendation-container {
+  padding: 0 16px;
+  display: block;
+}
+
+.product-recommendations {
+  margin: 0;
+}
+
+.product-recommendations h2 {
+  font-family: "AT Surt Medium";
+  font-size: 22px;
+  line-height: 150%;
+  color: #352B27;
+  margin: 0 0 16px 0;
+}
+
+.product-recommendation-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  column-gap: 4px;
+  row-gap: 4px;
+}
+
+@media (min-width: 768px) {
+  .product-recommendation-container {
+    padding: 0 40px;
+  }
+
+  .product-recommendations {
+    margin: 0;
+  }
+
+  .product-recommendations h2 {
+    font-size: 22px;
+    margin: 0 0 16px 0;
+  }
+
+  .product-recommendation-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    column-gap: 4px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-recommendations h2 {
+    font-size: 22px;
+    line-height: 150%;
+    margin: 0 0 16px 0;
+  }
+
+  .product-recommendation-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    column-gap: 4px;
+  }
+}

@@ -1,0 +1,225 @@
+{%- include 'ditto-landing-blocks' -%}
+
+{% schema %}
+  {
+    "name": "Ditto page blocks",
+    "class": "Ditto",
+    "max_blocks": 50,
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "pages_menu",
+        "label": "Pages menu"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "section-3-column",
+        "name": "3 Column",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "textarea",
+            "id": "headline",
+            "label": "Headline"
+          },
+          {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_1",
+            "label": "Image 1"
+          },
+          {
+            "type": "text",
+            "id": "title_1",
+            "label": "Title 1"
+          }, {
+            "type": "textarea",
+            "id": "content_1",
+            "label": "Content 1"
+          }, {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Image 2"
+          }, {
+            "type": "text",
+            "id": "title_2",
+            "label": "Title 2"
+          }, {
+            "type": "textarea",
+            "id": "content_2",
+            "label": "Content 2"
+          }, {
+            "type": "image_picker",
+            "id": "image_3",
+            "label": "Image 3"
+          }, {
+            "type": "text",
+            "id": "title_3",
+            "label": "Title 3"
+          }, {
+            "type": "textarea",
+            "id": "content_3",
+            "label": "Content 3"
+          }
+        ]
+      }, {
+        "type": "ditto_product",
+        "name": "Ditto Frames",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "guide_url",
+            "label": "Video guide URL"
+          },
+          {
+            "type": "text",
+            "id": "mobile_guide_url",
+            "label": "Video guide URL (Mobile)"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description"
+          }, {
+            "type": "product",
+            "id": "product_1",
+            "label": "Select Product 1"
+          }, {
+            "type": "text",
+            "id": "variant_1",
+            "label": "Product 1 variant"
+          }, {
+            "type": "product",
+            "id": "product_2",
+            "label": "Select Product 2"
+          }, {
+            "type": "text",
+            "id": "variant_2",
+            "label": "Product 2 variant"
+          }, {
+            "type": "product",
+            "id": "product_3",
+            "label": "Select Product 3"
+          }, {
+            "type": "text",
+            "id": "variant_3",
+            "label": "Product 3 variant"
+          }, {
+            "type": "product",
+            "id": "product_4",
+            "label": "Select Product 4"
+          }, {
+            "type": "text",
+            "id": "variant_4",
+            "label": "Product 4 variant"
+          }, {
+            "type": "product",
+            "id": "product_5",
+            "label": "Select Product 5"
+          }, {
+            "type": "text",
+            "id": "variant_5",
+            "label": "Product 5 variant"
+          }, {
+            "type": "product",
+            "id": "product_6",
+            "label": "Select Product 6"
+          }, {
+            "type": "text",
+            "id": "variant_6",
+            "label": "Product 6 variant"
+          }, {
+            "type": "product",
+            "id": "product_7",
+            "label": "Select Product 7"
+          }, {
+            "type": "text",
+            "id": "variant_7",
+            "label": "Product 7 variant"
+          }, {
+            "type": "product",
+            "id": "product_8",
+            "label": "Select Product 8"
+          }, {
+            "type": "text",
+            "id": "variant_8",
+            "label": "Product 8 variant"
+          }, {
+            "type": "product",
+            "id": "product_9",
+            "label": "Select Product 9"
+          }, {
+            "type": "text",
+            "id": "variant_9",
+            "label": "Product 9 variant"
+          }, {
+            "type": "product",
+            "id": "product_10",
+            "label": "Select Product 10"
+          }, {
+            "type": "text",
+            "id": "variant_10",
+            "label": "Product 10 variant"
+          }, {
+            "type": "product",
+            "id": "product_11",
+            "label": "Select Product 11"
+          }, {
+            "type": "text",
+            "id": "variant_11",
+            "label": "Product 11 variant"
+          }, {
+            "type": "product",
+            "id": "product_12",
+            "label": "Select Product 12"
+          }, {
+            "type": "text",
+            "id": "variant_12",
+            "label": "Product 12 variant"
+          }
+        ]
+      }, {
+        "type": "modal_product",
+        "name": "Pop-up Product",
+        "limit": 50,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Add products to show in pop-up"
+          },
+
+          {
+            "type": "product",
+            "id": "popup_product",
+            "label": "SELECT PRODUCT 1 FOR POP-UP"
+          },
+          {
+            "type": "text",
+            "id": "popup_variant",
+            "label": "PRODUCT VARIANT"
+          },
+          {
+            "type": "url",
+            "id": "popup_product_icon_tag",
+            "label": "PRODUCT ICON TAG"
+          }, {
+            "type": "text",
+            "id": "popup_product_icon_text",
+            "label": "PRODUCT ICON TEXT"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

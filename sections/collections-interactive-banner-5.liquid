@@ -1,0 +1,373 @@
+{% liquid
+  assign interactive_id = section.settings.interactive_banner_id
+  assign interactive_title = section.settings.interactive_banner_title
+
+  assign sph = false
+  assign cyl = false
+  assign axis = false
+  assign add = false
+  assign ipd = false
+  assign ph = false
+%}
+
+{% if section.settings.interactive_banner %}
+
+  <div class="interactive-banner-container" id="{{ interactive_id }}">
+    <div class="interactive-banner-wrapper">
+
+      <div class="close-interactive-banner"></div>
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+
+          {%- when 'heading_text' -%}
+
+          <h4 class="ib-heading-text">{{ block.settings.text }}</h4>
+
+          {%- when 'body_text' -%}
+
+          <p class="ib-body-text">{{ block.settings.textarea }}</p>
+
+          {%- when 'banner' -%}
+
+          <div class="ib-image {% if block.settings.image_is_logo %}is-logo{% endif %}">
+            {% if block.settings.image_is_logo %}
+              {% assign imgSize = 'large' %}
+            {% else %}
+              {% assign imgSize = 'grande' %}
+            {% endif %}
+            <img src="{{ block.settings.image | img_url: imgSize }}" alt="{{ block.settings.image.alt }}" />
+          </div>
+
+          {%- when 'cta' -%}
+
+          <div class="btn-ib-cta">
+            <a href={{ block.settings.cta_url }} class="btn">{{ block.settings.cta_text }}</a>
+          </div>
+
+          {%- when 'prescription' -%}
+
+          <div class="ib-prescription-table">
+            <div class="ib-prescription-head">
+              <p>&nbsp;</p>
+              {% if block.settings.grade_sph %}
+                {% assign sph = true %}
+                <p>SPH</p>
+              {% endif %}
+              {% if block.settings.grade_cyl %}
+                {% assign cyl = true %}
+                <p>CYL</p>
+              {% endif %}
+              {% if block.settings.grade_axis %}
+                {% assign axis = true %}
+                <p>AXIS</p>
+              {% endif %}
+              {% if block.settings.grade_add %}
+                {% assign add = true %}
+                <p>ADD</p>
+              {% endif %}
+              {% if block.settings.grade_ipd %}
+                {% assign ipd = true %}
+                <p>IPD</p>
+              {% endif %}
+              {% if block.settings.grade_ph %}
+                {% assign ph = true %}
+                <p>PH</p>
+              {% endif %}
+            </div>
+            {% if block.settings.type_single_vision %}
+              <div class="ib-prescription-row">
+                <p>Single Vision</p>
+                {% if sph %}
+                  <p>{{ block.settings.single_vision_sph_value }}</p>
+                {% endif %}
+                {% if cyl %}
+                  <p>{{ block.settings.single_vision_cyl_value }}</p>
+                {% endif %}
+                {% if axis %}
+                  <p>{{ block.settings.single_vision_axis_value }}</p>
+                {% endif %}
+                {% if add %}
+                  <p>{{ block.settings.single_vision_add_value }}</p>
+                {% endif %}
+                {% if ipd %}
+                  <p>{{ block.settings.single_vision_ipd_value }}</p>
+                {% endif %}
+                {% if ph %}
+                  <p>{{ block.settings.single_vision_ph_value }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if block.settings.type_bifocal %}
+              <div class="ib-prescription-row">
+                <p>Bifocal</p>
+                {% if sph %}
+                  <p>{{ block.settings.bifocal_sph_value }}</p>
+                {% endif %}
+                {% if cyl %}
+                  <p>{{ block.settings.bifocal_cyl_value }}</p>
+                {% endif %}
+                {% if axis %}
+                  <p>{{ block.settings.bifocal_axis_value }}</p>
+                {% endif %}
+                {% if add %}
+                  <p>{{ block.settings.bifocal_add_value }}</p>
+                {% endif %}
+                {% if ipd %}
+                  <p>{{ block.settings.bifocal_ipd_value }}</p>
+                {% endif %}
+                {% if ph %}
+                  <p>{{ block.settings.bifocal_ph_value }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if block.settings.type_progressive %}
+              <div class="ib-prescription-row">
+                <p>Progressive</p>
+                {% if sph %}
+                  <p>{{ block.settings.progressive_sph_value }}</p>
+                {% endif %}
+                {% if cyl %}
+                  <p>{{ block.settings.progressive_cyl_value }}</p>
+                {% endif %}
+                {% if axis %}
+                  <p>{{ block.settings.progressive_axis_value }}</p>
+                {% endif %}
+                {% if add %}
+                  <p>{{ block.settings.progressive_add_value }}</p>
+                {% endif %}
+                {% if ipd %}
+                  <p>{{ block.settings.progressive_ipd_value }}</p>
+                {% endif %}
+                {% if ph %}
+                  <p>{{ block.settings.progressive_ph_value }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+
+        {%- endcase -%}
+      {%- endfor -%}
+
+    </div>
+  </div>
+
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Interactive Banner 5",
+    "tag": "section",
+    "class": "section",
+    "blocks": [
+      {
+        "type": "heading_text",
+        "name": "Heading text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Title"
+          }
+        ]
+      },
+      {
+        "type": "body_text",
+        "name": "Body text",
+        "settings": [
+          {
+            "type": "textarea",
+            "id": "textarea",
+            "label": "Multi-line text"
+          }
+        ]
+      },
+      {
+        "type": "banner",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Select image"
+          }, {
+            "type": "checkbox",
+            "id": "image_is_logo",
+            "label": "Image is a logo"
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "name": "Call to action",
+        "settings": [
+          {
+            "type": "text",
+            "id": "cta_text",
+            "label": "Button label"
+          }, {
+            "type": "url",
+            "id": "cta_url",
+            "label": "Button url"
+          }
+        ]
+      }, {
+        "type": "prescription",
+        "name": "Prescription table",
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "List of column to show in prescription table"
+          },
+          {
+            "type": "checkbox",
+            "id": "grade_sph",
+            "label": "Add SPH column"
+          },
+          {
+            "type": "checkbox",
+            "id": "grade_cyl",
+            "label": "Add CYL column"
+          },
+          {
+            "type": "checkbox",
+            "id": "grade_axis",
+            "label": "Add AXIS column"
+          }, {
+            "type": "checkbox",
+            "id": "grade_add",
+            "label": "Add ADD column"
+          }, {
+            "type": "checkbox",
+            "id": "grade_ipd",
+            "label": "Add IPD column"
+          }, {
+            "type": "checkbox",
+            "id": "grade_ph",
+            "label": "Add PH column"
+          }, {
+            "type": "header",
+            "content": "Single vision"
+          }, {
+            "type": "paragraph",
+            "content": "Value of each grade for single vision"
+          }, {
+            "type": "checkbox",
+            "id": "type_single_vision",
+            "label": "Add Single vision row"
+          }, {
+            "type": "text",
+            "id": "single_vision_sph_value",
+            "label": "Single vision SPH value"
+          }, {
+            "type": "text",
+            "id": "single_vision_cyl_value",
+            "label": "Single vision CYL value"
+          }, {
+            "type": "text",
+            "id": "single_vision_axis_value",
+            "label": "Single vision AXIS value"
+          }, {
+            "type": "text",
+            "id": "single_vision_add_value",
+            "label": "Single vision ADD value"
+          }, {
+            "type": "text",
+            "id": "single_vision_ipd_value",
+            "label": "Single vision IPD value"
+          }, {
+            "type": "text",
+            "id": "single_vision_ph_value",
+            "label": "Single vision PH value"
+          }, {
+            "type": "header",
+            "content": "Bifocal"
+          }, {
+            "type": "paragraph",
+            "content": "Value of each grade for bifocal"
+          }, {
+            "type": "checkbox",
+            "id": "type_bifocal",
+            "label": "Add Bifocal row"
+          }, {
+            "type": "text",
+            "id": "bifocal_sph_value",
+            "label": "Bifocal SPH value"
+          }, {
+            "type": "text",
+            "id": "bifocal_cyl_value",
+            "label": "Bifocal CYL value"
+          }, {
+            "type": "text",
+            "id": "bifocal_axis_value",
+            "label": "Bifocal AXIS value"
+          }, {
+            "type": "text",
+            "id": "bifocal_add_value",
+            "label": "Bifocal ADD value"
+          }, {
+            "type": "text",
+            "id": "bifocal_ipd_value",
+            "label": "Bifocal IPD value"
+          }, {
+            "type": "text",
+            "id": "bifocal_ph_value",
+            "label": "Bifocal PH value"
+          }, {
+            "type": "header",
+            "content": "Progressive"
+          }, {
+            "type": "paragraph",
+            "content": "Value of each grade for progressive"
+          }, {
+            "type": "checkbox",
+            "id": "type_progressive",
+            "label": "Add Progressive row"
+          }, {
+            "type": "text",
+            "id": "progressive_sph_value",
+            "label": "Progressive SPH value"
+          }, {
+            "type": "text",
+            "id": "progressive_cyl_value",
+            "label": "Progressive CYL value"
+          }, {
+            "type": "text",
+            "id": "progressive_axis_value",
+            "label": "Progressive AXIS value"
+          }, {
+            "type": "text",
+            "id": "progressive_add_value",
+            "label": "Progressive ADD value"
+          }, {
+            "type": "text",
+            "id": "progressive_ipd_value",
+            "label": "Progressive IPD value"
+          }, {
+            "type": "text",
+            "id": "progressive_ph_value",
+            "label": "Progressive PH value"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "interactive_banner",
+        "label": "Enable Interactive Banner"
+      }, {
+        "type": "text",
+        "id": "interactive_banner_title",
+        "label": "Interactive banner title"
+      }, {
+        "type": "text",
+        "id": "interactive_banner_id",
+        "label": "Interactive banner ID"
+      }, {
+        "type": "paragraph",
+        "content": "Each interactive banner ID needs to be unique (i.e. your-title-in-this-format)"
+      }
+    ]
+  }
+{% endschema %}

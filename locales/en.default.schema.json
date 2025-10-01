@@ -1,0 +1,73 @@
+{
+  "settings_schema": {},
+  "sections": {
+    "image-banner": {
+      "name": "Image banner",
+      "settings": {
+        "desktop_content_position": {
+          "option1": {
+            "label": "Middle Left"
+          },
+          "option2": {
+            "label": "Middle Center"
+          },
+          "option3": {
+            "label": "Middle Right"
+          },
+          "option4": {
+            "label": "Bottom Left"
+          },
+          "option5": {
+            "label": "Bottom Center"
+          },
+          "option6": {
+            "label": "Bottom Right"
+          },
+          "label": "Desktop content position"
+        },
+        "mobile_content_position": {
+          "option1": {
+            "label": "Bottom Center"
+          },
+          "option2": {
+            "label": "Middle Center"
+          },
+          "option3": {
+            "label": "Top Center"
+          },
+          "option4": {
+            "label": "Outside Text"
+          },
+          "option5": {
+            "label": "Bottom Left"
+          },
+          "label": "Mobile content position"
+        }
+      },
+      "blocks": {
+        "heading": {
+          "name": "Heading",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            }
+          }
+        },
+        "text": {
+          "name": "Text",
+          "settings": {
+            "text": {
+              "label": "Subcopy"
+            }
+          }
+        },
+        "banner_button": {
+          "name": "Button"
+        }
+      },
+      "presets": {
+        "name": "Image banner"
+      }
+    }
+  }
+}

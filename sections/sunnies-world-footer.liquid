@@ -1,0 +1,101 @@
+{{ 'sunnies-world-footer.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign section_settings = section.settings
+  assign background_color = section_settings.background_color
+  assign text_color = section_settings.text_color
+  assign copyright_text = section_settings.copyright_text
+  assign show_section = section_settings.show_section
+%}
+
+{% if show_section %}
+<footer class="sunnies-world-footer" style="background-color: {{ background_color }}; color: {{ text_color }};">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-copyright">
+        {{ copyright_text | default: '© 2025 Sunnies Studios' }}
+      </div>
+      
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'footer_link' %}
+            <a href="{{ block.settings.link_url | default: '#' }}" class="footer-link" {{ block.shopify_attributes }}>
+              {{ block.settings.link_text }}
+            </a>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</footer>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Sunnies World Footer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#666666"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "© 2025 Sunnies Studios"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "footer_link",
+      "name": "Footer Link",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text",
+          "default": "Terms & Conditions"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sunnies World Footer",
+      "blocks": [
+        {
+          "type": "footer_link",
+          "settings": {
+            "link_text": "Terms & Conditions"
+          }
+        },
+        {
+          "type": "footer_link",
+          "settings": {
+            "link_text": "Privacy Policy"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

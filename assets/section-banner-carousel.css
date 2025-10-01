@@ -1,0 +1,8 @@
+.banner-content #logo-image-wrapper {
+  margin: 0 0 32px 0;
+}
+
+.banner-content #logo-image {
+  max-height: 50px;
+  width: auto;
+}

@@ -1,0 +1,210 @@
+{{ 'collections-group.css' | asset_url | stylesheet_tag }}
+
+
+<div class="collection-grid">
+  {% if section.settings.collection_feature_header != blank %}
+    <div class="collection-feature-header">
+      <h2>{{ section.settings.collection_feature_header }}</h2>
+    </div>
+  {% endif %}
+  <div class="collections">
+    {% for block in section.blocks %}
+
+      {% liquid
+        assign alignment = ''
+      
+        if block.settings.content_alignment == 'left'
+          assign alignment = 'left-alignment'
+        elsif block.settings.content_alignment == 'center'
+          assign alignment = 'center-alignment'
+        else
+          assign alignment = 'right-alignment'
+        endif
+      %}
+   
+      <div class="collection-block-outer">
+        <div class="collection-block {{ alignment }}" style="background-image: url({{ block.settings.collection_image.src | image_url }})">
+          <div class="collection-details-container">
+            <div class="collection-details">
+              {% if block.settings.collection_title != empty %}
+                <h5 style="color: {{ block.settings.text_color }}">{{ block.settings.collection_title }}</h5>
+              {% endif %}
+              {% if block.settings.description != empty %}
+                <p style="color: {{ block.settings.text_color }}">{{ block.settings.description }}</p>
+              {% endif %}
+            </div>
+            {% if block.settings.button_text != empty %}
+              <a class="collection-link" href="{{ block.settings.button_url }}" target="_blank" style='color:  {{ block.settings.text_color }}; border-color:  {{ block.settings.text_color }};'>{{ block.settings.button_text }}</a>
+            {% endif %}
+          </div>
+        </div>
+        {% if block.settings.ct_block_p != blank %}
+          <div class="collection_block_cta_wrapper">
+            <p>{{ block.settings.ct_block_p }}</p>
+            {% if block.settings.disabled_button%}
+              <span class="disabled">{{ block.settings.ct_block_label }}</span>
+              {% else %}
+              <a href="{{ block.settings.ct_block_link }}">{{ block.settings.ct_block_label }}</a>
+            {% endif %}
+            
+        </div>
+      {% endif %}
+      </div>
+    {% endfor %}
+  </div> 
+</div>
+
+<style>
+  @media(min-width: 1024px){
+      .collection-details p {
+        height: 40px
+      }
+    }
+  {% if template.suffix contains 'back-to-school' %}
+    .collection-details p {
+      font-family: 'Radio Grotesk';
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 150%;
+      letter-spacing: 0%
+    }
+    @media(max-width: 767px){
+      .collection-block {
+        padding: 16px
+      }
+      .product-card-eye-candy .product-card-details .product-card-details-wrapper .title-wrapper .product-card-prices {
+        position: absolute;
+        bottom: -6px
+      }
+      .product-card-details-wrapper .title-wrapper {
+        margin: 0
+      }
+    }
+  {% endif %}
+  .collection_block_cta_wrapper a:hover, .collection_block_cta_wrapper span:hover {
+    background: #FFF;
+    border: 1px solid #6C8FAF;
+    color: #6C8FAF;
+  }
+
+  .collection_block_cta_wrapper span.disabled {
+    background: #F4F4F5;
+    border: 1px solid #F4F4F5;
+    color: #D1D1D6;
+    cursor: not-allowed;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Feature Card 1",
+      "settings": [
+        {
+          "type": "text",
+          "id": "collection_feature_header",
+          "label": "Feature Header"
+        }
+      ],
+      "blocks":[
+        {
+        "type":"feature-card",
+        "name":"Feature Card",
+          "settings":[
+            {
+              "type":"header",
+              "content":"Feature Card Settings"
+            },
+            {
+              "type":"checkbox",
+              "id":"disabled_button",
+              "label":"Disable button?"
+            },
+            {
+              "type":"text",
+              "id":"collection_title",
+              "label":"Card Title"
+            },
+             {
+              "type":"select",
+              "id":"content_alignment",
+              "label":"Content Alignment",
+              "options":[
+                {
+                  "value":"left",
+                  "label":"Bottom Left"
+                },
+                {
+                  "value":"center",
+                  "label":"Bottom Center"
+                },
+                {
+                  "value":"right",
+                  "label":"Bottom Right"
+                }
+                
+              ],
+              "default":"left"
+            },
+            {
+              "type":"color",
+              "id":"text_color",
+              "label":"Text Color",
+              "default":"#FFFFFF"
+            },
+            {
+              "type":"image_picker",
+              "id":"collection_image",
+              "label":"Block Image"
+            },
+            {
+              "type":"text",
+              "id":"description",
+              "label":"Card Description"
+            },
+            {
+              "type":"text",
+              "id":"button_text",
+              "label":"Button Text"
+            },
+            {
+              "type":"url",
+              "id":"button_url",
+              "label":"Button URL"
+            },
+            {
+              "type": "header",
+              "content": "New Content Block Settings"
+            },
+            {
+              "type":"text",
+              "id":"ct_block_p",
+              "label":"CTA Block Paragraph"
+            },
+            {
+              "type":"text",
+              "id":"ct_block_label",
+              "label":"CTA Block Label",
+              "default":"Learn More"
+            },
+            {
+              "type":"url",
+              "id":"ct_block_link",
+              "label":"CTA Block Link"
+            }
+          ]
+      }
+      ],
+      "presets": [
+    {
+    "name": "Feature Card 1"
+    }
+  ]
+    
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

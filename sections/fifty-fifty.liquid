@@ -1,0 +1,65 @@
+{{ 'fifty-fifty.css' | asset_url | stylesheet_tag }}
+
+<div id="fifty-fifty-wrapper">
+  <div id="fifty-fifty-image">
+    <img id="fifty-fifty-image-desktop"
+      src="{{ section.settings.image_desktop | image_url }}"
+      loading="lazy">
+    <img id="fifty-fifty-image-mobile"
+      src="{{ section.settings.image_mobile | image_url }}"
+      loading="lazy">
+  </div>
+  <div id="fifty-fifty-content">
+    <h2>{{ section.settings.title }}
+    </h2>
+    <p>{{ section.settings.subcopy }}
+    </p>
+    <a href="{{ section.settings.cta }}" id="fifty-fifty-cta">{{ section.settings.cta_label }}</a>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "50/50",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image_desktop",
+        "label": "Image (Destkop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_mobile",
+        "label": "Image (Mobile)"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "richtext",
+        "id": "subcopy",
+        "label": "Subcopy"
+      },
+      {
+        "type": "url",
+        "id": "cta",
+        "label": "CTA",
+        "default": "/"
+      },
+      {
+        "type": "text",
+        "id": "cta_label",
+        "label": "CTA Label",
+        "default": "Shop now"
+      }
+    ],
+    "presets": [
+      {
+        "name": "50/50"
+      }
+    ]
+  }
+{% endschema %}

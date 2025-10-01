@@ -1,0 +1,98 @@
+<div id="PrescriptionFlow"></div>
+
+{% assign lens_collection = collections[lenses]%}
+
+<script type="application/ld+json" id="PrescriptionCMSData">
+  {
+    "lenses": [
+    {% paginate lens_collection.products by 1000 %}
+      {% for product in lens_collection.products %}
+        {{ product | json }}{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    {% endpaginate %}
+    ],
+    "buttons": [
+      {% for block in blocks %}
+        {
+          "type": "{{block.type}}",
+          "name": "{{block.settings.name}}",
+          "icon": "{{block.settings.icon | img_url: '100x'}}",
+          "content": "{{block.settings.content}}"
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ],
+    "cms": {
+      "global": {
+        "global_header": "{{'prescription.global.global_header' | t}}",
+        "step1_label": "{{'prescription.global.step_1_label' | t}}",
+        "step2_label": "{{'prescription.global.step_2_label' | t}}",
+        "step3_label": "{{'prescription.global.step_3_label' | t}}",
+        "cancel_button": "{{'prescription.global.cancel_button' | t}}",
+        "add_to_cart": "{{'prescription.global.add_to_cart' | t}}",
+        "cancel_modal": {
+          "content_html": "{{'prescription.global.cancel_modal.content_html' | t}}",
+          "continue": "{{'prescription.global.cancel_modal.continue' | t}}",
+          "confirm": "{{'prescription.global.cancel_modal.confirm' | t}}"
+        }
+      },
+      "step1": {
+        "headers": {
+          "select_prescription": "{{'prescription.step1.headers.select_prescription' | t}}",
+          "select_vision": "{{'prescription.step1.headers.select_vision' | t}}",
+          "edit_prescription": "{{'prescription.step1.headers.edit_prescription' | t}}",
+          "select_past_prescription": "{{'prescription.step1.headers.select_past_prescription' | t}}",
+          "select_grabbed_prescription": "{{'prescription.step1.headers.select_grabbed_prescription' | t}}",
+          "grab_your_prescriptions": "{{'prescription.step1.headers.grab_your_prescriptions' | t}}"
+        },
+        "buttons": {
+          "get_prescription": "{{'prescription.step1.buttons.get_prescription' | t}}",
+          "new_prescription": "{{'prescription.step1.buttons.new_prescription' | t}}",
+          "non_prescription": "{{'prescription.step1.buttons.non_prescription' | t}}",
+          "grab_prescriptions": "{{'prescription.step1.buttons.grab_prescriptions' | t}}",
+          "distance_title": "{{'prescription.step1.buttons.distance_title' | t}}",
+          "distance_content": "{{'prescription.step1.buttons.distance_content' | t}}",
+          "reading_title": "{{'prescription.step1.buttons.reading_title' | t}}",
+          "reading_content": "{{'prescription.step1.buttons.reading_content' | t}}",
+          "bifocal_title": "{{'prescription.step1.buttons.bifocal_title' | t}}",
+          "bifocal_content": "{{'prescription.step1.buttons.bifocal_content' | t}}",
+          "progressive_title": "{{'prescription.step1.buttons.progressive_title' | t}}",
+          "progressive_content": "{{'prescription.step1.buttons.progressive_content' | t}}",
+          "confirm_prescription": "{{'prescription.step1.buttons.confirm_prescription' | t}}",
+          "need_help": "{{'prescription.step1.buttons.need_help' | t}}",
+          "need_help_link": "{{'prescription.step1.buttons.need_help_link' | t}}",
+          "learn_how": "{{'prescription.step1.buttons.learn_how' | t}}",
+          "learn_how_link": "{{'prescription.step1.buttons.learn_how_link' | t}}"
+        },
+        "table": {
+          "left_eye_html": "{{'prescription.step1.table.left_eye_html' | t}}",
+          "right_eye_html": "{{'prescription.step1.table.right_eye_html' | t}}",
+          "sph": "{{'prescription.step1.table.sph' | t}}",
+          "cyl": "{{'prescription.step1.table.cyl' | t}}",
+          "axis": "{{'prescription.step1.table.axis' | t}}",
+          "add": "{{'prescription.step1.table.add' | t}}",
+          "ipd": "{{'prescription.step1.table.ipd' | t}}",
+          "ph": "{{'prescription.step1.table.ph' | t}}",
+          "tooltips": {
+            "axis": "{{'prescription.step1.table.tooltips.axis' | t}}",
+            "add": "{{'prescription.step1.table.tooltips.add' | t}}",
+            "ph": "{{'prescription.step1.table.tooltips.ph' | t}}"
+          }
+        }
+      },
+      "step2": {
+        "headers": {
+          "select_lens_type": "{{'prescription.step2.headers.select_lens_type' | t}}"
+        },
+        "buttons": {
+          "apply_lens_type": "{{'prescription.step2.buttons.apply_lens_type' | t}}"
+        }
+      },
+      "step3": {
+        "headers": {
+          "select_lens_option": "{{'prescription.step3.headers.select_lens_option' | t}}",
+          "select_tint": "{{'prescription.step3.headers.select_tint' | t}}"
+        }
+      }
+    }
+  }
+</script>

@@ -1,0 +1,141 @@
+{{ 'sunnies-world-hero.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign section_settings = section.settings
+  assign background_color = section_settings.background_color
+%}
+
+<section class="sunnies-world-hero" style="background-color: {{ background_color }};">
+  <div class="hero-container">
+
+    <!-- Product Categories Grid -->
+    <div class="product-categories-grid">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'product_category' %}
+            <div class="product-category-card" {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.category_url | default: '#' }}" class="category-link">
+                {% if block.settings.category_image != blank %}
+                  <div class="category-image-wrapper">
+                    <img 
+                      src="{{ block.settings.category_image | image_url: width: 800 }}" 
+                      alt="{{ block.settings.category_title | default: 'Category image' }}"
+                      class="category-image"
+                      width="800"
+                      height="600"
+                      loading="lazy"
+                    >
+                  </div>
+                {% endif %}
+                {% if block.settings.category_title != blank or block.settings.category_tagline != blank %}
+                  <div class="category-content">
+                    {% if block.settings.category_content_image != blank %}
+                      <img 
+                        src="{{ block.settings.category_content_image | image_url: width: 200 }}" 
+                        alt="{{ block.settings.category_title | default: 'Category content image' }}"
+                        class="category-content-image"
+                        width="200"
+                        height="auto"
+                        loading="lazy"
+                      >
+                    {% endif %}
+                    {% if block.settings.category_title != blank %}
+                      <h3 class="category-title">{{ block.settings.category_title }}</h3>
+                    {% endif %}
+                    {% if block.settings.category_tagline != blank %}
+                      <p class="category-tagline">{{ block.settings.category_tagline }}</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </a>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sunnies World Hero",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#D2B48C"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_category",
+      "name": "Product Category",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "category_image",
+          "label": "Category background image"
+        },
+        {
+          "type": "image_picker",
+          "id": "category_content_image",
+          "label": "Category content image"
+        },
+        {
+          "type": "text",
+          "id": "category_title",
+          "label": "Category title",
+          "default": "SUNNIES STUDIOS"
+        },
+        {
+          "type": "text",
+          "id": "category_tagline",
+          "label": "Category tagline",
+          "default": "Eyewear you live in"
+        },
+        {
+          "type": "url",
+          "id": "category_url",
+          "label": "Category link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sunnies World Hero",
+      "blocks": [
+        {
+          "type": "product_category",
+          "settings": {
+            "category_title": "SUNNIES STUDIOS",
+            "category_tagline": "Eyewear you live in"
+          }
+        },
+        {
+          "type": "product_category",
+          "settings": {
+            "category_title": "SUNNIES FACE",
+            "category_tagline": "Beauty that gets you"
+          }
+        },
+        {
+          "type": "product_category",
+          "settings": {
+            "category_title": "SUNNIES FLASK",
+            "category_tagline": "The most customizable flask ever"
+          }
+        },
+        {
+          "type": "product_category",
+          "settings": {
+            "category_title": "SUNNIES COFFEE",
+            "category_tagline": "Your daily dose of good stuff"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,139 @@
+
+{% for block in section.blocks %}
+    {% if block.type == 'flask_header_menu' %}
+        <div class="flask-submenu-image">
+            <a href="{{ block.settings.url }}">
+                <img src="{{ block.settings.image |  image_url }}">
+            </a>
+            
+            <a href="{{ block.settings.url }}">
+                <span>{{ block.settings.text }}</span>
+            </a>
+        </div>
+    {% endif %}
+{% endfor %}
+
+<style>
+    .flask-custom-submenu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        top: 100%;
+        padding: 0 40px 50px;
+    }
+    .submenu-content {
+        display: flex;
+        justify-content: flex-start;
+        overflow-x: auto;
+        gap: 4px;
+    }
+    .header:has(.flask-nav:hover) .flask-custom-submenu,
+    .flask-custom-submenu:hover {
+        display: flex;
+    }
+
+    .header:has(.flask-nav:hover) .header__inner,
+    .header:has(.flask-custom-submenu:hover) .header__inner{
+        /* padding-bottom: 50px; */
+    }
+
+    .header:hover .gm-level-0>a.flask-nav-link,
+    .gm-menu-installed .header:hover .gm-level-0>a {
+        color: var(--black_color);
+    }
+    .flask-submenu-links{
+        display: flex;
+        flex-direction: column;
+    }
+    .sm-divider{
+        background: #d4d2cc;
+        margin: 22px 0;
+    }
+    .flask-submenu-image {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .flask-submenu-image span {
+        padding: 0px 0 2px;
+        border-bottom: 1px solid;
+        border-color: var(--black_color);
+    }
+    .flask-custom-submenu .flask-submenu-image a{
+        padding: 0 0;
+        font-family: 'Radio Grotesk';
+        color: var(--black_color);
+        font-size: 14px;
+    }
+    .flask-submenu-image img {
+        width: 100%;
+        max-width: 360px;
+        aspect-ratio: 1 / 1.25;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 8px;
+    }
+    .flask-custom-submenu a {
+        text-decoration: none;
+        margin-bottom: 16px;
+        width: fit-content;
+        padding: 0 15px 0;
+    }
+    .flask-custom-submenu a:hover {
+        /* color: var(--light_brown_color)!important */
+    }
+
+    .flask-nav {
+        display: flex;
+        position: relative;
+        font-family: 'Radio Grotesk'
+    }   
+    .gm-menu-installed .gm-level-0>a.flask-nav-link,
+    a.flask-nav-link {
+        position: relative;
+        text-decoration: unset;
+        color: inherit;
+        padding: 0px !important;
+        list-style: none;
+        font-size: 14px;
+        height: 32px;
+    }
+  .gm-menu-installed .gm-level-0>a.flask-nav-link:hover span, a.flask-nav-link:hover span {
+    border-bottom: 1px solid;
+  }
+    .gm-menu-installed .gm-level-0>a.flask-nav-link:hover{
+        color: var(--black_color) !important;
+    }
+    @media(max-width: 768px){
+        .flask-nav {
+            display: none;
+        }
+    }
+    .header .header__inner{
+        padding: 0px;
+    }
+    .header .header__body{
+        padding: 16px 40px
+    }
+</style>
+
+<script>
+    // window.addEventListener('DOMContentLoaded', function(e){
+    //     document.querySelector('.flask-custom-submenu').style.width = `${document.querySelector('.header__body').clientWidth}px`;
+    // });
+    // window.addEventListener('resize', function(e){
+    //     document.querySelector('.flask-custom-submenu').style.width = `${document.querySelector('.header__body').clientWidth}px`;
+    // });
+    const flaskMenuActive = document.querySelector('.flask-custom-submenu');
+
+    window.addEventListener('DOMContentLoaded', function(e){
+        document.querySelector('a.flask-nav-link').addEventListener('mouseout', function(e){
+            flaskMenuActive.style.display = 'block';
+        });
+    });
+    window.addEventListener('DOMContentLoaded', function(e){
+        document.querySelector('.flask-custom-submenu').addEventListener('mouseleave', function(e){
+            flaskMenuActive.style.display = 'none';
+        });    
+    });
+</script>

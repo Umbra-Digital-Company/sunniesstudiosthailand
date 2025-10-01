@@ -1,0 +1,76 @@
+{%- assign _section = section.settings -%}
+{%- assign section_intro_image = _section.intro_image -%}
+{%- assign section_title_text = _section.title_text -%}
+
+<div class="custom-map-items visually-hidden">
+    <div class="custom-image" {% if section_intro_image != blank %} style="background-image: url({{ section_intro_image | img_url: '3200x' }});" {% endif %}></div>
+    <!-- /.custom-image -->
+    <h1 class="custom-title">{{section_title_text}}</h1><!-- /.custom-title -->
+
+    <div class="custom-sub-title">
+        <h2>Showing Stores Nearest You:</h2>
+    </div><!-- /.custom-sub-title -->
+</div><!-- /.custom-map-items -->
+
+<section class="section-stores">
+    <div class="section__inner">
+        <div class="section__body js-stockist-container">
+            <!-- Start Stockist.co widget -->
+            <div data-stockist-widget-tag="u6252">Loading store locator
+                                                                from
+                <a href="https://stockist.co">Stockist store locator</a>...</div>
+            <script>
+                (function (s, t, o, c, k) {
+                    c = s.createElement(t); c.src = o; c.async = 1;
+                    k = s.getElementsByTagName(t)[0]; k.parentNode.insertBefore(c, k);
+                })(document, 'script', '//stockist.co/embed/v1/widget.min.js');
+            </script>
+            <!-- End Stockist.co widget -->
+        </div><!-- /.section__body -->
+    </div><!-- /.section__inner -->
+</section>
+<!-- /.section-stores -->
+
+<style>
+  
+#{{ page.handle }} .header{
+  background: transparent;
+}
+
+#{{ page.handle }} .header.header-is-fixed,
+#{{ page.handle }} .header:hover{
+  background: #fff;
+}
+
+@media (min-width: 768px) {
+
+  #{{ page.handle }} .header
+  {
+    background: transparent;
+  }
+
+  #{{ page.handle }} .header.header-is-fixed,
+  #{{ page.handle }} .header:hover
+  {
+    background: #fff;
+  }
+}
+</style>
+
+{% schema %}
+{
+"name": "Stores",
+"settings": [
+{
+"type": "image_picker",
+"id": "intro_image",
+"label": "Image"
+},
+{
+"type": "text",
+"id": "title_text",
+"label": "Title"
+}
+]
+}
+{% endschema %}

@@ -1,0 +1,66 @@
+{% if section.blocks.size > 0 %}
+    <section class="section-careers-50">
+        <div class="section__body">
+            <div class="shell">
+                <div class="section__inner">
+                    {%- for block in section.blocks -%}
+                        {%- assign _block = block.settings -%}
+                        {%- assign block_title = _block.title -%}
+                        {%- assign block_content = _block.content -%}
+                        {%- assign block_text_color = _block.text_color -%}
+
+                        <div class="section__block">
+                            <div class="section__entry" style="color: {{block_text_color}};">
+                                <h2>{{block_title}}</h2>
+
+                                <div class="section__entry-text">
+                                    {{block_content}}
+                                </div><!-- /.section__entry-text -->
+                            </div><!-- /.section__entry -->
+                        </div><!-- /.section__block -->
+                    {%- endfor -%}
+                </div><!-- /.section__inner -->
+            </div><!-- /.shell -->
+        </div><!-- /.section__body -->
+    </section><!-- /.section-careers-50 -->
+{% endif %}
+
+{% schema %}
+{
+    "name": "Careers 50/50 Blocks",
+    "max_blocks": 2,
+    "blocks": [
+        {
+            "type": "block",
+            "name": "Block",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content"
+                },
+                {
+                    "type": "select",
+                    "id": "text_color",
+                    "label": "Text Color",
+                    "options": [
+                        {
+                            "value": "#ffffff",
+                            "label": "White"
+                        },
+                        {
+                            "value": "#352b27",
+                            "label": "Black"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

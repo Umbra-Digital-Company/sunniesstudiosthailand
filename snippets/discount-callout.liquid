@@ -1,0 +1,30 @@
+<div
+  class="discount-callout-container {% if template == 'product.sun' or template == 'product.antirad' or template == 'product.reader' or template == 'product.optical' %}new-product-template{% endif %}"
+  style="display: {% if settings.enable_discount_callout %}block{% else %}none{% endif %};">
+  <div class="discount-callout-wrapper">
+    <img src="{{ settings.discount_callout_image }}" loading="lazy" />
+    <div class="discount-callout-content">
+      <h4 id="discount-callout-title">
+        {% if product.type == 'Sun frame' %}
+        {{ settings.sun_discount_callout_title }}
+        {% elsif product.type == 'Anti-Radiation Frame' %}
+        {{ settings.ar_discount_callout_title }}
+        {% else %}
+        {{ settings.discount_callout_title }}
+        {% endif %}
+      </h4>
+      <p id="discount-callout-description">
+        {% if product.type == 'Sun frame' %}
+        {{ settings.sun_discount_callout_description }}
+        {% elsif product.type == 'Anti-Radiation Frame' %}
+        {{ settings.ar_discount_callout_description }}
+        {% else %}
+        {{ settings.discount_callout_description }}
+        {% endif %}
+      </p>
+      <p id="discount-callouat-disclaimer">
+        {{ settings.discount_callout_disclaimer }}
+      </p>
+    </div>
+  </div>
+</div>

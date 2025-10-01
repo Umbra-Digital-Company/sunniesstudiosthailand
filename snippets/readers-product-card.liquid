@@ -1,0 +1,98 @@
+{% liquid
+  assign product_first_variant = product_data.selected_or_first_available_variant
+%}
+
+<div class="readers-product-card">
+  <div class="readers-product-card-images">
+    {% for variant in product_data.variants %}
+      <img
+        alt="{{ variant.image.alt }}"
+        class="readers-product-card-image"
+        data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}"
+        data-variant-id="{{ variant.id }}"
+        loading="lazy"
+        src="{{ variant.image | img_url: 'master' }}"
+        onClick="handleRedirectProductCard('{{ variant.url }}')"
+      >
+    {% endfor %}
+  </div>
+  <div class="readers-product-card-details">
+    <div class="readers-product-card-details-wrapper">
+      <div class="title-wrapper" onClick="handleRedirectProductCard('{{ product_first_variant.url }}')">
+        <h3>{{ product_data.title }}</h3>
+        <ul class="readers-product-card-prices">
+          {% for variant in product_data.variants %}
+            <li
+              data-variant-id="{{ variant.id }}"
+              data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}"
+            >
+              P{{ variant.price | money_without_currency | remove: '.00' }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <ul class="readers-product-card-variants {{ product_data.variants.size }}">
+        {% for variant in product_data.variants %}
+          <li
+            data-variant-id="{{ variant.id }}"
+            data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}"
+          >
+            {{ variant.option1 }}
+          </li>
+        {% endfor %}
+      </ul>
+      <ul class="readers-product-card-swatches {% if product_data.variants.size >= 6%}swiper-no-swiping{% endif %}">
+        <div style="display: none;" id="reader-options">
+          {% for option in product_data.options_with_values %}
+            <div 
+              id="reader-option-values"
+              data-option-name="{{ option.name }}" 
+              data-option-position="{{ option.position }}" 
+              data-option-selected-value="{{ option.selected_value }}"
+            >
+              {% for product_color in option.values %}
+                <div data-option-value-color="{{ product_color }}"></div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+        {% for variant in product_data.variants %}
+          <li
+            class="{% if forloop.index == 1 %}current-active-swatch{% endif %}"
+            data-variant-id="{{ variant.id }}"
+            data-is-available="{{ variant.available }}"
+            data-handle-name="{{variant.option1 | handle}}"
+            id="readers-product-card-swatch"
+          >
+            <div
+              data-handle-name="{{variant.option1 | handle}}"
+              data-is-available="{{ variant.available }}"
+              data-variant-id="{{ variant.id }}"
+            ></div>
+            {% unless variant.available %}
+              <div id="variant-not-available" data-variant-id="{{ variant.id }}"></div>
+            {% endunless %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="readers-product-card-actions" data-variant-id="{{ product_first_variant.id }}">
+      {% for variant in product_data.variants %}
+        <div
+          class="readers-product-card-actions-buttons"
+          data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}"
+          data-is-available="{{ variant.available }}"
+          data-variant-id="{{ variant.id }}"
+        >
+          <a href="{{ variant.url }}">Select lenses</a>
+          <a
+            href="javascript:void(0)"
+            id="joint-the-waitlist-button"
+            onClick="openWaitlistModal({{ product_data.id }}, {{ variant.id }})"
+            >Join the waitlist</a
+          >
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

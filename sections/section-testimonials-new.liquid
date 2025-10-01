@@ -1,0 +1,67 @@
+{%- if section.blocks.size > 0 -%}
+    <section class="section-testimonials-new">
+        <div class="shell">
+            <div class="section__inner">
+                <div class="section__body">
+                    <div class="slider--wrap">
+                        <div class="slider-testi-new">
+                        {%- for block in section.blocks -%}
+                        {%- assign _block = block.settings -%}
+                            {%- assign block_testi = _block.testi -%}
+                            {%- if block_testi != blank -%}
+                                <div class="slider-text">
+                                <blockquote>{{ block_testi }}</blockquote>
+                            </div>
+                            {%- endif -%}
+                        {%- endfor -%}
+                        </div><!-- /.slider-testi -->
+
+                        <div class="slider slider-nav-thumbnails-new">
+                        {%- for block in section.blocks -%}
+                            {%- assign _block = block.settings -%}
+                            {%- assign block_image = _block.image -%}
+                            {%- if block_image != blank -%}
+
+                            <div class="slider slider-image">
+                                <img src="{{block_image | img_url: 'master'}}" />
+                            </div>
+
+                            {%- endif -%}
+                        {%- endfor -%}
+                        </div><!-- /.slider-nav-thumbnails -->
+
+                    </div><!-- /.slider -->
+                </div><!-- /.section__body -->
+            </div><!-- /.section__inner -->
+        </div><!-- /.shell -->
+    </section><!-- /.section-testimonials -->
+{%- endif -%}
+
+{% schema %}
+{
+	"name": "Section Testimonials",
+	"blocks": [
+		{
+			"type": "block",
+			"name": "Block",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Logo"
+				},
+				{
+					"type": "richtext",
+					"id": "testi",
+					"label": "Testimonial"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Section Testimonials"
+		}
+	]
+}
+{% endschema %}

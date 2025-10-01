@@ -1,0 +1,55 @@
+{%- assign _section = section.settings -%}
+{%- assign section_image = _section.image -%}
+{%- assign section_title = _section.title -%}
+{%- assign section_text_color = _section.text_color -%}
+
+<section class="section-careers-intro">
+    <div class="shell">
+        <div class="section__inner">
+            {% if section_image != blank %}
+                <div class="section__image" style="background-image: url({{section_image | img_url: '3200x'}});"></div><!-- /.section__image -->
+            {% endif %}
+
+            {% if section_title != blank %}
+                <div class="section__content">
+                    <div class="section__entry">
+                        <h1 style="color: {{section_text_color}};">{{section_title}}</h1>
+                    </div><!-- /.section__entry -->
+                </div><!-- /.section__content -->
+            {% endif %}
+        </div><!-- /.section__inner -->
+    </div><!-- /.shell -->
+</section><!-- /.section-careers-intro -->
+
+{% schema %}
+{
+    "name": "Careers intro",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+        },
+        {
+            "type": "select",
+            "id": "text_color",
+            "label": "Text Color",
+            "options": [
+                {
+                    "value": "#ffffff",
+                    "label": "White"
+                },
+                {
+                    "value": "#352b27",
+                    "label": "Black"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,142 @@
+<style>
+  .size-guide-modal {
+    display: none; 
+    position: fixed; 
+    z-index: 100; 
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  /* Modal Content */
+  .size-guide-modal__content {
+    background-color: #fff;
+    margin: auto;
+    padding: 60px 40px;
+    width: 90%;
+    max-width: 640px;
+    border-radius: 8px;
+    position: relative;
+  }
+  
+  /* The Close Button */
+  .size-guide-modal__close {
+    height: 14.22px;
+    width: 14.22px;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+  
+  .size-guide-modal__close:hover,
+  .size-guide-modal__close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .size-guide-modal__content h1 {
+    font-family: 'At Surt Medium';
+    font-size: 20px;
+    text-align: center;
+    margin: 0;
+  }
+
+  .size-guide-modal__table {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 1.5px;
+    background-color: #efefec;
+    border: 1.5px solid #efefec;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .size-guide-modal__table span {
+    background-color: #fff;
+    text-align: center;
+    padding: 10px 12px;
+    font-family: 'At Surt Medium';
+    font-size: 14px;
+  }
+  .size-guide-modal__table span:nth-child(4n-3) {
+    text-align: left;
+    font-family: 'At-Surt-Semibold';
+  }
+  .size-guide-modal__table span:nth-child(2), .size-guide-modal__table span:nth-child(3), .size-guide-modal__table span:nth-child(4) {
+    font-family: 'At-Surt-Semibold';
+  }
+  
+  @media only screen and (min-width: 769px) {
+    .size-guide-modal__content {
+      padding: 60px 40px;
+    }
+    .size-guide-modal__close {
+      height: 21.33px;
+      width: 21.33px;
+    }
+    .size-guide-modal__content h1 {
+      font-size: 28px;
+    }
+    .size-guide-modal__table span {
+      font-size: 16px;
+    }
+  }
+</style>
+<div id="sizeGuideModal" class="size-guide-modal">
+
+  <!-- Modal content -->
+  <div class="size-guide-modal__content">
+    <svg class="size-guide-modal__close" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0.333984" y="19.9883" width="27.7974" height="2" rx="1" transform="rotate(-45 0.333984 19.9883)" fill="#352B27"/>
+      <rect x="2.01172" y="0.332031" width="27.7974" height="2" rx="1" transform="rotate(45 2.01172 0.332031)" fill="#352B27"/>
+    </svg>
+    <h1>Size Guide</h1>
+    <div class="size-guide-modal__table">
+      <span></span>
+      <span>S</span>
+      <span>M</span>
+      <span>L</span>
+      
+      <span>Chest</span>
+      <span>21"</span>
+      <span>22"</span>
+      <span>23"</span>
+      
+      <span>Length</span>
+      <span>26.5"</span>
+      <span>27"</span>
+      <span>28"</span>
+      
+      <span>Sleeve</span>
+      <span>20.2"</span>
+      <span>21"</span>
+      <span>22"</span>
+    </div>
+  </div>
+
+</div>
+<script>
+  const modal = $("#sizeGuideModal");
+  const triggerBtn = $(".size-guide-modal-trigger");
+  const closeBtn = $(".size-guide-modal__close");
+  
+  triggerBtn.click(function() {
+    modal.css('display', 'block');
+  })
+  
+  closeBtn.click(function() {
+    modal.css('display', 'none');
+  })
+  
+  $(window).click(function(event) {
+    if ($(event.target).is(modal)) {
+      modal.css('display', 'none');
+    }
+  })
+</script>

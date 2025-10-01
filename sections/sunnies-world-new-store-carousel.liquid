@@ -1,0 +1,110 @@
+{{ 'sunnies-world-new-store-carousel.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign section_settings = section.settings
+  assign background_color = section_settings.background_color
+  assign text_color = section_settings.text_color
+  assign show_section = section_settings.show_section
+%}
+
+{% if show_section %}
+<section class="sunnies-world-new-store-carousel" style="background-color: {{ background_color }}; color: {{ text_color }};">
+  <div class="carousel-container">
+    <div class="new-store-carousel">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'store_button' %}
+            <div class="store-button-wrapper" {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.button_url | default: '#' }}" class="store-button">
+                {{ block.settings.button_text | default: 'NEW STORE' }}
+              </a>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "New Store Carousel",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#D2B48C"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "store_button",
+      "name": "Store Button",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "NEW STORE"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "New Store Carousel",
+      "blocks": [
+        {
+          "type": "store_button"
+        },
+        {
+          "type": "store_button"
+        },
+        {
+          "type": "store_button"
+        },
+        {
+          "type": "store_button"
+        },
+        {
+          "type": "store_button"
+        },
+        {
+          "type": "store_button"
+        },
+        {
+          "type": "store_button"
+        },
+        {
+          "type": "store_button"
+        },
+        {
+          "type": "store_button"
+        },
+        {
+          "type": "store_button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

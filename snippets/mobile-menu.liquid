@@ -1,0 +1,106 @@
+{% liquid
+assign left_menu_mobile = 'mobile-nav'
+
+if customer
+assign class_name = 'logged-in'
+else
+assign class_name = ''
+endif
+%}
+
+{% if left_menu_mobile %}
+<div class="mega-menu-mobile js-mega-menu-mobile">
+  <div class="close-menu-container">
+    <a data-ref=".wrapper" data-type="expand-search" href="#" class="btn-search js-toggle-btn">
+      <span class="btn-search__icon btn-search__icon--white"></span>
+      <span class="btn-search__icon btn-search__icon--black"></span>
+      <span class="btn-search__icon btn-search__icon--grey"></span>
+    </a>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M18 18L6 6" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M18 6L6 18" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M6 6L18 18" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </div>
+  <div class="search-container js-search-container mobileSearchField">
+    {% render 'form-search', classes: ' js-header-search', type: "product", placeholder: "Search" %}
+    {% render 'search-trending-now' %}
+  </div>
+  <div class="mega-menu-mobile__inner">
+    {%- render 'mobile-form-search', classes: ' js-header-search' -%}
+
+    <div class="mega-menu-mobile__links {{ class_name }}">
+      <div class="custom-accordion-container">
+        <div class="custom-accordion-col">
+          {%- render 'mega-menu-mobile', handle: left_menu_mobile, mobile_mega_blocks: mega_items -%}
+
+          <div class="custom-accordion-tabs">
+            <!-- <div class="custom-accordion-tab account-links">
+                {% if customer %}
+                  <a href="/account">View My Account</a>
+                {% endif %}
+
+                {% if customer.id == null %}
+                  <a href="/account/login">Login</a>
+                  <a href="/account/register">Sign up</a>
+                {% else %}
+                  <a href="/account/logout">Logout</a>
+                {% endif %}
+              </div> -->
+
+            <!-- <ul class="mega-menu-mobile--action">
+                <li class="free-shipping">Free shipping on orders over P1995</li>
+              </ul> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="mega-menu-mobile-currency" style="display: none;">
+        <p>Currency:</p>
+        <div>
+          {%- if current_url == "ph.sunniesstudios.com" -%}
+          <a class="selected" href="https://ph.sunniesstudios.com/?r=php">PHP</a>
+          <a href="https://sunniesstudios.com/?r=usd">USD</a>
+          {%- else -%}
+          <a class="selected" href="https://sunniesstudios.com/?r=usd">USD</a>
+          <a href="https://ph.sunniesstudios.com/?r=php">PHP</a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="mega-menu-accounts" >
+        <a href="/account">{% if customer %}My Account{% else %}Log in or sign up{% endif %}</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<script>
+  document.querySelector('.close-menu-container svg').addEventListener('click', () => {
+    document.querySelector('body').classList.remove('open-menu');
+  });
+  document.querySelector('.close-menu-container a').addEventListener('click', () => {
+    if(document.querySelector('body').classList.contains('bc-sf-search-suggestion-mobile-open')){
+      document.querySelector('body').classList.remove('bc-sf-search-suggestion-mobile-open')
+    }
+  });
+  document.querySelectorAll('.close-submenu-container').forEach((close) => {
+    close.addEventListener('click', () => {
+      document.querySelector('body').classList.remove('open-menu');
+      document.querySelectorAll('.menu-group-').forEach((element) => {
+        element.checked = false;
+      })
+    });
+  });
+
+  document.querySelectorAll('.submenu_back').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.target.parentElement.parentElement.parentElement.querySelector('input').checked = false;
+    })
+  })
+
+
+
+</script>

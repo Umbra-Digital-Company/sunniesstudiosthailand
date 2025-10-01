@@ -1,0 +1,100 @@
+.four-square-top {
+  background-color: var(--white_color);
+}
+
+.four-square-bottom {
+  background-color: var(--white_color);
+}
+
+.four-sqaure-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.four-square-content {
+  padding: 40px 16px;
+}
+
+.four-square-content h5 {
+  font-family: "AT Surt Medium";
+  font-size: 28px;
+  line-height: 120%;
+  color: var(--black_color);
+  margin: 0 0 24px 0;
+}
+
+.four-square-content p {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--black_color);
+  margin: 0 0 24px 0;
+}
+
+.four-square-content a {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--black_color);
+}
+
+.four-square-content #top-button {
+  outline: none;
+  border: none;
+  background: var(--black_color);
+  border-radius: 8px;
+  padding: 16px 40px;
+  font-family: "AT Surt Medium";
+  font-size: 14px;
+  line-height: 100%;
+  color: var(--neutral_eight_color);
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .four-square-top {
+    display: flex;
+  }
+
+  .four-square-bottom {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .four-sqaure-image {
+    width: 50%;
+  }
+
+  .four-square-content {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px;
+  }
+
+  .four-square-content h5 {
+    font-size: 40px;
+    margin: 0 0 40px 0;
+  }
+
+  .four-square-content p {
+    font-size: 16px;
+    margin: 0 0 40px 0;
+  }
+
+  .four-square-content a {
+    font-size: 16px;
+  }
+
+  .four-square-content #top-button {
+    font-size: 16px;
+    width: fit-content;
+    border: 1.5px solid var(--black_color);
+  }
+
+  .four-square-content #top-button:hover {
+    background-color: var(--white_color);
+    color: var(--black_color);
+  }
+}

@@ -1,0 +1,24 @@
+{{ "login-register.css" | asset_url | stylesheet_tag }}
+
+<div class="js-form-headers">
+  <a href="" class="Login__back js-back-to-product hide"><span>{% render 'icons', icon: 'left-arrow' %}</span>{{ 'customer.forms.back_to_product' | t }}</a>
+  <h1 class="Login__header">{{ 'customer.forms.login_register_header_html' | t }}</h1>
+  <div class="Login__toggles">
+    <button type="button" aria-checked="true" aria-label="Register form toggle" data-register-toggle>{{ 'customer.forms.register' | t }}</button>
+    <button type="button" aria-checked="true" aria-label="Login form toggle" data-login-toggle>{{ 'customer.forms.has_account' | t }}</button>    
+  </div>
+  <p class="Login__instructions">{{ 'customer.forms.instructions' | t }}</p>
+</div>
+
+<script>
+  const isLogin = window.location.pathname.includes("login");
+  const register = document.querySelector('[aria-label="Register form toggle"]');
+  const login = document.querySelector('[aria-label="Login form toggle"]');
+  if (isLogin) {
+    login.setAttribute("class", "active");
+    register.setAttribute("class", "");
+  } else {
+	login.setAttribute("class", "");
+    register.setAttribute("class", "active");
+  }
+</script>

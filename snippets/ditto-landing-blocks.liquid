@@ -1,0 +1,1211 @@
+{%- assign _section = section.settings -%}
+{%- assign section_pages_menu = _section.pages_menu -%}
+{%- assign about_page_navigation = '' -%}
+
+{%- if section_pages_menu != blank -%}
+  {%- capture about_page_navigation -%}
+    <section class="section-about-nav">
+      <div class="shell">
+        <div class="section__inner">
+          <nav class="nav-pages">
+            {%- include 'menu-pages', handle: section_pages_menu -%}
+          </nav>
+          <!-- /.nav-pages -->
+
+          <div class="nav-select js-select-page">
+            <select>
+              {% for link in linklists[section_pages_menu].links %}
+                <option data-page-url="{{ link.url }}"{% if link.url == page.url %}selected{% endif %}>{{ link.title }}
+                </option>
+              {% endfor %}
+            </select>
+            <!-- /# -->
+          </div>
+          <!-- /.nav-select -->
+        </div>
+        <!-- /.section__inner -->
+      </div>
+      <!-- /.shell -->
+    </section>
+    <!-- /.section-about-nav -->
+  {%- endcapture -%}
+{%- endif -%}
+
+<!-- /.section-about-nav -->
+
+{%- for block in section.blocks -%}
+  {%- assign _block = block.settings -%}
+  {%- case block.type -%}
+
+    {%- when 'three_cards' -%}
+    {% assign block_image_1 = _block.card_image_1 %}
+    {% assign block_image_2 = _block.card_image_2 %}
+    {% assign block_image_3 = _block.card_image_3 %}
+    {% assign block_text_1 = _block.card_text_1 %}
+    {% assign block_text_2 = _block.card_text_2 %}
+    {% assign block_text_3 = _block.card_text_3 %}
+
+    <section class="three-cards">
+      <div class="card">
+        <figure class="card-image">
+          <img src="{{ block_image_1 | img_url:'master' }}">
+        </figure>
+        <p class="card-text">{{ block_text_1 }}</p>
+      </div>
+      <div class="card">
+        <figure class="card-image">
+          <img src="{{ block_image_2 | img_url:'master' }}">
+        </figure>
+        <p class="card-text">{{ block_text_2 }}</p>
+      </div>
+      <div class="card">
+        <figure class="card-image">
+          <img src="{{ block_image_3 | img_url:'master' }}">
+        </figure>
+        <p class="card-text">{{ block_text_3 }}</p>
+      </div>
+    </section>
+
+
+
+    {%- when '50_50' -%}
+    {%- assign block_image = _block.image -%}
+    {%- assign block_title = _block.title -%}
+    {%- assign block_content = _block.content -%}
+    {%- assign block_btn_text = _block.btn_text -%}
+    {%- assign block_btn_url = _block.btn_url -%}
+    {%- assign block_switch_layout = _block.switch_layout -%}
+    {%- assign switch_class = '' -%}
+
+    {%- if block_switch_layout -%}
+      {%- assign switch_class = ' section-about-50-50--reverse' -%}
+    {%- endif -%}
+
+
+    {%- when 'section-3-column' -%}
+    {%- assign block_headline = _block.headline -%}
+    {%- assign block_description = _block.description -%}
+    {%- assign block_image_1 = _block.image_1 -%}
+    {%- assign block_title_1 = _block.title_1 -%}
+    {%- assign block_content_1 = _block.content_1 -%}
+    {%- assign block_image_2 = _block.image_2 -%}
+    {%- assign block_title_2 = _block.title_2 -%}
+    {%- assign block_content_2 = _block.content_2 -%}
+    {%- assign block_image_3 = _block.image_3 -%}
+    {%- assign block_title_3 = _block.title_3 -%}
+    {%- assign block_content_3 = _block.content_3 -%}
+
+    <section class="section-3-blocks">
+      <div class="shell">
+        {%- if block_headline != blank -%}
+          <div class="section__head" style="margin-bottom: 24px;">
+            <h2>{{ block_headline | newline_to_br }}</h2>
+          </div>
+          <!-- /.section__head -->
+        {%- endif -%}
+
+        {%- if block_description != blank -%}
+          <div class="section__description" style="margin-bottom: 24px;">
+            <div class="description">{{ block_description | newline_to_br }}</div>
+          </div>
+          <!-- /.section__head -->
+        {%- endif -%}
+
+        <div class="section__body">
+          <div class="blocks-3">
+            <div class="blocks-3__items">
+
+              {%- if block_image_1 != blank -%}
+
+                <div class="blocks-3__item">
+                  <div class="block-3">
+                    <div class="block-3__image">
+                      <img src="{{block_image_1 | img_url: '900x'}}" />
+                    </div>
+
+                    <div class="block-3__section">
+                      {%- if block_title_1 != blank -%}
+                        <h4>{{ block_title_1 }}</h4>
+                      {%- endif -%}
+
+                      {%- if block_content_1 != blank -%}
+                        <p>{{ block_content_1 }}</p>
+                      {%- endif -%}
+                    </div>
+
+                  </div>
+                  <!-- /.block-3 -->
+                </div>
+                <!-- /.blocks-3__item -->
+
+              {%- endif -%}
+
+              {%- if block_image_2 != blank -%}
+
+                <div class="blocks-3__item">
+                  <div class="block-3">
+                    <div class="block-3__image">
+                      <img src="{{block_image_2 | img_url: '900x'}}" />
+                    </div>
+
+                    <div class="block-3__section">
+                      {%- if block_title_2 != blank -%}
+                        <h4>{{ block_title_2 }}</h4>
+                      {%- endif -%}
+
+                      {%- if block_content_2 != blank -%}
+                        <p>{{ block_content_2 }}</p>
+                      {%- endif -%}
+                    </div>
+
+                  </div>
+                  <!-- /.block-3 -->
+                </div>
+                <!-- /.blocks-3__item -->
+
+              {%- endif -%}
+
+              {%- if block_image_3 != blank -%}
+
+                <div class="blocks-3__item">
+                  <div class="block-3">
+                    <div class="block-3__image">
+                      <img src="{{block_image_3 | img_url: '900x'}}" />
+                    </div>
+
+                    <div class="block-3__section">
+                      {%- if block_title_3 != blank -%}
+                        <h4>{{ block_title_3 }}</h4>
+                      {%- endif -%}
+
+                      {%- if block_content_3 != blank -%}
+                        <p>{{ block_content_3 }}</p>
+                      {%- endif -%}
+                    </div>
+
+                  </div>
+                  <!-- /.block-3 -->
+                </div>
+                <!-- /.blocks-3__item -->
+
+              {%- endif -%}
+
+            </div>
+            <!-- /.blocks-3__items -->
+          </div>
+          <!-- /.blocks-3 -->
+        </div>
+        <!-- /.section__body -->
+      </div>
+      <!-- /.shell -->
+    </section>
+    <!-- /.section-3-blocks -->
+
+    {%- when 'ditto_product' -%}
+
+    {%- assign block_ditto_title = _block.title -%}
+    {%- assign block_ditto_description = _block.description -%}
+    {%- assign block_ditto_product_1 = all_products[_block.product_1] -%}
+    {%- assign block_ditto_product_2 = all_products[_block.product_2] -%}
+    {%- assign block_ditto_product_3 = all_products[_block.product_3] -%}
+    {%- assign block_ditto_product_4 = all_products[_block.product_4] -%}
+    {%- assign block_ditto_product_5 = all_products[_block.product_5] -%}
+    {%- assign block_ditto_product_6 = all_products[_block.product_6] -%}
+    {%- assign block_ditto_product_7 = all_products[_block.product_7] -%}
+    {%- assign block_ditto_product_8 = all_products[_block.product_8] -%}
+    {%- assign block_ditto_product_9 = all_products[_block.product_9] -%}
+    {%- assign block_ditto_product_10 = all_products[_block.product_10] -%}
+    {%- assign block_ditto_product_11 = all_products[_block.product_11] -%}
+    {%- assign block_ditto_product_12 = all_products[_block.product_12] -%}
+    {%- assign block_ditto_variant_1 = _block.variant_1 -%}
+    {%- assign block_ditto_variant_2 = _block.variant_2 -%}
+    {%- assign block_ditto_variant_3 = _block.variant_3 -%}
+    {%- assign block_ditto_variant_4 = _block.variant_4 -%}
+    {%- assign block_ditto_variant_5 = _block.variant_5 -%}
+    {%- assign block_ditto_variant_6 = _block.variant_6 -%}
+    {%- assign block_ditto_variant_7 = _block.variant_7 -%}
+    {%- assign block_ditto_variant_8 = _block.variant_8 -%}
+    {%- assign block_ditto_variant_9 = _block.variant_9 -%}
+    {%- assign block_ditto_variant_10 = _block.variant_10 -%}
+    {%- assign block_ditto_variant_11 = _block.variant_11 -%}
+    {%- assign block_ditto_variant_12 = _block.variant_12 -%}
+    {%- assign block_ditto_guide = _block.guide_url -%}
+    {%- assign block_ditto_guide_mobile = _block.mobile_guide_url -%}
+
+    <section class="vto-ditto-frames">
+      <div class="shell">
+        <div class="ditto-frame-header">
+          <h2>Record a selfie</h2>
+        </div>
+        <div class="ditto-grid">
+          <div class="ditto-grid__item" id="dittoFramesOptions">
+
+            {%- if block_ditto_title != blank and block_ditto_description != blank -%}
+
+              <div class="item-section">
+                <h4>{{ block_ditto_title }}</h4>
+                <p>{{ block_ditto_description }}</p>
+                <div class="browse-cta">Browse more frames</div>
+                {% comment %} <img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/VTO_Arrow.svg?v=1614088971" alt="arrow" /> {% endcomment %}
+              </div>
+
+            {%- endif -%}
+
+            <div class="item-frames">
+
+            
+              <button class="slide-arrow" id="slide-arrow-prev">
+                <svg viewBox="395.246 271.151 19.2 16.8" width="19.2" height="16.8">
+                  <path d="M 406.046 287.951 L 414.446 279.551 L 406.046 271.151 M 414.446 279.551 L 395.246 279.551" stroke="#352B27" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="fill: rgba(0, 0, 0, 0); transform-origin: 404.846px 279.551px;" transform="matrix(-1, 0, 0, -1, 0, 0)"></path>
+                </svg>
+              </button>
+              <button class="slide-arrow" id="slide-arrow-next">
+                <svg viewBox="395.246 271.151 19.2 16.8" width="19.2" height="16.8">
+                  <path d="M 395.246 279.551 L 414.446 279.551 M 406.046 271.151 L 414.446 279.551 L 406.046 287.951" stroke="#352B27" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="fill: rgba(0, 0, 0, 0);"></path>
+                </svg>
+              </button>
+
+              {% comment %} start of product card {% endcomment %}
+
+              {%- if block_ditto_product_1 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_1 -%}
+                  {%- for image in block_ditto_product_1.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_1 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  {%- for _variant_1 in block_ditto_product_1.variants -%}
+                    {%- if _variant_1.option1 == block_ditto_variant_1 -%}
+                      {%- assign variant_1_id = _variant_1.id -%}
+                      {%- assign variant_1_sku = _variant_1.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame1"
+                        data-variant-sku="{{variant_1_sku}}"
+                        data-variant-id="{{variant_1_id}}"
+                        checked="checked">
+                      <label for="dittoFrame1" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_1 }}
+                          </div>
+                        </div>
+                      </label>
+                      <div class="product-details-container"><h5>{{ block_ditto_product_1.title }}</h5>
+                      <div class="variant-name">{{ block_ditto_variant_1 }}</div></div>
+
+                      {% for collection in block_ditto_product_1.collections %}
+                        {% if collection.title contains "Sun" or collection.title contains "Anti-Rad" %}
+
+                          <form method="post" action="/cart/add">
+                            <input
+                              name="id"
+                              value="{{ variant_1_id}}"
+                              type="hidden" />
+                            <input
+                              name="add"
+                              value="Add to bag"
+                              type="submit"
+                              class="btn" />
+                          </form>
+                          {% break %}
+                        {% elsif collection.title contains "Optical" or collection.title contains "Readers" %}
+
+                          <a href="{{block_ditto_product_1.url}}?variant={{variant_1_id}}" class="btn">Select lenses</a>
+
+                          {% break %}
+
+                        {% endif %}
+                      {% endfor %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                </div>
+
+              {%- endif -%}
+              {% comment %} end of product card {% endcomment %}
+
+
+              {% comment %} start of product card {% endcomment %}
+
+              {%- if block_ditto_product_2 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_2 -%}
+                  {%- for image in block_ditto_product_2.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_2 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  {%- for _variant_2 in block_ditto_product_2.variants -%}
+                    {%- if _variant_2.option1 == block_ditto_variant_2 -%}
+                      {%- assign variant_2_id = _variant_2.id -%}
+                      {%- assign variant_2_sku = _variant_2.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame2"
+                        data-variant-sku="{{variant_2_sku}}"
+                        data-variant-id="{{variant_2_id}}"
+                        checked="checked">
+                      <label for="dittoFrame2" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_2 }}
+                          </div>
+                        </div>
+                      </label>
+                      <div class="product-details-container"><h5>{{ block_ditto_product_2.title }}</h5>
+                      <div class="variant-name">{{ block_ditto_variant_2 }}</div></div>
+
+                      {% for collection in block_ditto_product_2.collections %}
+                        {% if collection.title contains "Sun" or collection.title contains "Anti-Rad" %}
+
+                          <form method="post" action="/cart/add">
+                            <input
+                              name="id"
+                              value="{{ variant_2_id}}"
+                              type="hidden" />
+                            <input
+                              name="add"
+                              value="Add to bag"
+                              type="submit"
+                              class="btn" />
+                          </form>
+                          {% break %}
+
+                        {% elsif collection.title contains "Optical" or collection.title contains "Readers" %}
+
+                          <a href="{{block_ditto_product_2.url}}?variant={{variant_2_id}}" class="btn">Select lenses</a>
+
+                          {% break %}
+
+                        {% endif %}
+                      {% endfor %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                </div>
+
+              {%- endif -%}
+              {% comment %} end of product card {% endcomment %}
+
+
+              {% comment %} start of product card {% endcomment %}
+
+              {%- if block_ditto_product_3 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_3 -%}
+                  {%- for image in block_ditto_product_3.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_3 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  {%- for _variant_3 in block_ditto_product_3.variants -%}
+                    {%- if _variant_3.option1 == block_ditto_variant_3 -%}
+                      {%- assign variant_3_id = _variant_3.id -%}
+                      {%- assign variant_3_sku = _variant_3.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame3"
+                        data-variant-sku="{{variant_3_sku}}"
+                        data-variant-id="{{variant_3_id}}"
+                        checked="checked">
+                      <label for="dittoFrame3" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_3 }}
+                          </div>
+                        </div>
+                      </label>
+                      <div class="product-details-container"><h5>{{ block_ditto_product_3.title }}</h5>
+                      <div class="variant-name">{{ block_ditto_variant_3 }}</div></div>
+
+                      {% for collection in block_ditto_product_3.collections %}
+                        {% if collection.title contains "Sun" or collection.title contains "Anti-Rad" %}
+
+                          <form method="post" action="/cart/add">
+                            <input
+                              name="id"
+                              value="{{ variant_3_id}}"
+                              type="hidden" />
+                            <input
+                              name="add"
+                              value="Add to bag"
+                              type="submit"
+                              class="btn" />
+                          </form>
+                          {% break %}
+
+                        {% elsif collection.title contains "Optical" or collection.title contains "Readers" %}
+
+                          <a href="{{block_ditto_product_3.url}}?variant={{variant_3_id}}" class="btn">Select lenses</a>
+
+                          {% break %}
+
+                        {% endif %}
+                      {% endfor %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                </div>
+
+              {%- endif -%}
+              {% comment %} end of product card {% endcomment %}
+
+
+              {% comment %} start of product card {% endcomment %}
+
+              {%- if block_ditto_product_4 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_4 -%}
+                  {%- for image in block_ditto_product_4.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_4 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  {%- for _variant_4 in block_ditto_product_4.variants -%}
+                    {%- if _variant_4.option1 == block_ditto_variant_4 -%}
+                      {%- assign variant_4_id = _variant_4.id -%}
+                      {%- assign variant_4_sku = _variant_4.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame4"
+                        data-variant-sku="{{variant_4_sku}}"
+                        data-variant-id="{{variant_4_id}}"
+                        checked="checked">
+                      <label for="dittoFrame4" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_4 }}
+                          </div>
+                        </div>
+                      </label>
+                      <div class="product-details-container"><h5>{{ block_ditto_product_4.title }}</h5>
+                      <div class="variant-name">{{ block_ditto_variant_4 }}</div></div>
+
+                      {% for collection in block_ditto_product_4.collections %}
+                        {% if collection.title contains "Sun" or collection.title contains "Anti-Rad" %}
+
+                          <form method="post" action="/cart/add">
+                            <input
+                              name="id"
+                              value="{{ variant_4_id}}"
+                              type="hidden" />
+                            <input
+                              name="add"
+                              value="Add to bag"
+                              type="submit"
+                              class="btn" />
+                          </form>
+                          {% break %}
+
+                        {% elsif collection.title contains "Optical" or collection.title contains "Readers" %}
+
+                          <a href="{{block_ditto_product_4.url}}?variant={{variant_4_id}}" class="btn">Select lenses</a>
+
+                          {% break %}
+
+                        {% endif %}
+                      {% endfor %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                </div>
+
+              {%- endif -%}
+              {% comment %} end of product card {% endcomment %}
+
+
+              {% comment %} start of product card {% endcomment %}
+
+              {%- if block_ditto_product_5 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_5 -%}
+                  {%- for image in block_ditto_product_5.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_5 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  {%- for _variant_5 in block_ditto_product_5.variants -%}
+                    {%- if _variant_5.option1 == block_ditto_variant_5 -%}
+                      {%- assign variant_5_id = _variant_5.id -%}
+                      {%- assign variant_5_sku = _variant_5.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame5"
+                        data-variant-sku="{{variant_5_sku}}"
+                        data-variant-id="{{variant_5_id}}"
+                        checked="checked">
+                      <label for="dittoFrame5" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_5 }}
+                          </div>
+                        </div>
+                      </label>
+                      <div class="product-details-container"><h5>{{ block_ditto_product_5.title }}</h5>
+                      <div class="variant-name">{{ block_ditto_variant_5 }}</div></div>
+
+                      {% for collection in block_ditto_product_5.collections %}
+                        {% if collection.title contains "Sun" or collection.title contains "Anti-Rad" %}
+
+                          <form method="post" action="/cart/add">
+                            <input
+                              name="id"
+                              value="{{ variant_5_id}}"
+                              type="hidden" />
+                            <input
+                              name="add"
+                              value="Add to bag"
+                              type="submit"
+                              class="btn" />
+                          </form>
+                          {% break %}
+
+                        {% elsif collection.title contains "Optical" or collection.title contains "Readers" %}
+
+                          <a href="{{block_ditto_product_5.url}}?variant={{variant_5_id}}" class="btn">Select lenses</a>
+
+                          {% break %}
+
+                        {% endif %}
+                      {% endfor %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                </div>
+
+              {%- endif -%}
+              {% comment %} end of product card {% endcomment %}
+
+              {% comment %} start of product card {% endcomment %}
+
+              {%- if block_ditto_product_6 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_6 -%}
+                  {%- for image in block_ditto_product_6.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_6 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  {%- for _variant_6 in block_ditto_product_6.variants -%}
+                    {%- if _variant_6.option1 == block_ditto_variant_6 -%}
+                      {%- assign variant_6_id = _variant_6.id -%}
+                      {%- assign variant_6_sku = _variant_6.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame6"
+                        data-variant-sku="{{variant_6_sku}}"
+                        data-variant-id="{{variant_6_id}}"
+                        checked="checked">
+                      <label for="dittoFrame6" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_6 }}
+                          </div>
+                        </div>
+                      </label>
+                      <div class="product-details-container"><h5>{{ block_ditto_product_6.title }}</h5>
+                      <div class="variant-name">{{ block_ditto_variant_6 }}</div></div>
+
+                      {% for collection in block_ditto_product_6.collections %}
+                        {% if collection.title contains "Sun" or collection.title contains "Anti-Rad" %}
+
+                          <form method="post" action="/cart/add">
+                            <input
+                              name="id"
+                              value="{{ variant_6_id}}"
+                              type="hidden" />
+                            <input
+                              name="add"
+                              value="Add to bag"
+                              type="submit"
+                              class="btn" />
+                          </form>
+                          {% break %}
+
+                        {% elsif collection.title contains "Optical" or collection.title contains "Readers" %}
+
+                          <a href="{{block_ditto_product_6.url}}?variant={{variant_6_id}}" class="btn">Select lenses</a>
+
+                          {% break %}
+
+                        {% endif %}
+                      {% endfor %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                </div>
+
+              {%- endif -%}
+              {% comment %} end of product card {% endcomment %}
+
+
+              {% comment %} start of product card {% endcomment %}
+
+              {%- if block_ditto_product_7 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_7 -%}
+                  {%- for image in block_ditto_product_7.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_7 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  {%- for _variant_7 in block_ditto_product_7.variants -%}
+                    {%- if _variant_7.option1 == block_ditto_variant_7 -%}
+                      {%- assign variant_7_id = _variant_7.id -%}
+                      {%- assign variant_7_sku = _variant_7.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame7"
+                        data-variant-sku="{{variant_7_sku}}"
+                        data-variant-id="{{variant_7_id}}"
+                        checked="checked">
+                      <label for="dittoFrame7" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_7 }}
+                          </div>
+                        </div>
+                      </label>
+                      <div class="product-details-container"><h5>{{ block_ditto_product_7.title }}</h5>
+                      <div class="variant-name">{{ block_ditto_variant_7 }}</div></div>
+
+                      {% for collection in block_ditto_product_7.collections %}
+                        {% if collection.title contains "Sun" or collection.title contains "Anti-Rad" %}
+
+                          <form method="post" action="/cart/add">
+                            <input
+                              name="id"
+                              value="{{ variant_7_id}}"
+                              type="hidden" />
+                            <input
+                              name="add"
+                              value="Add to bag"
+                              type="submit"
+                              class="btn" />
+                          </form>
+                          {% break %}
+
+                        {% elsif collection.title contains "Optical" or collection.title contains "Readers" %}
+
+                          <a href="{{block_ditto_product_7.url}}?variant={{variant_7_id}}" class="btn">Select lenses</a>
+
+                          {% break %}
+
+                        {% endif %}
+                      {% endfor %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                </div>
+
+              {%- endif -%}
+              {% comment %} end of product card {% endcomment %}
+
+
+              {% comment %} start of product card {% endcomment %}
+
+              {%- if block_ditto_product_8 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_8 -%}
+                  {%- for image in block_ditto_product_8.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_8 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  {%- for _variant_8 in block_ditto_product_8.variants -%}
+                    {%- if _variant_8.option1 == block_ditto_variant_8 -%}
+                      {%- assign variant_8_id = _variant_8.id -%}
+                      {%- assign variant_8_sku = _variant_8.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame8"
+                        data-variant-sku="{{variant_8_sku}}"
+                        data-variant-id="{{variant_8_id}}"
+                        checked="checked">
+                      <label for="dittoFrame8" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_8 }}
+                          </div>
+                        </div>
+                      </label>
+                      <div class="product-details-container"><h5>{{ block_ditto_product_8.title }}</h5>
+                      <div class="variant-name">{{ block_ditto_variant_8 }}</div></div>
+
+                      {% for collection in block_ditto_product_8.collections %}
+                        {% if collection.title contains "Sun" or collection.title contains "Anti-Rad" %}
+
+                          <form method="post" action="/cart/add">
+                            <input
+                              name="id"
+                              value="{{ variant_8_id}}"
+                              type="hidden" />
+                            <input
+                              name="add"
+                              value="Add to bag"
+                              type="submit"
+                              class="btn" />
+                          </form>
+                          {% break %}
+
+                        {% elsif collection.title contains "Optical" or collection.title contains "Readers" %}
+
+                          <a href="{{block_ditto_product_8.url}}?variant={{variant_8_id}}" class="btn">Select lenses</a>
+
+                          {% break %}
+
+                        {% endif %}
+                      {% endfor %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                </div>
+
+              {%- endif -%}
+              {% comment %} end of product card {% endcomment %}
+
+
+
+              {% comment %} start of product card {% endcomment %}
+
+              {%- if block_ditto_product_9 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_9 -%}
+                  {%- for image in block_ditto_product_9.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_9 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  {%- for _variant_9 in block_ditto_product_9.variants -%}
+                    {%- if _variant_9.option1 == block_ditto_variant_9 -%}
+                      {%- assign variant_9_id = _variant_9.id -%}
+                      {%- assign variant_9_sku = _variant_9.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame9"
+                        data-variant-sku="{{variant_9_sku}}"
+                        data-variant-id="{{variant_9_id}}"
+                        checked="checked">
+                      <label for="dittoFrame9" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_9 }}
+                          </div>
+                        </div>
+                      </label>
+                      <div class="product-details-container"><h5>{{ block_ditto_product_9.title }}</h5>
+                      <div class="variant-name">{{ block_ditto_variant_9 }}</div></div>
+
+                      {% for collection in block_ditto_product_9.collections %}
+                        {% if collection.title contains "Sun" or collection.title contains "Anti-Rad" %}
+
+                          <form method="post" action="/cart/add">
+                            <input
+                              name="id"
+                              value="{{ variant_9_id}}"
+                              type="hidden" />
+                            <input
+                              name="add"
+                              value="Add to bag"
+                              type="submit"
+                              class="btn" />
+                          </form>
+                          {% break %}
+
+                        {% elsif collection.title contains "Optical" or collection.title contains "Readers" %}
+
+                          <a href="{{block_ditto_product_9.url}}?variant={{variant_9_id}}" class="btn">Select lenses</a>
+
+                          {% break %}
+
+                        {% endif %}
+                      {% endfor %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                </div>
+
+              {%- endif -%}
+              {% comment %} end of product card {% endcomment %}
+
+
+
+              {% comment %} start of product card {% endcomment %}
+
+              {%- if block_ditto_product_10 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_10 -%}
+                  {%- for image in block_ditto_product_10.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_10 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  {%- for _variant_10 in block_ditto_product_10.variants -%}
+                    {%- if _variant_10.option1 == block_ditto_variant_10 -%}
+                      {%- assign variant_10_id = _variant_10.id -%}
+                      {%- assign variant_10_sku = _variant_10.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame10"
+                        data-variant-sku="{{variant_10_sku}}"
+                        data-variant-id="{{variant_10_id}}"
+                        checked="checked">
+                      <label for="dittoFrame10" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_10 }}
+                          </div>
+                        </div>
+                      </label>
+                      <div class="product-details-container"><h5>{{ block_ditto_product_10.title }}</h5>
+                      <div class="variant-name">{{ block_ditto_variant_10 }}</div></div>
+
+                      {% for collection in block_ditto_product_10.collections %}
+                        {% if collection.title contains "Sun" or collection.title contains "Anti-Rad" %}
+
+                          <form method="post" action="/cart/add">
+                            <input
+                              name="id"
+                              value="{{ variant_10_id}}"
+                              type="hidden" />
+                            <input
+                              name="add"
+                              value="Add to bag"
+                              type="submit"
+                              class="btn" />
+                          </form>
+                          {% break %}
+
+                        {% elsif collection.title contains "Optical" or collection.title contains "Readers" %}
+
+                          <a href="{{block_ditto_product_10.url}}?variant={{variant_10_id}}" class="btn">Select lenses</a>
+
+                          {% break %}
+
+                        {% endif %}
+                      {% endfor %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                </div>
+
+              {%- endif -%}
+              {% comment %} end of product card {% endcomment %}
+
+
+
+              {% comment %} start of product card {% endcomment %}
+
+              {%- if block_ditto_product_11 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_11 -%}
+                  {%- for image in block_ditto_product_11.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_11 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  {%- for _variant_11 in block_ditto_product_11.variants -%}
+                    {%- if _variant_11.option1 == block_ditto_variant_11 -%}
+                      {%- assign variant_11_id = _variant_11.id -%}
+                      {%- assign variant_11_sku = _variant_11.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame11"
+                        data-variant-sku="{{variant_11_sku}}"
+                        data-variant-id="{{variant_11_id}}"
+                        checked="checked">
+                      <label for="dittoFrame11" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_11 }}
+                          </div>
+                        </div>
+                      </label>
+                      <div class="product-details-container"><h5>{{ block_ditto_product_11.title }}</h5>
+                      <div class="variant-name">{{ block_ditto_variant_11 }}</div></div>
+
+                      {% for collection in block_ditto_product_11.collections %}
+                        {% if collection.title contains "Sun" or collection.title contains "Anti-Rad" %}
+
+                          <form method="post" action="/cart/add">
+                            <input
+                              name="id"
+                              value="{{ variant_11_id}}"
+                              type="hidden" />
+                            <input
+                              name="add"
+                              value="Add to bag"
+                              type="submit"
+                              class="btn" />
+                          </form>
+                          {% break %}
+
+                        {% elsif collection.title contains "Optical" or collection.title contains "Readers" %}
+
+                          <a href="{{block_ditto_product_11.url}}?variant={{variant_11_id}}" class="btn">Select lenses</a>
+
+                          {% break %}
+
+                        {% endif %}
+                      {% endfor %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                </div>
+
+              {%- endif -%}
+              {% comment %} end of product card {% endcomment %}
+
+
+
+              {% comment %} start of product card {% endcomment %}
+
+              {%- if block_ditto_product_12 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_12 -%}
+                  {%- for image in block_ditto_product_12.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_12 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  {%- for _variant_12 in block_ditto_product_12.variants -%}
+                    {%- if _variant_12.option1 == block_ditto_variant_12 -%}
+                      {%- assign variant_12_id = _variant_12.id -%}
+                      {%- assign variant_12_sku = _variant_12.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame12"
+                        data-variant-sku="{{variant_12_sku}}"
+                        data-variant-id="{{variant_12_id}}"
+                        checked="checked">
+                      <label for="dittoFrame12" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_12 }}
+                          </div>
+                        </div>
+                      </label>
+                      <div class="product-details-container"><h5>{{ block_ditto_product_12.title }}</h5>
+                      <div class="variant-name">{{ block_ditto_variant_12 }}</div></div>
+
+                      {% for collection in block_ditto_product_12.collections %}
+                        {% if collection.title contains "Sun" or collection.title contains "Anti-Rad" %}
+
+                          <form method="post" action="/cart/add">
+                            <input
+                              name="id"
+                              value="{{ variant_12_id}}"
+                              type="hidden" />
+                            <input
+                              name="add"
+                              value="Add to bag"
+                              type="submit"
+                              class="btn" />
+                          </form>
+                          {% break %}
+
+                        {% elsif collection.title contains "Optical" or collection.title contains "Readers" %}
+
+                          <a href="{{block_ditto_product_12.url}}?variant={{variant_12_id}}" class="btn">Select lenses</a>
+
+                          {% break %}
+
+                        {% endif %}
+                      {% endfor %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                </div>
+
+              {%- endif -%}
+              {% comment %} end of product card {% endcomment %}
+
+            </div>
+          </div>
+          <div class="ditto-grid__item" id="dittoWrapper">
+            <div class="Ditto__popup-background"></div>
+            <div class="Ditto__popup-wrapper js-ditto-popup" id="DittoPopup"></div>
+            <div id="dittoDisplay"></div>
+            <p id="dittoHint" style="display:none;position: absolute;left: 0;bottom: 20px;z-index: 10;width: 100%;text-align: center;color: #fff;">SWIPE TO ROTATE</p>
+            {%- if block_ditto_guide != empty -%}
+              <div id="dittoGuide">
+
+                {%- if block_ditto_guide_mobile == empty -%}
+
+                  <video
+                    autoplay
+                    playsinline
+                    muted
+                    loop>
+                    <source src="{{ block_ditto_guide }}" type="video/mp4" />
+                  </video>
+
+                {%- else -%}
+
+                  <video
+                    autoplay
+                    playsinline
+                    muted
+                    loop
+                    class="desktop">
+                    <source src="{{ block_ditto_guide }}" type="video/mp4" />
+                  </video>
+                  <video
+                    autoplay
+                    playsinline
+                    muted
+                    loop
+                    class="mobile">
+                    <source src="{{ block_ditto_guide_mobile }}" type="video/mp4" />
+                  </video>
+
+                {%- endif -%}
+
+                <button
+                  type="button"
+                  class="btn"
+                  id="startDitto">Get started</button>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+
+        {% include 'vto-product-modal' %}
+      </div>
+    </section>
+
+    <!-- /.section-about-icons -->
+  {%- endcase -%}
+
+  {%- if forloop.index == 1 -%}
+    {{ about_page_navigation }}
+  {%- endif -%}
+{%- endfor -%}
+
+{{ "slick.js" | asset_url | script_tag }}
+{{ "slick.min.js" | asset_url | script_tag }}
+{{ "slick.css" | asset_url | stylesheet_tag }}
+{{ "slick-theme.css" | asset_url | stylesheet_tag }}
+{{ "vto-script.js" | asset_url | script_tag }}

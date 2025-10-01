@@ -1,0 +1,90 @@
+.product-variants-container {
+  width: 100%;
+  /* margin: 0 0 24px 0; */
+}
+
+.product-variants-container.with-size-guide {
+  margin-bottom: 24px !important;
+}
+
+.product-variants-container h5 {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 100%;
+  color: var(--black_color);
+  margin: 0 0 8px 0;
+}
+.product-variants-container h5.product-variants-container__seasonal-label {
+  margin-top: 24px;
+}
+
+.product-variants-container .variant-name-label {
+  font-family: 'Radio Grotesk' !important;
+  font-size: 14px;
+  line-height: 20px;
+  color: #AEAAA9;
+  margin-right: 8px;
+}
+
+.product-variants-container .variant-name {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 20px;
+  color: #352B27;
+}
+
+.product-variant-swatches {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-variant-swatches a {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 4px 0 0;
+  position: relative;
+}
+
+.product-variant-swatches a.not-available {
+  border: .63px solid #D7D6D0;
+}
+
+.product-variant-swatches a.active {
+  border: .63px solid #352B27;
+}
+
+.product-variant-swatches a div {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+.product-variant-swatches #variant-not-available {
+  position: absolute;
+  height: 100%;
+  width: .63px;
+  background-color: #D7D6D0;
+  transform: rotateY(0deg) rotate(45deg);
+}
+
+@media (min-width: 768px) {
+  .product-variants-container {
+    margin: 0 0 24px 0;
+  }
+  
+  .product-variants-container h5 {
+    font-size: 14px;
+  }
+}
+
+.product-description-details ul li:first-child .product-description-accordion-header {
+  padding: 0 0 24px;
+}

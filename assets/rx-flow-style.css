@@ -1,0 +1,3564 @@
+/* New Prescription */
+#shopify-section-product_prescription {
+  position: relative;
+}
+
+/* dev */
+.new-toggle-prescription {
+  top: 90px;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: calc(100% - 90px);
+  z-index: 10000;
+  z-index: 59;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.2s, opacity 0.2s ease-out;
+}
+
+.template-product.has-header-bar .new-toggle-prescription {
+  top: 115px;
+  height: calc(100vh - 115px);
+  height: 100%;
+  top: 0;
+  z-index: 1000000;
+}
+
+.has-top-bar .new-toggle-prescription {
+  top: 163px;
+  height: calc(100vh - 163px);
+  height: 100%;
+  top: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .template-product.has-header-bar .new-toggle-prescription {
+    top: 64px;
+    height: calc(100vh - 64px);
+    height: 100%;
+    top: 0;
+  }
+
+  .has-top-bar .new-toggle-prescription {
+    /* top: 104px;
+    height: calc(100vh - 104px); */
+    height: 100%;
+    top: 0;
+  }
+}
+
+.new-toggle-prescription.visible {
+  visibility: visible;
+  transform: translateY(0);
+  opacity: 1;
+  z-index: 1000000;
+  transition: opacity 0.2s ease-out;
+}
+
+.new-toggle-prescription::-webkit-scrollbar {
+  width: 0;
+}
+
+.new-prescription-close-btn {
+  position: absolute;
+  /* right: 54px;
+  top: 54px; */
+  right: 16px;
+  top: 16px;
+  z-index: 1;
+  /* padding: 20px; */
+  /* border-radius: 50%; */
+  cursor: pointer;
+  /* opacity: 0.8;
+  transition: all 0.2s; */
+}
+
+/* .new-prescription-close-btn:hover {
+  background: #f6f6f6;
+} */
+
+.new-prescription-close-btn-span {
+  position: relative;
+  width: 23px;
+  height: 23px;
+  /* padding: 15px; */
+  display: block;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-close-btn {
+    right: 40px;
+    top: 40px;
+    padding: 10px;
+    right: 6px;
+    top: 8px;
+  }
+
+  .new-prescription-close-btn-span {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+  }
+}
+
+.new-prescription-close-btn-span:before,
+.new-prescription-close-btn-span:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background: #352B27;
+}
+
+.new-prescription-close-btn-span:before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.new-prescription-close-btn-span:after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.new-prescription-body {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.prescription-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+}
+
+.new-prescription-left {
+  width: 33.3%;
+  background: #e8e8e4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+}
+
+.new-prescription-pre-bg {
+  width: 100%;
+  height: 8px;
+  background: #F3F2F2;
+}
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-left {
+    display: none;
+  }
+}
+
+.new-prescription-img {
+  margin-top: auto;
+  /* max-height: 200px; */
+  width: 100%;
+}
+
+.new-prescription-img>img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.new-prescription-data {
+  /* padding-bottom: 28px; */
+  width: 100%;
+  /* max-width: 457px; */
+  padding: 40px;
+  margin: 0 auto;
+  /* max-height: 50%;
+  height: 100%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  z-index: 1;
+}
+
+.new-prescription-group {}
+
+.new-prescription-group:not(:first-child) {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: 0.2s ease max-height, 0.2s opacity;
+}
+
+.new-prescription-group.is-visible {
+  opacity: 1;
+  max-height: 9999px;
+}
+
+.new-prescription-label {
+  font-family: 'Radio Grotesk';
+  /* font-weight: 400; */
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* .new-prescription-label, */
+.new-prescription-text,
+.new-prescription-text-type,
+.new-prescription-text-price {
+  font-family: "AT Surt Medium";
+  /* font-weight: 400; */
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.new-prescription-text-type {
+  padding-right: 15px;
+}
+
+.new-prescription-text-type:first-child {
+  flex: 1;
+}
+
+.new-prescription-text-type:last-child {
+  white-space: nowrap;
+}
+
+.new-prescription-text-type {
+  flex: inherit;
+}
+
+.new-prescription-label {
+  color: #b3a89b;
+  justify-content: start !important;
+}
+
+.new-prescription-text {
+  padding-top: 8px;
+  color: #352B27;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 24px;
+}
+
+.new-prescription-text-type,
+.new-prescription-text-price {
+  color: #352B27;
+}
+
+.new-prescription-right {
+  flex: 1;
+  background: #fff;
+  position: relative;
+}
+
+.new-prescription-added-to-bag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px;
+  flex: 1;
+  background: #FFF;
+  position: relative;
+  display: none;
+}
+
+.new-prescription-added-to-bag p {
+  font-family: "AT Surt Medium";
+  font-size: 22px;
+  line-height: 32px;
+  text-align: center;
+  color: #352B27;
+}
+
+.new-prescription-added-to-bag .added-to-bag-icon {
+  margin: 0 0 24px 0;
+}
+
+.new-prescription-added-to-bag .added-to-bag-icon #added-to-bag-mobile {
+  display: none;
+}
+
+#added-to-bag-loading-spinner {
+  display: none;
+  border: 8px solid transparent;
+  border-radius: 50%;
+  border-top: 8px solid #352B27;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 1s linear infinite;
+  /* Safari */
+  animation: spin 1s linear infinite;
+}
+
+#grab-prescription-loader {
+  border: 8px solid transparent;
+  border-radius: 50%;
+  border-top: 8px solid #352B27;
+  width: 100px;
+  height: 100px;
+  -webkit-animation: spin 1s linear infinite;
+  /* Safari */
+  animation: spin 1s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* @media only screen and (max-width: 1440px) {
+
+  .new-prescription-text,
+  .new-prescription-text-type,
+  .new-prescription-text-price {
+    font-size: 18px;
+  }
+
+  .new-prescription-text-type {
+    padding-right: 10px;
+  }
+} */
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-right {
+    width: 100%;
+  }
+
+  .new-prescription-added-to-bag {
+    width: 100%;
+    padding: 43px;
+  }
+
+  .new-prescription-added-to-bag p {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .new-prescription-added-to-bag .added-to-bag-icon #added-to-bag-desktop {
+    display: none;
+  }
+
+  .new-prescription-added-to-bag .added-to-bag-icon #added-to-bag-mobile {
+    display: block;
+  }
+
+  #added-to-bag-loading-spinner {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.new-prescription-right-tracker {
+  width: 0%;
+  position: absolute;
+  height: 8px;
+  background: #b3a89b;
+  transition: all 0.2s ease-out;
+  border-radius: 0px 20px 20px 0px;
+}
+
+/* @media only screen and (max-width: 768px) {
+  .new-prescription-right-tracker {
+    height: 4px;
+  }
+} */
+
+.new-prescription-step {
+  width: 100%;
+  /* max-width: 683px;
+  padding: 80px 10px 120px;
+  margin: 0 auto; */
+  display: none;
+  position: relative;
+}
+
+.new-prescription-step.is-active {
+  display: block;
+}
+
+.new-prescription-right-inner {
+  width: 100%;
+  /* max-width: 683px; */
+  padding: 0 80px 112px 80px;
+  margin: 0 auto;
+}
+
+/* @media only screen and (max-width: 1440px) {
+  .new-prescription-right-inner {
+    width: 75%;
+  }
+} */
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-right-inner {
+    width: 100%;
+    padding: 28px 0 0 0;
+  }
+
+  .new-prescription-right-data {
+    padding: 0 24px;
+  }
+}
+
+.new-prescription-back-btn {
+  position: absolute;
+  left: 16px;
+  top: 10px;
+  z-index: 1;
+  /* padding: 15px; */
+  /* border-radius: 50%; */
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.2s;
+}
+
+/* .new-prescription-back-btn:hover {
+  background: #f6f6f6;
+} */
+
+.new-prescription-back-btn-item {
+  display: block;
+  width: 22px;
+  height: 20px;
+  position: relative;
+}
+
+.new-prescription-back-btn-item:before {
+  content: "";
+  position: absolute;
+  width: 55%;
+  height: 55%;
+  border-left: 1px solid #352B27;
+  top: 50%;
+  border-bottom: 1px solid #352B27;
+  transform: translateY(-50%) rotate(45deg);
+  left: 2px;
+}
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-back-btn {
+    left: 16px;
+    top: 10px;
+  }
+
+  .new-prescription-back-btn-item {
+    width: 20px;
+    height: 20px;
+  }
+
+  .new-prescription-back-btn-item:before {
+    left: 0;
+  }
+}
+
+.new-prescription-back-btn-span-arrow {}
+
+.new-prescription-back-btn-span-arrow:before {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  background: #352B27;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* .new-prescription-right-label {
+  margin-bottom: 40px;
+} */
+
+.new-prescription-right-title.u-pcDb {
+  display: block;
+}
+
+.new-prescription-right-title.u-spDb {
+  display: none;
+}
+
+.new-prescription-right-title {
+  font-family: "AT Surt Medium";
+  font-size: 22px;
+  text-align: center;
+  line-height: 32px;
+  padding: 24px 0;
+}
+
+@media only screen and (max-width: 1440px) {
+  .new-prescription-right-title {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-right-title.u-pcDb {
+    display: none;
+  }
+
+  .new-prescription-right-title.u-spDb {
+    display: block;
+    width: 100%;
+  }
+
+  .new-prescription-right-title {
+    font-size: 18px;
+    line-height: 28px;
+    text-align: center;
+    /* font-weight: bold; */
+    padding: 0 0 24px;
+  }
+}
+
+.new-prescription-right-data {
+  overflow-y: auto;
+  height: calc(100vh - 265px);
+  /* height: calc(100vh - 400px);  */
+}
+
+[data-stepname="add-your-prescription"] .new-prescription-right-data {
+  overflow-y: auto;
+  /* height: calc(100vh - 400px);  */
+  height: calc(100vh - 200px);
+  padding-bottom: 170px;
+}
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-right-data {
+    height: calc(100vh - 310px);
+    /* height: calc(100vh - 180px); */
+  }
+
+  [data-stepname="mobile-selection-review"] .new-prescription-right-data,
+  [data-stepname="add-your-prescription"] .new-prescription-right-data {
+    height: calc(100vh - 220px);
+    padding-bottom: 150px;
+    overflow-y: auto;
+  }
+}
+
+.new-prescription-right-data.is-visible {
+  overflow: visible;
+}
+
+.new-prescription-right-data::-webkit-scrollbar {
+  width: 0;
+}
+
+[data-disable="true"].new-prescription-right-data-item {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+[data-disable="true"].new-prescription-right-data-item:hover {
+  background: #ffffff;
+  border: 1.5px solid #efefec;
+}
+
+.new-prescription-right-data-item,
+.new-prescription-right-data-suggest {
+  padding: 32px;
+  border-radius: 8px;
+  border: 1.5px solid #efefec;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+}
+
+@media only screen and (max-width: 768px) {
+
+  .new-prescription-right-data-item,
+  .new-prescription-right-data-suggest {
+    padding: 32px;
+  }
+
+  .new-prescription-right-data-item:not(:first-child),
+  .new-prescription-right-data-suggest:not(:first-child) {
+    margin-top: 12px;
+  }
+}
+
+.new-prescription-right-data-item:hover,
+.new-prescription-right-data-suggest:hover {
+  background: #EFEFEC;
+}
+
+.new-prescription-right-data-item.is-active,
+.new-prescription-right-data-suggest.is-active {
+  background: #EFEFEC;
+}
+
+.new-prescription-right-data-item:not(:first-child),
+.new-prescription-right-data-suggest:not(:first-child) {
+  margin-top: 12px;
+}
+
+/* .new-prescription-right-data-item:last-child {
+  margin-bottom: 120px;
+} */
+
+.new-prescription-right-data-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.new-prescription-right-data-label,
+.new-prescription-right-data-price {
+  color: #352B27;
+  font-size: 18px;
+  line-height: 28px;
+  font-family: "AT Surt Medium";
+}
+
+.new-prescription-right-data-text {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 20px;
+  font-family: 'Radio Grotesk';
+  color: #554D4A;
+}
+
+/* @media only screen and (max-width: 1440px) {
+
+  .new-prescription-right-data-label,
+  .new-prescription-right-data-price {
+    font-size: 20px;
+  }
+} */
+
+@media only screen and (max-width: 768px) {
+
+  .new-prescription-right-data-label,
+  .new-prescription-right-data-price {
+    font-size: 14px;
+    font-family: "AT-Surt-SemiBold";
+    line-height: 20px;
+  }
+
+  .new-prescription-right-data-text {
+    font-size: 12px;
+    margin-top: 12px;
+  }
+}
+
+.new-prescription-right-data-tints {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.new-prescription-right-data-tints-color {
+  width: 88px;
+  margin-right: 16px;
+}
+
+.new-prescription-right-data-tints-color-item {
+  /* replace this with image */
+  background: gray;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.new-prescription-right-data-tints-content {
+  flex: 1;
+}
+
+.new-prescription-right-data-tints-name {
+  margin-bottom: 12px;
+  font-size: 18px;
+  line-height: 28px;
+  font-family: 'Radio Grotesk';
+  color: #352b27;
+}
+
+.new-prescription-right-data-tints-desc {
+  font-size: 14px;
+  font-family: 'Radio Grotesk';
+  color: #554D4A;
+  line-height: 20px;
+}
+
+/* @media only screen and (max-width: 1440px) {
+  .new-prescription-right-data-tints-name {
+    font-size: 18px;
+    font-family: 'Radio Grotesk';
+    line-height: 20px;
+  }
+
+  .new-prescription-right-data-tints-desc {
+    font-size: 14px;
+    line-height: 20px;
+  }
+} */
+
+@media only screen and (max-width: 768px) {
+  /* .new-prescription-right-data-tints-color {
+    width: 80px;
+    margin-right: 20px;
+  } */
+
+  .new-prescription-right-data-tints-name {
+    font-size: 14px;
+    line-height: 20px;
+    font-family: "AT-Surt-SemiBold";
+  }
+
+  .new-prescription-right-data-tints-desc {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  /* .prescription-lens-clr {
+    margin-left: 24px;
+  } */
+}
+
+.new-prescription-right-subtotal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 76px;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #f8f8f8;
+  max-height: 0;
+  visibility: visible;
+  opacity: 1;
+  z-index: 2;
+  transition: 0.2s opacity;
+}
+
+/* CSS specific to iOS devices */
+/* .iphone .new-prescription-right-subtotal {
+  padding-bottom: 100px;
+} */
+
+.new-prescription-right-subtotal.is-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.new-prescription-right-subtotal {
+  max-height: 9999px;
+  padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+  .new-prescription-right-subtotal {
+    visibility: hidden;
+    max-height: 180px;
+  }
+}
+
+.new-prescription-right-subtotal-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  /* max-width: 1150px;
+  width: 100%; */
+  margin: 0 auto;
+}
+
+.new-prescription-right-subtotal-flex {
+  /* width: 57.6%; */
+  max-width: 683px;
+  /* padding: 10px; */
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.new-prescription-right-subtotal-btn,
+.new-prescription-right-subtotal-temp {
+  flex: 1;
+}
+
+.new-prescription-right-subtotal {
+  padding: 0;
+}
+
+.new-prescription-right-subtotal-inner {
+  /* width: 100%; */
+  margin: 0 80px;
+  /* padding: 0 10px; */
+}
+
+/* .new-prescription-right-subtotal-flex {
+    flex: 1;
+  } */
+
+.new-prescription-right-subtotal-btn {
+  flex: none;
+}
+
+.new-prescription-right-subtotal-temp {
+  display: none;
+}
+
+.new-prescription-right-subtotal-btn-next {
+  /* width: 110px; */
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 0;
+  color: #FFFFFF;
+  background: #efefec;
+  margin-left: 30px;
+  transition: 0.2s ease-out;
+  pointer-events: none;
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 20px;
+  padding: 12px 40px;
+  border: 1px solid #efefec;
+}
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-right-subtotal {
+    height: auto;
+    width: 100%;
+    padding: 24px;
+  }
+
+  .new-prescription-right-subtotal-inner {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+
+  .new-prescription-right-subtotal-flex {
+    width: 100%;
+    padding: 0;
+  }
+
+  .new-prescription-right-subtotal-btn {
+    margin-top: 16px;
+  }
+
+  .new-prescription-right-subtotal-btn-next {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+/* 
+@media only screen and (max-width: 768px) {
+  .new-prescription-right-subtotal-btn-next {
+    width: 100%;
+    height: 42px;
+    font-size: 14px;
+    margin: 0;
+  }
+} */
+
+.new-prescription-right-subtotal-btn-next.visible {
+  color: #fff;
+  background: #352b27;
+  pointer-events: visible;
+}
+
+@media only screen and (min-width: 768px) {
+  .new-prescription-right-subtotal-btn-next:hover {
+    background: #6c6662;
+  }
+}
+
+.new-prescription-right-subtotal-btn-next:focus {
+  outline: 0;
+}
+
+.new-prescription-right-subtotal-text {
+  font-size: 14px;
+  color: #756F6D;
+  line-height: 20px;
+  font-family: 'Radio Grotesk';
+}
+
+#new-prescription-subtotal-amount {
+  font-size: 18px;
+  font-family: "AT Surt Medium";
+  color: #352B27;
+}
+
+/* @media only screen and (max-width: 1440px) {
+  .new-prescription-right-subtotal-text {
+    font-size: 20px;
+  }
+} */
+
+@media only screen and (max-width: 768px) {
+  /* .new-prescription-right-subtotal-text {
+    font-size: 12px;
+  } */
+
+  .new-prescription-right-subtotal-text:last-child {
+    /* font-weight: bold; */
+    font-size: 18px;
+  }
+}
+
+/* step 3 */
+.new-prescription-right-data .active:after {
+  content: none;
+}
+
+.new-prescription-btn-step3 {
+  width: 100%;
+  padding: 32px;
+  text-align: left;
+  font-size: 18px;
+  font-family: "AT Surt Medium";
+  border: 1.5px solid #efefec;
+  border-radius: 8px;
+  background: #fff;
+  color: #352B27;
+  line-height: 28px;
+  justify-content: start !important;
+}
+
+.new-prescription-btn-step3:not(:first-child) {
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+/* @media only screen and (max-width: 1440px) {
+  .new-prescription-btn-step3 {
+    font-size: 20px;
+  }
+} */
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-btn-step3 {
+    font-size: 14px;
+    font-family: "AT-Surt-SemiBold";
+  }
+  .new-prescription-btn-step3 {
+    justify-content: start !important;
+  }
+}
+
+.new-prescription-btn-step3:hover {
+  background: #f8f8f8;
+}
+
+.new-prescription-btn-step3.is-active {}
+
+.new-prescription-btn-tab {
+  display: none;
+}
+
+.new-prescription-btn-tab.is-active {
+  display: block;
+}
+
+.new-prescription-form-group {
+  position: relative;
+  margin-top: 16px;
+}
+
+#find-records-form ::placeholder {
+  font-family: 'Radio Grotesk';
+  text-transform: CAPITALIZE;
+}
+
+.new-prescription-form .form-error .new-prescription-form-input {
+  border: 1px solid #B44720;
+  color: #B44720;
+  font-family: 'Radio Grotesk';
+}
+
+.new-prescription-form-error {
+  color: #B44720;
+  font-size: 12px;
+  font-family: 'Radio Grotesk';
+  align-items: center;
+  top: calc(100% + 8px);
+  font-size: 12px;
+  display: none;
+  position: absolute;
+}
+
+.form-error .new-prescription-form-error {
+  display: flex;
+}
+
+.form-error .new-prescription-form-error-icon {
+  width: 14px;
+  height: 14px;
+  font-size: 10px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9f5b60;
+  border-radius: 50%;
+  border: 1px solid #9f5b60;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-right: 8px;
+  display: none;
+}
+
+.new-prescription-form .new-prescription-form-label {
+  font-size: 14px;
+  font-family: 'Radio Grotesk';
+  margin-bottom: 6px;
+}
+
+.new-prescription-form .new-prescription-form-input {
+  width: 100%;
+  color: #352B27;
+  border: 1.5px solid #efefec;
+  font-family: 'Radio Grotesk';
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  font-size: 14px;
+  text-transform: initial;
+  margin-top: 0 !important;
+  line-height: 20px;
+}
+
+.new-prescription-form-group.btn-form {
+  display: flex;
+  justify-content: flex-end;
+  font-family: 'Radio Grotesk';
+}
+
+.new-prescription-form .new-prescription-form-btn-find-records {
+  /* margin-top: 24px; */
+  font-size: 14px;
+  font-family: 'Radio Grotesk';
+  background: none;
+  padding: 0 24px;
+  height: 48px;
+  /* border-radius: 8px; */
+  color: #352b27;
+  text-transform: initial;
+  border: none;
+  border-bottom: 1px solid black;
+  padding: 0;
+  height: 25px;
+}
+
+@media only screen and (max-width: 1440px) {
+  /* .new-prescription-form .new-prescription-form-btn-find-records {
+    font-size: 14px;
+  }  */
+
+  .new-prescription-form .new-prescription-form-label {
+    font-size: 14px;
+    color: #756F6D;
+    line-height: 20px
+  }
+
+  .new-prescription-form .new-prescription-form-input {
+    font-size: 14px;
+  }
+}
+
+/* @media only screen and (max-width: 768px) {
+  .new-prescription-form .new-prescription-form-btn-find-records {
+    font-size: 14px;
+    height: 42px;
+    padding: 0 20px;
+  }
+} */
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-form .new-prescription-form-label {
+    font-size: 12px;
+  }
+
+  .new-prescription-form .new-prescription-form-input {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+}
+
+.new-prescription-form-results {
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.2s all ease-out;
+}
+
+.new-prescription-form-results.is-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.new-prescription-form-results-loader {
+  margin-top: 50px;
+  display: none;
+}
+
+.new-prescription-form-results-loader.is-active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-prescription-form .new-prescription-form-results .new-prescription-form-group {
+  margin-top: 32px;
+}
+
+.tab-new-prescription .new-prescription-form-group:not(:first-child) {
+  margin-top: 32px;
+}
+
+.new-prescription-form-group-inner {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.new-prescription-form-group-item {
+  flex: 1;
+}
+
+.new-prescription-form-label-disabled {
+  color: #756F6D;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-family: 'Radio Grotesk';
+}
+
+.new-fetch-prescription-data .new-prescription-form-label-disabled {
+  margin-bottom: 8px;
+}
+
+.new-prescription-form-name {
+  font-size: 16px;
+  font-family: 'Radio Grotesk';
+  color: #352B27;
+}
+
+@media only screen and (max-width: 768px) {
+
+  .new-prescription-form-label-disabled,
+  .new-prescription-form-name {
+    font-size: 14px;
+  }
+}
+
+.new-prescription-form-table-list {
+  position: relative;
+}
+
+.new-prescription-form-table {
+  /* position: absolute; */
+  display: none;
+  left: 0;
+  top: 0;
+  width: 100%;
+  transition: all 0.2s ease-out;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.new-prescription-form-table-wrapper {
+  border: 1px solid #efefec;
+  border-radius: 4px;
+  overflow-x: auto;
+  padding: 16px 0;
+  position: relative;
+  overflow: visible;
+}
+
+.new-prescription-form-table-wrapper::-webkit-scrollbar {
+  width: 0;
+}
+
+/* .new-fetch-prescription-data {
+  margin-top: 32px;
+} */
+
+.new-fetch-prescription-data-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.new-fetch-prescription-data-content {
+  width: 50%;
+}
+
+.new-fetch-prescription-data-content-text {
+  font-size: 16px;
+  font-family: 'Radio Grotesk';
+}
+
+.new-fetch-prescription-data-info {
+  font-size: 16px;
+  font-family: 'Radio Grotesk';
+  border: 1.5px solid #efefec;
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+@media only screen and (max-width: 768px) {
+  .new-fetch-prescription-data {
+    margin-top: 24px;
+  }
+
+  .new-fetch-prescription-data-flex {
+    display: block;
+  }
+
+  .new-fetch-prescription-data-content {
+    width: 100%;
+  }
+
+  .new-fetch-prescription-data-content:not(:first-child) {
+    margin-top: 24px;
+  }
+
+  .new-fetch-prescription-data-content-text {
+    font-size: 14px;
+  }
+
+  .new-fetch-prescription-data-info {
+    font-size: 14px;
+  }
+}
+
+.new-prescription-form-table.add-data {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+.new-prescription-form-table.is-active {
+  visibility: visible;
+  display: block;
+  opacity: 1;
+}
+
+.new-prescription-form-table-main.u-pcDb {
+  display: revert;
+}
+
+.new-prescription-form-table-main.u-spDb {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-form-table-main.u-pcDb {
+    display: none;
+  }
+
+  .new-prescription-form-table-main.u-spDb {
+    display: revert;
+  }
+}
+
+.new-prescription-form-table-main {}
+
+.new-prescription-form-table-thead {}
+
+.new-prescription-form-table-th {
+  /* padding: 0 0 16px; */
+  font-family: "AT-Surt-SemiBold";
+  color: #352B27;
+  width: 100%;
+  text-wrap: nowrap;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.new-prescription-form-table-th .th-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-family: 'Radio Grotesk';
+  line-height: 20px;
+  /* border-bottom: 1px dashed #352b27; */
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.new-prescription-form-table-th.text-left {
+  text-align: left;
+  /* padding: 17px 0; */
+}
+
+.new-prescription-form-table-th.text-left:first-child {
+  padding-left: 24px;
+  font-size: 14px;
+  font-family: "AT-Surt-SemiBold";
+  color: #352B27;
+  height: 56px;
+}
+
+.add-data {}
+
+.new-prescription-form-table-span {
+  position: relative;
+  height: auto;
+  width: auto;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* font-size: 12px; */
+  font-family: 'Radio Grotesk';
+  /* margin-left: 8px; */
+  display: block;
+  margin-right: 8px;
+}
+
+/* @media only screen and (max-width: 1440px) {
+  .new-prescription-form-table-th {
+    padding: 17px 5px;
+  }
+} */
+
+@media only screen and (max-width: 768px) {
+
+  .new-prescription-form-table-th .th-flex,
+  .new-prescription-form-table-small,
+  .new-prescription-form-table-th {
+    font-size: 14px;
+  }
+
+  .new-prescription-form-table-th .th-flex {
+    justify-content: flex-start;
+    width: 0;
+  }
+
+  /* .new-prescription-form-table-th {
+    padding: 0 23px;
+  } */
+
+  .new-prescription-form-table-span {
+    font-size: 14px;
+    margin-left: 0;
+    margin-right: 8px;
+  }
+
+  .new-prescription-form-table-th.text-left {
+    padding: 14px 16px;
+  }
+
+  .new-prescription-form-table-th.text-left:first-child {
+    padding-left: 16px;
+  }
+
+  .new-prescription-form-table-th .th-flex {
+    margin-bottom: 0;
+  }
+
+  .new-prescription-form-table-th {
+    width: 0;
+    padding: 0;
+  }
+  .new-prescription-form-table-th.text-left:first-child {
+    padding-left: 0;
+  }
+}
+
+.new-prescription-form-table-span:hover .new-prescription-form-table-small {
+  visibility: visible;
+  opacity: 1;
+}
+
+.new-prescription-form-table-small {
+  position: absolute;
+  font-size: 12px;
+  padding: 14px;
+  background: #352b27;
+  border-radius: 4px;
+  color: #fff;
+  text-align: center;
+  font-family: 'Radio Grotesk';
+  bottom: calc(100% + 5px);
+  left: 0;
+  z-index: 5;
+  font-weight: normal;
+  opacity: 0;
+  width: max-content;
+  visibility: hidden;
+  transition: all 0.2s ease-out;
+}
+
+.new-prescription-form-table-small.u-right {
+  left: auto;
+  right: 0;
+}
+
+.new-prescription-form-table-small.text-light {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.new-prescription-form-table-td {
+  text-align: center;
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  color: #000;
+  /* padding: 0 45px; */
+}
+
+.new-prescription-form .new-prescription-form-table-select {
+  width: 100px;
+  height: 40px;
+  padding: 10px 8px;
+  font-size: 14px;
+  font-family: 'Radio Grotesk';
+  border: 0;
+  color: #d7d6d0;
+  border: 1px solid #EFEFEC;
+
+  -webkit-appearance: none;
+  background-image: url(https://cdn.shopify.com/s/files/1/0268/4141/5798/files/chevron-down_2859df09-7cff-45f6-8bf9-96c6949b1252.svg?v=1728982907);
+  background-repeat: no-repeat;
+  /* background-size: 12px; */
+  background-position: right 10px center;
+  background-color: transparent;
+  border-radius: 4px;
+}
+
+.new-prescription-form .new-prescription-form-table-select.is-active {
+  color: #352b27;
+}
+
+.new-prescription-form-textarea {
+  width: 100%;
+  border: 1.5px solid #efefec;
+  border-radius: 4px;
+  padding: 14px 16px;
+  line-height: 1.4;
+  box-sizing: border-box;
+  font-family: 'Radio Grotesk';
+}
+
+.new-prescription-form-table-caption {
+  text-align: center;
+  color: #b3a89b;
+  display: block;
+  margin-top: 12px;
+  font-size: 16px;
+  font-family: 'Radio Grotesk';
+}
+
+.new-prescription-form-table-link {
+  color: #b3a89b;
+  font-size: 16px;
+  font-family: 'Radio Grotesk';
+}
+
+@media only screen and (max-width: 768px) {
+
+  .new-prescription-form .new-prescription-form-table-select,
+  .new-prescription-form-table-link,
+  .new-prescription-form-table-caption,
+  .new-prescription-form-textarea {
+    font-size: 14px;
+  }
+}
+
+/* last step for sp (summary of details) */
+.new-prescription-right-data-summary {}
+
+.new-prescription-right-data-summary-group {}
+
+.new-prescription-right-data-summary-group:not(:first-child) {
+  margin-top: 24px;
+}
+
+.new-prescription-right-data-summary-label {
+  color: #756F6D;
+  font-family: 'Radio Grotesk';
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.new-prescription-right-data-summary-desc {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.new-prescription-right-data-summary-desc-text,
+.new-prescription-right-data-summary-desc-price {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+}
+
+.new-prescription-right-data-summary-table {
+  margin-top: 12px;
+  border: 1.5px solid #efefec;
+}
+
+.new-prescription-right-data-summary-table-trow {}
+
+.new-prescription-right-data-summary-table-td {
+  padding: 15px;
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  text-align: right;
+}
+
+.new-prescription-right-data-summary-table-td:first-child {
+  text-align: left;
+  width: 40%;
+}
+
+.new-prescription-right-data-summary-table-td.td-title {
+  font-size: 14px;
+  font-family: 'Radio Grotesk';
+  font-weight: bold;
+  text-align: center;
+}
+
+.new-prescription-right-data-summary-table-td.td-title {
+  text-align: left;
+}
+
+/* end dev */
+
+/* The container must be positioned relative: */
+.custom-select {
+  position: relative;
+  /* font-family: Arial; */
+  width: 100%;
+  font-size: 14px;
+  font-family: 'Radio Grotesk';
+  background: #ffffff;
+  border-radius: 4px;
+  color: #352B27;
+  line-height: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-right-data-summary-table-td:first-child {
+    width: auto;
+  }
+
+  .new-prescription-right-data-summary-table-td.td-title {
+    text-align: left;
+  }
+
+  .new-prescription-right-data-summary-table-td.td-title.align-right {
+    text-align: center;
+  }
+
+  .custom-select {
+    font-size: 14px;
+  }
+
+  .new-prescription-right-data-summary-table-td {
+    text-align: center;
+  }
+}
+
+.custom-select select {
+  display: none;
+  /*hide original SELECT element: */
+}
+
+.custom-select .select-selected {
+  background: #ffffff;
+  border: 1.5px solid #efefec;
+  border-radius: 4px;
+}
+
+/* Style the arrow inside the select element: */
+.custom-select .select-selected:after {
+  position: absolute;
+  content: "";
+  top: 19px;
+  right: 20px;
+  height: 12px;
+  width: 12px;
+  border-right: 2px solid #5c5c5c;
+  border-bottom: 2px solid #5c5c5c;
+  transform: rotate(45deg);
+}
+
+/* Point the arrow upwards when the select box is open (active): */
+.custom-select .select-selected.select-arrow-active:after {
+  transform: rotate(225deg);
+  top: 22px;
+}
+
+/* style the items (options), including the selected item: */
+.custom-select .select-items div,
+.select-selected {
+  color: #000;
+  padding: 14px 16px;
+  /* border: 1px solid transparent; */
+  /* border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent; */
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+
+  .custom-select .select-items div,
+  .select-selected {
+    padding: 12px 14px;
+  }
+
+  .custom-select .select-selected {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 50px;
+  }
+
+  .custom-select .select-selected:after {
+    top: 15px;
+  }
+}
+
+/* Style items (options): */
+.custom-select .select-items {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: #fff;
+  border-radius: 4px;
+  border: 1.5px solid #efefec;
+}
+
+/* Hide the items when the select box is closed: */
+.custom-select .select-hide {
+  display: none;
+}
+
+.custom-select .select-items div:hover,
+.same-as-selected {
+  background-color: #efefec;
+}
+
+.new-prescription-error {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  padding: 20px;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.new-prescription-error.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.new-prescription-error .lens-suggest {
+  max-width: 640px;
+}
+
+.new-prescription-error .new-prescription-right-data-suggest {
+  text-align: left;
+}
+
+.new-prescription-error-content-inner {
+  background: #fff;
+  padding: 60px 40px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 408px;
+  text-align: center;
+  position: relative;
+}
+
+.new-prescription-error-content-inner a {
+  color: #393334;
+}
+
+.new-prescription-error-title {
+  font-family: "AT-Surt-SemiBold";
+  font-size: 18px;
+  margin-bottom: 8px;
+  line-height: 28px;
+}
+
+.new-prescription-error-content {
+  font-size: 14px;
+  color: #554D4A;
+  line-height: 20px;
+  font-family: 'Radio Grotesk';
+  margin-bottom: 24px;
+}
+
+.new-prescription-error-content ul {
+  text-align: left;
+  width: 300px;
+  margin: 14px auto 0;
+}
+
+.new-prescription-error-content .u-pcDb {
+  display: block;
+}
+
+.new-prescription-error-content .u-spDb {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-error-content .u-pcDb {
+    display: none;
+  }
+
+  .new-prescription-error-content .u-spDb {
+    display: block;
+  }
+
+  .new-prescription-error-content ul {
+    width: 200px;
+  }
+}
+
+.error-content-btn {
+  /* margin-top: 40px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-content-btn-flex .error-content-btn-item:last-child {
+  margin-left: 12px;
+  border: 1px solid #352b27;
+  color: #352b27;
+  background: #fff;
+}
+
+.error-content-btn-flex-col {
+  flex-direction: column;
+}
+
+.error-content-btn-flex-col .error-content-btn-item:last-child {
+  margin-top: 12px;
+  margin-left: 0;
+}
+
+.error-content-btn-flex-col .error-content-btn-item {
+  padding: 0;
+  height: 48px;
+  width: 231px;
+}
+
+.error-content-btn-item {
+  border: none;
+  min-width: 120px;
+  padding: 12px 40px;
+  background: #352b27;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 20px;
+  height: 44px;
+  font-family: 'Radio Grotesk';
+  cursor: pointer;
+  /* text-transform: uppercase; */
+}
+
+.error-content-btn-item.disabled {
+  background: #efefec;
+  color: #d7d6d0;
+  cursor: default;
+}
+
+.new-prescription-error-lens {
+  max-height: 360px;
+  overflow-y: scroll;
+}
+
+.new-prescription-error-lens::-webkit-scrollbar {
+  width: 0;
+}
+
+@media only screen and (max-width: 1440px) {
+  .new-prescription-error-lens {
+    height: auto;
+  }
+
+  .new-prescription-error-title {
+    font-size: 18px;
+  }
+
+  .new-prescription-error-content {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .new-prescription-error-content-inner {
+    padding: 40px 20px;
+    margin-bottom: 20vh;
+  }
+
+  .new-prescription-error-title {
+    font-size: 18px;
+  }
+
+  .new-prescription-error-content {
+    font-size: 14px;
+  }
+
+  .new-prescription-error-content ul {
+    margin-top: 8px;
+  }
+
+  .error-content-btn-item {
+    width: 100px;
+    height: 42px;
+    font-size: 14px;
+  }
+
+  .error-content-btn-flex-col .error-content-btn-item:last-child {
+    margin-top: 8px;
+  }
+
+  .error-content-btn-flex-col .error-content-btn-item {
+    padding: 0;
+    height: 42px;
+    width: 180px;
+  }
+}
+
+/* End New Prescription */
+
+/* cart/bag additional styling overwrite style for bag/cart-drawer pc */
+.cart-item__flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.cart-item__top {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart-item__bot {}
+
+.cart-item__btnInfo {
+  background: none;
+  border: none;
+  position: relative;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--soft-black-500, #756F6D);
+  text-align: right;
+  font-family: 'Radio Grotesk';
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px;
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+  width: fit-content;
+  background: #F3F2F2;
+}
+
+.cart-static__item .cart-item__btnInfo .toggle-icon {
+  border-right: 1.5px solid #b3a89b;
+  border-bottom: 1.5px solid #b3a89b;
+  transform: rotate(45deg);
+  margin-top: -8px;
+  display: inline-block;
+}
+
+.cart-item__bot .toggle-icon {
+  border-right: 1.5px solid #756F6D;
+  border-bottom: 1.5px solid #756F6D;
+  display: inline-block;
+  position: relative;
+  width: 8px;
+  height: 8px;
+  top: 72%;
+  right: 0;
+  transition: all 0.3s;
+  transform: translateY(-40%) rotate(45deg);
+}
+
+.cart-item__top .with_prescription a {
+  font-family: 'Radio Grotesk';
+  font-size: 18px;
+  color: #352b27;
+}
+
+.cart-item__top .cart-static-price,
+p.cart-static-price,
+p.cart-item__row-price {
+  color: #AEAAA9;
+  text-align: right;
+
+  /* Text md/Regular */
+  font-family: 'Radio Grotesk';
+  font-size: 11px;
+  /* font-style: normal; */
+  /* font-weight: 400; */
+  line-height: 20px;
+  /* 142.857% */
+}
+
+.cart-item__top .cart-item__variants p {
+  color: var(--soft-black-400, #AEAAA9);
+
+  /* Text sm/Regular */
+  font-family: 'Radio Grotesk';
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 16.5px */
+}
+
+.cart-drawer .cart-drawer__head {
+  padding: 16px 0px 0px
+}
+
+.cart-drawer .cart-drawer__head h3 {
+  font-size: 22px;
+  font-family: 'Radio Grotesk';
+  text-transform: unset;
+  color: #352B27;
+  padding: 0 16px;
+}
+
+.cart-drawer__head .cart-progress-status {
+  font-size: 14px;
+  color: #b3a89b;
+  font-family: 'Radio Grotesk';
+}
+
+.cart-item .cart-item__image {
+  width: 120px;
+  min-width: 120px;
+  height: 96px;
+}
+
+.cart-item .cart-item__image .btn-close {
+  background: none;
+  border: none;
+  top: 3px;
+  left: 3px;
+  display: none;
+}
+
+.cart-item .cart-item__image span {
+  /* border-radius: 0; */
+}
+
+.cart-widget__items::-webkit-scrollbar {
+  width: 0;
+}
+
+.cart-widget .cart-widget__total.order-summary p {
+  font-family: 'Radio Grotesk';
+  text-transform: none;
+  font-size: 20px;
+}
+
+.cart-widget .cart-widget__total.shipping p {
+  color: #352b27;
+  text-transform: none;
+  font-family: 'Radio Grotesk';
+}
+
+.cart-widget .cart-widget__total p {
+  font-size: 14px;
+  color: #352b27;
+  font-family: 'Radio Grotesk';
+  text-transform: none;
+}
+
+.cart-widget .btn[name="checkout"] {
+  font-family: 'Radio Grotesk';
+  text-transform: capitalize;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.cart-widget .shipping-note p {
+  text-transform: none;
+  color: var(--soft-black-500, #756F6D);
+  text-align: center;
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.cart-static .cart-item .cart-item__inner {
+  flex-wrap: nowrap;
+}
+
+.cart-item .cart-item__prescription-table table td,
+.cart-item .cart-item__prescription-table table th,
+.cart-drawer .cart-drawer__head .cart-progress-status.complete {
+  font-family: 'Radio Grotesk';
+}
+
+.cart-drawer .cart-item .cart-item__prescription-table table th {
+  color: var(--soft-black-400, #AEAAA9);
+  text-align: center;
+  font-family: 'Radio Grotesk';
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.cart-widget .cart-widget__total.order-summary {
+  padding: 0 0 16px;
+}
+
+.cart-item .cart-item__content {
+  flex: 1;
+  width: auto;
+}
+
+.cart-item__top .cart-item__variants p,
+.cart-item .cart-item__content h4 a {
+  text-transform: none;
+}
+
+.Order__items-description__prescription thead th {
+  background: #ffffff;
+  text-align: right;
+}
+
+.Order__items-description__prescription tbody td:first-child {
+  text-align: left;
+}
+
+.custom .Order__items-description__prescription tbody tr:last-child td:first-child {
+  font-size: 11px;
+}
+
+.cart-item__prescription--toggle.custom {
+  width: 100%;
+}
+
+.cart-item__prescription-table {}
+
+.cart-item .cart-item__prescription-table-data {
+  display: none;
+}
+
+.cart-item .cart-item__prescription-table-data-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cart-item .cart-item__prescription-table-data-flex.u-flex-col {
+  display: block;
+}
+
+.cart-item .cart-item__prescription-table-data-flex:not(:first-child) {
+  margin: 12px 0;
+}
+
+.cart-item p.cart-item__prescription-table-data-label {
+  font-family: 'Radio Grotesk';
+  text-transform: none;
+  color: #b3a89b;
+  font-size: 14px;
+}
+
+.cart-item p.cart-item__prescription-table-data-text {
+  font-size: 14px;
+  font-family: 'Radio Grotesk';
+  text-transform: none;
+  color: #352b27;
+}
+
+.cart-item p.addtl-info {
+  padding: 5px;
+  margin-top: 12px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1.5px solid #efefec;
+}
+
+/* cart page */
+.cart-static .cart-item__content h4 a,
+.cart-item--static .cart-item__variants p:first-child:last-child,
+.cart-item .cart-item__content h4 a,
+.cart-static .cart-static__actions-wrapper h2,
+.cart-static .cart-static__row p,
+.section-cart h1,
+.section-cart .section__head-left h1 span,
+.cart-static .cart-item__content h4 a,
+.cart-static .cart-static__item .cart-item__prescription-details p,
+.cart-static p,
+.cart-static .cart-item .section-cart .section__body .cart-item .cart-item__variants p,
+.cart-static .cart-item--static .cart-item__variants p:first-child:last-child,
+.cart-static .add-a-git-note-header span,
+#add-a-gift-note-btn,
+.cart-static .cart-product-upsell h2,
+.cart-static .Order__items-description__prescription tbody th,
+.cart-static .Order__items-description__prescription thead th,
+.section-cart .section__head-left .cart-progress-status.complete,
+.cart-static .cart-product-upsell .product-item__inner .product__entry h3,
+.cart-static .cart-product-upsell .product-item__inner .product__entry span.current-color-name,
+.cart-static .cart-product-upsell .product-item__inner .product__entry .product__prices-item,
+.cart-static .cart-item--static .cart-item__quantity .cart-item__increment span,
+.cart-drawer .cart-drawer__head .cart-progress-status,
+.cart-static .cart-static__actions-wrapper .shipping-hint {
+  /* font-family: 'Radio Grotesk'; */
+  font-family: "AT Surt Medium";
+  text-transform: none;
+}
+
+.cart-static .cart-static__item .cart-item__prescription-price {
+  margin-top: 16px;
+}
+
+.cart-drawer .cart-drawer__head .cart-progress-status.incomplete {
+  color: #756F6D;
+}
+
+.section-cart .section__head-left h1 span {
+  color: #352b27;
+  margin-left: 5px;
+}
+
+/* .cart-static .cart-static__row p {
+  text-transform: capitalize;
+} */
+
+.cart-static .cart-item__content h4 a {
+  font-size: 14px !important;
+  font-family: "AT Surt Medium";
+  line-height: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.cart-static__actions h2 {
+  font-size: 28px;
+  font-family: "AT Surt Medium";
+  text-transform: capitalize;
+  line-height: 36px;
+  margin-bottom: 16px;
+}
+
+.cart-static .add-a-git-note-header * {
+  font-size: 14px;
+  font-family: 'Radio Grotesk' !important;
+  line-height: 20px;
+}
+
+.add-a-git-note-wrapper {
+  border: 1px solid #efefef;
+}
+
+.cart-static .btn[name="checkout"] {
+  font-family: 'Radio Grotesk' !important;
+  text-transform: capitalize;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 12px 24px;
+}
+
+@media(min-width: 1023px) {
+  .cart-static__actions {
+    max-width: 397px;
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    top: 60px;
+  }
+}
+
+.shipping-hint {
+  font-size: 14px;
+  line-height: 20px;
+  color: #756F6D;
+}
+
+.cart-static .cart-static__actions-wrapper,
+.cart-static .cart-static__actions-wrapper .shipping-hint {
+  border-radius: 4px;
+}
+
+.cart-static .cart-static__row {
+  border-bottom: 1px solid #d7d6d0 !important;
+}
+
+.cart-static .cart-static__row--remove-border {
+  border: 0;
+}
+
+.cart-static .cart-item .cart-item__image {
+  width: 268px;
+  height: 210px;
+}
+
+.cart-static .cart-static__item .cart-item__toggle-prescription-table {
+  font-family: 'Radio Grotesk';
+  text-transform: capitalize;
+  font-weight: normal;
+  /* width: 120px; */
+  padding: 5px 8px;
+  font-size: 11px;
+  position: relative;
+  background: #F3F2F2;
+  color: #756F6D;
+}
+
+.cart-static .cart-static__item .cart-item__toggle-prescription-table .toggle-icon {
+  border-right: 1.5px solid #b3a89b;
+  border-bottom: 1.5px solid #b3a89b;
+  transform: rotate(45deg);
+  margin-top: -8px;
+  display: inline-block;
+}
+
+.cart-static .cart-static__item .cart-item__toggle-prescription-table .toggle-icon.open {
+  transform: rotate(225deg);
+  margin-top: -4px;
+}
+
+.cart-item__bot .toggle-icon.open {
+  transform: translateY(25%) rotate(225deg);
+  margin-top: 0px;
+}
+
+.cart-static .cart-static__item .cart-item__toggle-prescription-table .toggle-icon:before,
+.cart-static .cart-static__item .cart-item__toggle-prescription-table .toggle-icon:after {
+  content: none;
+  margin-top: -2px;
+}
+
+.section-cart .section__body .cart-item .cart-item__image .btn-close {
+  left: 8px;
+  top: 8px;
+  display: none;
+}
+
+.cart-static .cart-item .cart-item__image span {
+  border-radius: 4px;
+}
+
+.cart-static .cart-static__item .cart-item__prescription-details p {
+  font-size: 11px;
+  line-height: 20px;
+  color: #AEAAA9
+}
+
+.cart-static .cart-static__item .cart-item__prescription-details p.u-mt15 {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.cart-item--static .cart-item__prescription-details .cart-item__prescription-details-new {
+  color: #352b27;
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.product-item .product__entry h3 {
+  color: #352b27;
+}
+
+.cart-static .cart-product-upsell .product-item__inner .product__entry h3,
+.cart-static .cart-product-upsell .product-item__inner .product__entry .product__prices-item {
+  font-size: 12px !important;
+  font-family: "AT Surt Medium" !important;
+  line-height: 16px !important;
+}
+
+.cart-static .cart-product-upsell .product-item__inner .product__entry h3 * {
+  font-size: 9px !important;
+  font-family: 'Radio Grotesk' !important;
+  line-height: 14px !important;
+}
+
+/* .cart-static
+  .cart-product-upsell
+  .product-item__inner
+  .product__entry
+  span.current-color-name {
+} */
+
+.cart-static .cart-product-upsell .product-item__inner .product__actions .btn-quick-add {
+  font-family: 'Radio Grotesk';
+  background: #352b27;
+  color: #fff !important;
+  text-transform: none;
+  border: none !important;
+}
+
+.cart-static .cart-product-upsell .product-item__inner .product__actions .btn-quick-add span {
+  width: 10px;
+  height: 10px;
+}
+
+.cart-static .cart-product-upsell .product-item__inner .product__actions .btn-quick-add span:after,
+.cart-static .cart-product-upsell .product-item__inner .product__actions .btn-quick-add span:before {
+  background-color: #fff;
+  margin-top: 3px;
+  opacity: 0;
+}
+
+.cart-static .cart-item--static .cart-item__quantity .cart-item__increment span {
+  color: #352b27;
+  width: 32px;
+  text-align: center;
+}
+
+.cart-static .cart-product-upsell .product-item__inner .product__actions .btn-quick-add span {
+  background: #FFF;
+  border: 1px solid #EFEFEC;
+  border-radius: 4px;
+  padding: 7px;
+  width: 26px;
+  height: 26px;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.cart-static .cart-product-upsell .product-item__inner .product__actions .btn-quick-add {
+  padding: 0;
+  font-family: 'Radio Grotesk';
+  background: #FFF;
+  text-transform: none;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+.with-precription {
+  display: flex;
+  justify-content: flex-end;
+  /* margin-top: 105px; */
+  /* bottom: 0;
+  position: absolute;
+  right: 0; */
+}
+
+@media (max-width: 768px) {
+
+  .cart-item .Order__items-description__prescription thead th,
+  .cart-item .Order__items-description__prescription tbody th {
+    font-family: 'Radio Grotesk' !important;
+    font-size: 11px;
+    color: #AEAAA9;
+    line-height: 20px;
+    font-weight: 100;
+  }
+
+  .cart-static .cart-product-upsell .product-item__inner .product__actions .btn-quick-add span {
+    background: #352B27;
+    border: #352B27;
+  }
+
+  .product__actions .btn-quick-add.js-quick-add span svg g path {
+    stroke: #FFF;
+  }
+
+  .cart-static .cart-product-upsell .product-listing__item {
+    margin-right: 0 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .cart-static .cart-product-upsell .product-listing {
+    width: 100%;
+  }
+
+  .with-precription {
+    position: absolute;
+    right: 0;
+    margin-top: 33px;
+    bottom: -45px;
+  }
+  
+  .new-prescription-form .new-prescription-form-table-select {
+    margin-bottom: 8px;
+    margin-left: 16px !important;
+  }
+  .add-space-mobile {
+    width: 100%;
+    height: 16px;
+  }
+}
+
+.cart-item__prescription-btn-edit {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cart-item__prescription-btn-edit small {
+  font-size: 14px;
+  font-family: 'Radio Grotesk';
+  color: #352b27;
+  margin-top: 13px;
+  display: inline-block;
+  text-decoration: underline;
+}
+
+.cart-item__prescription-btn-edit span {
+  display: inline-block;
+  margin-left: 6px;
+  width: 12px;
+}
+
+.cart-static .cart-item__prescription-table {
+  max-width: 100%;
+}
+
+.Order__items-description__prescription {
+  border-radius: 4px;
+  border: 1px solid #efefec;
+  background: #fff;
+}
+
+.Order__items-description__prescription thead th:first-child {
+  border-radius: 4px 0 0;
+}
+
+.Order__items-description__prescription thead th:last-child {
+  border-radius: 0 4px 0 0;
+}
+
+.cart-static .Order__items-description__prescription tbody th,
+.cart-static .Order__items-description__prescription thead th {
+  background: #fff;
+}
+
+.Order__items-description__prescription tbody td:first-child {
+  border: 0;
+}
+
+.Order__items-description__prescription tbody tr:last-child td:first-child {
+  border: 0;
+  font-size: 12px;
+}
+
+.Order__items-description__prescription tbody tr:last-child td:last-child {
+  border: 0;
+}
+
+.custom .Order__items-description__prescription tbody td {
+  border: 0;
+  padding: 4px 20px;
+  color: var(--soft-black-700, #352B27);
+  text-align: center;
+  font-family: 'Radio Grotesk';
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.custom .Order__items-description__prescription tbody tr:last-child td {
+  padding-bottom: 16px;
+}
+
+.Order__items-description__prescription tbody td {
+  border: 0;
+  font-size: 14px;
+  font-family: 'Radio Grotesk';
+  color: #352b27;
+  padding: 18px;
+}
+
+.Order__items-description__prescription tbody td:first-child,
+.Order__items-description__prescription tbody tr:last-child td:first-child {
+  color: var(--soft-black-400, #AEAAA9);
+  font-family: 'Radio Grotesk';
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  text-align: left;
+}
+
+.cart-static .Order__items-description__prescription tbody td,
+.cart-static .Order__items-description__prescription tbody th,
+.cart-static .Order__items-description__prescription thead td,
+.cart-static .Order__items-description__prescription thead th {
+  /* padding: 18px; */
+}
+
+.cart-static .u-pcDb {
+  display: block;
+}
+
+.cart-static .u-spDb {
+  display: none;
+}
+
+.cart-static .cart-static__actions-wrapper {
+  padding: 24px;
+}
+
+.cart-static .cart-product-upsell .product-listing__item .product-item {
+  background: none;
+}
+
+
+.cart-static .cart-product-upsell .product-item__inner {
+  padding: 0;
+}
+
+.cart-static .Order__items-description__prescription {
+  width: 100%;
+}
+
+.cart-static .cart-product-upsell .product-listing__item {
+  /* padding: 24px 0; */
+  border: 1px solid #EFEFEC;
+  border-radius: 8px;
+  /* margin-right: 12px;
+  margin-bottom: 12px; */
+}
+
+/* .cart-static .cart-product-upsell .product-listing__item:first-child {
+  padding-top: 0;
+} */
+
+/* .cart-static .cart-product-upsell .product-listing__item:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+} */
+
+.Order__items-description__prescription tbody tr:last-child td:first-child {
+  color: var(--soft-black-400, #AEAAA9);
+  font-family: 'Radio Grotesk';
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .cart-item .cart-item__prescription-table table:last-child {
+    padding: 16px;
+  }
+
+  .cart-static .Order__items-description__prescription tbody td,
+  .cart-static .Order__items-description__prescription tbody th,
+  .cart-static .Order__items-description__prescription thead td,
+  .cart-static .Order__items-description__prescription thead th {
+    font-size: 11px;
+    font-family: 'Radio Grotesk';
+    text-align: center;
+  }
+
+  .cart-static .Order__items-description__prescription thead th {
+    padding-top: 16px;
+    padding-bottom: 8px;
+    color: #AEAAA9;
+  }
+
+  .cart-static .Order__items-description__prescription tbody td:not(:first-child) {
+    width: 65px;
+    padding-bottom: 5px;
+  }
+}
+
+.section-cart .section__head .btn-arrow,
+.cart-static .Order__items-description__prescription tbody td:not(:first-child) {
+  font-family: 'Radio Grotesk';
+  text-transform: inherit;
+}
+
+#find-records-additional-info {
+  width: 100%;
+  margin: 32px 0 0 0;
+}
+
+#find-records-additional-info p {
+  font-family: 'Radio Grotesk';
+  /* font-weight: 400; */
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #352B27;
+}
+
+@media only screen and (max-width: 768px) {
+  #find-records-additional-info p {
+    text-align: center;
+    line-height: 20px;
+  }
+}
+
+#find-records-additional-info a {
+  color: #352B27;
+}
+
+.cart-static__row.cart-static__row--remove-border.cart-static__row--total {
+  padding-top: 16px;
+}
+
+.cart-static__row .cart-static__row--remove-border p,
+.cart-static .cart-static__row p,
+.cart-static__row .cart-static__row--remove-border .cart-static__row--total p,
+.cart-static__row .cart-static__row--remove-border .cart-static__row--total .cart-order-summary-total {
+  font-family: 'Radio Grotesk';
+  font-size: 14px !important;
+  line-height: 20px;
+  color: #554D4A;
+}
+
+.cart-static__row.cart-static__row--remove-border.cart-static__row--total p,
+.mobile-cart-order-summary-total span {
+  font-family: "AT-Surt-SemiBold";
+}
+
+
+
+.mobile-cart-order-summary-total {
+  display: none;
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 20px;
+  color: #352b27;
+  margin-bottom: 16px;
+}
+
+.mobile-block,
+{
+display: block;
+}
+
+.mobile-sum {
+  display: none;
+}
+
+.cart-static .cart-product-upsell .product-listing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cart-static .cart-product-upsell .product-listing__item {
+  max-width: 339px;
+}
+
+.products-upsell .product h2 {
+  font-family: "AT Surt Medium";
+  font-size: 28px;
+  line-height: 36px;
+}
+
+@media (min-width: 768px) {
+  .shell-custom {
+    padding: 0 120px !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+
+  .cart-static .cart-static__actions-wrapper .mobile-block {
+    display: none;
+  }
+
+  .mobile-block {
+    display: none;
+  }
+
+  .section-cart {
+    padding-bottom: 0;
+  }
+
+  .js-cart-section .cart-static {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .js-cart-section .cart-static .cart-product-upsell {
+    order: 2;
+    width: 100%;
+  }
+
+  .js-cart-section .cart-static .cart-static__actions {
+    order: 3;
+    position: relative;
+    width: calc(100% + 36px);
+    left: -18px;
+    padding-bottom: 121.5px;
+    max-width: calc(100% + 36px);
+    /* background: #f9f8f7; */
+  }
+
+  .cart-static .cart-static__actions-wrapper {
+    border-radius: 0;
+    padding: 20px 16px;
+    background: #F3F2F2 !important;
+    margin-top: 16px;
+  }
+
+  .cart-static .u-pcDb {
+    display: none;
+  }
+
+  .cart-static .u-spDb {
+    display: block;
+    width: 100%;
+  }
+
+  .cart-item .cart-item__prescription-table table {
+    width: 100%;
+    background: #ffffff;
+  }
+
+  .new-prescription-form-table-td:last-child {
+    padding-right: 16px !important;
+  }
+
+  .cart-static .cart-item .section-cart .section__body .cart-item .cart-item__variants p {}
+
+  .cart-static .cart-static__item .cart-item__toggle-prescription-table .toggle-icon {
+    width: 9px;
+    height: 9px;
+  }
+
+  /* .cart-static .cart-static__item .cart-item__toggle-prescription-table .toggle-icon.open {
+    transform: rotate(225deg);
+    margin-top: -2px;
+  } */
+
+  .cart-static .cart-item--static .cart-item__variants p:first-child:last-child {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  .cart-static .cart-item--static .cart-item__quantity {
+    margin-top: 16px;
+  }
+
+  .section-cart .section__head-left h1 {
+    font-size: 22px;
+    line-height: 36px;
+    color: #352B27;
+    margin-bottom: 16px;
+  }
+
+  .cart-static .cart-static__item {
+    padding-bottom: 58px;
+  }
+
+  .cart-item__top .cart-static-price {
+    display: none;
+  }
+
+  .cart-static .cart-item .cart-item__inner {
+    display: flex;
+    flex-direction: row;
+    min-height: 79px;
+  }
+
+  .cart-item .cart-item__image span {
+    width: 100px;
+    height: 80px;
+  }
+
+  .cart-static .cart-item .cart-item__image,
+  .cart-static .cart-item .cart-item__image-inner {
+    width: 100px;
+    height: auto;
+  }
+
+  /* .section-cart .section__body .cart-item .cart-item__content {
+    padding: 16px 0 0;
+  } */
+
+  /* .cart-item--static .cart-item__prescription-details {
+    margin-top: 16px;
+    border-top: 1.5px solid #efefec;
+    padding-top: 16px;
+  } */
+
+  .cart-item--static .cart-item__prescription-details-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  /* .cart-item--static .cart-item__prescription-details-item:not(:first-child) {
+    margin-top: 10px;
+  } */
+
+  .cart-item--static .cart-item__prescription-details .cart-item__prescription-details-new {
+    display: block;
+    margin: 0;
+  }
+
+  .cart-static .cart-static__item .cart-item__prescription-details p {
+    font-size: 11px;
+    font-family: 'Radio Grotesk';
+    line-height: 150%;
+  }
+
+  .cart-item--static .cart-item__prescription-details .cart-item__prescription-details-new-price {
+    display: none;
+  }
+
+  .cart-static .cart-static__actions-wrapper h2 {
+    border: 0;
+    font-family: "AT Surt Medium";
+    font-size: 22px;
+    line-height: 32px;
+    padding-bottom: 16px;
+    margin: 0;
+  }
+
+  .cart-static .cart-static__row {
+    padding-bottom: 8px;
+  }
+
+  .cart-static .cart-item__prescription-table {
+    margin: 20px 0 0;
+    width: 100%;
+  }
+
+  .cart-static .cart-static__item .cart-item__toggle-prescription-table {
+    width: 127px;
+    font-size: 11px;
+  }
+
+  .cart-static .cart-static__item .cart-item__prescription-price {
+    margin-top: 8px;
+  }
+
+  .cart-item {
+    text-align-last: unset;
+  }
+
+  .cart-item .Order__items-description__prescription td {
+    text-align-last: center;
+  }
+
+  .cart-item .Order__items-description__prescription tbody td,
+  .cart-item .Order__items-description__prescription thead td,
+  .cart-item .Order__items-description__prescription tbody th,
+  .cart-item .Order__items-description__prescription thead th {
+    background: #ffffff;
+    font-family: 'Radio Grotesk';
+  }
+
+  .cart-static .Order__items-description__prescription tbody td,
+  .cart-static .Order__items-description__prescription thead td,
+  .cart-static .Order__items-description__prescription tbody th,
+  .cart-static .Order__items-description__prescription thead th {
+    /* padding: 15px; */
+    text-align: center;
+  }
+
+  .cart-static .Order__items-description__prescription tbody td:first-child {
+    text-align: left;
+  }
+
+  .cart-static .cart-static__row {
+    border: 0;
+  }
+
+  .cart-static .cart-static__row--remove-border.cart-static__row--total p {
+    margin: 0;
+  }
+
+  .cart-static .cart-static__row--total p:last-of-type {
+    font-size: 18px;
+  }
+
+  .cart-static .cart-static__actions .cart-static__action {
+    padding: 20px 16px;
+    background: #F3F2F2;
+  }
+
+  /* .cart-static .cart-static__actions-wrapper, .cart-static__actions, .js-cart-section .cart-static .cart-static__actions {
+    background: #FFF
+  } */
+
+  .cart-static .cart-static__row.cart-static__row--total {
+    display: none;
+  }
+
+  .add-a-git-note-wrapper {
+    order: 1;
+    margin: 0 16px;
+    padding: 12px 16px;
+    background-color: #fff;
+  }
+
+  .mobile-cart-order-summary-total {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .cart-static .cart-static__row.cart-order-summary-shipping--row {
+    /* padding-bottom: 24px; */
+    border-bottom: none !important;
+    padding: 0 !important;
+    /* padding: 9px 0; */
+  }
+
+  .cart-static .cart-static__row.cart-static__row--total {
+    padding-bottom: 24px;
+  }
+
+  .cart-static .cart-static__actions-wrapper.u-nobg {
+    background: none;
+    padding: 24px 0;
+  }
+
+  .cart-static .cart-static__actions-wrapper .shipping-hint {
+    border: 0;
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .mobile-sum {
+    display: flex;
+    font-family: 'Radio Grotesk';
+    font-size: 22px;
+    line-height: 32px;
+    color: #352B27;
+  }
+
+  .add-a-git-note-header span {
+    font-size: 14px;
+  }
+
+  .cart-static .cart-product-upsell .product-item__inner .product__actions .btn-quick-add {
+    padding: 12px;
+  }
+
+  .product-listing .product-listing__item .product__entry h3 span {
+    font-size: 11px !important;
+  }
+
+  .template-cart #shopify-section-footer {
+    display: none;
+  }
+
+  .cart-static .cart-product-upsell .product-listing__item {
+    padding: 0;
+    /* border-bottom: 0; */
+    width: 100%;
+  }
+
+  .cart-static .cart-product-upsell .product-item__inner .product__content {
+    padding: 12px !important
+  }
+
+
+  .cart-static .cart-product-upsell .product-item__inner .product__image,
+  .cart-static .cart-product-upsell .product-item__inner {
+    height: 125px !important;
+  }
+
+  /* .cart-static .cart-product-upsell .product-listing__item:first-child {
+    padding-top: 0;
+  } */
+
+  /* .cart-static .cart-product-upsell .product-listing__item:last-child {
+    padding-bottom: 0;
+  } */
+
+  .cart-static .cart-product-upsell h2 {
+    border-bottom: 0;
+  }
+
+  .cart-item p.addtl-info {
+    margin-top: 8px;
+  }
+
+  #find-records-additional-info p {
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .cart-item .cart-item__image {
+    width: 100px;
+    min-width: 100px;
+    height: 96px;
+  }
+
+  .cart-item--static .cart-item__content {
+    padding-left: 12px;
+  }
+
+  .cart-static .cart-item--static .cart-item__variants p:first-child:last-child {
+    margin-top: 0 !important
+  }
+
+  .cart-static .cart-item--static .cart-item__quantity {
+    margin-top: 16px;
+    position: absolute;
+    bottom: -47px;
+    /* left: -100px; */
+    width: 100%;
+    justify-content: flex-end;
+    padding-right: 12px;
+  }
+
+  .cart-item--static .cart-item__quantity .cart-item__increment {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: absolute;
+    left: -121px;
+  }
+
+  .cart-static .cart-item--static .cart-item__quantity {
+    padding-right: 21px;
+  }
+}
+
+@media(max-width: 375px) {
+  .cart-item--static .cart-item__quantity .cart-item__increment {
+    left: -115px;
+  }
+
+  .cart-static .cart-item--static .cart-item__quantity {
+    padding-right: 15px;
+  }
+}
+
+.cart-item--static .cart-item__variants p:first-child:last-child {
+  font-size: 11px !important;
+  font-family: 'Radio Grotesk';
+  line-height: 150%;
+  margin-top: 4px;
+  color: #AEAAA9;
+}
+
+.cart-static .cart-item--static .cart-item__quantity .cart-item__increment span {
+  color: #352b27;
+  width: 32px;
+  text-align: center;
+  font-family: 'Radio Grotesk' !important;
+  line-height: 20px;
+}
+
+/* .cart-static .cart-static__actions-wrapper, .cart-static .cart-static__actions-wrapper .shipping-hint {
+  margin-top: 16px;
+} */
+
+.cart-item__prescription-details-item>p {
+  color: #AEAAA9;
+}
+
+.cart-item__action-right-wrapper>.underline>* {
+  display: flex;
+  cursor: pointer;
+  font-family: 'Radio Grotesk';
+  font-size: 11px;
+  color: #AEAAA9;
+  line-height: 16px;
+  text-decoration: none;
+}
+
+.cart-item__action-right-wrapper {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  height: 32px;
+}
+
+.cart-item__action-right-wrapper *:hover {
+  color: #756F6D;
+}
+
+.underline {
+  padding-bottom: 2px;
+  border-bottom: 1px solid #AEAAA9;
+}
+
+.underline:hover {
+  border-bottom: 1px solid #756F6D;
+}
+
+.text-hidden {
+  font-family: 'Radio Grotesk';
+  font-size: 11px;
+  line-height: 14px;
+  color: #352B27;
+  margin-left: 4px;
+  opacity: 0;
+  position: absolute;
+}
+
+.cart-static .cart-product-upsell .product-item__inner .product__actions .btn-quick-add span {
+  transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+@media (min-width: 769px) {
+  .cart-static .cart-product-upsell .product-item__inner .product__actions .btn-quick-add span {
+    transition: width 0.3s ease, opacity 0.3s ease;
+    background: initial;
+  }
+
+  .cart-static .cart-product-upsell .product-item__inner .product__actions .btn-quick-add span:hover {
+    width: 53px;
+    background: #352B27;
+  }
+
+  .cart-static .cart-product-upsell .product-item__inner .product__actions .btn-quick-add span:hover svg g path {
+    stroke: #FFF;
+    transition: stroke 0.3s ease;
+  }
+
+  #animate-add__btn .text-hidden {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease, left 0.3s ease;
+    color: initial;
+  }
+
+  #animate-add__btn:hover .text-hidden {
+    display: block;
+    opacity: 1;
+    left: 19px;
+    color: #FFF;
+  }
+}
+
+.cart__empty-text-h2 {
+  font-family: "AT Surt Medium";
+  font-size: 28px;
+  line-height: 36px;
+  margin-bottom: 12px;
+  color: #352B27;
+  padding-top: 40px;
+  justify-content: center;
+}
+
+.cart__empty-text-p {
+  font-family: 'Radio Grotesk' !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+
+.cart-static__row_subtotal {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
+}
+
+.cart-static__row_subtotal p {
+  font-family: 'Radio Grotesk';
+  font-size: 14px !important;
+  line-height: 20px;
+  color: #554D4A;
+}
+
+.cart-static__row_total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin: 16px 0;
+}
+
+.cart-static__row_total p,
+.cart-static .cart-static__row--total p:last-of-type {
+  font-size: 14px !important;
+}
+
+.add-a-git-note-body textarea {
+  border: 1px solid #A13F10;
+  border-radius: 4px;
+}
+
+.add-a-git-note-wrapper {
+  position: relative;
+}
+
+#body-gift-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.cart-static .Order__items-description__prescription tbody td:first-child {
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+
+  .cart__empty-text-h2,
+  .cart__empty-text-p {
+    padding: 0 16px
+  }
+
+  .cart__empty-text-h2 {
+    padding-top: 32px;
+  }
+
+  .cart__empty-text-p {
+    padding-bottom: 32px;
+  }
+
+  .cart-static__row_total {
+    display: none;
+  }
+}
+
+/* Overrides */
+@media only screen and (min-width: 769px) {
+  .new-prescription-right-subtotal {
+    max-width: 65.78%;
+    right: 0;
+    left: unset;
+    padding: 0;
+  }
+
+  /* .new-prescription-right-subtotal-inner {
+    width: 75%;
+  } */
+
+  .new-prescription-right-subtotal-temp {
+    flex: unset;
+  }
+}
+
+/* @media only screen and (min-width: 1441px) {
+  .new-prescription-right-subtotal-inner {
+    width: 70%;
+    padding: 0 10px;
+    max-width: 683px;
+  }
+
+  .new-prescription-right-subtotal-flex {
+    flex: 1;
+  }
+
+  .new-prescription-right-subtotal-btn {
+    flex: unset;
+  }
+} */
+
+.cart-item-price__container p.cart-item__row-price,
+.cart-item-price__container .cart-static-price {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.new-prescription-btn-tab-item {
+  margin-top: 24px
+}
+
+.new-prescription-form-label {
+  justify-content: start !important
+}
+
+.new-prescription-form-table-td:last-child {
+  padding-right: 24px;
+}
+
+.new-prescription-form .new-prescription-form-table-select {
+  margin-left: 8px;
+}
+
+.prescription-message-guide-a,
+.prescription-message-guide-b {
+  position: fixed;
+  bottom: 76px;
+  background: #F8F8F8;
+  color: #756F6D;
+  width: 100%;
+  align-items: center;
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 20px;
+  border-top: 1px solid #D7D6D0;
+  border-bottom: 1px solid #D7D6D0;
+  gap: 5px;
+  padding: 16px 80px;
+  display: none;
+}
+
+.prescription-message-guide-a a,
+.prescription-message-guide-b a {
+  /* background: #F8F8F8; */
+  color: #756F6D;
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+
+  .prescription-message-guide-a,
+  .prescription-message-guide-b {
+    bottom: 129px;
+    padding: 16px 24px;
+    font-size: 12px;
+  }
+
+  .prescription-message-guide-a a,
+  .prescription-message-guide-b a {
+    font-size: 12px;
+  }
+}
+
+.prescription-message-guide-a.is-visible,
+.prescription-message-guide-b.is-visible {
+  display: block;
+  z-index: 100;
+}
+
+.new-prescription-form .new-prescription-form-label {
+  font-size: 12px;
+  font-family: 'Radio Grotesk';
+  margin-bottom: 6px;
+  color: #756F6D;
+}
+
+.new-prescription-notes-form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: start;
+  /* margin-top: 24px; */
+  font-family: 'Radio Grotesk';
+  font-size: 12px;
+  color: #756F6D;
+  line-height: 16px;
+  display: none;
+}
+
+.new-prescription-notes-form label {
+  margin-bottom: 6px
+}
+
+.new-prescription-notes-form textarea, .new-prescription-notes-form span {
+  width: 100%;
+  height: 80px;
+  border: 1px solid #EFEFEC;
+  border-radius: 4px;
+  padding: 10px 8px;
+  font-size: 14px;
+  color: #352B27;
+}
+
+.prescription-proceed {
+  padding: 12px 40px;
+  background: #352B27;
+  border: 1px solid #352B27;
+  color: #FFF;
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 40px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all ease-in-out .2ms;
+}
+
+.prescription-shopping {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 20px;
+  border-bottom: 1px solid #352B27;
+  text-decoration: none;
+  color: #352b27;
+  padding-bottom: 2px;
+}
+
+.prescription-proceed:hover {
+  background: #FFF;
+  color: #352B27;
+  border: 1px solid #352B27;
+}
+
+.prescription-lens-clr, .tint-rx-clr {
+  font-size: 12px;
+  color: #756F6D;
+  line-height: 16px;
+  font-family: 'Radio Grotesk';
+  margin-bottom: 6px;
+}
+
+.tint-rx-clr {
+  margin-bottom: 12px;
+  display: flex;
+}
+
+.tint-options .tint_rx_label {
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid #EFEFEC;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: "AT Surt Medium";
+  line-height: 16px;
+  width: 33.3%;
+  padding: 6px;
+}
+
+.tint-options .active {
+  border: 1px solid #EFEFEC;
+  background-color: #EFEFEC;
+}
+.lens-tint-image img {
+  width: 100%;
+}
+
+.tint-options {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  text-align: center;
+}
+
+.lens-upgrade {
+  padding: 12px 0 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+#tint-image-desktop {
+  width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+#tint-image-mobile-onyx, #tint-image-mobile-canyon, #tint-image-mobile-moss, #tint-image-mobile-lemon, #tint-image-mobile-mandarin, #tint-image-mobile-sakura, #tint-image-mobile-ocean {
+  border-radius: 8px;
+  object-fit: cover;
+  height: 273px;
+  margin: 12px 0;
+  width: -webkit-fill-available;
+}
+
+.prescription-lens-ocean, 
+.prescription-lens-sakura, 
+.prescription-lens-mandarin, 
+.prescription-lens-lemon, 
+.prescription-lens-moss, 
+.prescription-lens-canyon, 
+.prescription-lens-onyx{
+  margin-bottom: 12px;
+}
+
+.tint-desktop {
+  position: absolute;
+}
+
+.tint-desktop img {
+  margin-top: -68px;
+  height: auto;
+  overflow: hidden;
+}
+
+@media(min-width:1441px) {
+  .tint-desktop img {
+    margin-top: -87px;
+  }
+}
+
+.tint-options label.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@media(min-width: 769px) {
+  .tint-desktop {
+    display: block;
+    position: absolute;
+    overflow: hidden;
+    height: 530px;
+  }
+  .tint-mobile {
+    display: none;
+  }
+}
+
+@media(max-width: 768px) {
+  .tint-mobile {
+    display: block;
+  
+  }
+  .tint-desktop {
+    display: none;
+  }
+  .lens-upgrade {
+    padding: 12px 24px 24px;
+  }
+  .new-prescription-form-table-th .th-flex {
+    margin-left: 23px;
+}
+}
+
+.new-prescription-notes-form.is-visible {
+  display: block;
+}
+@media(min-width: 769px){
+  .new-prescription-right-subtotal-btn-next:hover {
+    color: #352b27;
+    background: #FFF;
+    transition: 0.2s ease-out;
+    border: 1px solid #352b27;
+  }
+}
+.new-prescription-form-table-tr.hover-on:hover {
+  background: #F8F8F8;
+  transition: ease-in-out .2s;
+}

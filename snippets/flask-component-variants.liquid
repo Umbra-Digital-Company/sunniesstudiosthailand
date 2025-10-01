@@ -1,0 +1,96 @@
+{% liquid
+    assign current_variant = product.selected_or_first_available_variant
+    assign condition = multiple_options | strip
+    assign selected_color = current_variant.option1 | handleize
+    if condition == "true"
+      assign selected_color = current_variant.option1 | handleize
+    endif
+    assign current_variant_is_seasonal = false
+    if current_variant.metafields.variant_swatch.is_seasonal == true
+      assign current_variant_is_seasonal = true
+    endif
+%}
+
+<div class="product-variants-container {% if product.metafields.product.size_guide != blank %}with-size-guide{% endif %}">
+  <variant-radios style="display: flex; flex-direction: column;" data-section="{{ section.id }}" data-url="{{ product.url }}">
+    
+  <fieldset class="swatch" style="order: 2; margin-top: 24px;">
+    <h5><span class="variant-name-label">Classic</span>{% unless current_variant.metafields.custom.limited == true %}<span id="option_color" class="variant-name">{{ selected_color | capitalize }}</span>{% endunless %}</h5>
+    <div class="product-variant-swatches">
+      {%- assign option = product.options_by_name['Product Color'] %}
+      {%- for value in option.values -%}
+        {% unless value.variant.metafields.custom.limited == true %}
+        {% assign current_color = value | handleize %}
+        <div class="input-label-wrapper {% unless value.variant.available %}not-available{% endunless %}">
+          <input
+            data-product="{{ product.id }}" data-url="{{ product.url }}"
+            type="radio"
+            id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+            name="{{ option.name }}"
+            value="{{ value | escape }}"
+            form="{{ product_form_id }}"
+            {% if option.selected_value == value %}checked{% endif %}>
+          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" data-handle-name="{{ value | handleize }}">
+            {{ value }}
+          </label>
+        </div>
+        {% endunless %}
+      {% endfor  %}
+    </div>
+
+    <h5 style="margin-top: 24px"><span class="variant-name-label">Limited</span> {% if current_variant.metafields.custom.limited == true %}<span id="option_color" class="variant-name">{{ selected_color  | capitalize }}</span>{% endif %}</h5>
+    <div class="product-variant-swatches">
+      {%- assign option = product.options_by_name['Product Color'] %}
+      {%- for value in option.values -%}
+        {% if value.variant.metafields.custom.limited == true %}
+        {% assign current_color = value | handleize %}
+        <div class="input-label-wrapper {% unless value.variant.available %}not-available{% endunless %}"> 
+          <input
+            data-product="{{ product.id }}" data-url="{{ product.url }}"
+            type="radio"
+            id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+            name="{{ option.name }}"
+            value="{{ value | escape }}"
+            form="{{ product_form_id }}"
+            {% if option.selected_value == value %}checked{% endif %}>
+          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" data-handle-name="{{ value | handleize }}">
+            {{ value }}
+          </label>
+        </div>
+          {% endif %}
+      {% endfor  %}
+    </div>
+</fieldset>
+  {% if condition == "true" %}
+    
+    <fieldset style="margin-top: 0px">
+      {%- assign option = product.options_by_name['Size'] %}
+      <legend class="form__label variant-name-label">{{ option.name | remove: 'Product ' }} <span id="option_name" style="color: #352b27">{{ product.selected_or_first_available_variant.option2 }}</span></legend>
+      {%- for value in option.values -%}
+        <div class="input-label-wrapper">
+          <input
+            data-product="{{ product.id }}" data-url="{{ product.url }}"
+            type="radio"
+            id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+            name="{{ option.name }}"
+            value="{{ value | escape }}"
+            form="{{ product_form_id }}"
+            {% if option.selected_value == value %}checked{% endif %}>
+          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+            {{ value }}
+          </label>
+        </div>
+      {%- endfor -%}
+    </fieldset>
+  {% endif %}
+  <script id="productVariantDetails" type="application/json">
+    {{ product.variants | json }}
+  </script>
+</variant-radios>
+</div>
+
+<style>
+  .product-variants-container h5{
+    display: flex;
+  }
+</style>

@@ -1,0 +1,23 @@
+{%- capture socials_list -%}
+social_instagram_link|Instagram,
+social_twitter_link|Twitter,
+social_facebook_link|Facebook,
+social_pinterest_link|Pinterest,
+{%- endcapture -%}
+{%- assign socials_list = socials_list | strip_newlines | split: ',' -%}
+
+<ul class="{{ socials }}">
+  {%- for social_link in socials_list -%}
+    {%- assign social_link_array = social_link | split: '|' -%}
+
+    {% if settings[social_link_array.first] != blank %}
+      <li>
+        <a href="{{ settings[social_link_array.first] | escape }}" title="{{ 'layout.socials.social_platform' | t: name: shop.name, platform: social_link_array.last }}" target="_blank">
+          <i class="ico ico--{{ social_link_array.last | handle }}" aria-hidden="true"></i>
+
+          {{- social_link_array.last -}}
+        </a>
+      </li>
+    {% endif %}
+  {%- endfor -%}
+</ul>

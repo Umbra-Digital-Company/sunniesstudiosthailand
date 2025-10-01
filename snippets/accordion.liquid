@@ -1,0 +1,59 @@
+{%- if _content -%}
+  {%- assign accordions = '' -%}
+  {%- assign additional_content = '' -%}
+
+  {%- assign _tag = tag | default: 'h6' -%}
+
+  {%- assign start_tag = _tag | prepend: '<' | append: '>' -%}
+  {%- assign end_tag = _tag | prepend: '</' | append: '>' -%}
+
+  {%- assign classes = additional_classes | default: 'accordion' -%}
+
+  {%- assign parts = _content | split: start_tag -%}
+
+  {%- if accordion_title_tag -%}
+    {%- assign markup_title_start = accordion_title_tag | prepend: '<' | append: '>' -%}
+    {%- assign markup_title_end = accordion_title_tag | prepend: '</' | append: '>' -%}
+  {%- else -%}
+    {%- assign markup_title_start = '<h6>' -%}
+    {%- assign markup_title_end = '</h6>' -%}
+  {%- endif -%}
+
+  {%- for part in parts -%}
+    {%- if part contains end_tag -%}
+      {%- assign accordion_title = part | split: end_tag | first -%}
+      {%- assign accordion_title = markup_title_start | append: accordion_title | append: markup_title_end -%}
+
+      {%- assign accordion_content = part | split: end_tag | last -%}
+
+      {%- capture accordion_html -%}
+        <div class="accordion__section">
+          <div class="accordion__head js-accordion-head">
+            {{ accordion_title }}
+
+            <span></span>
+          </div><!-- /.accordion__head -->
+
+          <div class="accordion__body">
+            <div class="accordion__body-inner">
+              {{ accordion_content }}
+            </div><!-- /.accordion__body-inner -->
+          </div><!-- /.accordion__body -->
+        </div><!-- /.accordion__section -->
+      {%- endcapture -%}
+
+      {%- assign accordions = accordions | append: accordion_html -%}
+    {%- else -%}
+      {%- assign additional_content = part -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if residual_content -%}
+    {{ additional_content }}
+  {%- endif -%}
+
+  <div class="{{ classes }} js-accordion">
+    {{ accordions }}
+  </div><!-- /.{{ classes }} -->
+{%- endif -%}
+

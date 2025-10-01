@@ -1,0 +1,118 @@
+{{ 'section-featured-products-2024.css' | asset_url | stylesheet_tag }}
+
+{%- assign _section = section.settings -%}
+{%- assign section_title = _section.title -%}
+
+{%- if section.blocks.size > 0 -%}
+  <section class="section-featured-products section-featured-products-v2 v2">
+    <div class="shell">
+      <div class="section__inner">
+        <div class="featured-product-nav-buttons">
+          <div class="featured-products-swiper-prev">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none">
+              <path
+                d="M13 8L3 7.99999M3 7.99999L7.25 3.99999M3 7.99999L7.375 12"
+                stroke="#352B27"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="featured-products-swiper-next">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none">
+              <path
+                d="M8.625 12L13 8L8.625 4M13 8L3 8"
+                stroke="#352B27"
+                stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+        {%- if section_title != blank -%}
+          <header class="section__head">
+            <h2>{{ section_title }}</h2>
+            <a href="{{ section.settings.ctalink }}" class="section--cta default">
+              {{ section.settings.ctatext }}
+            </a>
+          </header>
+        {%- endif -%}
+        <div class="featured-products-swiper featured-products-swiper-v2" id="featured-products-wrapper">
+          <div class="swiper-wrapper">
+            {%- for block in section.blocks -%}
+              <div class="swiper-slide">
+                {% assign block_product = block.settings.product_select %}
+                {% assign block_collection = block.settings.product_collection %}
+                {% assign variant_name = '' %}
+                {% assign block_product_type = block_product.type | downcase %}
+                {% if block_product_type == 'readers frame' %}
+                  {% render 'readers-product-card' with block_product as product_data %}
+                {% else %}
+                  {% render 'product-card-2024'
+                    , product_data: block_product
+                    , variant_name: variant_name
+                    , product_collection: block_collection %}
+                {% endif %}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+<script src="{{ 'section-featured-products-v2.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+  {
+    "name": "Featured Products 2024",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      }, {
+        "id": "ctatext",
+        "type": "text",
+        "label": "Link text",
+        "default": "Shop all"
+      }, {
+        "id": "ctalink",
+        "type": "url",
+        "label": "Link URL"
+      }
+    ],
+    "max_blocks": 20,
+    "blocks": [
+      {
+        "type": "product",
+        "name": "product",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product_select",
+            "label": "Select Product"
+          }, {
+            "type": "collection",
+            "id": "product_collection",
+            "label": "Product Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Products 2024"
+      }
+    ]
+  }
+{% endschema %}

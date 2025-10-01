@@ -1,0 +1,31 @@
+<style>
+  .cart__pre-order-alert {
+    font-family: 'Radio Grotesk';
+    font-size: 11px;
+    margin-top: 16px;
+    text-align: center;
+    line-height: 150%;
+    padding: 8px;
+    border-radius: 4px;
+    background: var(--soft-black-100, #F3F2F2);
+    color: #756F6D;
+  }
+  
+  @media(max-width: 768px){
+    .section-cart > .shell:has(.cart-widget__empty){
+      padding: 0px 0px;
+    }
+    .section-cart .cart__pre-order-alert{
+      margin-top: 0px
+    }
+  }
+</style>
+
+{% comment %} {% unless settings.cart_pre_order_alert == blank %} {% endcomment %}
+ {% if cart.empty? %}
+  {% else %}
+  <div class="cart__pre-order-alert">
+    <p>Free shipping on orders over $100, capped at $20.</p>
+  </div>
+ {% endif %}
+{% comment %} {% endunless %} {% endcomment %}

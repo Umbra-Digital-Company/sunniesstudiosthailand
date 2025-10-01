@@ -1,0 +1,144 @@
+{%- assign _section = section.settings -%}
+{%- assign section_title = _section.title -%}
+{%- assign section_text = _section.section_text -%}
+{%- assign section_btn_text = _section.button_text -%}
+{%- assign section_btn_url = _section.button_url -%}
+{%- assign _section = section.settings -%}
+{%- assign section_image = _section.image -%}
+{%- assign section_image_mobile = _section.image_mobile -%}
+{%- assign section_alignment = _section.alignment -%}
+{%- assign collection = section.settings.collection -%}
+
+{%- if section.blocks.size > 0 -%}
+  <section class="section-featured-collection" id="gift-guide-feature-collection">
+    <div class="shell">
+      <div class="block-items">
+        <div class="section__inner">
+          {%- if section_title != blank -%}
+            <header class="section__head"  id="gift-guide-section-head">
+              <h2  id="gift-guide-feature-title">{{section_title}}</h2>
+              <div class="section_text">{{ section_text }}</div>
+              {%- if section_btn_text != blank -%}
+              <a class="btn" href="{{section_btn_url}}">{{ section_btn_text }}</a>
+              {%- endif -%}
+            </header>
+          {%- endif -%}
+          
+          <div class="section__body img-{{section_alignment}}" id="gift-guide-featured-section-body">
+            <div class="featured-image">
+              {%- if section_image != blank -%}
+                <div 
+                  class="section__image section__image--desktop lazyload" 
+                  data-bgset="{{ section_image | img_url: 'master' }}">
+                </div>
+              {%- endif -%}
+
+              {%- if section_image_mobile != blank -%}
+                <div class="section__image section__image--mobile">
+                  <img 
+                    data-src="{{ section_image_mobile | img_url: 'master' }}" 
+                    alt="" 
+                    class="lazyload" />
+                </div>
+              {%- endif -%}
+            </div>
+
+            <div class="featured-products">
+              {% for product in collection.products %}
+                {%- for block in section.blocks -%}
+                    {%- assign _product = block.settings.product_select -%}
+                    {% if product.id == _product.id %}
+                      {%- include 'product-item-carousel' with _product  -%}
+                    {% endif %}
+                {% endfor %}
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+	"name": "Gift Guide Feature One",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title"
+		},
+		{
+			"type": "richtext",            
+			"id": "section_text",
+      "label": "Content"
+    },
+		{
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text"
+		},
+		{
+      "type": "url",
+      "id": "button_url",
+      "label": "Button url"
+		},
+		{
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }, 
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image mobile"
+    }, 
+    {
+      "type": "header",
+      "content": "Featured Image Position"
+    }, 
+    {
+      "type": "radio",
+      "id": "alignment",
+      "label": "Featured Image Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        }, 
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "id": "collection",
+      "label": "Collection",
+      "type": "collection"
+    }
+	],
+	"max_blocks": 4,
+	"blocks": [
+		{
+			"type": "product",
+			"name": "product",
+			"settings": [
+				{
+					"type": "product",
+					"id": "product_select",
+					"label": "Select Product"
+				}
+			]
+		}
+		
+	],
+	"presets": [
+		{
+			"name": "Gift Guide Feature One"
+		}
+	]
+}
+{% endschema %}
+

@@ -1,0 +1,165 @@
+<section class="icon-desc">
+  <h3 class="title">{{ section.settings.title }}</h3>
+  <div class="items">
+    <div class="column column-one">
+      {% for block in section.blocks %}
+        {% if block.type == "half_left" %}
+          <div class="item">
+            <div class="icon" style="background-image: url({{ block.settings.icon | img_url: 'master' }}); background-size: contain; background-repeat: no-repeat;">
+            </div>
+            <div class="desc">{{ block.settings.desc }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="column column-two">
+      {% for block in section.blocks %}
+        {% if block.type == "half_right" %}
+          <div class="item">
+            <div class="icon" style="background-image: url({{ block.settings.icon | img_url: 'master' }}); background-size: contain; background-repeat: no-repeat;">
+            </div>
+            <div class="desc">{{ block.settings.desc }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Icons With Descriptions",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "half_left",
+      "name": "Left column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "richtext",
+          "id": "desc",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "type": "half_right",
+      "name": "Right column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "richtext",
+          "id": "desc",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.icon-desc {
+  padding: 80px 0 50px;
+  background-color: #F5F5F5;
+}
+
+.icon-desc .title {
+  margin-bottom: 20px;
+  font-size: 36px;
+  text-align: center;
+}
+
+.icon-desc .items {
+  display: flex;
+  max-width: 90%;
+  margin: auto;
+}
+
+.icon-desc .column {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-desc .item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 170px;
+}
+
+.icon-desc .icon {
+  position: relative;
+  margin-right: 40px;
+  width: 120px;
+  height: 120px;
+}
+
+/* .icon-desc .icon > img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+.icon-desc .desc {
+  width: 58%;
+}
+
+.icon-desc a {
+  color: inherit;
+}
+
+.icon-desc a:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 767px) {
+  .icon-desc {
+    padding: 40px 0 25px;
+  }
+
+  .icon-desc .title {
+    font-size: 28px;
+    padding: 0 20px;
+    text-align: left;
+  }
+
+  .icon-desc .items {
+    flex-direction: column;
+  }
+
+  .icon-desc .item {
+    height: 140px;
+  }
+
+  .icon-desc .icon {
+    margin-right: 15px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .icon-desc .desc p {
+    font-size: 14px;
+  }
+
+  .icon-desc .desc {
+    width: 76%;
+  }
+}
+</style>

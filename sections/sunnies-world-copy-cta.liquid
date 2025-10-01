@@ -1,0 +1,92 @@
+{{ 'sunnies-world-copy-cta.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign section_settings = section.settings
+  assign background_color = section_settings.background_color
+  assign text_color = section_settings.text_color
+  assign title = section_settings.title
+  assign description = section_settings.description
+  assign cta_text = section_settings.cta_text
+  assign cta_url = section_settings.cta_url
+  assign show_section = section_settings.show_section
+%}
+
+{% if show_section %}
+<section class="sunnies-world-copy-cta" style="background-color: {{ background_color }}; color: {{ text_color }};">
+  <div class="copy-cta-container">
+    <div class="copy-cta-content">
+      {% if title != blank %}
+        <h2 class="copy-cta-title">{{ title }}</h2>
+      {% endif %}
+      
+      {% if description != blank %}
+        <div class="copy-cta-description">
+          {{ description }}
+        </div>
+      {% endif %}
+      
+      {% if cta_text != blank and cta_url != blank %}
+        <div class="copy-cta-button-wrapper">
+          <a href="{{ cta_url }}" class="copy-cta-button">
+            {{ cta_text }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Sunnies World Copy & CTA",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Sunnies World Bangkok"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Sunnies World is now open in Central Park Dusit Thailand— a new space for all things Sunnies. Balancing together classical influence and modern sophistication, Sunnies World Bangkok is a center of exploration where vision, beauty, and design intersect. Built for the ever-growing Sunnies community, the store invites like-minded individuals to meet, drink, read, and engage while getting their hands on an edit of our favorite things. Come seek the full Sunnies experience where you can shop and unwind as you get lost in time.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA button text",
+      "default": "Visit our stores"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sunnies World Copy & CTA"
+    }
+  ]
+}
+{% endschema %}

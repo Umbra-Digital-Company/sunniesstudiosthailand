@@ -1,0 +1,253 @@
+{{ 'section-banner-carousel.css' | asset_url | stylesheet_tag }}
+
+<section class="banner-carousel">
+  <div class="swiper-wrapper">
+    {% for block in section.blocks %}
+      <div class="banner-item swiper-slide">
+        <img class="desktop-only" src="{{ block.settings.img_banner | img_url: 'master' }}">
+        <img class="mobile-only" src="{{ block.settings.img_banner_mobile | img_url: 'master' }}">
+        <div class="banner-content">
+          {%- if block.settings.logo_image != blank -%}
+            <div id="logo-image-wrapper">
+              <img
+                id="logo-image"
+                src="{{ block.settings.logo_image | img_url: 'master' }}"
+                alt="{{ block.settings.logo_image.alt }}"
+                loading="lazyload"
+              >
+            </div>
+          {%- endif -%}
+          {% if block.settings.banner_text != blank %}
+            <h1 class="banner-text">{{ block.settings.banner_text }}</h1>
+          {% endif %}
+          <a
+            class="btn {% if section.settings.is_black_or_white %}btn--white{% endif %}"
+            href="{{ block.settings.banner_btn_url }}"
+          >
+            {{- block.settings.banner_btn_text -}}
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="swiper-pagination"></div>
+</section>
+
+<script>
+  const carouselBannerElements = document.querySelectorAll('.banner-carousel');
+  const hasCarouselBanners = !!carouselBannerElements?.length
+  if (hasCarouselBanners) {
+      for (let index = 0; index < carouselBannerElements.length; index++) {
+          const carouselBannerElement  = carouselBannerElements[index];
+          populateCarousel(carouselBannerElement);
+      }
+  }
+
+  function populateCarousel(carousel) {
+      const pagination = carousel.querySelector('.swiper-pagination');
+      const swiperBanner = new Swiper(carousel, {
+          speed: 1000,
+          spaceBetween: 0,
+          loop: true,
+          pagination: {
+              el: pagination,
+              type: 'bullets',
+              clickable: true
+          },
+          autoplay: {
+              delay: 8000,
+              disableOnInteraction: false,
+          }
+      });
+  }
+</script>
+
+<style>
+  body.has-top-bar .wrapper {
+    padding-top: 0;
+  }
+
+  .banner-carousel {
+    position: relative;
+    height: 810px;
+    margin-bottom: 80px;
+  }
+
+  .banner-item {
+    position: relative;
+  }
+
+  .banner-item img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  {% if section.settings.content_alignment == 'left' %}
+    .banner-content {
+      width: 100%;
+      position: absolute;
+      bottom: 100px;
+      left: 7%;
+      transform: none;
+      text-align: left;
+    }
+  {% endif %}
+
+  {% if section.settings.content_alignment == 'centered' %}
+    .banner-content {
+      width: 100%;
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+  {% endif %}
+
+  {% if section.settings.content_alignment == 'right' %}
+    .banner-content {
+      width: 100%;
+      position: absolute;
+      bottom: 100px;
+      right: 7%;
+      transform: none;
+      text-align: right;
+    }
+  {% endif %}
+
+  .banner-text p {
+      font-family: AT-Surt-DemiBold;
+      font-size: 40px;
+      color: {{ section.settings.banner_text_color }};
+  }
+
+  .banner-carousel .swiper-pagination-bullet {
+      background: transparent;
+    border: 1px solid #fff;
+    opacity: 1 !important;
+    border-radius: 50% !important;
+  }
+
+  .banner-carousel .swiper-pagination-bullet:not(:last-child) {
+      margin-right: 14px;
+  }
+
+  .banner-carousel .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background: #fff !important;
+    border-radius: 50% !important;
+  }
+
+  .featured-products-carousel .featured-image img {
+    width: 100%;
+  }
+
+  .desktop-only {
+    display: block;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .desktop-only {
+      display: none;
+    }
+
+    .mobile-only {
+      display: block;
+    }
+
+    .banner-carousel {
+      margin-bottom: 50px;
+    }
+
+    .banner-content {
+      position: absolute;
+      top: initial;
+      bottom: 85px;
+      left: initial;
+      padding: 0 30px;
+      transform: none;
+      text-align: center;
+    }
+
+    .banner-text p {
+      font-size: 24px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Banner Carousel",
+  "settings": [
+    {
+      "type": "color",
+      "id": "banner_text_color",
+      "label": "Banner Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_black_or_white",
+      "label": "White button",
+      "default": true
+    },
+    {
+      "type": "radio",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "centered",
+          "label": "Centered"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "centered"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Banner",
+      "type": "banner_block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img_banner",
+          "label": "Image Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_banner_mobile",
+          "label": "Image Banner mobile"
+        },
+        {
+          "type": "richtext",
+          "id": "banner_text",
+          "label": "Banner Text"
+        },
+        {
+          "type": "text",
+          "id": "banner_btn_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "banner_btn_url",
+          "label": "Button URL"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="{{ "section-about-banner.css" | asset_url }}">
+
+<div class="shell">
+  <div class="section__inner">
+    {%- if block_image != blank -%}
+      <div class="section__image desktop" style="background-image: url({{ block_image | image_url: width: '3200px' }});"></div>
+      <div class="section__image mobile" style="background-image: url({{ block_image_mobile |image_url: width: '3200px' }});"></div>
+    {%- endif -%}
+
+    {%- if block_title != blank -%}
+      <div class="section__content desktop">
+        <h1 style="color: {{ title_color }}; text-align: {{ title_position }};">{{ block_title }}</h1>
+      </div>
+      <div class="section__content mobile">
+        <h1 style="color: {{ title_color }}; text-align: {{ title_position }};">{{ block_title }}</h1>
+      </div>
+    {%- endif -%}
+  </div>
+</div>

@@ -1,0 +1,61 @@
+{{ 'three-item-list.css' | asset_url | stylesheet_tag }}
+
+<div class="three-item-list-container">
+  <div class="three-item-list-wrapper">
+    <div class="three-list-item">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/A.png?v=1664269863"
+        width="32"
+        height="32"
+        loading="lazy"
+      >
+      <p>{{ section.settings.text_a }}</p>
+    </div>
+    <div class="three-list-item">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/B.png?v=1664269863"
+        width="32"
+        height="32"
+        loading="lazy"
+      >
+      <p>{{ section.settings.text_b }}</p>
+    </div>
+    <div class="three-list-item">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/C.png?v=1664269863"
+        width="32"
+        height="32"
+        loading="lazy"
+      >
+      <p>{{ section.settings.text_c }}</p>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Three Item List",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "text_a",
+      "label": "Text (A)"
+    },
+    {
+      "type": "textarea",
+      "id": "text_b",
+      "label": "Text (B)"
+    },
+    {
+      "type": "textarea",
+      "id": "text_c",
+      "label": "Text (C)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Three Item List"
+    }
+  ]
+}
+{% endschema %}

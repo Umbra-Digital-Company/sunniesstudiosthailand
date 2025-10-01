@@ -1,0 +1,252 @@
+{%- comment -%} update {%- endcomment -%}
+{%liquid 
+  assign is_eligible = false
+
+  assign discount_include_sun = settings.discount_include_sun_2
+  assign discount_include_optical = settings.discount_include_optical_2
+  assign discount_include_reader = settings.discount_include_reader_2
+  assign discount_include_antirad = settings.discount_include_antirad_2
+  assign discount_include_merch = settings.discount_include_merch_2
+
+  assign agenda_discount_include_sun = settings.discount_include_sun
+  assign agenda_discount_include_optical = settings.discount_include_optical
+  assign agenda_discount_include_reader = settings.discount_include_reader
+  assign agenda_discount_include_antirad = settings.discount_include_antirad
+  assign agenda_discount_include_merch = settings.discount_include_merch
+
+  assign agenda_discount_minimum_purchase_amount = settings.discount_minimum_purchase_amount
+  assign discount_minimum_purchase_amount = settings.discount_minimum_purchase_amount_2
+  assign product_to_be_excluded = settings.product_to_be_excluded_2
+  assign product_to_be_excluded_2 = settings.product_to_be_excluded_2a
+
+  assign all_eligble_product_for_calculations = 0
+  assign all_eligible_agenda_for_calculations = 0
+
+  assign agenda_subtotal = 0
+
+  for item in cart.items
+    if item.product.id == product_to_be_excluded_2.id
+      assign agenda_subtotal = agenda_subtotal | plus:item.final_line_price | divided_by: 100
+    endif
+  endfor
+
+
+  for item in cart.items
+    if product_to_be_excluded.id != item.product.id and item.product_id != '4779915575350'
+      if item.product.type == 'Sun frame' and discount_include_sun
+      assign all_eligble_product_for_calculations = all_eligble_product_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Optical frame' and discount_include_optical
+      assign all_eligble_product_for_calculations = all_eligble_product_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Lens' and discount_include_optical
+      assign all_eligble_product_for_calculations = all_eligble_product_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Readers frame' and discount_include_reader
+      assign all_eligble_product_for_calculations = all_eligble_product_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Anti-Radiation Frame' and discount_include_antirad
+      assign all_eligble_product_for_calculations = all_eligble_product_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Merch' and discount_include_merch
+      assign all_eligble_product_for_calculations = all_eligble_product_for_calculations | plus: item.final_line_price 
+      endif
+
+      if item.product.type == 'Sun frame' and agenda_discount_include_sun
+      assign all_eligible_agenda_for_calculations = all_eligible_agenda_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Optical frame' and agenda_discount_include_optical
+      assign all_eligible_agenda_for_calculations = all_eligible_agenda_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Lens' and agenda_discount_include_optical
+      assign all_eligible_agenda_for_calculations = all_eligible_agenda_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Readers frame' and agenda_discount_include_reader
+      assign all_eligible_agenda_for_calculations = all_eligible_agenda_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Anti-Radiation Frame' and agenda_discount_include_antirad
+      assign all_eligible_agenda_for_calculations = all_eligible_agenda_for_calculations | plus: item.final_line_price
+      endif
+
+      if item.product.type == 'Merch' and agenda_discount_include_merch
+      assign all_eligible_agenda_for_calculations = all_eligible_agenda_for_calculations | plus: item.final_line_price 
+      endif
+    endif
+  endfor
+  
+  assign agenda_already_exist = false
+  assign agenda_formatted_calculations = all_eligible_agenda_for_calculations | divided_by: 100 | minus: agenda_subtotal 
+  assign teddy_formatted_calculations = all_eligble_product_for_calculations | divided_by: 100
+  assign difference_between_callout = agenda_formatted_calculations | minus: teddy_formatted_calculations
+  assign remaining_balance_for_teddy = teddy_formatted_calculations
+  assign keep_teddy = false
+
+  for item in cart.items
+    if product_to_be_excluded.id != item.product.id
+      if item.product.tags contains 'agenda_discount'
+        assign agenda_already_exist = true
+        assign to_deduct = agenda_discount_minimum_purchase_amount | times: item.quantity
+        assign eligible_agenda = agenda_subtotal | divided_by: item.quantity
+
+        if difference_between_callout > 0
+          assign agenda_extra_balance = difference_between_callout | minus: to_deduct
+
+          if agenda_extra_balance < 0
+            assign remaining_balance_for_teddy = teddy_formatted_calculations | plus: agenda_extra_balance
+          endif
+        else
+          assign remaining_balance_for_teddy = teddy_formatted_calculations | minus: to_deduct
+        endif
+        
+        if remaining_balance_for_teddy < discount_minimum_purchase_amount
+          assign discount_minimum_purchase_amount = 65 | times: item.quantity
+        endif
+
+        if eligible_agenda != 10
+          assign keep_teddy = true
+
+          if teddy_formatted_calculations < settings.discount_minimum_purchase_amount_2
+            assign keep_teddy = false
+          endif
+        endif 
+        break
+      else
+        if teddy_formatted_calculations >= discount_minimum_purchase_amount
+          assign keep_teddy = true
+        endif
+      endif
+    endif
+  endfor
+
+  assign teddy_already_exist = false
+  assign teddy_variant_id = 0
+
+  for item in cart.items
+    if item.product.tags contains 'teddy_discount'
+      assign teddy_already_exist = true
+      assign teddy_variant_id = item.id
+    endif
+  endfor
+
+  if agenda_already_exist
+    assign total_discount_cart_price = remaining_balance_for_teddy
+  else
+    assign total_discount_cart_price = all_eligble_product_for_calculations | divided_by: 100
+  endif
+
+  if total_discount_cart_price >= discount_minimum_purchase_amount 
+    assign is_eligible = true
+  else
+    assign is_eligible = false
+  endif
+%}
+
+{% comment %} {% if is_eligible == false and teddy_already_exist == true and keep_teddy == false %}
+	<script>
+    setTimeout(() => {
+      removePWP('{{teddy_variant_id}}');
+      // document.querySelector('.js-cart-section').classList.add('loading-icon');
+    },300)
+	</script>
+{% endif %} {% endcomment %}
+
+<div class="cart-discount-callout-container"
+  style="display: {% if settings.enable_discount_callout_2 %}block{% else %}none{% endif %};">
+  <div class="cart-discount-callout-wrapper">
+    <img src="{{ settings.discount_callout_image_2 }}" loading="lazy"
+      id="callout-img" />
+    <div class="cart-discount-callout-content">
+      <section>
+        <h4 id="cart-callout-title">
+          {% if is_eligible %}
+          {{ settings.cart_discount_callout_title_eligible_2 }}
+          {% else %}
+          {{ settings.cart_discount_callout_title_not_eligible_2 }}
+          {% endif %}
+        </h4>
+        <p id="cart-callout-description">
+          {% if is_eligible %}
+          {{ settings.cart_discount_callout_description_eligible_2 }}
+          {% else %}
+          {{ settings.cart_discount_callout_description_not_eligible_2 }}
+          {% endif %}
+        </p>
+      </section>
+      <div class="cart-discount-callout-actions">
+        <button id="cart-discount-callout-button" type="button" onclick="openPopup()">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Union.svg?v=1666083086"
+            loading="lazy" />
+          <span>Add</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% assign popup_product = product_to_be_excluded.variants %}
+{% assign popup_default_product = popup_product | first %}
+
+<div id="dc-modal">
+  <div id="dc-modal-wrapper">
+    <div id="dc-modal-container">
+      <span id="dc-close-icon-container" onclick="closePopup()">
+        <svg viewBox="0 0 40 40">
+          <path d="M 10,10 L 30,30 M 30,10 L 10,30" id="dc-close-icon" fill="transparent" stroke-linecap="round" stroke-width="4px"></path>
+        </svg>
+      </span>
+      <div id="dc-products-container">
+        <div class="dc-product">
+          <div class="dc-product-image">
+            <img src="{{popup_default_product.featured_image | img_url: '480x'}}" src="{{popup_default_product.featured_image.alt}}" />
+          </div>
+          <p class="dc-product-name">Teddy Laptop Sleeve</p>
+          <label>Pick a color:</label>
+          <div class="dc-product-dropdown">
+            <select class="dc-product-variants">
+              {% for variant in popup_product %}
+                <option value="{{variant.id}}" data-src="{{variant.featured_image | img_url: '480x'}}" data-available="{{variant.available}}">{{variant.title}}</option>
+              {% endfor %}
+            </select>
+            <svg aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 9 9" class="dropdown-icon">
+              <path d="M8.542 2.558a.625.625 0 0 1 0 .884l-3.6 3.6a.626.626 0 0 1-.884 0l-3.6-3.6a.625.625 0 1 1 .884-.884L4.5 5.716l3.158-3.158a.625.625 0 0 1 .884 0z"></path>
+            </svg>
+          </div>
+          <button class="dc-product-button" type="button">Add to bag</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script type="text/javascript">
+    $(document).ready(function() {
+      let cartVariantToAdd = {{popup_default_product.id}};
+
+      $('#dc-modal .dc-product-variants').on('change', function() {
+        $('#dc-modal .dc-product-image img').attr('src', $(this).find(':selected').data('src'));
+        cartVariantToAdd = $(this).val();
+
+        if ($(this).find(':selected').data('available') == false) {
+          $('#dc-modal .dc-product-button').text('Out of stock').prop('disabled', true)    
+        } else {
+          $('#dc-modal .dc-product-button').text('Add to bag').prop('disabled', false)
+        }
+      });
+
+      $('#dc-modal .dc-product-button').on('click', function(e) {
+        $(this).prop('disabled', true);
+        e.preventDefault();
+        addMiniProduct(cartVariantToAdd);
+      });
+    })
+  </script>
+</div>

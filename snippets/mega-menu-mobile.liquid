@@ -1,0 +1,104 @@
+{% comment %}Set variables{% endcomment %}
+
+{%- assign mobile_mega_blocks = '' -%}
+{%- assign menu_handle = handle -%}
+{%- assign menu_class_name = class | default: 'menu' -%}
+{%- assign menu_dropdown = menu_dropdown_flag | default: false -%}
+{%- assign prev_title = prev_title | default: menu_handle -%}
+{%- assign menu_item_index = item_index | default: '0' -%}
+
+{%- if menu_dropdown -%}
+    {%- assign menu_items_array = menu_handle -%}
+{%- else -%}
+    {%- assign menu_items_array = linklists[menu_handle].links -%}
+{%- endif -%}
+
+{% comment %}Class naming{% endcomment %}
+{%- assign menu_class_dropdown = '__dropdown' | prepend: menu_class_name -%}
+{%- assign menu_class_item  = '__item' | prepend: menu_class_name -%}
+{%- assign menu_class_have_dropdown = '__item--has-dropdown' | prepend: menu_class_name | prepend: ' ' -%}
+{%- assign menu_active_class = '--active' | prepend: menu_class_item -%}
+{%- assign menu_class_item_active_children = '--ancestor-active' | prepend: menu_class_item -%}
+
+{%- assign my_title_1 = my_title -%}
+{%- assign my_url_1 = my_url -%}
+
+{%- if menu_dropdown == false -%}
+    {%- endif -%}
+    <div class="custom-accordion-tabs">
+    {%- for _link in menu_items_array -%}
+      {%- assign menu_dropdown = false -%}
+      {%- assign _link_handle = prev_title | append: '-' | append: _link.title | handle -%}
+
+      {%- if _link.links.size > 0 or linklists[_link_handle] != empty -%}
+      {%- assign menu_dropdown = true -%}
+      {%- if _link.links.size > 0 -%}
+      {%- assign menu_dropdown_items = _link.links -%}
+      {%- else -%}
+      {%- assign menu_dropdown_items = linklists[_link_handle].links -%}
+      {%- endif -%}
+      {%- endif -%}
+
+      {%- if _link.active -%}
+      {%- assign menu_class_item_name = menu_class_item | append: ' ' | append: menu_active_class -%}
+      {%- else -%}
+      {%- assign menu_class_item_name = menu_class_item -%}
+      {%- endif -%}
+
+      {%- capture list_classes -%}
+      {{- menu_class_item_name -}}
+      {%- if menu_dropdown -%}
+      {{- menu_class_have_dropdown | append: ' ' -}}
+      {%- endif -%}
+      {%- if _link.child_active -%}
+      {{- menu_class_item_active_children | append: ' ' -}}
+      {%- endif -%}
+      {%- endcapture -%}
+
+      {%- assign handle_title = _link.title | handle -%}
+
+      {%- assign title_handle = _link.title | handle | prepend: '##' | append: '##'  -%}
+      {%- assign title_handle_end = _link.title | handle | prepend: '$$' | append: '$$' -%}
+      {%- assign new_item_index = item_index | handle | append: '-' | append: forloop.index -%}
+      
+      
+      <div class="custom-accordion-tab">
+        {%- if menu_dropdown -%}
+        <input type="checkbox" id="{{new_item_index}}" class="menu-group-{{item_index}}" data-level="menu-level-{{new_item_index}}" data-group="menu-group-{{item_index}}" />
+        <label class="tab-label" for="{{new_item_index}}"   data-level="menu-level-{{new_item_index}}" data-group="menu-group-{{item_index}}">
+          {{- _link.title -}}
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+            <path d="M9 18.5L15.5625 12.5L9 6.5" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </label>
+        {% else %}
+        <label class="tab-label-no-item"><a tabindex="-1" href="{{ _link.url }}">{{- _link.title -}}</a></label>
+        {% endif %}
+        <div class="tab-content menu-level-{{item_index}} "> 
+          {% if item_index == null %}
+            <div class="mega_submenu">
+              <svg class="submenu_back" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15.5625 6L9 12L15.5625 18" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div class="submenu_title">{{ _link.title | handle }}</div>
+              <div class="close-submenu-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M18 18L6 6" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M18 6L6 18" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M6 6L18 18" stroke="#352B27" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+
+            </div>
+          {% endif %}
+          {%- if menu_dropdown -%}
+          	{%- assign prev_title_text = _link.title | handle -%}
+			{%- render 'mega-menu-mobile' handle: menu_dropdown_items, prev_title: prev_title_text, menu_dropdown_flag: true, my_title: _link.title, my_url: _link.url, item_index: new_item_index -%}
+          {%- endif -%}
+        </div>
+        
+      </div>       
+    {%- endfor -%}
+    </div>
+{%- if menu_dropdown == false -%}
+{%- endif -%}

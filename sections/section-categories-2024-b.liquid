@@ -1,0 +1,209 @@
+{{ "section-categories-2024-b.css" | asset_url | stylesheet_tag }}
+
+<div class="page-width-40">
+  {% comment %} {% if section.settings.tittle != blank %}
+    <div class="heading-wrapper">
+      <h2>{{ section.settings.title }}</h2>
+    </div>
+  {% endif %} {% endcomment %}
+    <div class="category-wrapper">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="category-media-wrapper swiper-slide">
+              {% if block.settings.category_scroll_link != blank %}
+                {% assign link_href = '#' | append: block.settings.category_scroll_link %}
+              {% else %}
+                {% assign link_href = block.settings.category_link %}
+              {% endif %}
+
+              <a class="category-media-link" href="{{ link_href }}">
+                {% if block.settings.category_media contains '.mp4' %}
+                  <video autoplay loop muted playsinline>
+                    <source src="{{ block.settings.category_media }}" type="video/mp4">
+                  </video>
+                {% else %}
+                  <img src="{{ block.settings.category_media }}" loading="lazy">
+                {% endif %}
+              </a>
+              <div class="category-link-wrapper">
+                <a class="category-link" href="{{ link_href }}">{{ block.settings.cta_text }}</a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+</div>
+
+{% comment %} 2025 Revamped [Ron] {% endcomment %}
+<style>
+{% if section.settings.media_wrapper == true %}
+  .category-media-wrapper>img {
+    object-fit: cover;
+  }
+  @media screen and (min-width: 768px) {
+    .category-media-wrapper {
+      max-width: 25%;
+      margin-right: 4px;
+      /* height: 420px; */
+    }
+  }
+/* @media screen and (max-width: 768px) {
+    .category-media-wrapper {
+      max-width: 100%;
+      height: auto
+  }
+} */
+{% endif %}
+{% if template.suffix contains 'back-to-school' %}
+  @media screen and (min-width: 769px) {
+    .category-wrapper {
+      margin-top: 64px
+  }
+}
+  @media screen and (max-width: 768px) {
+    .category-wrapper {
+      margin-top: 40px
+  }
+}
+{% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Categories-2024",
+  "settings": [
+    {
+      "type": "header",
+      "content": "New Category Settings",
+      "info": "Additional settings for new design page."
+    },
+    {
+      "type": "checkbox",
+      "id": "media_wrapper",
+      "label": "Use 25% max-width for each block",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "mobile_slides_per_view",
+      "label": "Mobile Slides Per View",
+      "default": "1.2",
+      "info": "Adjust the number of slides visible on mobile devices."
+    }
+    // ,{
+    //     "type": "text",
+    //     "id": "title",
+    //     "label": "Title"
+    // },
+    // {
+    //   "type": "text",
+    //   "id": "collection_header_text",
+    //   "label": "Link Text"
+    // },
+    // {
+    //   "type": "url",
+    //   "id": "collection_header_url",
+    //   "label": "Link URL"
+    // }
+  ],
+  "blocks": [
+    {
+      "type": "category_block",
+      "name": "Category Block",
+      "settings": [
+        {
+          "type": "url",
+          "id": "category_media",
+          "label": "Category Block Image/Video",
+          "info": "only .mp4 format for video"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA Text"
+        },
+        {
+          "type": "url",
+          "id": "category_link",
+          "label": "Category Link"
+        },
+        {
+          "type": "text",
+          "id": "category_scroll_link",
+          "label": "Category Scroll Section ID",
+          "info": "Add Section-ID to scroll to it's specific banner. If this is left blank, the category link will be used."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Categories-2024"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var swiperInstance = null;
+
+    function initializeSwiper() {
+      if (window.innerWidth <= 768) {
+        if (!swiperInstance) {
+          swiperInstance = new Swiper('.swiper-container', {
+            slidesPerView: Number({{ section.settings.mobile_slides_per_view }}),
+            spaceBetween: 4,
+            freeMode: true,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+          });
+        }
+      } else {
+        if (swiperInstance) {
+          swiperInstance.destroy(true, true);
+          swiperInstance = null;
+        }
+      }
+    }
+
+    // Initialize Swiper on load only if the category wrapper is visible
+    if (document.querySelector('.category-wrapper')) {
+      initializeSwiper();
+
+      // Reinitialize Swiper on window resize
+      window.addEventListener('resize', function() {
+        initializeSwiper();
+      });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var href = this.getAttribute('href');
+        if (href !== '#' && href.length > 1) {
+          var targetId = href.substring(1);
+          var targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            e.preventDefault();
+            var offsetTop = targetElement.offsetTop - 73;
+            
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,6 @@
+<ul>
+  {% for link in linklists[handle].links %}
+    <li{% if link.url == page.url %} class="current"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a>
+    </li>
+  {% endfor %}
+</ul>

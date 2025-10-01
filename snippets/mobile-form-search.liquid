@@ -1,0 +1,16 @@
+{%- assign search_idx = search_idx | default: 0 | plus: 1 -%}
+
+<div class="mobile-search-form{{classes}}">
+  	<button type="button" class="bc-sf-search-btn-clear-suggestion" onclick="clearSuggestionMobile('#bc-sf-search-box-mobile');" style="display: none;">X</button>
+    
+    <form action="/search" method="get">
+<!--         <label for="q-{{ search_idx }}">{{ 'general.search.label' | t }}</label> -->
+      	<div class="btn-search-wrap">
+        	<span class="btn-search"><input type="submit" value="" class="search__btn btn-search__icon btn-search__icon--black"></span>
+        	<input type="search" name="q" id="q-{{ search_idx }}" value="{{ search.terms | escape }}" class="search__field js-trigger-srch-field" placeholder="{{ 'general.search.placeholder' | t }}">
+      		
+      </div>
+    </form>
+  	        
+</div>
+<!-- /.form__search -->

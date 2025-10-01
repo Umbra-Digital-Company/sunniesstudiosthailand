@@ -1,0 +1,158 @@
+
+<script>
+  let HAS_GIFT_NOTE = false;
+  function initAgendaAwareness() {
+  	const addData = {
+      'items': [{
+        'id': 39706452754486,
+        'quantity': 1,
+      }]
+    }
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(addData)
+    })
+    .then(res => {
+      window.location.reload();
+    })
+    .catch(err => console.error(err));
+  }
+
+  $("#add-a-gift-content").bind('input propertychange', function() {
+    if (this.value.length > 100) {
+      $("#add-a-gift-note-error").text("Gift Note must not exceed 100 characters.")
+      $(".action-save").css({ "pointer-events": "none" });
+    } else {
+      $("#add-a-gift-note-error").text("");
+      $(".action-save").css({ "pointer-events": "auto" });
+    }
+  });
+
+  function addAGiftNote() {
+    $(".add-a-git-note-body").show();
+    $("#add-a-gift-note-btn").hide();
+  }
+
+  function saveGiftNote() {
+    const value = $("#add-a-gift-content").val();
+
+    if (!!value) {
+      $("#action-save-label").hide();
+      $("#action-save-loader").show();
+      setGiftNote(value)
+    }
+  }
+
+  document.addEventListener('click', function(e) {
+    if(e.target.id == 'checkout_btn'){
+          saveGiftNote();
+    }
+  });
+
+  function closeAddGiftNote() {
+    if (HAS_GIFT_NOTE) {
+      $("#gift-note-actions-preview").css({ display: 'flex' });
+      $("#gift-note-actions-new-edit").css({ display: 'none' });
+      $("#add-a-gift-content").prop("disabled", true);
+    } else {
+      $(".add-a-git-note-body").hide();
+      $("#add-a-gift-note-btn").show();
+    }
+  }
+
+  async function fetchCart() {
+    const cart = await fetch("/cart.js", { method: "GET" });
+    return await cart.json();
+  }
+
+  async function initGiftNote() {
+    const { note } = await fetchCart();
+
+    if (!!note) {
+      addGiftNotePreviewToggle(note);
+      HAS_GIFT_NOTE = true;
+    } else {
+      HAS_GIFT_NOTE = false;
+    }
+  }
+
+  window.addEventListener("load", function(){
+    setTimeout(() => {
+      initGiftNote();
+    }, 2000);
+  })
+  
+
+  function removeGiftNote() {
+    setGiftNote("")
+    HAS_GIFT_NOTE = false;
+  }
+
+  function setGiftNote(value) {
+    fetch('/cart/update.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'note': value
+      })
+    })
+    .then(async (response) => {
+      const { note } = await response.json();
+      $("#add-a-gift-note-error").text("");
+
+      if (!!note) {
+        addGiftNotePreviewToggle(note);
+        HAS_GIFT_NOTE = true;
+      } else {
+        resetAddGiftNote();
+      }
+
+      $("#action-save-label").show();
+      $("#action-save-loader").hide();
+    })
+    .catch((error) => {
+      $("#action-save-label").show();
+      $("#action-save-loader").hide();
+      console.error(error);
+    });
+  }
+
+  function addGiftNotePreviewToggle(note) {
+    $(".add-a-git-note-header").hide();
+    $("#add-a-gift-note-btn").show();
+    $(".add-a-git-note-body").show();
+    $(".add-a-git-note-body").css({ padding: '0' });
+    $("#body-gift-icon").show();
+    $("#body-gift-close").hide();
+    $("#gift-note-actions-preview").css({ display: 'flex' });
+    $("#gift-note-actions-new-edit").css({ display: 'none' });
+    $("#add-a-gift-content").val(note);
+    $("#add-a-gift-content").prop("disabled", true);
+  }
+
+  function resetAddGiftNote() {
+    $(".add-a-git-note-header").show();
+    $(".add-a-git-note-body").hide();
+    $(".add-a-git-note-body").css({ padding: '3rem 0 0 0' });
+    $("#body-gift-icon").hide();
+    $("#body-gift-close").show();
+    $("#gift-note-actions-preview").css({ display: 'none' });
+    $("#gift-note-actions-new-edit").css({ display: 'flex' });
+    $("#add-a-gift-content").val("");
+    $("#add-a-gift-content").prop("disabled", false);
+  }
+
+  function toggleEditGiftNote() {
+    $("#gift-note-actions-preview").css({ display: 'none' });
+    $("#gift-note-actions-new-edit").css({ display: 'flex' });
+    $("#add-a-gift-content").prop("disabled", false);
+  }
+
+  
+</script>

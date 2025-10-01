@@ -1,0 +1,65 @@
+{% if section.blocks.size > 0 %}
+    {% assign colorGroups = '' %}
+
+    {%- capture colorGroups -%}
+        {%- for block in section.blocks -%}
+            {%- assign _block = block.settings -%}
+            {%- assign block_title_arr = _block.title | split: ' ' -%}
+            {% assign block_title = '' %}
+            
+            {%- for block_title_indx in block_title_arr -%}
+                {% assign capitalized = block_title_indx | capitalize %}
+                {% assign block_title = block_title | append: capitalized %}
+                
+                {% unless forloop.last %}
+                    {% assign block_title = block_title | append: ' ' %}
+                {% endunless %}
+            {%- endfor -%}
+
+            {%- assign block_sub_colors_arr = _block.sub_colors | split: ',' -%}
+            
+            {%- capture arr_colors -%}
+                {% for indx in block_sub_colors_arr %}
+                    {{ indx | handle | prepend: '"' | append:'"' | append: ',' }}
+                {% endfor %}
+            {%- endcapture -%}
+
+            {{colorGroups}}
+
+            {
+                "id": "{{block_title}}",
+                "colors": [{{arr_colors}}]
+            },
+        {%- endfor -%}
+    {%- endcapture -%}
+
+    <script type="text/javascript">
+        window.colorGroupsGlobal = [{{ colorGroups }}];
+    </script>
+{% endif %}
+
+{% schema %}
+{
+    "name": "Color Groups",
+    "max_blocks": 9999,
+    "blocks": [
+        {
+            "type": "color_group",
+            "name": "Color Group",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Main Color"
+                },
+                {
+                    "type": "textarea",
+                    "id": "sub_colors",
+                    "label": "Sub Colors",
+                    "info": "You can add one or more names for colors. Please, divide the color names with commas."
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

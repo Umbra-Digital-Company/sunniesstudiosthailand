@@ -1,0 +1,432 @@
+@keyframes pulse-ring {
+  0% {
+    transform: scale(.33);
+  }
+  80%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-dot {
+  0% {
+    transform: scale(.8);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(.8);
+  }
+}
+
+.header {
+  background: transparent;
+}
+
+.four-square-top {
+  background-color: var(--white_color);
+}
+
+.four-square-bottom {
+  background-color: var(--white_color);
+}
+
+.hover-effect-wrapper {
+  width: 100%;
+}
+
+.four-sqaure-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.four-square-content {
+  padding: 40px 16px;
+}
+
+.four-square-content .wrapper-alignment {
+  width: 100%;
+  text-align: center;
+}
+
+.four-square-content h5 {
+  font-family: "AT Surt Medium";
+  font-size: 28px;
+  line-height: 120%;
+  color: var(--black_color);
+  margin: 0 0 24px 0;
+  text-align: center;
+}
+
+.four-square-content p {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--black_color);
+  margin: 0 0 24px 0;
+  text-align: center;
+  max-width: 520px;
+}
+.four-square-content p:last-of-type {
+  margin-bottom: 0;
+  padding-left: 40px;
+  background-image: url('https://cdn.shopify.com/s/files/1/0172/4383/2374/files/hover-icon.svg?v=1668066563');
+  background-repeat: no-repeat;
+  background-size: 30px;
+  line-height: 30px;
+  background-position: 'center left';
+  display: inline-block;
+}
+
+.four-square-content a {
+  font-family: 'Radio Grotesk';
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--black_color);
+}
+
+.four-square-content #top-button {
+  outline: none;
+  border: none;
+  background: var(--black_color);
+  border-radius: 8px;
+  padding: 16px 40px;
+  font-family: "AT Surt Medium";
+  font-size: 14px;
+  line-height: 100%;
+  color: var(--neutral_eight_color);
+  text-decoration: none;
+}
+
+.hover-effect-wrapper {
+  position: relative;
+}
+
+.dot {
+  position: absolute;
+/*   padding-left: 20px; */
+  line-height: 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.dot-1 {
+  top: 30%;
+  left: 56%;
+}
+
+.dot-2 {
+  top: 68%;
+  left: 52%;
+}
+
+.dot-3 {
+  top: 64%;
+  right: 58%;
+}
+
+.dot-4 {
+  top: 17%;
+  right: 50%;
+}
+
+.dot-3, .dot-4 {
+  padding-left: 0;
+  padding-right: 20px;
+}
+
+.dot .circle {
+  display: 'block';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: 0;
+  top: 0;
+  border-radius: 6px;
+}
+
+/* .dot .circle::before {
+  content: '';
+  position: relative;
+  display: block;
+  width: 300%;
+  height: 300%;
+  box-sizing: border-box;
+  margin-left: -100%;
+  margin-top: -100%;
+  border-radius: 45px;
+  background-color: #b99e8e;
+  animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+} */
+  
+.dot .circle::after {
+  content: '';
+  position: absolute;
+  left: 0; 
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #352b27;
+  border-radius: 50%;
+  animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -.4s infinite;
+}
+
+.dot-3 .circle, .dot-4 .circle {
+  left: initial;
+  right: 0;
+}
+
+.dot .heading {
+  white-space: nowrap;
+}
+
+@media (min-width: 525px) {
+  .dot-1 {
+    top: 32%;
+  }
+  
+  .dot-2 {
+    left: 53%;
+  }
+
+  .dot-3 {
+    top: 63%;
+  }
+  
+  .dot-4 {
+    top: 19%;
+  }
+}
+
+@media (min-width: 768px) {
+  .four-square-content {
+    padding: 100px;
+    padding: 40px 16px;
+  }
+
+  .four-square-content h5 {
+    font-size: 32px;
+    margin: 0 0 40px 0;
+  }
+
+  .four-square-content p {
+    font-size: 16px;
+    margin: 0 auto 40px;
+  }
+
+  .four-square-content a {
+    font-size: 16px;
+  }
+
+  .four-square-content #top-button {
+    font-size: 16px;
+    width: fit-content;
+    border: 1.5px solid var(--black_color);
+  }
+
+  .dot {
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  .dot-3, .dot-4 {
+    padding-right: 24px;
+  }
+
+  .dot .circle {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+  }
+
+  .dot .circle::after {
+    border-radius: 50%;
+  }
+}
+
+@media (min-width:1200px) {
+  .four-square-top {
+    display: flex;
+  }
+
+  .four-square-bottom {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .hover-effect-wrapper {
+    width: 50%;
+  }
+
+  .four-square-content {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px;
+    padding: 40px 16px;
+  }
+
+  .four-square-content .wrapper-alignment {
+    text-align: left;
+    padding-left: 84px;
+  }
+
+  .four-square-content h5 {
+    font-size: 32px;
+    margin: 0 0 40px 0;
+    text-align: left;
+  }
+
+  .four-square-content p {
+    font-size: 16px;
+  text-align: left;
+    margin: 0 0 40px;
+  }
+
+  .four-square-content a {
+    font-size: 16px;
+  }
+
+  .four-square-content #top-button {
+    font-size: 16px;
+    width: fit-content;
+    border: 1.5px solid var(--black_color);
+  }
+
+  .four-square-content #top-button:hover {
+    background-color: var(--white_color);
+    color: var(--black_color);
+  }
+
+  .dot-1 {
+    top: 11%;
+    left: 35%;
+  }
+  
+  .dot-2 {
+    top: 38%;
+    left: 65%;
+  }
+
+  .dot-3 {
+    top: 48%;
+    right: 75%;
+  }
+  
+  .dot-4 {
+    top: 70%;
+    right: 50%;
+  }
+}
+
+/*  */
+.content {
+  display: none;
+}
+.dot.dot-1 {
+    width: 185px;
+    border: 1.5px solid transparent;
+}
+.dot.dot-2 {
+    width: 201px;
+    border: 1.5px solid transparent;
+}
+.dot.dot-3 {
+    width: 201px;
+    border: 1.5px solid transparent;
+}
+.dot.dot-4 {
+    width: 245px;
+    border: 1.5px solid transparent;
+}
+.heading {
+   line-height: 120%;
+   font-family: 'Radio Grotesk'
+}
+.dot.dot-1 .heading, .dot.dot-2 .heading {
+    padding: 16px;
+    padding-left: 40px;
+}
+.dot.dot-3 .heading, .dot.dot-4 .heading {
+    padding: 16px;
+    padding-right: 40px;
+}
+.circle {
+    margin: 16px;
+}
+.content {
+    font-family: 'Radio Grotesk';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    padding: 12px;
+    padding-top: 0;
+}
+@media only screen and (min-width: 1200px){
+  .dot.dot-1:hover, .dot.dot-2:hover, .dot.dot-3:hover, .dot.dot-4:hover {
+      border: 1.5px solid #352B27;
+      border-radius: 4px;
+  }
+  .dot.dot-1:hover .content, .dot.dot-2:hover .content, .dot.dot-3:hover .content, .dot.dot-4:hover .content{
+      display: block;
+  }
+  .dot.dot-1:hover .heading .circle:after, .dot.dot-2:hover .heading .circle:after, .dot.dot-3:hover .heading .circle:after, .dot.dot-4:hover .heading .circle:after {
+      height: 2px !important;
+      margin-top: 6px;
+      width: 10px;
+      animation: none;
+  }
+}
+@media only screen and (max-width:1199px) {
+  .heading {
+     line-height: 120%;
+     padding-top: 12px !important;
+     padding-bottom: 12px !important;
+     font-size: 14px;
+  }
+  .dot.dot-1 .heading, .dot.dot-2 .heading {
+     padding-left: 32px;
+  }
+  .circle {
+    margin: 12px;
+  }
+  .content {
+      font-size: 12px;
+  }
+  .dot.dot-4 {
+    right: 45%;
+    top: 12%;
+    width: 200px;
+  }
+  .dot.dot-3 {
+    width: 167px;
+    top: 60%;
+    right: 54%;
+  }
+  .dot.dot-2 {
+    width: 176px;
+    top: 56%;
+    left: 49%;
+  }
+  .dot.dot-1 {
+    width: 158px;
+    top: 20%;
+    left: 55%;
+  }
+}
+.dot.dot-1.open, .dot.dot-2.open, .dot.dot-3.open, .dot.dot-4.open {
+    border: 1.5px solid #352B27;
+    border-radius: 4px;
+}
+.dot.dot-1.open .content, .dot.dot-2.open .content, .dot.dot-3.open .content, .dot.dot-4.open .content {
+   display: block;
+}
+.dot.dot-1.open .heading .circle:after, .dot.dot-2.open .heading .circle:after, .dot.dot-3.open .heading .circle:after, .dot.dot-4.open .heading .circle:after {
+    height: 2px !important;
+    margin-top: 6px;
+    width: 10px;
+    animation: none;
+}

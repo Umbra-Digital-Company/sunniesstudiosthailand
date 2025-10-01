@@ -1,0 +1,118 @@
+{{ 'section-image-text-50.css' | asset_url | stylesheet_tag }}
+
+<div class="image-with-text">
+  {% if section.settings.image != blank %}
+    <div class="image-container desktop-image">
+      {% if section.settings.image contains '.mp4' or section.settings.image contains '.mov' %}
+        <video
+          autoplay
+          loop
+          muted
+          playsinline>
+          <source src="{{ section.settings.image }}" type="video/mp4">
+        </video>
+      {% else %}
+        <img src="{{ section.settings.image }}" loading="lazy">
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if section.settings.mobile_image != blank %}
+    <div class="image-container mobile-image">
+      {% if section.settings.mobile_image contains '.mp4' or section.settings.mobile_image contains '.mov' %}
+        <video
+          autoplay
+          loop
+          muted
+          playsinline>
+          <source src="{{ section.settings.mobile_image }}" type="video/mp4">
+        </video>
+      {% else %}
+        <img src="{{ section.settings.mobile_image }}" loading="lazy">
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if section.settings.image == blank and section.settings.mobile_image == blank %}
+    <div class="image-container">
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  {% endif %}
+
+  <div class="core-values-container">
+    <h1>{{ section.settings.core_values_h1 }}</h1>
+    <p>{{ section.settings.core_values_p }}</p>
+  </div>
+
+  <div class="text-container">
+    {% for block in section.blocks %}
+    <div class="text-block-wrapper">
+      {% if block.type == 'text_block' %}
+        <h1>{{ block.settings.text_title }}</h1>
+        <p>{{ block.settings.text_description }}</p>
+      {% if block.settings.button_label != blank %}
+          <a href="{{ block.settings.button_link }}">{{ block.settings.button_label }}</a>
+        {% endif %}
+      {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Image Text 50-50",
+    "settings": [
+      {
+        "type": "url",
+        "id": "image",
+        "label": "Image or video"
+      }, {
+        "type": "url",
+        "id": "mobile_image",
+        "label": "Mobile Image or video"
+      }, {
+        "type": "text",
+        "id": "core_values_h1",
+        "label": "Core values title(mobile)"
+      }, {
+        "type": "textarea",
+        "id": "core_values_p",
+        "label": "Core values description(mobile)"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text_block",
+        "name": "Text Block",
+        "settings": [
+          {
+            "type": "text",
+            "id": "text_title",
+            "label": "Title",
+            "default": "Title here"
+          }, {
+            "type": "textarea",
+            "id": "text_description",
+            "label": "Description",
+            "default": "Description here"
+          }, {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label"
+          }, {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image Text 50-50",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,265 @@
+.product-gallery-container {
+  width: 100%;
+  background-color: #e8e9e3;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-gallery-swipper {
+  position: relative;
+}
+
+.product-gallery-pagination {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  top: 50%;
+  z-index: 2;
+  padding: 0 16px;
+}
+
+.product-gallery-pagination button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.product-gallery-pagination button img {
+  width: 16px;
+  height: 16px;
+}
+
+.product-gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mobile-try-on-container {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  bottom: 38px;
+  z-index: 2;
+}
+
+#mobile-try-on-button {
+  border: none;
+  outline: none;
+  background: #FFF;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-family: "AT Surt Medium";
+  font-size: 11px;
+  line-height: 16px;
+  color: #352B27;
+  /* border-bottom: 1.5px solid var(--neutral_one_color); */
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+#vto-overlay {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+#mobile-retake-try-on-button {
+  position: absolute;
+  top: 38px;
+  left: 15%;
+  z-index: 10;
+  background: #FFF;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-family: "AT Surt Medium";
+  font-size: 11px;
+  line-height: 16px;
+  color: #352B27;
+  border: none;
+  outline: none;
+}
+
+#mobile-swipe-to-rotate-text {
+  position: absolute;
+  bottom: 33px;
+  z-index: 10;
+  color: var(--white_color);
+  font-family: "AT Surt Medium";
+  font-size: 16px;
+  line-height: 100%;
+}
+
+.vto-scan-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  background-color: rgba(53, 43, 39, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+/* #vto-scan {
+  min-height: 600px;
+  width: 100%;
+  text-align: center;
+} */
+
+/* .finished-scanning .DittoSandbox:not(#creation-iframe) {
+  background-color: transparent;
+  height: 100vw !important;
+} */
+
+/* .finished-scanning .DittoSandbox {
+  margin: 0 !important;
+} */
+
+.product-gallery-swipper .swiper-slide {
+  margin: auto 0;
+}
+
+#mobile-loading-spinner {
+  width: 100%;
+  height: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#mobile-loading-spinner .loader {
+  border: 2px solid transparent;
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.product-gallery-swipper .swiper-wrapper {
+  height: 80vw;
+}
+
+.product-gallery-swipper .swiper-wrapper:has(#vto-overlay-slide.swiper-slide-active) {
+    height: 100vw;
+}
+@media (min-width: 768px) {
+  .product-gallery-swipper {
+    /* 2024 Revamp Update */
+    display: none;
+  }
+  #loop .product-gallery-swipper,
+  #pebble-cap .product-gallery-swipper,
+  #boot .product-gallery-swipper,
+  #bottle .product-gallery-swipper,
+  #sunnies-flask .product-gallery-swipper{
+    display: block;
+  }
+  .product-gallery-swipper .swiper-slide {
+    display: flex;
+    justify-content: center;
+  }
+
+  .product-gallery-image {
+    width: 600px;
+    height: 480px;
+  }
+
+  .product-gallery-pagination {
+    padding: 0 20%;
+  }
+
+  .product-gallery-pagination button img {
+    width: 24.5px;
+    height: 17.5px;
+  }
+
+  .mobile-try-on-container {
+    display: none;
+  }
+
+  .product-gallery-swipper .swiper-wrapper {
+    height: 100%;
+  }
+  
+  .product-gallery-swipper .swiper-wrapper .swiper-slide.hide-on-desktop {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  .product-gallery-container {
+    height: 487px;
+    position: relative;
+    overflow: hidden;
+  }
+  #loop .product-gallery-container,
+  #pebble-cap .product-gallery-container,
+  #boot .product-gallery-container,
+  #bottle .product-gallery-container,
+  #sunnies-flask .product-gallery-swipper{
+    height: auto;
+  }
+  .product-gallery-swipper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .product-gallery-swipper .swiper-wrapper {
+    height: 100%;
+  }
+  #loop .product-gallery-swipper .swiper-wrapper,
+  #pebble-cap .product-gallery-swipper .swiper-wrapper,
+  #boot .product-gallery-swipper .swiper-wrapper,
+  #bottle .product-gallery-swipper .swiper-wrapper,
+  #sunnies-flask .product-gallery-swipper{
+    /* height: 80vw; */
+    height: 487px;
+  }
+  .product-gallery-image {
+    margin-top: 0px !important;
+  }
+}
+
+.swiper-horizontal>.swiper-pagination-bullets {
+  bottom: 10px;
+}
+
+.swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 8px);
+}
+
+.swiper-pagination-bullet-active {
+  opacity: var(--swiper-pagination-bullet-opacity, 1);
+  background: #352B27;
+}
+
+.swiper-pagination-bullet {
+  width: var(--swiper-pagination-bullet-width, var(--swiper-pagination-bullet-size, 6px));
+  height: var(--swiper-pagination-bullet-height, var(--swiper-pagination-bullet-size, 6px));
+  /* display: inline-block;
+  border-radius: 50%;
+  background: var(--swiper-pagination-bullet-inactive-color, #352B27);
+  opacity: var(--swiper-pagination-bullet-inactive-opacity, .2); */
+}

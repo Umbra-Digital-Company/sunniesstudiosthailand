@@ -1,0 +1,74 @@
+{{ 'product-grid.css' | asset_url | stylesheet_tag }}
+
+<section class="product-grid-filter">
+	<div class="product-grid-filter-listing">
+		{%- for block in section.blocks -%}
+			<p class="product-grid-filter-item {% if block.settings.product_type == 'all' %}active{% endif %}" data-type="{{block.settings.product_type}}">
+				{{block.settings.filter_label}}
+			</p>
+		{%- endfor -%}
+	</div>
+</section>
+
+<script>
+	let filter = 'all';
+	let type;
+
+	function customFilter() {
+		$('.product-listing__item').each(function() {
+			type = $(this).find('.current-price-variant').data('product-type');
+
+			if (filter === 'all') {
+				$(this).show();
+			} else {
+				if (type !== filter) {
+					$(this).hide();
+				} else {
+					$(this).show();
+				}
+			}
+		})
+	}
+
+	$('.product-grid-filter-item').on('click', function() {
+		filter = $(this).data('type');
+
+		$(this).addClass('active').siblings().removeClass('active');
+
+		customFilter();
+	});
+
+	$("body").on('DOMSubtreeModified', "#bc-sf-filter-products", function() {
+		customFilter();
+	});
+</script>
+
+{% schema %}
+{
+  "name": "Product Grid Filter",
+  "max_blocks": 10,
+  "blocks": [
+    {
+      "type": "custom-text",
+      "name": "Product Type",
+      "settings": [
+        {
+          "type": "text",
+          "id": "filter_label",
+          "label": "Label"
+        },
+				{
+          "type": "text",
+          "id": "product_type",
+          "label": "Product Type"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Grid Filter"
+    }
+  ]
+}
+{% endschema %}

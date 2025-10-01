@@ -1,0 +1,190 @@
+{% liquid
+  assign product_first_variant = product_data.selected_or_first_available_variant
+  assign item_type = ''
+
+  if product_data.tags contains 'merch' or product.type == 'Gift Cards'
+    assign item_type = 'merch'
+  elsif product_data.tags contains 'sun'
+    assign item_type = 'studios_frame'
+  elsif product_data.tags contains 'anti-rad' or product_data.tags contains 'readers'
+    assign item_type = 'G100'
+  elsif product_data.tags contains 'flask'
+    assign item_type = 'flask'
+  endif
+
+
+  assign product_first_variant = product_data.selected_or_first_available_variant
+  assign flask_type = ''
+
+  if product_data.tags contains 'flask' and product_data.tags contains 'flask-main'
+    assign flask_type = 'flask_bundle'
+  elsif product_data.tags contains 'flask' and product_data.tags contains 'flask-component' 
+    assign flask_type = 'flask'
+  endif
+
+  assign data_collections = product_data.collections
+  assign data_description = product_data.description | strip_html
+%}
+
+<div class="product-card" data-product-collection="
+{% for collection in data_collections %}
+  {{ collection.title }}
+{% endfor %}" data-product-description="{{ data_description }}">
+  <div class="product-card-images">
+    <button aria-label="Add to Wishlist" data-with-epi="true" class="swym-button swym-add-to-wishlist-view-product product_{{product_data.id}}" data-swaction="addToWishlist" data-product-id="{{product_data.id | json}}" data-variant-id="{{product_data.variants[0].id}}" data-product-url="{{ shop.url }}{{ product_data.url }}">
+      </button>
+    {% for variant in product_data.variants %}
+      <img
+        alt="{{ variant.image.alt }}"
+        class="product-card-image"
+        data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}"
+        data-variant-id="{{ variant.id }}"
+        loading="lazy"
+        src="{{ variant.image | img_url: 'master' }}"
+        onClick="handleRedirectProductCard('{{ variant.url }}')"
+      >
+    {% endfor %}
+  </div>
+  <div class="product-card-details" style="padding: 16px 16px 1px;">
+    <div class="product-card-details-wrapper {{ item_type }}">
+      <div class="title-wrapper" onClick="handleRedirectProductCard('{{ product_first_variant.url }}')">
+        <div>
+          <h3>{{ product_data.title }}</h3>
+          <ul class="product-card-variants">
+            {% for variant in product_data.variants %}
+              <li
+                data-variant-id="{{ variant.id }}"
+                data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}"
+              >
+                {{ variant.option1 }}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        
+        <ul class="product-card-prices">
+          {% for variant in product_data.variants %}
+            <li
+              data-variant-id="{{ variant.id }}"
+              data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}"
+            >
+             <span class="product-card__price {% if variant.compare_at_price > variant.price %}on-sale{% endif %}">${{ variant.price | money_without_currency | remove: '.00' }}</span>
+             {% if variant.compare_at_price > variant.price %} 
+               <span class=product-card__compare-at-price>${{ variant.compare_at_price | money_without_currency | remove: '.00' }}</span>
+             {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+      <ul class="product-card-swatches {% if product_data.tags contains 'flask' %} flask flask-collapsed {% endif %}{% if product_data.variants.size >= 6%}swiper-no-swiping{% endif %}">
+        {% if product_data.template_suffix contains 'apparel' %}
+          {% comment %}
+            Swatch will only show first variant with unique color option
+          {% endcomment %}
+          {% assign product_colors = null %}
+          {% assign has_available_variant = false %}
+          {% liquid 
+            for variant in product_data.variants
+              if variant.available
+                assign has_available_variant = true
+              endif
+            endfor
+          %}
+          {% for variant in product_data.variants %}
+            {% unless product_colors contains variant.option1 %}
+              <li
+                class="{% if product_first_variant.id == variant.id %}current-active-swatch{% endif %}"
+                data-variant-id="{{ variant.id }}"
+                data-is-available="{{ has_available_variant }}"
+                id="product-card-swatch"
+              >
+                <div
+                  data-handle-name="{{variant.option1 | handle}}"
+                  data-is-available="{{ has_available_variant }}"
+                  data-variant-id="{{ variant.id }}"
+                ></div>
+                {% unless has_available_variant %}
+                  <div id="variant-not-available" data-variant-id="{{ variant.id }}"></div>
+                {% endunless %}
+              </li>
+              {% assign product_colors = product_colors | append: ',' | append: variant.option1 %}
+            {% endunless %}
+          {% endfor %}
+        {% else %}
+          {% for variant in product_data.variants %}
+            <li
+              class="{% if product_first_variant.id == variant.id %}current-active-swatch{% endif %}"
+              data-variant-id="{{ variant.id }}"
+              data-is-available="{{ variant.available }}"
+              id="product-card-swatch"
+            >
+              <div
+                data-handle-name="{{variant.option1 | handle}}"
+                data-is-available="{{ variant.available }}"
+                data-variant-id="{{ variant.id }}"
+              ></div>
+              {% unless variant.available %}
+                <div id="variant-not-available" data-variant-id="{{ variant.id }}"></div>
+              {% endunless %}
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+      <div class="variants_dropdown">
+        <button onclick="productCardVariantExpand(event)" class="variant_expand"><svg
+            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect width="20" height="20" rx="10" fill="transparent" fill-opacity="0.1"></rect>
+            <path
+              d="M13.7636 8.18728C13.6211 8.05944 13.4327 7.99233 13.2398 8.0007C13.0469 8.00907 12.8653 8.09224 12.7349 8.23193L9.9948 11.2144L7.25471 8.23193C7.12314 8.09691 6.94289 8.01781 6.75258 8.01157C6.56227 8.00534 6.37704 8.07246 6.23657 8.19857C6.09611 8.32467 6.01158 8.49973 6.0011 8.68623C5.99063 8.87272 6.05503 9.05583 6.18052 9.19631L9.4577 12.7681C9.52593 12.8412 9.60892 12.8995 9.70138 12.9395C9.79385 12.9794 9.89377 13 9.9948 13C10.0958 13 10.1957 12.9794 10.2882 12.9395C10.3807 12.8995 10.4637 12.8412 10.5319 12.7681L13.8091 9.19631C13.9394 9.05656 14.0078 8.87177 13.9993 8.68255C13.9908 8.49334 13.906 8.31519 13.7636 8.18728Z"
+              fill="#352B27"></path>
+            <circle cx="10" cy="10" r="9.25" stroke="#352B27" stroke-width="1.5"></circle>
+          </svg>
+        </button>
+        <button onclick="productCardVariantCollapse(event)" class="variant_collapse"><svg
+            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect width="20" height="20" rx="10" fill="transparent" fill-opacity="0.1"></rect>
+            <path
+              d="M6.23645 11.8127C6.37891 11.9406 6.5673 12.0077 6.7602 11.9993C6.9531 11.9909 7.13472 11.9078 7.26511 11.7681L10.0052 8.78564L12.7453 11.7681C12.8769 11.9031 13.0571 11.9822 13.2474 11.9884C13.4377 11.9947 13.623 11.9275 13.7634 11.8014C13.9039 11.6753 13.9884 11.5003 13.9989 11.3138C14.0094 11.1273 13.945 10.9442 13.8195 10.8037L10.5423 7.23192C10.4741 7.15883 10.3911 7.10047 10.2986 7.06054C10.2062 7.02062 10.1062 7 10.0052 7C9.90418 7 9.80425 7.02062 9.71179 7.06054C9.61932 7.10047 9.53634 7.15883 9.46811 7.23192L6.19093 10.8037C6.0606 10.9434 5.99218 11.1282 6.00071 11.3174C6.00925 11.5067 6.09404 11.6848 6.23645 11.8127Z"
+              fill="#352B27"></path>
+            <circle cx="10" cy="10" r="9.25" stroke="#352B27" stroke-width="1.5"></circle>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="product-card-actions" data-variant-id="{{ product_first_variant.id }}" data-item-type="{{ item_type }}" style="position: relative;">
+      {% for variant in product_data.variants %}
+        <div
+          class="product-card-actions-buttons"
+          data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}"
+          data-is-available="{{ variant.available }}"
+          data-variant-id="{{ variant.id }}">
+
+          {% if item_type == 'flask' and flask_type == 'flask_bundle' %}
+            <a 
+            href="/products/sunnies-flask"
+            {% comment %} href="/products/sunnies-flask?boot=&bottle={{ variant.title }}&cap={{ variant.title }}&loop={{ variant.title }}" {% endcomment %}
+            data-item-type="{{item_type}}"
+            >Customize</a>
+          
+          {% else %}
+
+            {% if product_data.tags contains 'prescription' %}
+              <a href="{{ variant.url }}">Select lenses</a>
+            {% elsif product_data.template_suffix contains 'apparel' %}
+              <a href="{{ variant.url }}">Select size</a>
+            {% else %}
+              <a href="#" class="js-quick-add" data-item-type="{{item_type}}">Add to bag</a>
+            {% endif %}
+            {% endif %}
+            <a
+              href="javascript:void(0)"
+              id="joint-the-waitlist-button"
+              onClick="openWaitlistModal({{ product_data.id }}, {{ variant.id }})"
+              >Join the waitlist</a
+            >
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

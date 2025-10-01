@@ -1,0 +1,20 @@
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+%}
+
+<div class="product-add-to-bag-container">
+  <button type="submit" name="submit" id="product-add-to-bag">
+    {{ settings.add_to_cart }}
+    {% comment %} - ${{ current_variant.price | money_without_currency | remove: '.00' }} {% endcomment %}
+  </button>
+  {% comment %} <div class="space-liner product-mobile-container"></div> {% endcomment %}
+
+  {% comment %} <div class="atome-text">
+    <span>Free shipping on orders over $100</span>
+  </div> {% endcomment %}
+
+</div>
+
+<script>
+  const addToBagVariantId = {{ current_variant.id }};
+</script>

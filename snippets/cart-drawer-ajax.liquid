@@ -1,0 +1,589 @@
+
+{% comment %}SUNNIES FLASK ITEMS{% endcomment %}
+{% assign flaskBundleArray = [] %}
+
+{% for item in cart.items %}
+  {% if item.properties['_item_type'] == 'flask_bundle' %}
+    {% assign productOptions = item.properties['_bundleID'] %}
+    
+    {% if productOptions %}
+      {% assign productOptionsArray = productOptions | split: ',' %}
+      {% assign nonEmptyOptions = productOptionsArray | compact %}
+      {% assign flaskBundleArray = flaskBundleArray | concat: nonEmptyOptions | uniq %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% assign flaskEngravingArray = [] %}
+
+{% for item in cart.items %}
+  {% if item.properties['_item_type'] == 'flask' %}
+    {% assign productEngraving = item.properties['_bottleEngravingID'] %}
+    
+    {% if productEngraving %}
+      {% assign productOptionsEngraving = productEngraving | split: ',' %}
+      {% assign nonEmptyOptions = productOptionsEngraving | compact %}
+      {% assign flaskEngravingArray = flaskEngravingArray | concat: nonEmptyOptions | uniq %}
+    {% endif %}
+  {% endif %}
+{% endfor %} 
+{% comment %}SUNNIES FLASK ITEMS{% endcomment %}
+
+{% liquid
+  assign sunglasses_product_count = 0
+  assign free_product_count = 0
+  assign is_eligible_for_free_gift = "no"
+  assign cart_total_price = cart.total_price | divided_by: 100
+
+  for item in cart.items
+    for tag in item.product.tags 
+      if tag == "anti-radiation kids"
+        assign sunglasses_product_count = sunglasses_product_count | plus: item.quantity
+      endif
+    endfor
+  endfor
+
+  assign free_product_count = sunglasses_product_count
+
+  if free_product_count >= 2
+    assign is_eligible_for_free_gift = "yes"
+  endif
+
+  assign cart_total_price = cart.total_price | divided_by: 100
+%}
+
+<div class="js-cart-drawer-callout-ajax hidden-element">
+  {% render 'cart-drawer-discount-callout-2' %}
+</div>
+
+<div class="js-cart-drawer-ajax hidden-element">
+  <div class="cart-widget js-cd-items-desktop">
+    <form action="/cart" method="post" novalidate class="cart-ajax-form js-order-wrapper" data-email="{{customer.email}}">
+      {%- if cart.item_count > 0 -%}
+        <div class="cart-widget__items js-cd-items-mobile">
+          {%- for line_item in cart.items -%}
+          {%- assign type = line_item.product.type | downcase -%}
+          {%- unless type == 'lens' or line_item.properties['_item_type'] contains 'flask_bundle'   -%}
+          {%- assign product_tags = line_item.product.tags | downcase -%}
+
+          {% liquid
+          if product_tags contains 'prescription'
+          assign vision = line_item.properties['vision']
+          assign prescription_vision = line_item.properties['prescription vision']
+          assign lens_type = line_item.properties['lens type']
+          assign lens_option = line_item.properties['lens option']
+          assign is_prescription = false
+          assign prescription_id = ''
+          assign prescription_id = line_item.properties['_prescription_id']
+          assign lens_price = line_item.properties['_lens_price'] | times: 100
+          assign frame_price = line_item.final_price
+          assign formatted_frame_price = frame_price | money_without_currency | remove: '.00' | prepend: '$'
+          assign price = frame_price | plus: lens_price
+          assign formatted_price = price | money_without_currency | remove: '.00' | prepend: '$'
+          assign classname = 'with_prescription'
+          else
+          assign price = line_item.final_price | money_without_currency | remove: '.00' | prepend: '$'
+          assign classname = ''
+          endif
+          %}
+
+          <!-- Gift box promo auto add to cart - start -->
+          {% assign free_product = settings.cart_free_product %}
+          {% assign free_product_featured_image = free_product.featured_image | img_url: '396x' %}
+
+          {% comment %} <div class="cart-widget__item is-free-product {{ free_product_count }} {{ is_eligible_for_free_gift }}" {% if is_eligible_for_free_gift == "yes" %}style="display: block;" {% else %}style="display: none;" {% endif %}>
+            <div class="cart-item">
+              <div class="cart-item__inner">
+                <div class="cart-item__image">
+                  <a class="cart-item__image-inner" href="{{free_product.url}}">
+                    <span style="background-image: url({{free_product_featured_image}});"></span>
+                  </a>
+                </div>
+                <div class="cart-item__content">
+                  <div class="cart-item__style cart-item__row {{classname}}">
+                    <h4>
+                      <a href="{{free_product.url}}">{{free_product.title}}</a>
+                      <a
+                        href="/cart/change?line={{- forloop.index -}}&amp;quantity=0"
+                        class="btn-close js-cart-remove" data-vid="{{free_product.id}}"
+                        data-lens-key="{{free_product.properties['_lensLineId']}}">
+                      </a>
+                    </h4>
+                    <p class="cart-static-price">FREE</p>
+                  </div>
+                  <div class="cart-item__quantity cart-item__row">
+                    <div class="cart-item__increment" style="width: 30px;">
+                      <span>{{ sunglasses_product_count | divided_by: 2}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> {% endcomment %}
+          <!-- Gift box promo auto add to cart - end -->
+
+          {% assign line_item_featured_image = line_item.image | img_url: '396x' %}
+          <div class="cart-widget__item">
+            <div class="cart-item">
+              <div class="cart-item__inner">
+                <div class="cart-item__image">
+                  <a class="cart-item__image-inner" href="{{line_item.url}}">
+                    <span style="background-image: url({{line_item_featured_image}});"></span>
+                  </a>
+                  {% if line_item.properties['_bottleEngravingID'].size > 1 %}
+                    {%- for bundleItem in flaskEngravingArray -%}
+                      
+                      {% assign item_key = [] %}
+                      {% assign flask_total_price = 0 %}
+                      {% assign bundleItemString = bundleItem | default: "" %}
+                    {% endfor %}
+                    
+                    {%- for line_item_image in cart.items -%}
+                      {% if bundleItemString contains line_item_image.properties['_bottleEngravingID'] and line_item_image.properties['_bottleEngravingID'].size > 1 %}
+                
+                      
+                        {% assign temp_key = line_item_image.key %}
+                        
+                        {% if temp_key %}
+                          {% assign keyArray = temp_key | split: ' ' %}
+                          {% assign nonEmptyKey = keyArray | compact %}
+                          {% assign item_key = item_key | concat: nonEmptyKey | join: ' ' %}
+                        {% endif %}
+                        
+                        {% assign tempKey = line_item_image.key %}
+                        {% assign item_key = item_key | concat: tempKey %}
+                      {% endif %}
+                    {% endfor %}    
+                      <a href="/cart/change?line={{- forloop.index -}}&amp;quantity=0" {% if line_item.product.type == 'Optical frame' %}data-cart-remove="true"{% endif %} class="btn-close js-cart-remove" data-flask-bundle-key="{{ item_key }}"></a>
+                  {% else %}
+                    <a
+                      href="/cart/change?line={{- forloop.index -}}&amp;quantity=0"
+                      {% if line_item.product.type == 'Optical frame' %}data-cart-remove="true"{% endif %}
+                      class="btn-close js-cart-remove" data-vid="{{line_item.id}}"
+                      data-lens-key="{{line_item.properties['_lensLineId']}}">
+                    </a>
+                  {% endif %}
+                </div><!-- /.cart-item__image -->
+
+                <div class="cart-item__content">
+                  <div class="cart-item__flex">
+                    <div class="cart-item__top">
+                      <div class="cart-item__top__inner">
+                        <div class="cart-item__style cart-item__row  {{classname}}">
+                          <h4><a
+                              href="{{line_item.url}}">{{line_item.product.title}}</a><a
+                              href="/cart/change?line={{- forloop.index -}}&amp;quantity=0"
+                              class="btn-close js-cart-remove"
+                              data-vid="{{line_item.id}}"
+                              data-lens-key="{{line_item.properties['_lensLineId']}}"></a>
+                          </h4>
+                          {% if line_item.variant.product.tags contains "gwp" %}
+                            <p class="cart-static-price">
+                              {% if line_item.variant.product.tags contains "teddy_discount" %}
+                                ${{ line_item.final_line_price | divided_by: 100 }}
+                              {% else %}
+                                FREE
+                              {% endif %}
+                            </p>
+                          {% else %}
+                           <p class="cart-static-price">{% if product_tags contains 'prescription' %}{{ formatted_price }}{% else %}${{ line_item.final_line_price | divided_by: 100 }}{% endif %}</p>
+                          {% endif %}
+                        </div>
+
+                        {% unless line_item.variant.product.tags contains "gwp" %}
+                          <div class="cart-item__variants cart-item__row">
+                            {%- unless line_item.variant.title contains 'Default' -%}
+                            <p><span class="color-swatch-single"><span
+                                  data-handle-name="{{line_item.variant.option1 | handle}}"></span></span>{{line_item.variant.option1}}
+                            </p>
+                            {%- endunless -%}
+                              {% if line_item.properties['Engraving'].size > 1 %}
+                                <p>{{ line_item.properties['Engraving'] }}</p>
+                              {% endif %}
+                          </div><!-- /.cart-item__variants -->
+                        {% endunless %}
+                      </div>
+
+                      {% if product_tags contains 'prescription' %}
+                        {% for property in line_item.properties %}
+                          {% if property.first == '_prescription' and property.last == 'false' %}
+                            {% assign isPrescription = false %}
+                            {% break %}
+                          {% else %}
+                            {% assign isPrescription = true %}
+                          {% endif %}
+                        {% endfor %}
+                      {%- else -%}
+                        {% if line_item.variant.product.tags contains "gwp" %}
+                         <div class="cart-item__gwp-success-message-mini">
+                            {% if line_item.variant.product.tags contains "teddy_discount" %}
+                              {{ 'You just got the ' | append: line_item.variant.product.title | append: ' for $12.' }}
+                            {% else %}
+                              {{ 'Congrats! ✨ You got a free ' | append: line_item.variant.product.title | append: '.' }}
+                            {% endif %}
+                          </div>
+                        {% else %}
+                          <div class="cart-item__quantity cart-item__row">
+                            <div class="cart-item__increment">
+                              <a
+                                href="/cart/change?line={{- forloop.index -}}&amp;quantity={{line_item.quantity | minus: 1}}"
+                                class="btn-close js-cart-remove cart-item__increment-minus"
+                                data-vid="{{line_item.id}}"
+                                data-lens-key="{{line_item.properties['_lensLineId']}}">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M13 8L3 8" stroke="#AEAAA9" stroke-linecap="round" stroke-linejoin="round"/>
+                                  <path d="M3 8L13 8" stroke="#AEAAA9" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg></a>
+                              <span>{{line_item.quantity}}</span>
+                              <a
+                                href="/cart/change?line={{- forloop.index -}}&amp;quantity={{line_item.quantity | plus: 1}}"
+                                class="btn-close js-cart-remove cart-item__increment-plus"
+                                data-vid="{{line_item.id}}"
+                                data-lens-key="{{line_item.properties['_lensLineId']}}">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M8 3V13" stroke="#AEAAA9" stroke-linecap="round" stroke-linejoin="round"/>
+                                  <path d="M3 8L13 8" stroke="#AEAAA9" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                              </a>
+                            </div>
+                            <a href="/cart/change?line={{- forloop.index -}}&amp;quantity=0"
+                              {% if line_item.product.type == 'Optical frame' %}data-cart-remove="true"{% endif %}
+                              class="js-cart-remove remove-button" data-vid="{{line_item.id}}"
+                              data-lens-key="{{line_item.properties['_lensLineId']}}"
+                              onclick="removeLensPaired({{line_item.properties['_lensLineId']}})">
+                              Remove
+                            </a>
+                          </div>
+                        {% endif %}
+                      {%- endif -%}
+                    </div>
+
+                    {% if line_item.product.tags contains 'prescription' or line_item.product.tags contains 'Prescription' and customer %}
+                    {% if vision != "Non-prescription" %}
+                      <div class="cart-item__bot">
+                        <div
+                          data-id="#itemWithPrescriptionPC{{forloop.index}}"
+                          onclick="toggleTable('#itemWithPrescriptionPC{{forloop.index}}')"
+                          class="cart-item__toggle-prescription-table cart-item__btnInfo">
+                          Lens information
+                          <span class="toggle-icon"></span>
+                        </div>
+                      </div>
+                    {% endif %}
+                    <a href="/cart/change?line={{- forloop.index -}}&amp;quantity=0"
+                              {% if line_item.product.type == 'Optical frame' %}data-cart-remove="true"{% endif %}
+                              class="js-cart-remove remove-button" data-vid="{{line_item.id}}"
+                              data-lens-key="{{line_item.properties['_lensLineId']}}"
+                              onclick="removeLensPaired({{line_item.properties['_lensLineId']}})">
+                              Remove
+                            </a>
+                    {% endif %}
+                  </div>
+                </div>
+
+                {% if line_item.product.tags contains 'prescription' or line_item.product.tags contains 'Prescription' and customer %}
+                  <div class="cart-item__prescription cart-item__prescription--toggle custom" id="itemWithPrescriptionPC{{forloop.index}}" style="display: none;">
+                    <div class="cart-item__prescription-table">
+                      <div class="cart-item__prescription-table-data">
+                        <div class="cart-item__prescription-table-data-flex">
+                          <p class="cart-item__prescription-table-data-label">Vision type</p>
+                          <p class="cart-item__prescription-table-data-text">
+                            {{ prescription_vision }}
+                            {% if vision == "Reading" or vision == "Distance" %}
+                            - {{ vision }}
+                            {% endif %}
+                          </p>
+                        </div>
+                        <div class="cart-item__prescription-table-data-flex">
+                          <p class="cart-item__prescription-table-data-label">Lens Upgrade</p>
+                          <p class="cart-item__prescription-table-data-text">
+                            {{ lens_type | split: ':' | last | strip }}
+                          </p>
+                        </div>
+                        <div class="cart-item__prescription-table-data-flex">
+                          <p class="cart-item__prescription-table-data-label">Your prescription</p>
+                        </div>
+                      </div>
+
+                      <table class="Order__items-description__prescription js-prescription-table" data-prescription-id="{{prescription_id}}">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Left eye</th>
+                            <th>Right eye</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>SPH</td>
+                            <td class="js-prescription-data">{{ line_item.properties["__sph_os"] | plus: 0 | times: 100 | remove: ".0" | money_without_currency }} </td>
+                            <td class="js-prescription-data">{{ line_item.properties["__sph_od"] | plus: 0 | times: 100 | remove: ".0" | money_without_currency }} </td>
+                          </tr>
+                          <tr>
+                            <td>CYL</td>
+                            <td class="js-prescription-data" data-type="os-cyl">{{ line_item.properties["__cyl_os"] | plus: 0 | times: 100 | remove: ".0" | money_without_currency }}</td>
+                            <td class="js-prescription-data" data-type="od-cyl">{{ line_item.properties["__cyl_od"] | plus: 0 | times: 100 | remove: ".0" | money_without_currency }}</td>
+                          </tr>
+                          <tr>
+                            <td>AXIS</td>
+                            <td class="js-prescription-data" data-type="os-axis">{{ line_item.properties["__axis_os"] }}</td>
+                            <td class="js-prescription-data" data-type="od-axis">{{ line_item.properties["__axis_od"] }}</td>
+                          </tr>
+                          {% if line_item.properties["vision"] == "Bifocal" or line_item.properties["vision"] == "Progressive" %}
+                          <tr>
+                            <td>ADD</td>
+                            <td class="js-prescription-data" data-type="os-add">{{ line_item.properties["__add_os"] | plus: 0 | times: 100 | remove: ".0" | money_without_currency }}</td>
+                            <td class="js-prescription-data" data-type="od-add">{{ line_item.properties["__add_od"] | plus: 0 | times: 100 | remove: ".0" | money_without_currency }}</td>
+                          </tr>
+                          {% endif %}
+                          <tr>
+                            <td>IPD</td>
+                            <td class="js-prescription-data" data-type="os-ipd">{{ line_item.properties["__ipd_os"] | plus: 0 | times: 100 | remove: ".0" | money_without_currency }}</td>
+                            <td class="js-prescription-data" data-type="od-ipd">{{ line_item.properties["__ipd_od"] | plus: 0 | times: 100 | remove: ".0" | money_without_currency }}</td>
+                          </tr>
+                          {% if line_item.properties["vision"] == "Progressive" %}
+                          <tr>
+                            <td>PH</td>
+                            <td class="js-prescription-data" data-type="os-ph">{{ line_item.properties["__ph_os"] }}</td>
+                            <td class="js-prescription-data" data-type="od-ph">{{ line_item.properties["__ph_od"] }}</td>
+                          </tr>
+                          {% endif %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                {% elsif line_item.product.tags contains 'prescription' or line_item.product.tags contains 'Prescription' %}
+                  <p class="Order__items-description__signin">Please <a href="/account">sign in</a> to view prescription data!</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {%- endunless -%}
+          {%- endfor -%}
+
+                  {% comment %}SUNNIES FLASK ITEMS{% endcomment %}
+                  {%- for bundleItem in flaskBundleArray -%}
+                      
+                    {% assign item_key = [] %}
+                    {% assign flask_total_price = 0 %}
+                    {% assign bundleItemString = bundleItem | default: "" %}
+  
+                    <div class="cart-widget__item">
+                      <div class="cart-item flask">
+                        <div class="cart-item__inner">
+                          <div class="cart-item__image ">
+                          
+                              {%- for line_item_image in cart.items -%}
+                                  {% if bundleItemString contains line_item_image.properties['_bundleID'] and line_item_image.properties['_bundleID'].size > 1 %}
+
+                                  
+                                    {% assign temp_key = line_item_image.key %}
+                                    
+                                    {% if temp_key %}
+                                      {% assign keyArray = temp_key | split: ' ' %}
+                                      {% assign nonEmptyKey = keyArray | compact %}
+                                      {% assign item_key = item_key | concat: nonEmptyKey | join: ' ' %}
+                                    {% endif %}
+                                    
+                                    {% assign tempKey = line_item_image.key %}
+                                    {% assign item_key = item_key | concat: tempKey %}
+                                          
+                                    {% if line_item_image.title contains 'Bottle' %}
+                                      <img style="z-index: 1" class="cart-item__flask-image" src="{{ line_item_image.variant.metafields.custom.preview_image | image_url }}" loading='lazy'>
+                                    {% endif %}
+                                    {% if line_item_image.title contains 'Cap' %}
+                                      <img style="z-index: 3" class="cart-item__flask-image" src="{{ line_item_image.variant.metafields.custom.preview_image | image_url }}" loading='lazy'>
+                                    {% endif %}
+                                    {% if line_item_image.title contains 'Loop' %}
+                                      <img style="z-index: 4" class="cart-item__flask-image" src="{{ line_item_image.variant.metafields.custom.preview_image | image_url }}" loading='lazy'>
+                                    {% endif %}
+                                    {% if line_item_image.title contains 'Engraving' %}
+                                      <div class="cart-item__engraving-flask" engraving-placement='{{- line_item_image.properties['_engravingPlacement'] -}}' engraving-color='{{- line_item_image.properties['_engravingColor'] -}}'>{{ line_item_image.properties['Engraving'] }}</div>
+                                    {% endif %}
+                                    {% if line_item_image.title contains 'Boot' %}
+                                      <img style="z-index: 2" class="cart-item__flask-image" src="{{ line_item_image.variant.metafields.custom.preview_image | image_url }}" loading='lazy'>
+                                    {% endif %}
+                                  {%- endif -%}
+                              {%- endfor -%}
+                              <a href="#" class="btn-close js-cart-remove-flask js-cart-remove" data-flask-bundle-key="{{ item_key }}"></a>
+                          </div>
+                          <div class="cart-item__content">
+                            <div class="cart-item__style cart-item__row  ">
+                              <h4 class="js-remover-parent" data-handle="devon">
+                                <a class="cart-item__row-title" href="/products/sunnies-flask-dev-test" data-bss-pl="active">Sunnies Flask</a>
+                                <div class="flask-price">
+                                  <p class="cart-static-price">
+                      
+                      
+                                    {%- for line_item_price in cart.items -%}
+                                        {% if bundleItemString contains line_item_price.properties['_bundleID'] and line_item_price.properties['_bundleID'].size > 1 %}
+                                          {% assign flask_total_price = flask_total_price | plus: line_item_price.price %}
+                                        {%- endif -%}
+                                    {%- endfor -%}
+                                    {{ flask_total_price | money_without_currency | remove: '.00' | prepend: '$' }}
+                                  </p>
+                                </div>
+                              </h4>
+                            </div>
+                            <div class="cart-item__flask-details cart-item__row">
+                              {%- for line_item_variant in cart.items -%}
+                                  {% if bundleItemString contains line_item_variant.properties['_bundleID'] and line_item_variant.properties['_bundleID'].size > 1 %}
+                                    {% if line_item_variant.title contains 'Bottle' %}
+                                      <div class="cart-item__flask-details-item">
+                                        <p class="flask-details-item flask_component">Bottle: </p>
+                                        <p class="flask-details-item flask_variant">{{ line_item_variant.variant.title }}</p>
+                                      </div>  
+                                    {% endif %}
+                                    {% if line_item_variant.title contains 'Cap' %}
+                                      <div class="cart-item__flask-details-item">
+                                        <p class="flask-details-item flask_component">Cap: </p>
+                                        <p class="flask-details-item flask_variant">{{ line_item_variant.variant.title }}</p>
+                                      </div>  
+                                    {% endif %}
+                                    {% if line_item_variant.title contains 'Loop' %}
+                                      <div class="cart-item__flask-details-item">
+                                        <p class="flask-details-item flask_component">Loop: </p>
+                                        <p class="flask-details-item flask_variant">{{ line_item_variant.variant.title }}</p>
+                                      </div>  
+                                    {% endif %}
+                                    {% if line_item_variant.title contains 'Engraving' %}
+                                      <div class="cart-item__flask-details-item">
+                                        <p class="flask-details-item flask_component">Engraving: </p>
+                                        <p class="flask-details-item flask_variant">{{ line_item_variant.properties['Engraving'] }}</p>
+                                      </div>  
+                                    {% endif %}
+                                    {% if line_item_variant.title contains 'Boot' %}
+                                      <div class="cart-item__flask-details-item">
+                                        <p class="flask-details-item flask_component">Boot: </p>
+                                        <p class="flask-details-item flask_variant">{{ line_item_variant.variant.title }}</p>
+                                      </div>  
+                                    {% endif %}
+                                  {%- endif -%}
+                              {%- endfor -%}
+                            </div><!-- /.cart-item__variants -->
+
+                               <a href="#"
+                                class="js-cart-remove-flask js-cart-remove remove-button" data-flask-bundle-key="{{ item_key }}">
+                                Remove
+                              </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %} 
+                {% comment %}SUNNIES FLASK ITEMS{% endcomment %}
+        </div>
+
+        <div class="cart-widget__bottom js-cd-bottom">
+          <div class="add-a-git-note-wrapper ajax-cart-gift">
+            <div class="add-a-git-note-header">
+              <img src="{{ 'gift-icon.svg' | asset_url }}" />
+              <span>Is this a gift?</span>
+              <span id="add-a-gift-note-btn" onclick="addAGiftNote()">Add a gift note</span>
+            </div>
+
+            <div class="add-a-git-note-body">
+              <div class="add-a-git-note-body-header">
+                <div id="body-gift-close" onclick="closeAddGiftNote()">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_3689_7519)">
+                  <path d="M1.33325 1.33325L14.6666 14.6666M14.6666 1.33325L1.33325 14.6666" stroke="#A13F10" stroke-linecap="round" stroke-linejoin="round"/>
+                  </g>
+                  <defs>
+                  <clipPath id="clip0_3689_7519">
+                  <rect width="16" height="16" fill="white"/>
+                  </clipPath>
+                  </defs>
+                  </svg>
+                  
+
+                </div>
+              </div>
+              <span id="add-a-gift-note-error"></span>
+              <textarea id="add-a-gift-content" maxlength="101" placeholder="Type your message here (and don’t forget to mention who it’s from)"></textarea>
+              <div style="display: none;" class="add-a-gift-note-body-actions" id="gift-note-actions-new-edit">
+                <span class="action-save" onclick="saveGiftNote()">
+                  <span id="action-save-label">Save</span>
+                  <span id="action-save-loader"></span>
+                </span>
+                <span onclick="closeAddGiftNote()">Cancel</span>
+              </div>
+              <div class="add-a-gift-note-body-actions" id="gift-note-actions-preview">
+                <span onclick="toggleEditGiftNote()">Edit</span>
+                <span onclick="removeGiftNote()">Remove</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cart-widget__bottom-wrapper">
+            {% comment %} <div class="cart-widget__total order-summary">
+              <p class="cart-widget__total-label">Order Summary</p>
+            </div> {% endcomment %}
+
+            <div class="cart-widget__total subtotal">
+              <p class="cart-widget__total-label">{{ 'cart.general.subtotal' | t }}</p>
+              <p class="cart-widget__total-value">{{- cart.items_subtotal_price | money_without_currency | remove: '.00' | prepend: '$' -}}</p>
+            </div>
+
+            <div class="cart-widget__total total">
+              <p class="cart-widget__total-label">Subtotal</p>
+
+              {% if total_price > 10000 %}
+                <p class="cart-widget__total-value total" data-value="{{- cart.total_price | money_without_currency | remove: '.00' -}}">
+                  {{- cart.total_price | money_without_currency | remove: '.00' | prepend: '$' -}}
+                </p>
+              {% else %}
+                {% assign total_price_with_shipping = cart.total_price | times: 1  %}
+
+                <p class="cart-widget__total-value total" data-value="{{- cart.total_price | money_without_currency | remove: '.00' -}}">
+                  {{- total_price_with_shipping | money_without_currency | remove: '.00' | prepend: '$' -}}
+                </p>
+              {% endif %}
+            </div>
+
+            <div class="cart-widget__total shipping">
+              <p class="cart-widget__total-label">Shipping</p>
+              {% if total_price > 10000 %}
+              <p class="cart-widget__total-value-lens">Computed at checkout</p>
+              {% else %}
+              <p class="cart-widget__total-value">Computed at checkout</p> 
+              {% endif %}
+            </div>
+
+            <button type="submit" name="checkout" id="checkout_btn" class="btn">{{- 'cart.general.checkout' | t -}}</button>
+            
+            {% comment %} <div class="shipping-note">
+              <p>Free shipping on orders over $100</p>
+            </div> {% endcomment %}
+          </div>
+        </div>
+      {%- else -%}
+      <div class="cart-widget__empty">
+        <p>{{- 'cart.general.empty' | t -}}</p>
+          <a class="continue-shopping--link" href="https://sunniesstudios.com/collections/bestsellers">
+              Continue shopping
+          </a>
+        
+        <!-- <div class="continue-shopping">
+          <p>DON'T KNOW WHERE TO START?</p>
+          <a href="https://ph.sunniesstudios.com/collections/new-in-sun-optical">
+            <div class="cart-shop-thumbnail first">
+              <p>SHOP NEW</p>
+            </div>
+          </a>
+          <a
+            href="https://ph.sunniesstudios.com/collections/bestsellers-sun-optical">
+            <div class="cart-shop-thumbnail second">
+              <p>SHOP BESTSELLERS</p>
+            </div>
+          </a>
+        </div> -->
+
+        <!-- <div class="shipping-note">
+          <p>FREE SHIPPING ON ORDERS OVER P1995</p>
+        </div> -->
+        </div>
+      {%- endif -%}
+    </form>
+  </div>
+</div>
+

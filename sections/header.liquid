@@ -1,0 +1,595 @@
+{% assign flaskBundleArray = '' %}
+
+{% for item in cart.items %}
+  {% assign productOptions = item.properties['_bundleID'] %}
+  
+  {% if productOptions %}
+    {% assign productOptionsArray = productOptions | split: ',' %}
+    {% assign nonEmptyOptions = productOptionsArray | compact %}
+    {% assign flaskBundleArray = flaskBundleArray | concat: nonEmptyOptions | uniq %}
+  {% endif %}
+{% endfor %}
+
+{% liquid
+  assign _section = section.settings
+  assign section_logo = _section.logo
+  assign section_logo_secondary = _section.logo_secondary
+  assign section_logo_flask = _section.logo_flask
+  assign section_logo_flask_secondary = _section.logo_flask_secondary
+  assign template_name = template.name
+  assign template_suffix = template.suffix
+  assign is_logo_white = _section.is_logo_white
+
+  assign bar_text_one = _section.top_bar_content_one
+  assign bar_url_one = _section.top_bar_url_one
+  assign bar_onclick_one = _section.top_bar_onclick_one
+
+  assign bar_text_two = _section.top_bar_content_two
+  assign bar_url_two = _section.top_bar_url_two
+  assign bar_onclick_two = _section.top_bar_onclick_two
+
+  assign bar_text_three = _section.top_bar_content_three
+  assign bar_url_three = _section.top_bar_url_three
+
+  assign bar_text_four = _section.top_bar_content_four
+
+  assign background_color = _section.top_bar_bg_color
+  assign text_color = _section.top_bar_text_color
+
+  assign isShowTopBar = _section.is_show_top_bar
+
+  assign bundle_count = 0
+  assign cartCounter = cart.item_count
+
+  for item in cart.items
+  	if cart.items_subtotal_price >= 79900 and item.product.type != "Anti-Radiation Frame" or item.product.type != "Optical frame"
+  		assign counter = cart.item_count | plus: 1
+    elsif cart.items_subtotal_price >= 79900 and item.product.type != "Sun frame"
+    	assign counter = cart.item_count | plus: 1
+    elsif cart.items_subtotal_price >= 79900 and item.product.type != "Merch"
+    	assign counter = cart.item_count | plus: 1
+    endif
+  endfor
+
+  assign lensCount = 0
+
+  for lineItem in cart.items
+    assign lineType = lineItem.product.type | downcase
+
+    if lineType == 'lens'
+      assign lensCount = lensCount | plus: 1
+    endif
+
+    if lineType == 'lens'
+      assign cartCounter = cart.item_count | minus: lensCount
+    endif
+
+
+    if lineItem.properties['_item_type'] contains 'flask_bundle'
+      assign bundle_count = bundle_count | plus: 1
+    endif
+  
+    if lineItem.properties['_item_type'] contains 'flask_bundle'
+      assign cartCounter = cart.item_count | minus: bundle_count
+    endif
+    
+  endfor
+
+  if template.name != "index"
+    assign is_logo_white = false
+  endif
+  if template.suffix contains 'gift-guide' or template.suffix contains 'polarized-landing-page' or template.suffix contains 'summer-landing-page' or template.suffix contains 'flask-landing-page' or template.suffix contains 'summer-travel-guide'
+    assign is_logo_white = true
+  endif
+%}
+
+<link rel="stylesheet" href="{{ 'header.css' | asset_url }}">
+
+<section
+  class="
+    header{%
+      if template_name == 'index' or
+      template.suffix contains 'extra' or
+      template_suffix == 'our-products' or
+      template_suffix == 'our-brands' or
+      template_suffix == 'gift-guide' or
+      template_suffix == 'anti-rad-landing-page' or
+      template_suffix == 'polarized-landing-page' or
+      template_suffix == 'newsletter-subscription' or
+      template_suffix == 'guide-to-lens-upgrade' or
+      template_suffix == 'gtlu-sun-screen' or
+      template_suffix == 'sun-adaptive' or
+      template_suffix == 'sun-adaptive-final' or
+      template_suffix == 'airlens' or
+      template_suffix == 'tints-rx' or
+      template_suffix == 'screen-safe' or
+      template_suffix == 'ultrathin' or
+      template_suffix == 'coa-in-store-events' or
+      template_suffix == 'summer-landing-page' or
+      template_suffix == 'article-template-1' or
+      template_suffix == 'article-template-1-a' or
+      template_suffix == 'article-template-1-c' or
+      template_suffix == 'article-template-d' or
+      template_suffix == 'article-template-e' or
+      template_suffix == 'article-template-f' or
+      template_suffix == 'article-template-g' or
+      template_suffix == 'article-template-h' or
+      template_suffix == 'summer-travel-guide' or
+      template_suffix == 'summer-landing-page-2025' or
+      template_suffix == 'flask-landing-page' %}
+      header--index
+    {% endif %}
+    {% if is_logo_white %}header__content--white{% else %}header__content--black{% endif %}
+  "
+  data-section-id="{{ section.id }}"
+  data-section-type="header"
+>
+  <!-- Please do not remove - Fix for prescription flow lens option bug -->
+  <div class="js-top-bar"></div>
+
+  {%- if isShowTopBar -%}
+    <div id="top-bar-container">
+      {% if template.suffix ==  'flask-landing-page' %}
+        <div class="top-bar" style="background-color: {{ background_color }} !important;">
+          <a 
+          {% if section.settings.top_bar_url_flask == blank %} href="#" {% else %} href="{{ section.settings.top_bar_url_flask }}?source=sunnies-flask" {% endif %}  
+          {% if section.settings.top_bar_url_flask != blank %} onclick="{{ section.settings.top_bar_url_flask }}" {% endif %}  
+          class="top-bar-text" style="color: {{ text_color }} !important;">
+            {{- section.settings.top_bar_content_flask -}}
+          </a>
+          <span class="btn-close" class="close-top-bar-notification" onclick="handleTopBarClose()"></span>
+        </div>
+      {% else %}
+      <div class="top-bar" style="background-color: {{ background_color }} !important;">
+        <a 
+        {% if bar_onclick_one != blank %} href="#" {% else %} href="{{ bar_url_one }}" {% endif %}  
+        {% if bar_onclick_one != blank %} onclick="{{ bar_onclick_one }}" {% endif %}  
+        class="top-bar-text" style="color: {{ text_color }} !important;">
+          {{- bar_text_one -}}
+        </a>
+        <span class="btn-close" class="close-top-bar-notification" onclick="handleTopBarClose()"></span>
+      </div>
+
+      <div class="top-bar" style="background-color: {{ background_color }} !important;">
+        <a 
+        {% if bar_onclick_two != blank %} href="#" {% else %} href="{{ bar_url_two }}" {% endif %}  
+        {% if bar_onclick_two != blank %} onclick="{{ bar_onclick_two }}" {% endif %}  
+        class="top-bar-text " style="color: {{ text_color }} !important;">
+          {{- bar_text_two -}}
+        </a>
+        <span class="btn-close" class="close-top-bar-notification" onclick="handleTopBarClose()"></span>
+      </div>
+
+      {% if section.settings.top_bar_btspopup != blank%}
+      <div class="top-bar" style="background-color: {{ background_color }} !important;">
+        <button class="klaviyo_form_trigger popup top-bar-text"> {{ section.settings.top_bar_btspopup }} </button>
+        <span class="btn-close" class="close-top-bar-notification" onclick="handleTopBarClose()"></span>
+      </div>
+      {% endif %}
+    
+      <div class="top-bar" style="background-color: {{ background_color }} !important;">
+        <div class="top-bar-three">
+          <p class="top-bar-text" style="color: {{ text_color }} !important;">{{ bar_text_three }}</p>
+          <!-- <img
+            class="detail-atome-icon"
+            src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Atome_Brandmark_RGB_1_53637bdb-a0ee-4013-9687-96070d060498.png?v=1647878138"
+          > -->
+        </div>
+        <span class="btn-close" class="close-top-bar-notification" onclick="handleTopBarClose()"></span>
+      </div>
+
+      {% if bar_text_four != blank %}
+      <div class="top-bar atome-text" style="background-color: {{ background_color }} !important;">
+        <div class="top-bar-four">
+          <p class="top-bar-text" style="color: {{ text_color }} !important;">{{ bar_text_four }}</p>
+          <img
+            class="detail-atome-icon"
+            src="{{ 'billease-logo.png' | asset_url }}"
+          >
+        </div>
+        <span class="btn-close" class="close-top-bar-notification" onclick="handleTopBarClose()"></span>
+      </div>
+      {% endif %}
+  {% endif %}
+    </div>
+  {%- endif -%}
+
+  <div class="shell ">
+    <div class="header__inner">
+      <div class="header__body">
+        <div class="header__content {% if is_logo_white %}header__content--white{% else %}header__content--black{% endif %}">
+
+          {% if template.suffix ==  'flask-landing-page' %}
+            <nav class="flask-nav gm-level-0" id="">
+              <a href="/collections/eyewear" class="flask-nav-link">
+                <span>Shop
+                </span>
+              </a>
+            </nav>
+          {% else %}
+            <nav class="nav nav--mega js-mega-menu" id="navDesktop">
+              {%- include 'mega-menu' -%}
+            </nav>
+          {% endif %}
+
+          <!-- {% if is_logo_white %}
+            <a href="#" class="btn-burger js-btn-burger color--white">
+              <span></span>
+              <span></span>
+              <span></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn-burger js-btn-burger color--black">
+              <span></span>
+              <span></span>
+              <span></span>
+            </a>
+          {% endif %} -->
+          
+          {% if is_logo_white %}
+            <a href="#" class="btn-burger js-btn-burger color--white">
+              <span></span>
+              <span></span>
+              <span></span>
+            </a>
+          {% else %}
+            <a href="#" class="btn-burger js-btn-burger color--black">
+              <span></span>
+              <span></span>
+              <span></span>
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="header__logos {% if template.suffix == "flask-landing-page" %}flask{% endif %}">
+          {%- if section_logo != blank -%}
+            <a href="/" class="logo logo--white header__logo">
+              {% if is_logo_white %}
+                {% if template.suffix == "flask-landing-page" %}
+                  <img style="max-height: 32px;" src="{{ section_logo_flask }}" alt="sunnies flask">
+                {% elsif template.suffix == "flask" %}
+                  <img style="max-height: 32px;" src="{{ section_logo_flask_secondary }}" alt="sunnies flask">
+                {% else %}
+                  <img src="{{ section_logo }}" alt="sunnies">
+                {% endif %}
+              {% else %}
+                {% if template.suffix == "flask-landing-page" %}
+                  <img style="max-height: 32px;" src="{{ section_logo_flask_secondary }}" alt="sunnies flask">
+                {% elsif template.suffix == "flask" %}
+                  <img style="max-height: 32px;" src="{{ section_logo_flask_secondary }}" alt="sunnies flask">
+                {% else %}
+                  <img src="{{ section_logo_secondary }}" alt="sunnies">
+                {% endif %}
+              {% endif %}
+            </a>
+          {%- else -%}
+            <a href="/" class="logo logo--white header__logo">{{- shop.name -}}</a>
+          {%- endif -%}
+
+          {%- if section_logo_secondary != blank -%}
+            <a href="/" class="logo logo--black">
+                {% if template.suffix == "flask-landing-page" %}
+                <img style="max-height: 32px;" src="{{ section_logo_flask_secondary }}" alt="sunnies">
+                {% elsif template.suffix == "flask" %}
+                  <img style="max-height: 32px;" src="{{ section_logo_flask_secondary }}" alt="sunnies flask">
+                {% else %}
+                  <img src="{{ section_logo_secondary }}" alt="sunnies">
+                {% endif %}
+            </a>
+          {%- else -%}
+            <a href="/" class="logo logo--black">{{- shop.name -}}</a>
+          {%- endif -%}
+        </div>
+
+        {% liquid
+          assign menu_icon_class = 'navbar-menu-icon-dark'
+
+          if is_logo_white
+            assign menu_icon_class = 'navbar-menu-icon-light'
+          else
+            assign menu_icon_class = 'navbar-menu-icon-dark'
+          endif
+        %}
+
+        <div class="header__aside">
+          <nav class="nav nav--access">
+            <ul class="menu {{ menu_icon_class }}">
+              <li>
+                <a data-ref=".wrapper" data-type="expand-search" href="#" class="btn-search js-toggle-btn">
+                  <span class="btn-search__icon btn-search__icon--white"></span>
+                  <span class="btn-search__icon btn-search__icon--black"></span>
+                  <span class="btn-search__icon btn-search__icon--grey"></span>
+                </a>
+              </li>
+              <li>
+                <a href="#swym-wishlist" class="swym-wishlist btn-wish">
+                  <span class="btn-wish__icon btn-wish__icon--white">
+                    <svg width="17" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 1C2.7912 1 1 2.8639 1 5.16351C1 7.01984 1.7 11.4256 8.5904 15.8793C8.71383 15.9582 8.85552 16 9 16C9.14448 16 9.28617 15.9582 9.4096 15.8793C16.3 11.4256 17 7.01984 17 5.16351C17 2.8639 15.2088 1 13 1C10.7912 1 9 4.33333 9 4.33333C9 4.33333 7.2088 1 5 1Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <span class="btn-wish__icon btn-wish__icon--black">
+                    <svg width="17" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 1C2.7912 1 1 2.8639 1 5.16351C1 7.01984 1.7 11.4256 8.5904 15.8793C8.71383 15.9582 8.85552 16 9 16C9.14448 16 9.28617 15.9582 9.4096 15.8793C16.3 11.4256 17 7.01984 17 5.16351C17 2.8639 15.2088 1 13 1C10.7912 1 9 4.33333 9 4.33333C9 4.33333 7.2088 1 5 1Z" stroke="#352b27" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <span class="btn-wish__icon btn-wish__icon--grey">
+                    <svg width="17" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 1C2.7912 1 1 2.8639 1 5.16351C1 7.01984 1.7 11.4256 8.5904 15.8793C8.71383 15.9582 8.85552 16 9 16C9.14448 16 9.28617 15.9582 9.4096 15.8793C16.3 11.4256 17 7.01984 17 5.16351C17 2.8639 15.2088 1 13 1C10.7912 1 9 4.33333 9 4.33333C9 4.33333 7.2088 1 5 1Z" stroke="#352b27" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                </a>
+              </li>
+              {%- if shop.customer_accounts_enabled -%}
+                {%- if customer -%}
+                  <li>
+                    <a href="/account" class="account-dropdown__toggle btn-account">
+                    
+                    </a>
+                    <ul class="account-dropdown">
+                      <li><a href="/account">My Account</a></li>
+                      <li><a href="/account?module=order-history">Order History</a></li>
+                      <li><a href="/account?module=my-prescription">My Prescriptions</a></li>
+                      <li><a href="/pages/shipping-returns">Shipping Info</a></li>
+                      <!-- <li class="account-dropdown_divider"></li> -->
+                      <li><a href="/account/logout">Log Out</a></li>
+                    </ul>
+                  </li>
+                {%- else -%}
+                  <li>
+                    <a class='btn-account' href="/account">
+                    </a>
+                  </li>
+                {%- endif -%}
+              {%- endif -%}
+              
+              <li class="sh-on-mo">
+                <a data-ref=".cart-drawer" href="/cart" class="btn-cart js-cart-btn">
+                  <span class="btn-cart__text">{{ 'layout.customer.cart' | t }}</span>
+
+                  <span class="btn-cart__counter">{{ cartCounter | plus: flaskBundleArray.size }}</span>
+                </a>
+              </li>
+              
+            </ul>
+          </nav>
+        </div>
+      </div>
+      {% if template.suffix ==  'flask-landing-page' %}
+        <div class="flask-custom-submenu">
+          <div class="sm-divider"></div>
+          <div class="submenu-content">
+
+              {%- render 'flask-dropdown-menu-header',
+              blocks: section.blocks -%}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="search-container js-search-container desktopSearchField">
+      {% render 'form-search', classes: ' js-header-search', type: "product", placeholder: "Search" %}
+      {% render 'search-trending-now' %}
+    </div>
+  </div>
+
+  {% render 'mobile-menu' %}
+</section>
+
+<script src="{{ 'header.js' | asset_url }}"></script>
+<script src="{{ 'atome-pop-up.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "url",
+      "id": "logo",
+      "label": "Logo white",
+      "info": "you can upload svgs in General - Files then copy and paste the link in this field."
+    },
+    {
+      "type": "url",
+      "id": "logo_secondary",
+      "label": "Logo black",
+      "info": "you can upload svgs in General - Files then copy and paste the link in this field."
+    },
+    {
+      "type": "url",
+      "id": "logo_flask",
+      "label": "Flask Logo",
+      "info": "you can upload svgs in General - Files then copy and paste the link in this field."
+    },
+    {
+      "type": "url",
+      "id": "logo_flask_secondary",
+      "label": "Flask PDP Logo",
+      "info": "you can upload svgs in General - Files then copy and paste the link in this field."
+    },
+    {
+      "type": "checkbox",
+      "id": "is_logo_white",
+      "label": "Is content white",
+      "default": true
+    },
+    {
+      "type": "link_list",
+      "id": "main_navigation",
+      "label": "Menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_show_top_bar",
+      "label": "Show top bar?"
+    },
+    {
+      "type": "text",
+      "id": "top_bar_content_one",
+      "label": "Top Bar Content One"
+    },
+    {
+      "type": "url",
+      "id": "top_bar_url_one",
+      "label": "Top Bar URL One"
+    },
+    {
+      "type": "textarea",
+      "id": "top_bar_onclick_one",
+      "label": "Top Bar On Click One",
+      "info": "Input javascript code. This will override the url."
+    },
+    {
+      "type": "text",
+      "id": "top_bar_content_two",
+      "label": "Top Bar Content Two"
+    },
+    {
+      "type": "url",
+      "id": "top_bar_url_two",
+      "label": "Top Bar URL Two"
+    },
+    {
+      "type": "textarea",
+      "id": "top_bar_onclick_two",
+      "label": "Top Bar On Click Two",
+      "info": "Input javascript code. This will override the url."
+    },
+    {
+      "type": "text",
+      "id": "top_bar_content_three",
+      "label": "Top Bar Content Three"
+    },
+    {
+      "type": "url",
+      "id": "top_bar_url_three",
+      "label": "Top Bar URL Three"
+    },
+    {
+      "type": "text",
+      "id": "top_bar_content_four",
+      "label": "Billease Promo Text",
+      "info":"Clearing this will hide the promo top bar"
+    },
+    {
+      "type": "header",
+      "content":"Flask Ticker Settings"
+    },
+    {
+      "type": "text",
+      "id": "top_bar_content_flask",
+      "label": "Flask ticker content",
+      "info":"Clearing this will hide the top bar"
+    },
+    {
+      "type": "url",
+      "id": "top_bar_url_flask",
+      "label": "Flask ticker link"
+    },
+    {
+      "type": "color",
+      "id": "top_bar_text_color",
+      "label": "Text color"
+    },
+    {
+      "type": "color",
+      "id": "top_bar_bg_color",
+      "label": "Background color"
+    },
+  ],
+  "max_blocks": 50,
+  "blocks": [
+    {
+      "type": "mega",
+      "name": "Image block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Link label",
+          "info": "Write the name of the link the way it is written in the navigation(Use only 2nd level links)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "flask_header_menu",
+      "name": "Flask Header Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Menu Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+  .navbar-menu-icon-light {
+  color: var(--white_color)
+  }
+  .navbar-menu-icon-dark {
+    color: var(--black_color)
+  }
+  .header__aside .menu li a {
+    color: inherit
+  }
+  
+  .header .header__content--white {
+    color: var(--white_color);
+  }
+  .header .header__content--black {
+    color: var(--black_color);
+  }
+  .header .header__content .nav {
+    color: inherit;
+  }
+  .header .header__content .nav li {
+    color: inherit;
+    padding: 0px !important;
+  }
+  /* Overrides mega-menu nav color   */
+  #shopify-section-header .header .header__content--white .nav .gm-item .gm-target, #shopify-section-header .header .header__content--black .nav .gm-item .gm-target {
+    color: inherit !important;
+    padding: 0px 0px !important;
+  }
+  #shopify-section-header .header .header__content--white .nav .gm-item .gm-target .gm-text, #shopify-section-header .header .header__content--black .nav .gm-item .gm-target .gm-text {
+    color: inherit !important; 
+  } 
+  {% if is_logo_white and template_suffix == 'flask-landing-page' %}
+    #shopify-section-header .header .header__content--white .nav .gm-item.gm-level-0:not(.gm-active) .gm-target .gm-text {
+      color: white !important;
+    }
+  {% endif %}
+
+  
+  /* End */
+  .header.header-is-fixed .header__content {
+    color: var(--black_color); 
+  }
+  /* new homepage changes */
+  .gm-menu-installed .wrapper #shopify-section-header .gm-menu .gm-item.gm-level-0>.gm-target{
+    padding: 0px !important;
+  }
+  .gm-menu-installed .gm-menu{
+    column-gap: 24px;
+  }
+  /* new homepage changes */
+{% endstylesheet %} 

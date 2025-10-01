@@ -1,0 +1,462 @@
+{% assign counter = 0 %}
+{% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'product_card' %}
+      {% assign counter = counter | plus: 1 %}
+    {% endcase %}
+  {% endfor %}
+{%-capture count_class-%}
+  {% if counter == 1%}
+    header-75
+  {% elsif counter == 2%}
+    header-50
+  {% elsif counter == 3%}
+    header-25
+  {% elsif counter == 0%}
+    header-100
+  {% endif %}
+{% endcapture %}
+
+{%-capture card_counter -%}
+  {% if counter > 3%}
+    enable
+  {% endif %}
+{% endcapture %}
+
+<style>
+    .{{ section.id }}.header-banner-section{
+        padding: 40px 40px 0;
+    }
+    .{{ section.id }}.header-banner-section.cards_style{
+        display: flex;
+        gap: 4px;
+    }
+    .{{ section.id }}.header-banner-section.cards_style .product_card{
+        flex-shrink: 1;
+    }
+    .product-card-wrapper.swiper-wrapper::-webkit-scrollbar{
+        appearance: none;
+        display: none
+    }
+    .product-card-wrapper.swiper-wrapper::-webkit-scrollbar-track,
+    .product-card-wrapper.swiper-wrapper::-webkit-scrollbar-thumb{
+        appearance: none;
+        display: none
+    }
+    .product-card-wrapper.swiper-wrapper {
+        display: flex;
+        overflow: auto;
+        gap: 4px;
+    }
+    .header-banner-image {
+        max-width: fit-content;
+    }
+    @media(max-width: 768px){
+
+        .{{ section.id }}.header-banner-section.cards_style .product_card{
+            flex-shrink: 0;
+            flex-basis: 85%;
+        }
+    }
+    .{{ section.id }} .header-banner-wrapper{
+        padding: 60px;
+        display: flex;
+        row-gap: 24px;
+        column-gap: 16px;
+        color: {{ section.settings.text_color }};
+        flex-direction: {{ section.settings.text_align  }};
+        background-color: {{ section.settings.background_color }};
+        {% if section.settings.background_image %}
+            background-image: url('{{ section.settings.background_image |  image_url }}');
+        {% endif %}
+        background-size: cover;
+        flex-shrink: 0;
+        background-repeat: no-repeat;
+    }
+    .cards_style .header-banner-wrapper {
+        justify-content: flex-end;
+    }
+
+    .header-50 .header-banner-wrapper {
+        flex-basis: 50%;
+        flex-shrink: 0;
+    }
+    .header-25 .header-banner-wrapper {
+        flex-basis: 25%;
+        flex-shrink: 0;
+    }
+    .header-75 .header-banner-wrapper {
+        flex-basis: 75%;
+        flex-shrink: 0;
+    }
+    @media(min-width: 769px){
+        .header-banner-section:not(.cards_style) .header-banner-title {
+            min-width: 400px;
+            text-align: {{ section.settings.image_text_align }};
+        }
+        .{{ section.id }}.header-banner-section.cards_style{
+            flex-direction: {{ section.settings.header_placement }};
+        }
+    }
+    #{{ section.id }} h2.header-banner-title{
+        /* font-family: AT Surt Medium; */
+        font-family: '{{ section.settings.image_text_font_family }}';
+        text-align: {{ section.settings.image_text_align }};
+        /* font-size: 22px; */
+        font-size: {{ section.settings.text_size }}px;
+    }
+
+    #{{ section.id }} .header-banner-subtitle{
+        font-family: 'Radio Grotesk';
+        text-align: {{ section.settings.image_text_align }};
+        font-size: 14px;
+    }
+    .header-banner-subtitle p:nth-child(n + 2) {
+        /* margin-top: 2em; */
+        margin-top: 24px;
+    }
+    .header-banner-subtitle h6 {
+        font-family: 'Radio Grotesk';
+        font-size: 11px;
+        margin-top: 12px;
+    }
+    @media(max-width: 768px){
+        .{{ section.id }}.header-banner-section{
+            padding: 16px 16px 0;
+        }
+        .{{ section.id }} .header-banner-wrapper{
+            padding: 36px 16px;
+            /* row-gap: 24px; */
+            row-gap: 16px;
+            flex-direction: column;
+            {% if section.settings.background_image_mobile %}
+                background-image: url('{{ section.settings.background_image_mobile |  image_url }}');
+            {% endif %}
+        }
+        .{{ section.id }}.header-banner-section.cards_style{
+            flex-wrap: wrap;
+        }
+        .cards_style .header-banner-wrapper {
+            flex-basis: 100%;
+            min-height: 140px;
+        }
+        #{{ section.id }} h2.header-banner-title{
+            font-size: 32px;
+        }
+    }
+    {% if template.suffix contains 'back-to-school' %}
+        .{{ section.id }} .header-banner-wrapper {
+            align-items: {{ section.settings.image_text_align }};
+            padding: 0;
+        }
+        @media(max-width: 768px){
+            .header-banner-section{
+                padding: 16px !important;
+            }
+        }
+        @media(min-width: 769px){
+            .header-banner-section{
+                padding: 40px 16px !important;
+            }
+        }
+        .header-banner-subtitle p {
+            margin-bottom: 16px
+        }
+    {% endif %}
+    .header-banner-alink {
+        font-family: 'Radio Grotesk';
+        font-size: 14px;
+        color: {{ section.settings.text_color }};
+        text-decoration: none;
+        padding-bottom: 2px;
+        border-bottom: 1px solid {{ section.settings.text_color }};
+        margin-top: 16px;
+    }
+</style>
+<div id="{{ section.id }}" class="{{ section.id }} header-banner-section {% if section.blocks.size != 0 %}cards_style {{ count_class | strip }}{% endif %}">
+
+    {% if section.blocks.size == 0 %}
+        <div class="header-banner-wrapper" id="{{ section.settings.section_id_name }}">
+            {% if section.settings.text != blank %}
+                <h2 class="header-banner-title">{{ section.settings.text }}</h2>
+            {% endif %}
+            {% if section.settings.image != blank %}
+                <img class="header-banner-image" src="{{ section.settings.image }}">
+            {% endif %}
+            {% if section.settings.subtitle != blank %}
+                <div class="header-banner-subtitle">{{ section.settings.subtitle }}
+                    {% if section.settings.alink != blank %}
+                        <a class="header-banner-alink" href="{{ section.settings.alink }}">{{ section.settings.atitle }}</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    {% else %}
+        {% for block in section.blocks %}
+            {% case block.type %}
+                {% when 'banner_header' %}
+                    <div class="header-banner-wrapper">
+                        {% if block.settings.text != blank %}
+                            <h2 class="header-banner-title">{{ block.settings.text }}</h2>
+                        {% endif %}
+                        {% if block.settings.image != blank %}
+                            <img class="header-banner-image" src="{{ block.settings.image }}">
+                        {% endif %}
+                        {% if block.settings.subtitle != blank %}
+                            <div class="header-banner-subtitle">{{ block.settings.subtitle }}</div>
+                        {% endif %}
+                    </div>
+            {% endcase %}
+        {% endfor %}
+        <div class="{{ section.id }} product-card-wrapper swiper-wrapper">
+            {% for block in section.blocks %}
+                {% case block.type %}
+                    {% when 'product_card' %}
+                        <div class="product_card swiper-slide">
+                            {% if block.settings.card_version == "version_1" %}
+                            {% render 'product-card-eye-candy',  product_data: block.settings.product_card %}
+                            {% else %}
+                            {% render 'product-card-eye-candy-v2',  product_data: block.settings.product_card, variant_name: block.settings.product_variant %}
+                            {% endif %}
+                        </div>
+                {% endcase %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    new Swiper(".{{ section.id }} .ec-container", {
+    slidesPerView: 1.25,
+    spaceBetween: 4,
+    slidesPerGroup: 1,
+    breakpoints: {
+      768: {
+        slidesPerView: 4,
+        slidesPerGroup: 4,
+      }
+    }
+  });
+  </script>
+{{ 'product-card-eye-candy.js' | asset_url | script_tag }}
+{%  schema  %} 
+
+    {
+        "name": "Header Banner",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Use Card Blocks to change this to a Card layout",
+                "info": "________________________________"
+            },
+            {
+                "type": "text",
+                "id": "section_id_name",
+                "label": "Section ID",
+                "info": "Create a section ID (e.g: section_flask). Then copy + paste it to the Sub Header Section > Navigation Link(block)."
+            },
+            {
+                "type": "checkbox",
+                "id": "show_header",
+                "label": "Show Header",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "show_cards",
+                "label": "Show Cards",
+                "default": false
+            },
+            {
+                "type": "color",
+                "id": "background_color",
+                "label": "Background Color"
+            },
+            {
+                "type": "color",
+                "id": "text_color",
+                "label": "Text Color"
+            },
+            {
+                "type": "text",
+                "id": "text_size",
+                "label": "Header Text Size",
+                "default": "42"
+            },
+            {
+                "type": "select",
+                "id": "image_text_align",
+                "label": "Image Text Alignment",
+                "options": [
+                    {
+                        "label": "Left",
+                        "value": "start"
+                    },
+                    {
+                        "label": "Center",
+                        "value": "center"
+                    },
+                    {
+                        "label": "Right",
+                        "value": "end"
+                    }
+                ],
+                "default": "center"
+            },
+            {
+                "type":"select",
+                "id":"image_text_font_family",
+                "label":"Header Text Font Family",
+                "options":[
+                {
+                    "value":"AT Surt",
+                    "label":"AT Surt"
+                },
+                {
+                    "value":"AT Surt Medium",
+                    "label":"AT Surt Medium"
+                },
+                {
+                    "value":"Better Season - Demo",
+                    "label":"Better Season - Demo"
+                }
+                ],
+                "default":"Better Season - Demo"
+            },
+            {
+                "type": "image_picker",
+                "id": "background_image",
+                "label": "Background Image Desktop"
+            },
+            {
+                "type": "image_picker",
+                "id": "background_image_mobile",
+                "label": "Background Image Mobile"
+            },
+            {
+                "type": "text",
+                "id": "text",
+                "label": "Header Text"
+            },
+            {
+                "type": "url",
+                "id": "image",
+                "label": "Header Image"
+            },
+            {
+                "type": "richtext",
+                "id": "subtitle",
+                "label": "Subtitle"
+            },
+            {
+                "type": "select",
+                "id": "text_align",
+                "label": "Header Content Alignment",
+                "default": "column",
+                "options": [
+                    {
+                        "label": "Vertical",
+                        "value": "column"
+                    },
+                    {
+                        "label": "Horizontal",
+                        "value": "row"
+                    }
+
+                ]
+            },
+            {
+                "type": "text",
+                "id": "atitle",
+                "label": "Link Title"
+            },
+            {
+                "type": "url",
+                "id": "alink",
+                "label": "Link URL"
+            }
+            // {
+            //     "type": "select",
+            //     "id": "header_placement",
+            //     "label": "Header Content Placement",
+            //     "info": "For card header placement on desktop to left or right",
+            //     "default": "row",
+            //     "options": [
+            //         {
+            //             "label": "Left",
+            //             "value": "row"
+            //         },
+            //         {
+            //             "label": "Right",
+            //             "value": "row-reverse"
+            //         }
+
+            //     ]
+            // }
+        ],
+        "blocks": [
+            {
+                "type": "banner_header" ,
+                "name": "Header Card",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "text",
+                        "label": "Header Text"
+                    },
+                    {
+                        "type": "url",
+                        "id": "image",
+                        "label": "Header Image"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "subtitle",
+                        "label": "Subtitle"
+                    }
+                ]
+            },
+            {
+                "type":"product_card",
+                "name":"Product Card",
+                "limit": 3,
+                "settings":[
+                    {
+                        "type": "radio",
+                        "id": "card_version",
+                        "label": "Product Card Version",
+                        "options": [
+                        {
+                            "value": "version_1",
+                            "label": "Version 1"
+                        },
+                        {
+                            "value": "version_2",
+                            "label": "Version 2"
+                        }
+                        ],
+                        "default": "version_1",
+                        "info":"Version 1 will ignore the Product Variant field"
+                    },
+                    {
+                        "type":"product",
+                        "id":"product_card",
+                        "label":"Product"
+                    },
+                    {
+                        "type":"text",
+                        "id":"product_variant",
+                        "label":"Product Variant"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+            "name": "Header Banner"
+            }
+        ]
+    }
+
+{% endschema %} 

@@ -1,0 +1,228 @@
+{% liquid
+  assign product_first_variant = product_data.selected_or_first_available_variant
+  assign item_type = ''
+
+  if product_data.tags contains 'merch'
+    assign item_type = 'merch'
+  else
+    if product_data.tags contains 'sun'
+      assign item_type = 'studios_frame'
+    elsif product_data.tags contains 'readers' or product_data.tags contains 'anti-rad'
+      assign item_type = 'G100'
+    elsif product_data.tags contains 'flask'
+      assign item_type = 'flask'
+    endif
+  endif
+%}
+
+
+<div class="mini-product-card">
+  <div class="mini-product-card-images">
+    {% for variant in product_data.variants %}
+      <img
+        alt="{{ variant.image.alt }}"
+        class="mini-product-card-image"
+        data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}"
+        data-variant-id="{{ variant.id }}"
+        loading="lazy"
+        src="{{ variant.image | img_url: 'master' }}"
+        onClick="handleRedirectProductCard('{{ variant.url }}')">
+    {% endfor %}
+  </div>
+  <div class="mini-product-card-details">
+    <div class="mini-product-card-details-wrapper">
+      <div>
+        <div class="title-wrapper" onClick="handleRedirectProductCard('{{ product_first_variant.url }}')">
+          <h3>{{ product_data.title }}</h3>
+        </div>
+        <ul class="mini-product-card-variants">
+          {% for variant in product_data.variants %}
+            <li data-variant-id="{{ variant.id }}" data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}">
+              {{ variant.option1 }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <ul class="mini-product-card-swatches {% if product_data.variants.size >= 6%}swiper-no-swiping{% endif %}">
+        {% for variant in product_data.variants %}
+          <li
+            class="mini-product-card-swatch {% if product_first_variant.id == variant.id %}current-active-swatch{% endif %}"
+            data-variant-id="{{ variant.id }}"
+            data-is-available="{{ variant.available }}">
+            <div
+              data-handle-name="{{variant.option1 | handle}}"
+              data-is-available="{{ variant.available }}"
+              data-variant-id="{{ variant.id }}"></div>
+            {% unless variant.available %}
+              <div id="variant-not-available" data-variant-id="{{ variant.id }}"></div>
+            {% endunless %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="mini-product-card-details-wrapper-actions">
+      <ul class="mini-product-card-prices">
+        {% for variant in product_data.variants %}
+          <li data-variant-id="{{ variant.id }}" data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}">
+            {% if variant.compare_at_price > variant.price %}
+              <span class="price-compare">${{ variant.compare_at_price | money_without_currency | remove: '.00' }}</span>
+              <span class="price-highlight">${{ variant.price | money_without_currency | remove: '.00' }}</span>
+            {% else %}
+              ${{ variant.price | money_without_currency | remove: '.00' }}
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+
+      <div class="mini-product-card-actions" data-variant-id="{{ product_first_variant.id }}">
+        {% for variant in product_data.variants %}
+          <div
+            class="mini-product-card-actions-buttons"
+            data-first-available="{% if product_first_variant.id == variant.id %}true{% else %}false{% endif %}"
+            data-is-available="{{ variant.available }}"
+            data-variant-id="{{ variant.id }}">
+            {% if product_data.tags contains 'prescription' %}
+              <a id="select-lenses-button" href="{{ variant.url }}">
+                <svg
+                  id="mini-svg-icon"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    id="svg-stroke-1"
+                    d="M8 3V13"
+                    stroke="#352B27"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path
+                    id="svg-stroke-2"
+                    d="M3 8L13 8"
+                    stroke="#352B27"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+                <span></span>
+              </a>
+            {% else %}
+
+              {% comment %} <a onclick="addMiniProduct({{ variant.id }}, '{{ item_type }}', event)">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Union.svg?v=1666083086"
+                  loading="lazy"
+                >
+                <span>Add</span> {% endcomment %}
+
+              <a id="add-product-button" onclick="addMiniProduct({{ variant.id }}, null, event)">
+                <svg
+                  id="mini-svg-icon"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M8 3V13"
+                    stroke="#352B27"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path
+                    d="M3 8L13 8"
+                    stroke="#352B27"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+                <span></span>
+              </a>
+            {% endif %}
+            <a id="joint-the-waitlist-button" onClick="openWaitlistModal({{ product_data.id }}, {{ variant.id }})">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_1039_42931)">
+                  <path
+                    d="M1 5.52619C0.999986 5.1712 1.07751 4.82145 1.226 4.50657C1.37449 4.1917 1.58957 3.92099 1.853 3.71741L4.853 1.39917C5.18918 1.13936 5.58962 1 6 1C6.41038 1 6.81082 1.13936 7.147 1.39917L10.147 3.71741C10.4104 3.92099 10.6255 4.1917 10.774 4.50657C10.9225 4.82145 11 5.1712 11 5.52619V9.89608C11 10.1889 10.8946 10.4696 10.7071 10.6767C10.5196 10.8837 10.2652 11 10 11H2C1.73478 11 1.48043 10.8837 1.29289 10.6767C1.10536 10.4696 1 10.1889 1 9.89608V5.52619Z"
+                    stroke="#352B27"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path
+                    d="M1 4L4.68474 6.58761C5.05805 6.85456 5.5219 7 6 7C6.4781 7 6.94195 6.85456 7.31526 6.58761L11 4"
+                    stroke="#352B27"
+                    stroke-linejoin="round" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_1039_42931">
+                    <rect
+                      width="12"
+                      height="12"
+                      fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+              <span></span>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  const minWidth = 431;
+
+  function updateButton(button, defaultText, hoverText) {
+    const span = button.querySelector('span');
+    const svg = button.querySelectorAll('svg path');
+    button.onmouseover = function() {
+      if (window.innerWidth >= minWidth) {
+        span.innerHTML = hoverText;
+        span.style.width = span.scrollWidth + 'px';
+        svg.forEach(path => path.style.stroke = '#FFF');
+      }
+    };
+    button.onmouseout = function() {
+      if (window.innerWidth >= minWidth) {
+        span.innerHTML = defaultText;
+        span.style.width = '0';
+        svg.forEach(path => path.style.stroke = '#352B27');
+      }
+    };
+  }
+
+  function initializeButtons() {
+    document.querySelectorAll("#select-lenses-button").forEach((button) => {
+      updateButton(
+        button,
+        '',
+        '&nbsp;&nbsp;Select lenses'
+      );
+    });
+
+    document.querySelectorAll("#add-product-button").forEach((button) => {
+      updateButton(
+        button,
+        '',
+        '&nbsp;&nbsp;Add'
+      );
+    });
+
+    document.querySelectorAll("#joint-the-waitlist-button").forEach((button) => {
+      updateButton(
+        button,
+        '',
+        '&nbsp;&nbsp;Join the Waitlist'
+      ); 
+    });
+  }
+
+  initializeButtons();
+  window.addEventListener("load", initializeButtons);
+  window.addEventListener("resize", initializeButtons);
+});
+</script>

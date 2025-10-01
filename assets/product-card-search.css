@@ -1,0 +1,194 @@
+.product-card-actions-buttons a {
+    border-radius: 8px;
+}
+
+.product-card-image[data-first-available="true"] {
+    display: block;
+    height: 344px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.product-card-image {
+    height: 344px; 
+    width: 100%;
+    object-fit: cover;
+}
+
+.product-card-details {
+    background-color: #FFF;
+}
+
+.product-card-actions-buttons[data-is-available="true"] a, .product-card-actions-buttons[data-is-available="false"] #joint-the-waitlist-button {
+    background: #352B27;
+    display: flex;
+    color: white;
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    line-height: 20px;
+    transition: all 0.3s ease-in-out;
+    padding: 12px 0;
+    height: 44px;
+}
+
+.product-card-details-wrapper .title-wrapper h3 {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    line-height: 20px;   
+    color: #352B27;
+    margin: 0 0 4px 0;
+}
+
+.product-card-details-wrapper .title-wrapper {
+    margin: 0 0 12px 0;
+}
+
+.product-card-prices li {
+    font-family: 'Radio Grotesk';
+    font-size: 11px;
+    line-height: 20px;
+    color: #352B27;
+}
+
+.product-card-variants {
+    font-size: 11px;
+    line-height: 150%;
+    color: #AEAAA9;
+    margin-bottom: 0;
+}
+
+.product-card-swatches {
+    gap: 2px;
+}
+
+.product-card-swatches li div {
+    width: 15px;
+    height: 15px;
+}
+
+.product-card-swatches li {
+    margin: 0;
+    min-width: 20px;
+    min-height: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.product-card-swatches .current-active-swatch {
+    border: .63px solid #352B27;
+}
+
+.product-card-actions-buttons[data-is-available="true"] a:hover, .product-card-actions-buttons[data-is-available="false"] #joint-the-waitlist-button:hover {
+    color: #352B27;
+    background: #FFF;
+    border: 1px solid #352B27;
+    transition: all 0.3s ease-in-out;
+}
+
+.product-card-details-wrapper {
+    margin-bottom: 16px;
+}
+
+.product-card-swatches li[data-is-available="false"] {
+    border: .63px solid #D7D6D0;
+}
+
+@media (min-width: 769px) {
+    .product-card-images {
+        max-height: 344px;
+      }
+}
+
+/* Flask */
+.flask.flask-collapsed {
+    height: 20px;
+}
+@media (max-width: 768px) {
+    .main-search-container {
+        padding: 0;
+    }
+    .product-card-image[data-first-available="true"], .product-card-image {
+        height: 193px;
+    }
+    .product-card-details-wrapper .title-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        justify-self: flex-start;
+    }
+    .product-card-details-wrapper .title-wrapper {
+        margin: 0;
+    }
+    .product-card-prices {
+        margin: 8px 0;
+    }
+    .product-card-actions-buttons[data-is-available="true"] a, .product-card-actions-buttons[data-is-available="false"] #joint-the-waitlist-button {
+        font-size: 12px;
+        line-height: 16px;
+        padding: 9px 0;
+    }
+    .product-card-actions-buttons[data-is-available="true"] a:hover, .product-card-actions-buttons[data-is-available="false"] #joint-the-waitlist-button:hover {
+        color: #FFF;
+        background: #352B27;
+        border: 1px solid #352B27;
+    }
+}
+
+/* Search Result Feature Added */
+.search-result-container {
+    padding-left: 16px;
+}
+.search-main-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.search-main-wrapper p {
+    font-size: 14px;
+    font-family: 'Radio Grotesk';
+    line-height: 20px;
+    color: #352B27;
+}
+.search-main-title {
+    font-family: AT Surt Medium;
+    font-size: 28px;
+    color: #352B27;
+    line-height: 36px;
+}
+.search-identify {
+    text-decoration: underline;
+}
+.search-title-gray {
+    color: #756F6D;
+}
+.search-info-collect-wrapper {
+    display: flex;
+    padding: 40px 0;
+}
+.search-wrap {
+    width: 380px;
+}
+.search-wrap h4 {
+    font-size: 22px;
+    font-family: 'Radio Grotesk';
+    color: #352B27;
+    line-height: 150%;
+    margin-bottom: 16px;
+}
+.search-wrap div div span {
+    font-size: 14px;
+    font-family: 'Radio Grotesk';
+    line-height: 20px;
+    color: #352B27;
+}
+.search-collection-prompt {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+@media(max-width:768px){
+    .search-info-collect-wrapper {
+        flex-direction: column;
+        gap: 32px;
+    }
+}

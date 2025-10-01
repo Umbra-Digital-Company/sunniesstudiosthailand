@@ -1,0 +1,140 @@
+<div class="product-cards">
+  <h3 class="product-cards-title">{{ section.settings.title }}</h3>
+  <div class="product-cards-container swiper">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="article-product-card swiper-slide">
+          <div class="article-product-card-title">{{ block.settings.card_title }}</div>
+          <img class="article-product-card-image" src="{{ block.settings.card_image | img_url: 'master' }}" alt="image">
+          <a
+            class="article-product-card-link btn btn--lightbrown"
+            href="{{ block.settings.card_btn_link }}"
+            >shop now</a
+          >
+        </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+
+<script>
+  new Swiper('.product-cards-container', {
+    breakpoints: {
+      320: {
+        slidesPerView: 1.2,
+        spaceBetween: 24,
+        freeMode: true,
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'bullets',
+          clickable: true
+        }
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 24,
+      }
+    }
+  });
+</script>
+
+<style>
+  .product-cards {
+    margin: 100px 0 0;
+  }
+  .product-cards-container {
+    max-width: 1200px;
+  }
+  .product-cards-title {
+    margin-bottom: 52px;
+    text-align: center;
+  }
+  .article-product-card {
+    position: relative;
+  }
+  .article-product-card-link {
+      position: absolute;
+      padding: 16px 32px 14px;
+      font-size: 16px;
+      bottom: 40px;
+      right: 24px;
+  }
+  .article-product-card-title {
+    position: absolute;
+    top: initial;
+    bottom: 40px;
+    left: 24px;
+    font-size: 18px;
+    color: #EFEFEC;
+  }
+  @media (max-width: 767px) {
+    .product-cards {
+      margin-top: 40px;
+    }
+    .product-cards-container {
+      margin-left: 16px;
+      padding-bottom: 50px;
+    }
+    .product-cards-title {
+      font-size: 24px;
+      text-align: left;
+      margin-left: 16px;
+      margin-bottom: 24px;
+    }
+    .swiper-pagination-bullet {
+      border: 1px solid #352B27;
+    }
+    .swiper-pagination-bullet-active {
+      background-color: #352B27;
+    }
+    .article-product-card-link {
+      padding: 12px 26px 9px;
+      font-size: 14px;
+  }
+    .article-product-card-title {
+      font-size: 16px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product Cards",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Product card image"
+        },
+        {
+          "type": "richtext",
+          "id": "card_title",
+          "label": "Card title"
+        },
+        {
+          "type": "url",
+          "id": "card_btn_link",
+          "label": "Card button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Cards"
+    }
+  ]
+}
+{% endschema %}

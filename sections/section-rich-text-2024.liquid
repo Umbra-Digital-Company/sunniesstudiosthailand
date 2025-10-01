@@ -1,0 +1,61 @@
+<div class="rich-text-container">
+  <h1>{{ section.settings.title }}</h1>
+  <p>{{ section.settings.message }}</p>
+</div>
+
+<style>
+.rich-text-container{
+        padding: 60px 100px;
+        text-align: center;
+}
+.rich-text-container h1, .rich-text-container p{
+        font-family: 'Radio Grotesk';
+        color: #352b27;
+}
+.rich-text-container h1{
+        font-family: "AT Surt Medium";
+        font-size: 28px;
+        line-height: 36px;
+        margin: 0 0 16px 0;
+}
+.rich-text-container p {
+        font-family: 'Radio Grotesk';
+        font-size: 14px;
+        line-height: 20px;
+}
+@media (max-width: 768px){
+        .rich-text-container{
+                padding: 60px 16px;
+        }
+        .rich-text-container h1{
+                margin: 0 0 24px 0;
+        }
+}
+</style>
+
+{% schema %}
+  {
+    "name": "Rich text container",
+    "tag": "section",
+    "settings": [
+        {
+                "type": "text",
+                "id": "title",
+                "label": "Title",
+                "default": "Title here"
+        },
+        {
+                "type": "textarea",
+                "id": "message",
+                "label": "Message",
+                "default": "Message here"
+        }
+    ],
+    "presets": [
+      {
+        "name": "Rich text container"
+      }
+
+    ]
+  }
+{% endschema %}

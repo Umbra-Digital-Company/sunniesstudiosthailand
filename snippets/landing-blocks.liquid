@@ -1,0 +1,728 @@
+{%- assign _section = section.settings -%}
+{%- assign section_pages_menu = _section.pages_menu -%}
+{%- assign about_page_navigation = '' -%}
+
+{%- if section_pages_menu != blank -%}
+  {%- capture about_page_navigation -%}
+    <section class="section-about-nav">
+      <div class="shell">
+        <div class="section__inner">
+          <nav class="nav-pages">
+            {%- include 'menu-pages', handle: section_pages_menu -%}
+          </nav>
+          <!-- /.nav-pages -->
+
+          <div class="nav-select js-select-page">
+            <select>
+              {% for link in linklists[section_pages_menu].links %}
+                <option data-page-url="{{ link.url }}"{% if link.url == page.url %}selected{% endif %}>{{ link.title }}
+                </option>
+              {% endfor %}
+            </select>
+            <!-- /# -->
+          </div>
+          <!-- /.nav-select -->
+        </div>
+        <!-- /.section__inner -->
+      </div>
+      <!-- /.shell -->
+    </section>
+    <!-- /.section-about-nav -->
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- for block in section.blocks -%}
+  {%- assign _block = block.settings -%}
+  {%- case block.type -%}
+
+    {%- when 'three_cards' -%}
+    {% assign block_image_1 = _block.card_image_1 %}
+    {% assign block_image_2 = _block.card_image_2 %}
+    {% assign block_image_3 = _block.card_image_3 %}
+    {% assign block_text_1 = _block.card_text_1 %}
+    {% assign block_text_2 = _block.card_text_2 %}
+    {% assign block_text_3 = _block.card_text_3 %}
+
+    <section class="three-cards">
+      <div class="card">
+        <figure class="card-image">
+          <img src="{{ block_image_1 | img_url:'master' }}">
+        </figure>
+        <p class="card-text">{{ block_text_1 }}</p>
+      </div>
+      <div class="card">
+        <figure class="card-image">
+          <img src="{{ block_image_2 | img_url:'master' }}">
+        </figure>
+        <p class="card-text">{{ block_text_2 }}</p>
+      </div>
+      <div class="card">
+        <figure class="card-image">
+          <img src="{{ block_image_3 | img_url:'master' }}">
+        </figure>
+        <p class="card-text">{{ block_text_3 }}</p>
+      </div>
+    </section>
+
+    {%- when 'intro' -%}
+    {%- assign block_image = _block.image -%}
+    {%- assign block_image_mobile = _block.image_mobile -%}
+    {%- assign block_image_size = _block.image_size -%}
+    {%- assign block_title = _block.title -%}
+    {%- assign block_text_color = _block.text_color -%}
+    {%- assign block_btn_text = _block.btn_text -%}
+    {%- assign block_btn_url = _block.btn_url -%}
+    {%- assign block_btn_color = _block.btn_color -%}
+    {%- assign block_btn_theme = _block.btn_theme -%}
+    {%- assign block_is_image_contained = _block.is_image_contained -%}
+    {%- assign block_background_color = _block.background_color -%}
+
+    <section class="section-about-intro">
+      <div class="shell">
+        <div class="section__inner {{block_image_size}}">
+          {%- if block_image != blank -%}
+            <div class="section__image" style="
+                                background-image: url({{ block_image | img_url: '3200x' }});
+                                background-position: bottom !important;
+                                {%- if block_is_image_contained -%}
+                                  background-size: contain !important;
+                                {%- endif -%}
+                                background-color: {{ block_background_color }}"></div>
+          {%- endif -%}
+
+          {%- if block_image_mobile != blank -%}
+            <div class="section__image section__image--mobile" style="
+                                        background-image: url({{ block_image_mobile | img_url: '1534x' }}); 
+                                        background-position: bottom !important;
+                                        {%- if block_is_image_contained -%}
+                                        background-size: contain !important;
+                                        {%- endif -%}
+                                        background-color: {{ block_background_color }}
+                                        "></div>
+          {%- endif -%}
+
+          {%- if block_title != blank or block_btn_text != blank -%}
+            <div class="section__content">
+              {%- if block_title != blank -%}
+                <h1 style="color: {{block_text_color}};">{{ block_title }}</h1>
+              {%- endif -%}
+              {%- if block_btn_text != blank -%}
+                <a href="{{block_btn_url}}" class="btn btn-intro--cta {{block_btn_theme}}">{{ block_btn_text }}</a>
+              {%- endif -%}
+            </div>
+            <!-- /.section__content -->
+          {%- endif -%}
+        </div>
+        <!-- /.section__inner -->
+      </div>
+      <!-- /.shell -->
+    </section>
+    <!-- /.section-about-intro -->
+
+    {%- when 'featured_image' -%}
+    {%- assign block_image = _block.image -%}
+    {%- assign block_image_mobile = _block.image_mobile -%}
+
+    <div class="featured-image">
+      {%- if block_image != blank -%}
+        <div class="section__image section__image--desktop lazyload">
+          <img
+            data-src="{{ block_image | img_url: 'master' }}"
+            alt=""
+            class="lazyload" />
+        </div>
+      {%- endif -%}
+
+      {%- if block_image_mobile != blank -%}
+        <div class="section__image section__image--mobile">
+          <img
+            data-src="{{ block_image_mobile | img_url: 'master' }}"
+            alt=""
+            class="lazyload" />
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- when 'mini_catalogue' -%}
+    {%- assign block_recommended_title = _block.recommended_title -%}
+    {%- assign block_product_1 = all_products[_block.product_select_1] -%}
+    {%- assign block_product_2 = all_products[_block.product_select_2] -%}
+    {%- assign block_product_3 = all_products[_block.product_select_3] -%}
+    {%- assign block_product_4 = all_products[_block.product_select_4] -%}
+    {%- assign block_product_5 = all_products[_block.product_select_5] -%}
+    {%- assign block_product_6 = all_products[_block.product_select_6] -%}
+    {%- assign block_product_7 = all_products[_block.product_select_7] -%}
+    {%- assign block_product_8 = all_products[_block.product_select_8] -%}
+
+    <div class="Product__details_mini_catalogue">
+      <h2 class="title">{{ block_recommended_title }}</h2>
+
+      <div class="section__body">
+        <div class="mini-catalogue-mobile">
+          <div class="slider slider-featured-products slider-featured-products--main slider-featured-collection product-essential">
+            {%- include 'product-item-carousel' with block_product_1 -%}
+            {%- include 'product-item-carousel' with block_product_2 -%}
+            {%- include 'product-item-carousel' with block_product_3 -%}
+            {%- include 'product-item-carousel' with block_product_4 -%}
+            {%- include 'product-item-carousel' with block_product_5 -%}
+            {%- include 'product-item-carousel' with block_product_6 -%}
+          </div>
+        </div>
+
+        <div class="mini-catalogue-desktop">
+          <div class="product-listing" style="display: flex;">
+            <div class="product-listing__item">
+              {%- include 'product-item-carousel' with block_product_1 -%}
+            </div>
+            <div class="product-listing__item">
+              {%- include 'product-item-carousel' with block_product_2 -%}
+            </div>
+            <div class="product-listing__item">
+              {%- include 'product-item-carousel' with block_product_3 -%}
+            </div>
+            <div class="product-listing__item">
+              {%- include 'product-item-carousel' with block_product_4 -%}
+            </div>
+            <div class="product-listing__item">
+              {%- include 'product-item-carousel' with block_product_5 -%}
+            </div>
+            <div class="product-listing__item">
+              {%- include 'product-item-carousel' with block_product_6 -%}
+            </div>
+            <div class="product-listing__item">
+              {%- include 'product-item-carousel' with block_product_7 -%}
+            </div>
+            <div class="product-listing__item">
+              {%- include 'product-item-carousel' with block_product_8 -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- when '50_50' -%}
+    {%- assign block_image = _block.image -%}
+    {%- assign block_title = _block.title -%}
+    {%- assign block_content = _block.content -%}
+    {%- assign block_btn_text = _block.btn_text -%}
+    {%- assign block_btn_url = _block.btn_url -%}
+    {%- assign block_switch_layout = _block.switch_layout -%}
+    {%- assign switch_class = '' -%}
+
+    {%- if block_switch_layout -%}
+      {%- assign switch_class = ' section-about-50-50--reverse' -%}
+    {%- endif -%}
+
+
+    <section class="section-about-50-50{{switch_class}}">
+      <div class="section__inner">
+        <div class="section__content">
+          <div class="section__entry">
+            {%- if block_title != blank -%}
+              <h2>{{ block_title }}</h2>
+            {%- endif -%}
+
+            {%- if block_content != blank -%}
+              <div class="section__entry-text">
+                {{ block_content }}
+              </div>
+              <!-- /.section__entry-text -->
+            {%- endif -%}
+
+            {%- if block_btn_url != blank -%}
+              <div class="section__entry-actions">
+                <a href="{{block_btn_url}}" class="btn btn--{{block_btn_color}}">{{ block_btn_text }}</a>
+              </div>
+              <!-- /.section__entry-actions -->
+            {%- endif -%}
+          </div>
+          <!-- /.section__entry -->
+        </div>
+        <!-- /.section__content -->
+
+        {%- if block_image -%}
+          <div class="section__image" style="background-image: url({{ block_image | img_url: '1600x' }});"></div>
+          <!-- /.section__image -->
+        {%- endif -%}
+      </div>
+      <!-- /.section__inner -->
+    </section>
+    <!-- /.section-about-50-50 -->
+
+    {%- when 'section-3-column' -%}
+    {%- assign block_headline = _block.headline -%}
+    {%- assign block_image_1 = _block.image_1 -%}
+    {%- assign block_title_1 = _block.title_1 -%}
+    {%- assign block_content_1 = _block.content_1 -%}
+    {%- assign block_image_2 = _block.image_2 -%}
+    {%- assign block_title_2 = _block.title_2 -%}
+    {%- assign block_content_2 = _block.content_2 -%}
+    {%- assign block_image_3 = _block.image_3 -%}
+    {%- assign block_title_3 = _block.title_3 -%}
+    {%- assign block_content_3 = _block.content_3 -%}
+
+    <section class="section-3-blocks">
+      <div class="shell">
+        {%- if block_headline != blank -%}
+          <div class="section__head" style="margin-bottom: 50px;">
+            <h2>{{ block_headline | newline_to_br }}</h2>
+          </div>
+          <!-- /.section__head -->
+        {%- endif -%}
+
+        <div class="section__body">
+          <div class="blocks-3">
+            <div class="blocks-3__items">
+
+              {%- if block_image_1 != blank -%}
+
+                <div class="blocks-3__item">
+                  <div class="block-3">
+                    <div class="block-3__image">
+                      <img src="{{block_image_1 | img_url: '900x'}}" />
+                    </div>
+
+                    <div class="block-3__section">
+                      {%- if block_title_1 != blank -%}
+                        <h4>{{ block_title_1 }}</h4>
+                      {%- endif -%}
+
+                      {%- if block_content_1 != blank -%}
+                        <p>{{ block_content_1 }}</p>
+                      {%- endif -%}
+                    </div>
+
+                  </div>
+                  <!-- /.block-3 -->
+                </div>
+                <!-- /.blocks-3__item -->
+
+              {%- endif -%}
+
+              {%- if block_image_2 != blank -%}
+
+                <div class="blocks-3__item">
+                  <div class="block-3">
+                    <div class="block-3__image">
+                      <img src="{{block_image_2 | img_url: '900x'}}" />
+                    </div>
+
+                    <div class="block-3__section">
+                      {%- if block_title_2 != blank -%}
+                        <h4>{{ block_title_2 }}</h4>
+                      {%- endif -%}
+
+                      {%- if block_content_2 != blank -%}
+                        <p>{{ block_content_2 }}</p>
+                      {%- endif -%}
+                    </div>
+
+                  </div>
+                  <!-- /.block-3 -->
+                </div>
+                <!-- /.blocks-3__item -->
+
+              {%- endif -%}
+
+              {%- if block_image_3 != blank -%}
+
+                <div class="blocks-3__item">
+                  <div class="block-3">
+                    <div class="block-3__image">
+                      <img src="{{block_image_3 | img_url: '900x'}}" />
+                    </div>
+
+                    <div class="block-3__section">
+                      {%- if block_title_3 != blank -%}
+                        <h4>{{ block_title_3 }}</h4>
+                      {%- endif -%}
+
+                      {%- if block_content_3 != blank -%}
+                        <p>{{ block_content_3 }}</p>
+                      {%- endif -%}
+                    </div>
+
+                  </div>
+                  <!-- /.block-3 -->
+                </div>
+                <!-- /.blocks-3__item -->
+
+              {%- endif -%}
+
+            </div>
+            <!-- /.blocks-3__items -->
+          </div>
+          <!-- /.blocks-3 -->
+        </div>
+        <!-- /.section__body -->
+      </div>
+      <!-- /.shell -->
+    </section>
+    <!-- /.section-3-blocks -->
+
+    {%- when 'ditto_product' -%}
+
+    {%- assign block_ditto_title = _block.title -%}
+    {%- assign block_ditto_description = _block.description -%}
+    {%- assign block_ditto_product_1 = all_products[_block.product_1] -%}
+    {%- assign block_ditto_product_2 = all_products[_block.product_2] -%}
+    {%- assign block_ditto_product_3 = all_products[_block.product_3] -%}
+    {%- assign block_ditto_variant_1 = _block.variant_1 -%}
+    {%- assign block_ditto_variant_2 = _block.variant_2 -%}
+    {%- assign block_ditto_variant_3 = _block.variant_3 -%}
+    {%- assign block_ditto_guide = _block.guide_url -%}
+    {%- assign block_ditto_guide_mobile = _block.mobile_guide_url -%}
+
+    <section class="vto-ditto-frames">
+      <div class="shell">
+        <div class="ditto-grid">
+          <div class="ditto-grid__item" id="dittoFramesOptions">
+
+            {%- if block_ditto_title != blank and block_ditto_description != blank -%}
+
+              <div class="item-section">
+                <h4>{{ block_ditto_title }}</h4>
+                <p>{{ block_ditto_description }}</p>
+                <img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/VTO_Arrow.svg?v=1614088971" alt="arrow" />
+              </div>
+
+            {%- endif -%}
+
+            <div class="item-frames">
+              {%- if block_ditto_product_1 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_1 -%}
+                  {%- for image in block_ditto_product_1.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_1 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  <h5>{{ block_ditto_product_1.title }}</h5>
+                  {%- for _variant_1 in block_ditto_product_1.variants -%}
+                    {%- if _variant_1.option1 == block_ditto_variant_1 -%}
+                      {%- assign variant_1_id = _variant_1.id -%}
+                      {%- assign variant_1_sku = _variant_1.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame1"
+                        data-variant-sku="{{variant_1_sku}}"
+                        data-variant-id="{{variant_1_id}}"
+                        checked="checked">
+                      <label for="dittoFrame1" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_1 }}
+                          </div>
+                        </div>
+                      </label>
+                    {%- endif -%}
+                  {%- endfor -%}
+                  <a href="{{block_ditto_product_1.url}}?variant={{variant_1_id}}" class="btn">shop frame</a>
+                </div>
+              {%- endif -%}
+
+              {%- if block_ditto_product_2 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_2 -%}
+                  {%- for image in block_ditto_product_2.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_2 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  <h5>{{ block_ditto_product_2.title }}</h5>
+                  {%- for _variant_2 in block_ditto_product_2.variants -%}
+                    {%- if _variant_2.option1 == block_ditto_variant_2 -%}
+                      {%- assign variant_2_id = _variant_2.id -%}
+                      {%- assign variant_2_sku = _variant_2.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame2"
+                        data-variant-sku="{{variant_2_sku}}"
+                        data-variant-id="{{variant_2_id}}">
+                      <label for="dittoFrame2" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_2 }}
+                          </div>
+                        </div>
+                      </label>
+                    {%- endif -%}
+                  {%- endfor -%}
+                  <a href="{{block_ditto_product_2.url}}?variant={{variant_2_id}}" class="btn">shop frame</a>
+                </div>
+              {%- endif -%}
+
+              {%- if block_ditto_product_3 != empty -%}
+
+                <!-- image -->
+                {%- capture product_images_3 -%}
+                  {%- for image in block_ditto_product_3.images -%}
+                    {%- assign image_variants = image.variants | map: 'option1' -%}
+                    {%- if image_variants contains block_ditto_variant_3 -%}
+                      <span
+                        data-bg-src="{{ image |  img_url: '900x' }}"
+                        data-image-variant="{{ image_variants | join: ',' }}"
+                        style="background-image: url({{ image |  img_url: '900x' }});"
+                        class="current-image-variant"></span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+
+                <div class="item-frames__image">
+                  <h5>{{ block_ditto_product_3.title }}</h5>
+                  {%- for _variant_3 in block_ditto_product_3.variants -%}
+                    {%- if _variant_3.option1 == block_ditto_variant_3 -%}
+                      {%- assign variant_3_id = _variant_3.id -%}
+                      {%- assign variant_3_sku = _variant_3.sku -%}
+                      <input
+                        type="radio"
+                        name="ditto_frame"
+                        id="dittoFrame3"
+                        data-variant-sku="{{variant_3_sku}}"
+                        data-variant-id="{{variant_3_id}}">
+                      <label for="dittoFrame3" class="js-product-item product-item">
+                        <div class="product-item__inner">
+                          <div class="product__image">
+                            {{ product_images_3 }}
+                          </div>
+                        </div>
+                      </label>
+                    {%- endif -%}
+                  {%- endfor -%}
+                  <a href="{{block_ditto_product_3.url}}?variant={{variant_3_id}}" class="btn">shop frame</a>
+                </div>
+              {%- endif -%}
+
+            </div>
+          </div>
+          <div class="ditto-grid__item" id="dittoWrapper">
+            <div class="Ditto__popup-wrapper js-ditto-popup" id="DittoPopup">
+              <div class="Ditto__popup-background"></div>
+            </div>
+            <div id="dittoDisplay"></div>
+            <p id="dittoHint" style="display:none;position: absolute;left: 0;bottom: 20px;z-index: 10;width: 100%;text-align: center;color: #fff;">SWIPE TO ROTATE</p>
+            {%- if block_ditto_guide != empty -%}
+              <div id="dittoGuide">
+
+                {%- if block_ditto_guide_mobile == empty -%}
+
+                  <video
+                    autoplay
+                    playsinline
+                    muted
+                    loop>
+                    <source src="{{ block_ditto_guide }}" type="video/mp4" />
+                  </video>
+
+                {%- else -%}
+
+                  <video
+                    autoplay
+                    playsinline
+                    muted
+                    loop
+                    class="desktop">
+                    <source src="{{ block_ditto_guide }}" type="video/mp4" />
+                  </video>
+                  <video
+                    autoplay
+                    playsinline
+                    muted
+                    loop
+                    class="mobile">
+                    <source src="{{ block_ditto_guide_mobile }}" type="video/mp4" />
+                  </video>
+
+                {%- endif -%}
+
+                <button
+                  type="button"
+                  class="btn"
+                  id="startDitto">get started</button>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {%- when 'product' -%}
+
+    {%- assign block_recommended_title = _block.recommended_title -%}
+    {%- assign block_product_1 = all_products[_block.product_select_1] -%}
+    {%- assign block_product_2 = all_products[_block.product_select_2] -%}
+    {%- assign block_product_3 = all_products[_block.product_select_3] -%}
+    {%- assign block_recommended_btn_text = _block.btn_text -%}
+    {%- assign block_recommended_btn_url = _block.btn_url -%}
+
+    <section class="vto-recommended-products">
+      <div class="shell">
+        <div class="Product">
+
+          {%- if block_recommended_title != blank -%}
+            <h2>{{ block_recommended_title }}</h2>
+          {%- endif -%}
+
+          <div class="product-listing">
+            <div class="product-listing__item">
+              {% render 'product-card' with block_product_1 as product_data %}
+            </div>
+            <!-- /.product-listing__item -->
+            <div class="product-listing__item">
+              {% render 'product-card' with block_product_2 as product_data %}
+            </div>
+            <!-- /.product-listing__item -->
+            <div class="product-listing__item">
+              {% render 'product-card' with block_product_3 as product_data %}
+            </div>
+            <!-- /.product-listing__item -->
+          </div>
+          <!-- /.product-grid -->
+
+          {%- if block_recommended_btn_url != blank and block_recommended_btn_text != blank -%}
+            <div class="action">
+              <a href="{{block_recommended_btn_url}}" class="btn">{{ block_recommended_btn_text }}</a>
+            </div>
+          {%- endif -%}
+
+        </div>
+        <!-- /.collection-grid_products -->
+      </div>
+    </section>
+
+    {%- when 'Icons' -%}
+    {%- assign block_icon_1 = _block.icon_1 -%}
+    {%- assign block_title_1 = _block.title_1 -%}
+    {%- assign block_content_1 = _block.content_1 -%}
+    {%- assign block_icon_2 = _block.icon_2 -%}
+    {%- assign block_title_2 = _block.title_2 -%}
+    {%- assign block_content_2 = _block.content_2 -%}
+    {%- assign block_icon_3 = _block.icon_3 -%}
+    {%- assign block_title_3 = _block.title_3 -%}
+    {%- assign block_content_3 = _block.content_3 -%}
+    {%- assign block_icon_4 = _block.icon_4 -%}
+    {%- assign block_title_4 = _block.title_4 -%}
+    {%- assign block_content_4 = _block.content_4 -%}
+    {%- assign block_icon_5 = _block.icon_5 -%}
+    {%- assign block_title_5 = _block.title_5 -%}
+    {%- assign block_content_5 = _block.content_5 -%}
+
+    <section class="section-about-icons">
+      <div class="shell">
+        <div class="section__body">
+          <div class="list-icon-blocks">
+            <ul>
+              {%- if block_icon_1 != blank -%}
+                <li>
+                  <div>
+                    <figure style="background-image: url({{ block_icon_1 |  img_url: '616x' }});"></figure>
+
+                    {%- if block_title_1 != blank -%}
+                      <h6>{{ block_title_1 }}</h6>
+                    {%- endif -%}
+
+                    {%- if block_content_1 != blank -%}
+                      <p>{{ block_content_1 }}</p>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
+
+              {%- if block_icon_2 != blank -%}
+                <li>
+                  <div>
+                    <figure style="background-image: url({{ block_icon_2 |  img_url: '616x' }});"></figure>
+
+                    {%- if block_title_2 != blank -%}
+                      <h6>{{ block_title_2 }}</h6>
+                    {%- endif -%}
+
+                    {%- if block_content_2 != blank -%}
+                      <p>{{ block_content_2 }}</p>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
+
+              {%- if block_icon_3 != blank -%}
+                <li>
+                  <div>
+                    <figure style="background-image: url({{ block_icon_3 |  img_url: '616x' }});"></figure>
+
+                    {%- if block_title_3 != blank -%}
+                      <h6>{{ block_title_3 }}</h6>
+                    {%- endif -%}
+
+                    {%- if block_content_3 != blank -%}
+                      <p>{{ block_content_3 }}</p>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
+
+              {%- if block_icon_4 != blank -%}
+                <li>
+                  <div>
+                    <figure style="background-image: url({{ block_icon_4 |  img_url: '616x' }});"></figure>
+
+                    {%- if block_title_4 != blank -%}
+                      <h6>{{ block_title_4 }}</h6>
+                    {%- endif -%}
+
+                    {%- if block_content_4 != blank -%}
+                      <p>{{ block_content_4 }}</p>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
+
+              {%- if block_icon_5 != blank -%}
+                <li>
+                  <div>
+                    <figure style="background-image: url({{ block_icon_5 |  img_url: '616x' }});"></figure>
+
+                    {%- if block_title_5 != blank -%}
+                      <h6>{{ block_title_5 }}</h6>
+                    {%- endif -%}
+
+                    {%- if block_content_5 != blank -%}
+                      <p>{{ block_content_5 }}</p>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
+            </ul>
+          </div>
+          <!-- /.list-icon-blocks -->
+        </div>
+        <!-- /.section__body -->
+      </div>
+      <!-- /.shell -->
+    </section>
+    <!-- /.section-about-icons -->
+  {%- endcase -%}
+
+  {%- if forloop.index == 1 -%}
+    {{ about_page_navigation }}
+  {%- endif -%}
+{%- endfor -%}

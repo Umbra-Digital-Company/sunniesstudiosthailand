@@ -1,0 +1,457 @@
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' />
+
+<div class="store">
+  <div class="store__details">
+    <nav aria-label="store__breadcrumb">
+      <ul class="store__breadcrumb">
+      </ul>
+    </nav>
+    <h1 class="store__name">{{ page.title }}</h1>
+    <h3 class="store__time"><span>Open</span> • Closes at 5:00 PM</h3>
+    <div class="store_button--container">
+      {% unless page.metafields.store.store_data.value.enable_store_appointment == blank or page.metafields.store.store_data.value.enable_store_appointment == false %}
+        {% comment %} <a href="https://sunnieshomeoptical.com/process/booking/clean_appointment_session.php?shopifyStoreCode={{ page.metafields.store.store_data.value.store_code }}" target="_blank" class="store__book-appointment-btn">Book store appointment</a> {% endcomment %}
+        <a href="/pages/store-appointment?shopifyStoreCode={{ page.metafields.store.store_data.value.store_code }}" target="_blank" class="store__book-appointment-btn">Book store appointment</a>
+      {% endunless %}
+      {% if page.metafields.store.store_data.value.custom_link != blank %}
+        <a href="{{ page.metafields.store.store_data.value.custom_link }}" target="_blank" class="store__custom-link-btn">{{ page.metafields.store.store_data.value.custom_link_button_text }}</a>
+      {% endif %}
+    </div>
+    <div class="store__address">
+      <h3>Address</h3>
+      <p>{{ page.metafields.store.store_data.value.address }}</p>
+      <a href="tel:{{ page.metafields.store.store_data.value.contact_number }}" class="store__contact-number">{{ page.metafields.store.store_data.value.contact_number }}</a>
+      {% assign store_coordinates = page.metafields.store.store_data.value.coordinates | remove: "[" | remove: "]" %}
+      {% assign store_coordinates = store_coordinates | split: ", " %}
+      <a href="https://www.google.com/maps/dir/?api=1&destination={{ store_coordinates | last }}, {{ store_coordinates | first }}" target="_blank" class="store__get-direction">
+        <span>Get directions</span>
+        <img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/arrow-right.svg?v=1682494768" />
+      </a>
+    </div>
+    <div class="store__business-hours">
+      <h3>Hours</h3>
+      <ul>
+        {% assign business_hours = page.metafields.store.store_data.value.business_hours_text_format | split: ", " %}
+        {% for business_hour in business_hours %}
+          {% assign business_hour_day = business_hour | split: "::" | first %}
+          {% assign business_hour_time = business_hour | split: "::" | last %}
+          <li>
+            <p>{{ business_hour_day }}</p>
+            <p>{{ business_hour_time }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+     
+    </div>
+    <div class="store__products">
+      <h3>What you'll find</h3>
+      <ul>
+        {% assign store_products = page.metafields.store.store_data.value.products | split: ", " %}
+        {% for store_product in store_products %}
+          <li>
+            <img src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/check-icon-solid.svg?v=1682485149" >
+            <p>{{ store_product }}</p>
+          </li>
+        {% endfor %}
+      <ul>
+    </div>
+  </div>
+  <div class="store__map">
+    <div class="store__map-container">
+      <div id="store-map"></div>
+    </div>
+  </div>
+</div>
+        
+<style>
+#{{ page.handle }} .header{
+  background: transparent;
+  position: relative;
+}
+
+div#top-bar-container{
+  display: none !important;
+}
+  
+#{{ page.handle }} .header{
+  background: transparent;
+}
+
+#{{ page.handle }} .header.header-is-fixed,
+#{{ page.handle }} .header:hover{
+  background: #fff;
+}
+
+
+@media (min-width: 768px) {
+
+  #{{ page.handle }} .header
+  {
+    background: transparent;
+  }
+
+  #{{ page.handle }} .header.header-is-fixed,
+  #{{ page.handle }} .header:hover
+  {
+    background: #fff;
+  }
+}
+
+  .store {
+    display: flex;
+    flex-direction: column-reverse;
+    color: var(--black_color);
+  }
+  .store__details {
+    padding: 32px 16px 0;
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+  }
+  .store__breadcrumb {
+    display: flex;
+    font-family: 'AT Surt Medium';
+    font-size: 14px;
+  }
+  .store__breadcrumb > .store__breadcrumb-item > a {
+    color: var(--black_color);
+    text-decoration: none;
+  }
+  .store__breadcrumb-item.active {
+    font-family: 'AT-Surt-Semibold';
+  }
+  .store__breadcrumb-item + .store__breadcrumb-item::before {
+    content: " / ";
+    padding: 0 4px;
+    color: var(--black_color);
+  }
+  .store__name {
+    margin-bottom: 0;
+    margin-top: 40px;
+    font-family: 'AT Surt Medium';
+    font-size: 28px;
+  }
+  .store__time {
+    margin-top: 8px;
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    color: #B5B3B2;
+  }
+  .store__time > span {
+    color: #9BA17B;
+    font-family: 'AT-Surt-SemiBold';
+  }
+  .store__time > span.closed {
+    color: #B44720;
+  }
+  .store__book-appointment-btn,
+  .store__custom-link-btn {
+    margin-top: 24px;
+    font-family: 'AT Surt Medium';
+    text-decoration: none;
+    display: inline-block;
+    color: #fff;
+    padding: 16px 40px;
+    border-radius: 8px;
+    background-color: var(--black_color);
+    border: 1.5px solid transparent;
+    line-height: 100%;
+  flex-grow: 1;
+    text-align: center;
+    flex-basis: 50%;
+  }
+  .store__book-appointment-btn:hover,
+  .store__custom-link-btn:hover {
+    color: var(--black_color);
+    background-color: #fff;
+    border: 1.5px solid var(--black_color);
+  }
+
+  .store_button--container:has(.store__custom-link-btn){
+        display: flex;
+        gap: 12px;
+  }
+
+  @media(max-width: 600px){
+    .store_button--container:has(.store__custom-link-btn){
+      flex-wrap: wrap;
+    }
+    .store__custom-link-btn{
+      margin-top: 0px;
+    }
+  }
+  .store__address {
+    margin-top: 40px;
+  }
+  .store__address > h3 {
+    font-family: 'AT-Surt-SemiBold';
+    font-size: 14px;
+  }
+  .store__address > p {
+    margin-top: 8px;
+  }
+  .store__address > .store__contact-number {
+    text-decoration: underline;
+    color: var(--black_color);
+    cursor: pointer;
+  }
+  .store__get-direction {
+    font-family: 'AT Surt Medium';
+    text-decoration: none;
+    color: var(--black_color);
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .store__get-direction:hover {
+    color: var(--black_color);
+  }
+  .store__get-direction > span {
+    margin-right: 8px;
+  }
+  .store__get-direction > img {
+    background-color: #fff;
+    border-radius: 100%;
+    height: 36px;
+    width: 36px;
+    padding: 10px;
+    object-fit: contain;
+  }
+  .store__get-direction:hover > img {
+    background-color: var(--light_gray_color);
+  }
+  .store__business-hours {
+    margin-top: 24px;
+  }
+  .store__business-hours > h3 {
+    font-family: 'AT-Surt-SemiBold';
+    font-size: 14px;
+  }
+  .store__business-hours > ul {
+    margin-top: 8px;
+  }
+  .store__business-hours > ul > li {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .store__products {
+    margin-top: 24px;
+  }
+  .store__products > h3 {
+    font-family: 'AT-Surt-SemiBold';
+    font-size: 14px;
+  }
+  .store__products > ul {
+    display: grid;
+    gap: 4px;
+    grid-template-columns: 1fr 1fr;
+    list-style-type: none;
+    margin-top: 8px;
+  }
+  .store__products > ul > li {
+    display: flex;
+    align-items: center;
+  }
+  .store__products > ul > li > img {
+    height: 24px;
+    width: 24px;
+    padding: 4px;
+    object-fit: contain;
+    margin-right: 8px;
+  }
+  .store__map-container {
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+  }
+  .store__map-container #store-map {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .store__map .marker {
+    cursor: pointer;
+  }
+  .store__marker-popup-heading {
+    font-size: 14px;
+    font-family: 'AT-Surt-SemiBold';
+  }
+  .store__marker-popup-direction {
+    color: var(--neutral_four_color);
+    margin-top: 8px;
+    display: inline-block;
+  }
+  .mapboxgl-popup-close-button {
+    padding: 0 4px;
+    font-size: 20px;
+  }
+  @media only screen and (min-width: 1025px){
+    .store {
+      padding: 120px 100px;
+      flex-direction: row;
+      gap: 100px;
+    }
+    .store__details {
+      padding: 0px 0 0;
+    }
+    .store__details, .store__map {
+      width: 50%;
+    }
+    .store__details, .store__breadcrumb, .store__address > h3, .store__business-hours > h3, .store__products > h3, .store__time {
+      font-size: 16px;
+    }
+    .store__name {
+      font-size: 40px;
+    }
+  }
+</style>
+<script id="store-data" type="application/json">
+  {
+    "storeCode": {{ page.metafields.store.store_data.value.store_code }},
+    "name": "{{ page.metafields.store.store_data.value.name }}",
+    "region": "{{ page.metafields.store.store_data.value.region }}",
+    "address": "{{ page.metafields.store.store_data.value.address }}",
+    "coordinates": {{ page.metafields.store.store_data.value.coordinates }},
+    "businessHours": {{ page.metafields.store.store_data.value.business_hours_json_format }}
+  }
+</script>        
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js'></script>
+<script>
+  const storeData = JSON.parse($("#store-data").text())
+
+  function storeLocationsUrl(key,value){
+    const newUrl = new URL(window.location.origin + "/pages/store-locations")
+    if(key && value) {
+        newUrl.searchParams.set(key, value)
+        return newUrl.href
+    }
+    return newUrl.href 
+  }
+  
+  function getPHCurrentTime() {
+    let now = new Date();
+    let formatter = new Intl.DateTimeFormat('en-PH', {
+      timeZone: 'Asia/Manila',
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    });
+    let formattedDate = formatter.format(now);
+    return new Date(formattedDate)
+  }
+  
+  function getBusinessHoursOfDay(businessHours){
+    const phCurrentTime = getPHCurrentTime()
+    function getDayOfWeek(dateObject) {
+      let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+      return daysOfWeek[dateObject.getDay()].toLowerCase()
+    }
+    return businessHours[getDayOfWeek(phCurrentTime)]
+  }
+  
+  function isStoreOpen(businessHours){
+    const phCurrentTime = getPHCurrentTime()
+    const businessHoursOfDay = getBusinessHoursOfDay(businessHours)
+    
+    if (businessHoursOfDay === "Closed") return false;
+    
+    const [openingTime24h, closingTime24h] =  businessHoursOfDay.split(" - ");
+    function getTimeFromString(timeString) {
+        let [hours, minutes, seconds] = timeString.split(':').map(num => parseInt(num));
+        return { hours, minutes, seconds };
+    }
+       
+    const {hours: openingTimeHours, minutes: openingTimeMinutes} = getTimeFromString(openingTime24h)
+    const {hours: closingTimeHours, minutes: closingTimeMinutes} = getTimeFromString(closingTime24h)
+
+    let openingTime = new Date(phCurrentTime);
+    openingTime.setHours(openingTimeHours, openingTimeMinutes, 0, 0);
+    let closingTime = new Date(phCurrentTime);
+    closingTime.setHours(closingTimeHours, closingTimeMinutes, 0, 0);
+
+    return phCurrentTime >= openingTime && phCurrentTime <= closingTime;
+  }
+  
+  function storeStatus(businessHours){
+    function convert24hTo12h(militaryTime){
+      const [hours, minutes] = militaryTime.split(':');
+      
+      const date = getPHCurrentTime();
+      date.setHours(hours);
+      date.setMinutes(minutes);
+      
+      return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Asia/Manila' });
+    }
+    const isOpen = isStoreOpen(businessHours)
+    const businessHoursOfDay = getBusinessHoursOfDay(businessHours)
+
+    if(businessHoursOfDay === "Closed") return `<span class="closed">Closed</span>`
+    
+    const [openingTime24h, closingTime24h] = getBusinessHoursOfDay(businessHours).split(" - ")
+    if(isOpen){
+      return `<span>Open</span> • Closes at ${convert24hTo12h(closingTime24h)}`
+    }else{
+      return `<span class="closed">Closed</span> • Opens at ${convert24hTo12h(openingTime24h)}`
+    }
+  }
+
+  function renderStoreStatus(){
+    $(".store__time").html(storeStatus(storeData.businessHours))
+  }
+
+  function renderBreadcrumbItems(){
+    const breadcrumb = $(".store__breadcrumb")
+
+    const breadcrumbItems = `
+        <li class="store__breadcrumb-item"><a href="${storeLocationsUrl()}">All stores</a></li>
+        <li class="store__breadcrumb-item"><a href="${storeLocationsUrl("region", storeData.region)}">${storeData.region}</a></li>
+        <li class="store__breadcrumb-item active">${ storeData.name }</li>
+      `
+    breadcrumb.html(breadcrumbItems)     
+  }
+
+  function init(){
+    renderStoreStatus()
+    renderBreadcrumbItems()
+  }
+
+  init()
+
+  mapboxgl.accessToken = 'pk.eyJ1Ijoid2hvaXNueWwiLCJhIjoiY2xlcnZib2tnMTAwZjN4dGtzY2N0Y3BuNyJ9.fOICGKpp4O3dae21UqwRvg';
+
+  const map = new mapboxgl.Map({
+    container: 'store-map',
+    style: 'mapbox://styles/mapbox/light-v11',
+    center: storeData.coordinates,
+    zoom: 12,
+    cooperativeGestures: true
+  })
+  
+  const el = document.createElement('img')
+  el.className = 'marker'
+  // el.src = 'https://cdn.shopify.com/s/files/1/0172/4383/2374/files/marker.png?v=1681787034'
+  el.src = 'https://cdn.shopify.com/s/files/1/0172/4383/2374/files/pinpoint-map.svg?v=1739424165'
+
+  const popupContent = `<h3 class="store__marker-popup-heading">${storeData.name}</h3>
+                        <p>${storeData.address}</p>
+                        <a class="store__marker-popup-direction" href="https://www.google.com/maps/dir/?api=1&destination=${storeData.coordinates[1]}, ${storeData.coordinates[0]}" target="_blank">Directions</a>
+                        `
+  const popup = new mapboxgl.Popup({ offset: 25 })
+    .setHTML(popupContent)
+  
+  const marker = new mapboxgl.Marker(el)
+    .setLngLat(storeData.coordinates)
+    .setPopup(popup)
+    .addTo(map)
+  
+  marker.togglePopup()
+</script>
+
+{% schema %}
+  {
+    "name": "Store",
+    "settings": []
+  }
+{% endschema %}

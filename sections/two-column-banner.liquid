@@ -1,0 +1,59 @@
+<div id="anti-rad-section-shop-now">
+  <div id="one" style="background: url('{{ section.settings.first_column_banner }}'); background-size: cover; margin: 0 12px 0 0;">
+    <span id="show-now-label">{{ section.settings.first_column_label }}</span>
+    <a id="show-now-btn" href="{{ section.settings.first_column_url }}">{{ section.settings.first_column_text }}</a>
+  </div>
+  <div id="two" style="background: url('{{ section.settings.second_column_banner }}'); background-size: cover; margin: 0 12px 0 0;">
+    <span id="show-now-label">{{ section.settings.second_column_label }}</span>
+    <a id="show-now-btn" href="{{ section.settings.second_column_url }}">{{ section.settings.second_column_text }}</a>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Two Column Banner",
+    "settings": [
+      {
+        "type": "url",
+        "id": "first_column_banner",
+        "label": "First Column Image (.PNG/.JPG/.GIF)"
+      },
+      {
+        "type": "text",
+        "id": "first_column_label",
+        "label": "First Column Label"
+      },
+      {
+        "type": "text",
+        "id": "first_column_text",
+        "label": "First Column CTA Text"
+      },
+      {
+        "type": "url",
+        "id": "first_column_url",
+        "label": "First Column CTA Link"
+      }, {
+        "type": "url",
+        "id": "second_column_banner",
+        "label": "Second Column Image (.PNG/.JPG/.GIF)"
+      }, {
+        "type": "text",
+        "id": "second_column_label",
+        "label": "Second Column Label"
+      }, {
+        "type": "text",
+        "id": "second_column_text",
+        "label": "Second Column CTA Text"
+      }, {
+        "type": "url",
+        "id": "second_column_url",
+        "label": "Second Column CTA Link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Two Column Banner"
+      }
+    ]
+  }
+{% endschema %}

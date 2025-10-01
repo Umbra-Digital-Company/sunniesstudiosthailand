@@ -1,0 +1,12 @@
+{% liquid
+  case icon
+    when 'dropdown-caret'
+      echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6" class="down-caret"><path fill="#393334" d="M10 .667c0 .17-.06.34-.183.471L5.442 5.805a.598.598 0 01-.884 0L.183 1.138a.699.699 0 010-.943c.244-.26.64-.26.884 0L5 4.391 8.933.195c.244-.26.64-.26.884 0 .122.13.183.301.183.472z"/></svg>'
+    when 'left-arrow'
+      echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 24"><path fill="#393334" d="M28.5 10.5a1.5 1.5 0 110 3H5.121l7.94 7.94a1.5 1.5 0 01-2.122 2.12L.44 13.06a1.5 1.5 0 010-2.12L10.94.44a1.5 1.5 0 012.122 2.12L5.12 10.5H28.5z"/></svg>'
+    when 'right-arrow'
+      echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 24"><path fill="#393334" d="M1.5 13.5a1.5 1.5 0 010-3h23.379l-7.94-7.94A1.5 1.5 0 1119.062.44l10.5 10.5a1.5 1.5 0 010 2.12l-10.5 10.5a1.5 1.5 0 01-2.122-2.12l7.94-7.94H1.5z"/></svg>'
+    else
+      echo 'SELECT ICON'
+  endcase
+%}

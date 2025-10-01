@@ -1,0 +1,94 @@
+{{ 'product-grid.css' | asset_url | stylesheet_tag }}
+
+<section class="section-collection {{ collection.title }}">
+  <div class="shell">
+    <span class="global-overlay js-global-overlay"></span>
+
+    <div class="js-product-list-container hidden product-listing-container --">
+      <div id="bc-sf-filter-products" class="product-listing">
+        {% for _product in collection.products %}
+          {% unless _product.tags contains "gwp" %}
+            {%-
+              include 'product-item'
+              with _product
+            -%}
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+    <!-- /.js-product-list product-listing-container -->
+
+    <div id="bc-sf-filter-bottom-pagination"></div>
+  </div>
+  <!-- /.shell -->
+</section>
+<!-- /.section-collection -->
+{% comment %}
+  {% section 'section-brand-proposition' %}
+{% endcomment %}
+<script>
+  // Declare bcSfFilterConfig variable
+  var bcSfFilterConfig = {
+    general: {
+      no_image_url: "{{ 'bc-sf-filter-no-image.gif' | asset_url }}",
+    },
+    label: {
+      sorting: {% assign temp = 'collections.sorting.title' | t  %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Sorting" {% endunless %},
+      sorting_best_selling: {% assign temp = collection.sort_options[1].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Best Selling" {% endunless %},
+      // sorting_featured: {% assign temp = 'collections.sorting.manual' | t  %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Manual" {% endunless %},
+      sorting_title_ascending: {% assign temp = collection.sort_options[2].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Alphabetically, A-Z" {% endunless %},
+      sorting_title_descending: {% assign temp = collection.sort_options[3].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Alphabetically, Z-A" {% endunless %},
+     sorting_price_ascending: {% assign temp = collection.sort_options[4].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Lowest Price" {% endunless %},
+      sorting_price_descending: {% assign temp = collection.sort_options[5].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Highest Price" {% endunless %},
+      sorting_date_ascending: {% assign temp = collection.sort_options[6].name %} {% unless temp == nil  %} {{ temp | json }} {% else %} "Date, Old to New" {% endunless %},
+      sorting_date_descending: {% assign temp = collection.sort_options[7].name %} {% unless temp == nil  %} {{ temp | json }} {% else %} "Date, New to Old" {% endunless %},
+      sorting_relevance: {% assign temp = 'collections.sorting.relevance' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Relevance" {% endunless %},
+
+
+      sale: {{ 'products.product.on_sale' | t | json }},
+      sale_price: {{ 'products.product.sale_price' | t | json }},
+      from_price: {{ 'products.product.from_price' | t | json }},
+      sold_out: {{ 'products.product.sold_out' | t | json }},
+      vendor: {{ 'products.product.vendor' | t |json }},
+      regular_price: {{ 'products.product.regular_price' | t | json }},       items_with_count_one: {{ 'collections.general.items_with_count.one' | t | json}},
+      items_with_count_other: {{ 'collections.general.items_with_count.other' | t | json }},
+      current_page: {{ 'general.pagination.current_page' | t | json }},
+      quick_add: {{ 'products.product.quick_add' | t | json }}
+    },
+    custom: {
+      // Add custom value here
+    }
+  };
+</script>
+
+<script>
+  // [Feature][Rose] Image Break start
+  var collectionImageBreak =
+    "{% if collection.image %}{{ collection.image | img_url: 'grande' }}{% endif %}";
+    const productsCount = parseInt("{{collection.products_count}}");
+  // [Feature][Rose] Image Break end
+</script>
+
+<script defer>
+  const collection = {{ collection | json }};
+  const collectionTitle = collection.title;
+
+  const MAX_INTERVAL = 20;
+  let INTERVAL = 0;
+  if (collectionTitle === "Optical") {
+    const waitForLensOption = setInterval(() => {
+      const [lensOption] = document.getElementsByClassName("bc-sf-filter-option-block-lens-color");
+
+      if (!!lensOption) {
+        lensOption.style.display = "none";
+        clearInterval(waitForLensOption);
+      }
+
+      if (MAX_INTERVAL === INTERVAL) {
+        clearInterval(waitForLensOption);
+      }
+
+      INTERVAL++;
+    }, 200);
+  }
+</script>

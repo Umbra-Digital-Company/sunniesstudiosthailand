@@ -1,0 +1,244 @@
+{%- include 'landing-blocks' -%}
+
+{% schema %}
+{
+	"name": "Landing page 4",
+	"max_blocks": 9999,
+	"settings": [
+		{
+			"type": "link_list",
+			"id": "pages_menu",
+			"label": "Pages menu"
+		}
+	],
+	"blocks": [
+		{
+			"type": "intro",
+			"name": "Intro",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+                    "type": "select",
+					"id": "image_size",
+					"label": "Image Size",
+					"options": [
+						{
+							"value": "",
+							"label": "Default (1920x1080)"
+						},
+						{
+							"value": "extra-small",
+							"label": "X Small (1920x768)"
+						},
+						{
+							"value": "small",
+							"label": "Small (1920x576)"
+						},
+						{
+							"value": "large",
+							"label": "Large (1920x1200)"
+						},
+						{
+							"value": "extra-large",
+							"label": "X Large (1920x1440)"
+						}
+					]
+                },
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title"
+				},
+				{
+					"type": "header",
+					"content": "Text settings"
+				},
+				{
+					"type": "select",
+					"id": "text_color",
+					"label": "Text Color",
+					"options": [
+						{
+							"value": "#ffffff",
+							"label": "White"
+						}, {
+							"value": "#352b27",
+							"label": "Black"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"id": "btn_text",
+					"label": "Button text"
+				},
+				{
+					"type": "url",
+					"id": "btn_url",
+					"label": "Button url"
+				},
+				{
+                    "type": "select",
+					"id": "btn_theme",
+					"label": "Button color",
+					"options": [
+						{
+							"value": "",
+							"label": "Dark (default)"
+						}, {
+							"value": "btn--lightbrown",
+							"label": "Lightbrown"
+						}, {
+							"value": "btn--white",
+							"label": "White"
+						}
+					]
+                }
+			]
+		},
+		{
+			"type": "50_50",
+			"name": "50/50",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title"
+				},
+				{
+					"type": "richtext",
+					"id": "content",
+					"label": "Content"
+				},
+				{
+					"type": "text",
+					"id": "btn_text",
+					"label": "Button text"
+				},
+				{
+					"type": "url",
+					"id": "btn_url",
+					"label": "Button url"
+				},
+				{
+					"type": "checkbox",
+					"id": "switch_layout",
+					"label": "Switch Image position",
+			    "default": false
+				}
+			]
+		},
+		{
+			"type": "Icons",
+			"name": "Icons",
+			"settings": [
+				{
+					"type": "header",
+					"content": "Block 1"
+				},
+				{
+					"type": "image_picker",
+					"id": "icon_1",
+					"label": "Icon"
+				},
+				{
+					"type": "text",
+					"id": "title_1",
+					"label": "Title"
+				},
+				{
+					"type": "textarea",
+					"id": "content_1",
+					"label": "Content"
+				},
+				{
+					"type": "header",
+					"content": "Block 2"
+				},
+				{
+					"type": "image_picker",
+					"id": "icon_2",
+					"label": "Icon"
+				},
+				{
+					"type": "text",
+					"id": "title_2",
+					"label": "Title"
+				},
+				{
+					"type": "textarea",
+					"id": "content_2",
+					"label": "Content"
+				},
+				{
+					"type": "header",
+					"content": "Block 3"
+				},
+				{
+					"type": "image_picker",
+					"id": "icon_3",
+					"label": "Icon"
+				},
+				{
+					"type": "text",
+					"id": "title_3",
+					"label": "Title"
+				},
+				{
+					"type": "textarea",
+					"id": "content_3",
+					"label": "Content"
+				},
+				{
+					"type": "header",
+					"content": "Block 4"
+				},
+				{
+					"type": "image_picker",
+					"id": "icon_4",
+					"label": "Icon"
+				},
+				{
+					"type": "text",
+					"id": "title_4",
+					"label": "Title"
+				},
+				{
+					"type": "textarea",
+					"id": "content_4",
+					"label": "Content"
+				},
+				{
+					"type": "header",
+					"content": "Block 5"
+				},
+				{
+					"type": "image_picker",
+					"id": "icon_5",
+					"label": "Icon"
+				},
+				{
+					"type": "text",
+					"id": "title_5",
+					"label": "Title"
+				},
+				{
+					"type": "textarea",
+					"id": "content_5",
+					"label": "Content"
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+

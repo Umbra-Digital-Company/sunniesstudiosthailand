@@ -1,0 +1,183 @@
+<div class="image-with-text">
+  {% if section.settings.image != blank %}
+    <div class="image-container desktop-image">
+      {% if section.settings.image contains '.mp4' or section.settings.image contains '.mov' %}
+        <video
+          autoplay
+          loop
+          muted
+          playsinline>
+          <source src="{{ section.settings.image }}" type="video/mp4">
+        </video>
+      {% else %}
+        <img src="{{ section.settings.image }}" loading="lazy">
+      {% endif %}
+    </div>
+  {% endif %}
+  
+  {% if section.settings.mobile_image != blank %}
+    <div class="image-container mobile-image">
+      {% if section.settings.mobile_image contains '.mp4' or section.settings.mobile_image contains '.mov' %}
+        <video
+          autoplay
+          loop
+          muted
+          playsinline>
+          <source src="{{ section.settings.mobile_image }}" type="video/mp4">
+        </video>
+      {% else %}
+        <img src="{{ section.settings.mobile_image }}" loading="lazy">
+      {% endif %}
+    </div>
+  {% endif %}
+  
+  {% if section.settings.image == blank and section.settings.mobile_image == blank %}
+    <div class="image-container">
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  {% endif %}
+
+  <div class="text-container">
+    <h1>{{ section.settings.title }}</h1>
+    {% for block in section.blocks %}
+      {% if block.type == 'text_block' %}
+        <p>{{ block.settings.text }}</p>
+      {% endif %}
+    {% endfor %}
+    <div class="text-link-wrapper">
+      <a href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .image-with-text {
+    margin: 40px;
+  }
+  .image-container {
+    display: flex;
+    flex: 50%;
+    height: 100%;
+    flex-grow: 1;
+  }
+  .image-container img,
+  .image-container video {
+    width: 100%;
+  }
+  .text-container h1 {
+    font-family: "At Surt Medium";
+    font-size: 22px;
+    line-height: 150%;
+    margin-bottom: 12px;
+    margin-top: 0;
+    color: #352B27;
+  }
+  .text-container p {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    line-height: 20px;
+    padding-bottom: 24px;
+    color: #352B27;
+  }
+  .text-link-wrapper {
+    display: flex;
+  }
+  .text-link-wrapper a {
+    font-family: 'Radio Grotesk';
+    font-size: 14px;
+    text-decoration: none;
+    border-bottom: 1px solid #352B27;
+    color: #352B27;
+  }
+  .text-link-wrapper a:hover {
+    color: #AEAAA9;
+    border-bottom: 1px solid #AEAAA9;
+  }
+  @media(min-width: 769px) {
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 40px;
+      max-width: 410px;
+      flex-grow: 1;
+    }
+    .text-container p {
+      width: 410px;
+    }
+    .mobile-image {
+      display: none;
+    }
+  }
+  @media(max-width: 768px) {
+    .image-container img,
+    .image-container video {
+      width: 100%;
+      height: 80%;
+    }
+    .text-container h1 {
+      margin-top: 40px;
+    }
+    /* .image-container img,
+    .image-container video {
+      height: 313px;
+    } */
+    .desktop-image {
+      display: none;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Image with text 2024",
+    "settings": [
+      {
+        "type": "url",
+        "id": "image",
+        "label": "Image or video"
+      },
+      {
+        "type": "url",
+        "id": "mobile_image",
+        "label": "Mobile Image or video"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Image with text"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button label"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text_block",
+        "name": "Text Block",
+        "settings": [
+          {
+            "type": "textarea",
+            "id": "text",
+            "label": "Text",
+            "default": "Text here"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image with text 2024",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}

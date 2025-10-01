@@ -1,0 +1,51 @@
+<div class="regular-image-banner-container" style="{% if section.settings.is_full_bleed %}margin: 0;{% endif %}">
+  <video
+    id="regular-image-banner-desktop"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="{% if section.settings.is_contained %}max-width: 818px; margin: 0 auto;{% endif %}">
+    <source src="{{ section.settings.desktop_image }}" type="video/mp4">
+  </video>
+  <video
+    id="regular-image-banner-mobile"
+    autoplay
+    muted
+    loop
+    playsinline
+    style="{% if section.settings.is_contained %}padding: 0 40px;{% endif %}">
+    <source src="{{ section.settings.mobile_image }}" type="video/mp4">
+  </video>
+</div>
+
+{% schema %}
+  {
+    "name": "Dynamic Video Banner",
+    "settings": [
+      {
+        "type": "url",
+        "id": "desktop_image",
+        "label": "Desktop Banner"
+      }, {
+        "type": "url",
+        "id": "mobile_image",
+        "label": "Mobile Banner"
+      }, {
+        "type": "checkbox",
+        "id": "is_full_bleed",
+        "label": "Is Full Bleed"
+      }, {
+        "type": "checkbox",
+        "id": "is_contained",
+        "label": "Is Contained",
+        "default": false
+      }
+    ],
+    "presets": [
+      {
+        "name": "Dynamic Video Banner"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,58 @@
+{{ 'accordion-faq.css' | asset_url | stylesheet_tag }}
+
+<div class="accordion-faq-container">
+  <div class="accordion-faq-header">
+    <h2>{{ section.settings.faq_title }}</h2>
+  </div>
+  <div class="accordion-faq-content">
+    {% for item in section.blocks %}
+    <div class="faq-item">
+      <div class="faq-item-title">
+        <h5>{{ item.settings.faq_item_title }}</h5>
+        <img class="faq-item-icon"
+          src="https://cdn.shopify.com/s/files/1/0172/4383/2374/files/Vector_43ddc302-93b6-4847-bd71-abaff4585e9e.svg?v=1665404846"
+          loading="lazy" />
+      </div>
+      <div class="faq-item-content">{{ item.settings.faq_item_content }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script src="{{ 'accordion-faq.js' | asset_url }}" defer="defer"></script>
+
+{%- schema -%}
+{
+"name": "Accordion FAQ",
+"settings": [
+{
+"type": "text",
+"id": "faq_title",
+"label": "FAQ Title"
+}
+],
+"blocks": [
+{
+"type": "faq_item",
+"name": "FAQ Item",
+"settings": [
+{
+"type": "text",
+"id": "faq_item_title",
+"label": "Title"
+},
+{
+"type": "richtext",
+"id": "faq_item_content",
+"label": "Content"
+}
+]
+}
+],
+"presets": [
+{
+"name": "Accordion FAQ"
+}
+]
+}
+{%- endschema -%}

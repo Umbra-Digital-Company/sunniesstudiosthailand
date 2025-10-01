@@ -1,0 +1,457 @@
+{%- assign _section = section.settings -%}
+{%- assign section_pages_menu = _section.pages_menu -%}
+{%- assign about_page_navigation = '' -%}
+
+{%- if section_pages_menu != blank -%}
+  {%- capture about_page_navigation -%}
+    <section class="section-about-nav" style="display: none;">
+      <div class="shell">
+        <div class="section__inner">
+          <nav class="nav-pages">
+            {%- render 'menu-pages', handle: section_pages_menu -%}
+          </nav><!-- /.nav-pages -->
+
+          <div class="nav-select js-select-page">
+            <select>
+              {% for link in linklists[section_pages_menu].links %}
+                <option data-page-url="{{ link.url }}"{% if link.url == page.url %} selected{% endif %}>{{ link.title }}
+                </option>
+              {% endfor %}
+            </select><!-- /# -->
+          </div><!-- /.nav-select -->
+        </div>
+      </div>
+    </section>
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- for block in section.blocks -%}
+  {%- assign _block = block.settings -%}
+  {%- case block.type -%}
+
+  {%- when 'banner' -%}
+    {%- assign block_image = _block.image -%}
+      {%- assign block_image_mobile = _block.image_mobile -%}
+      {%- assign block_title = _block.title -%}
+      {%- assign title_position = _block.title_position -%}
+      {%- assign title_color = _block.title_color -%}
+
+      <section class="section-about-banner">
+        {%  render 'about-banner', block_image: block_image, block_image_mobile: block_image_mobile, block_title: block_title, title_position: title_position, title_color: title_color, %}
+      </section>
+
+  {%- when '50_50' -%}
+    {%- assign block_image = _block.image -%}
+    {%- assign block_title = _block.title -%}
+    {%- assign block_content = _block.content -%}
+    {%- assign block_btn_text = _block.btn_text -%}
+    {%- assign block_btn_url = _block.btn_url -%}
+    {%- assign block_switch_layout = _block.switch_layout -%}
+    {%- assign switch_class = '' -%}
+
+    {%- if block_switch_layout -%}
+      {%- assign switch_class = ' section-about-50-50--reverse' -%}
+    {%- endif -%}
+
+
+    <section class="section-about-50-50{{switch_class}}">
+      <div class="section__inner">
+        <div class="section__content">
+          <div class="section__entry">
+            {%- if block_title != blank -%}
+              {% if _block.logo != blank %}
+                <div class="logo-50-50">
+                  <img src="{{ _block.logo |  image_url: width: 50 }}" width="" height="" />
+                </div>
+              {% endif %}  
+            <h2>{{block_title}}</h2>
+            {%- endif -%}
+
+            {%- if block_content != blank -%}
+              <div class="section__entry-text">
+                {{block_content}}
+              </div>
+            {%- endif -%}
+
+            {%- if block_btn_url != blank -%}
+              <div class="section__entry-actions">
+                <a href="{{block_btn_url}}" class="">{{block_btn_text}}</a>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+
+        {%- if block_image -%}
+          <div class="section__image" style="background-image: url({{ block_image | image_url: height: 748 }});"></div><!-- /.section__image -->
+        {%- endif -%}
+        <div class="section__content mobile-materials" style="display: none;">
+          <div class="section__entry">
+            {%- if block_title != blank -%}
+              {% if _block.logo != blank %}
+                <div class="logo-50-50">
+                  <img src="{{ _block.logo | img_url: 'master' }}" width="" height="" />
+                </div>
+              {% endif %}  
+              <h2>{{block_title}}</h2>
+            {%- endif -%}
+
+            {%- if block_content != blank -%}
+              <div class="section__entry-text">
+                {{block_content}}
+              </div><!-- /.section__entry-text -->
+            {%- endif -%}
+
+            {%- if block_btn_url != blank -%}
+              <div class="section__entry-actions">
+                <a href="{{block_btn_url}}" class="btn btn--dark">{{block_btn_text}}</a>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+  {%- when 'Icons' -%}
+    {%- assign block_icon_1 = _block.icon_1 -%}
+    {%- assign block_title_1 = _block.title_1 -%}
+    {%- assign block_content_1 = _block.content_1 -%}
+    {%- assign block_icon_2 = _block.icon_2 -%}
+    {%- assign block_title_2 = _block.title_2 -%}
+    {%- assign block_content_2 = _block.content_2 -%}
+    {%- assign block_icon_3 = _block.icon_3 -%}
+    {%- assign block_title_3 = _block.title_3 -%}
+    {%- assign block_content_3 = _block.content_3 -%}
+    {%- assign block_icon_4 = _block.icon_4 -%}
+    {%- assign block_title_4 = _block.title_4 -%}
+    {%- assign block_content_4 = _block.content_4 -%}
+    {%- assign block_icon_5 = _block.icon_5 -%}
+    {%- assign block_title_5 = _block.title_5 -%}
+    {%- assign block_content_5 = _block.content_5 -%}
+
+    <section class="section-about-icons">
+      <div class="shell">
+        <div class="section__body">
+          <div class="list-icon-blocks">
+            <ul>
+              {%- if block_icon_1 != blank -%}
+                <li>
+                  <div>
+                    <figure style="background-image: url({{ block_icon_1 |  img_url: '616x' }});"></figure>
+
+                    {%- if block_title_1 != blank -%}
+                      <h6>{{block_title_1}}</h6>
+                    {%- endif -%}
+
+                    {%- if block_content_1 != blank -%}
+                      <p>{{block_content_1}}</p>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
+
+              {%- if block_icon_2 != blank -%}
+                <li>
+                  <div>
+                    <figure style="background-image: url({{ block_icon_2 |  img_url: '616x' }});"></figure>
+
+                    {%- if block_title_2 != blank -%}
+                      <h6>{{block_title_2}}</h6>
+                    {%- endif -%}
+
+                    {%- if block_content_2 != blank -%}
+                      <p>{{block_content_2}}</p>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
+
+              {%- if block_icon_3 != blank -%}
+                <li>
+                  <div>
+                    <figure style="background-image: url({{ block_icon_3 |  img_url: '616x' }});"></figure>
+
+                    {%- if block_title_3 != blank -%}
+                      <h6>{{block_title_3}}</h6>
+                    {%- endif -%}
+
+                    {%- if block_content_3 != blank -%}
+                      <p>{{block_content_3}}</p>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
+
+              {%- if block_icon_4 != blank -%}
+                <li>
+                  <div>
+                    <figure style="background-image: url({{ block_icon_4 |  img_url: '616x' }});"></figure>
+
+                    {%- if block_title_4 != blank -%}
+                      <h6>{{block_title_4}}</h6>
+                    {%- endif -%}
+
+                    {%- if block_content_4 != blank -%}
+                      <p>{{block_content_4}}</p>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
+
+              {%- if block_icon_5 != blank -%}
+                <li>
+                  <div>
+                    <figure style="background-image: url({{ block_icon_5 |  img_url: '616x' }});"></figure>
+
+                    {%- if block_title_5 != blank -%}
+                      <h6>{{block_title_5}}</h6>
+                    {%- endif -%}
+
+                    {%- if block_content_5 != blank -%}
+                      <p>{{block_content_5}}</p>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
+            </ul>
+          </div><!-- /.list-icon-blocks -->
+        </div><!-- /.section__body -->
+      </div><!-- /.shell -->
+    </section>
+
+  {%- when 'full_banner' -%}
+    <section class="full-banner">
+          <img class="desktop" src="{{ _block.full_banner | image_url: 'master'}}" width="" height="">
+          <img class="mobile" src="{{ _block.full_banner_mobile | image_url: 'master'}}" style="display: none;" width="" height="">
+    </section>
+
+  {% when 'cards_with_links' %}
+    <section class="card-links desktop">
+      <h3>{{ _block.cards_heading }}</h3>
+      <div class="cards-container">
+        <div class="card">
+          {{ _block.card_one_img | image_url: width: 650 | image_tag }}
+           <div class="anchor-container">
+             <a href="{{ _block.card_one_link }}">{{ _block.card_one_text }}</a>
+           </div>
+        </div> 
+        <div class="card">
+          {{ _block.card_two_img | image_url: width: 601 | image_tag }}
+           <div class="anchor-container">
+             <a href="{{ _block.card_two_link }}">{{ _block.card_two_text }}</a>
+           </div>
+        </div>
+        <div class="card">
+          {{ _block.card_three_img | image_url: width: 601 | image_tag }}
+          <div class="anchor-container">
+            <a href="{{ _block.card_three_link }}">{{ _block.card_three_text }}</a>
+          </div>
+        </div>
+      </div>
+      {% comment %} {% if page.handle == "eyewear-for-all" %}<div class="swiper-pagination"></div>{% endif %} {% endcomment %}
+    </section>
+    
+    <section class="card-links mobile">
+      <h3>{{ _block.cards_heading }}</h3>
+      <div class="cards-container swiper-wrapper">
+        <div class="card card-one swiper-slide">
+          {{ _block.card_one_img | image_url: width: 601 | image_tag }}
+          <div class="anchor-container">
+            <a href="{{ _block.card_one_link }}">{{ _block.card_one_text }}</a>
+          </div>
+        </div>
+        <div class="card card-two swiper-slide">
+          {{ _block.card_two_img | image_url: width: 601 | image_tag }}
+          <div class="anchor-container">
+            <a href="{{ _block.card_two_link }}">{{ _block.card_two_text }}</a>
+          </div>
+        </div>
+        <div class="card card-three swiper-slide">
+          {{ _block.card_three_img | image_url: width: 601 | image_tag }}
+          <div class="anchor-container">
+            <a href="{{ _block.card_three_link }}">{{ _block.card_three_text }}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% when "title_and_text" %}
+    <section class="title-and-text">
+          <h2>{{ _block.title }}</h2>
+          <div>{{ _block.text }}</div>
+          <hr>
+    </section>
+  {% when "regular_banner" %}
+    <section class="centered-image {% if template.suffix == "our-materials" %}to-show{% endif %}">
+          <img class="desktop" src="{{ _block.image | img_url: 'master' }}" width="" height="">
+          <img class="mobile" src="{{ _block.image_mobile | img_url: 'master' }}" width="" height="">
+          {% assign regular_banner = _block.image %}
+          {% assign regular_banner_mobile = _block.image_mobile %}
+    </section>
+  {% when "50_50_text" %}
+      <section class="section-about-50-50 text-only">
+        {%- if _block.title != blank -%}
+          <h2>{{_block.title}}</h2>
+        {%- endif -%}
+        <div class="section__inner">
+          <div class="section__content">
+            <div class="section__entry">
+              {%- if block_content != blank -%}
+                <div class="section__entry-text">
+                  {% if _block.logo_1 %}
+                    <img src="{{ _block.logo_1 | img_url: 'master' }}" width="" height="">
+                  {% endif %}
+                  <div>
+                  {{_block.text_1}}
+                  </div>
+                </div><!-- /.section__entry-text -->
+              {%- endif -%}
+            </div><!-- /.section__entry -->
+          </div><!-- /.section__content -->
+          <div class="section__content">
+            <div class="section__entry">
+              {%- if block_content != blank -%}
+                <div class="section__entry-text">
+                  {% if _block.logo_2 %}
+                    <img src="{{ _block.logo_2 | img_url: 'master' }}" width="" height="">
+                  {% endif %}
+                  <div>
+                  {{_block.text_2}}
+                  </div>
+                </div>
+              {%- endif -%}
+            </div><!-- /.section__entry -->
+          </div>
+        </div>
+      </section>
+      <section class="centered-image extra">
+        <img class="desktop" src="{{ regular_banner | img_url: 'master' }}" width="" height="">
+        <img class="mobile" src="{{ regular_banner_mobile | img_url: 'master' }}" width="" height="">
+      </section>
+  {% when "image_header_text" %}
+    <section class="image-header-text">
+          <img src="{{ _block.image | img_url: 'master' }}" width="" height="">
+          <div>{{ _block.text }}</div>
+    </section>
+  {% when "off_banner" %}
+    <section class="off-banner">
+          <img src="{{ _block.off_banner | img_url: 'master' }}" width="" height="">
+    </section>
+  {% when "products" %}
+    <section class="products">
+          <div class="swiper-products swiper-products-3">
+              <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                        {%- assign _product = _block.product_1 -%}
+                      {%- include 'product-item-carousel' with _block.product_1  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_2 -%}
+                      {%- include 'product-item-carousel' with _block.product_2  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_3 -%}
+                      {%- include 'product-item-carousel' with _block.product_3  -%}
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+    </section>
+  {% when "products_4" %}
+    <section class="products products-4">
+          <div class="swiper-products swiper-products-4">
+                <h3 id="products-4-header">{{ _block.p4_header }}</h3>
+              <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                        {%- assign _product = _block.product_1 -%}
+                      {%- include 'product-item-carousel' with _block.product_1  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_2 -%}
+                      {%- include 'product-item-carousel' with _block.product_2  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_3 -%}
+                      {%- include 'product-item-carousel' with _block.product_3  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_4 -%}
+                      {%- include 'product-item-carousel' with _block.product_4  -%}
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+    </section>
+  {% when "products_10" %}
+    <section class="products products-10">
+          <div class="swiper-products swiper-products-10">
+                {%- assign block_p10_header = _block.p10_header -%}
+                {%- assign block_header_btn_text = _block.header_btn_text -%}
+                {%- assign block_header_btn_url = _block.header_btn_url -%}
+                {%- if block_p10_header != blank or block_header_btn_url != blank -%}
+                <div class="block-section-heading">
+                  <h3 id="products-10-heading">{{ block_p10_header }}</h3>
+                    {%- if block_header_btn_url != blank -%}
+                      <a href="{{block_header_btn_url}}" class="section--cta default">{{block_header_btn_text}}</a>
+                    {%- endif -%}
+                </div>
+                {%- endif -%}
+                
+              <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                        {%- assign _product = _block.product_1 -%}
+                      {%- include 'product-item-carousel' with _block.product_1  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_2 -%}
+                      {%- include 'product-item-carousel' with _block.product_2  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_3 -%}
+                      {%- include 'product-item-carousel' with _block.product_3  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_4 -%}
+                      {%- include 'product-item-carousel' with _block.product_4  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_5 -%}
+                      {%- include 'product-item-carousel' with _block.product_5  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_6 -%}
+                      {%- include 'product-item-carousel' with _block.product_6  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_7 -%}
+                      {%- include 'product-item-carousel' with _block.product_7  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_8 -%}
+                      {%- include 'product-item-carousel' with _block.product_8  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_9 -%}
+                      {%- include 'product-item-carousel' with _block.product_9  -%}
+                    </div>
+                    <div class="swiper-slide">
+                        {%- assign _product = _block.product_10 -%}
+                      {%- include 'product-item-carousel' with _block.product_10  -%}
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            {%- assign block_btn_text = _block.btn_text -%}
+          {%- assign block_btn_url = _block.btn_url -%}
+            {%- if block_btn_url != blank -%}
+            <div class="section-actions">
+              <a href="{{block_btn_url}}" class="btn">{{block_btn_text}}</a>
+            </div>
+            {%- endif -%}
+    </section>
+  {%- endcase -%}
+
+  {%- if forloop.index == 1 -%}
+    {{about_page_navigation}}
+  {%- endif -%}
+{%- endfor -%}

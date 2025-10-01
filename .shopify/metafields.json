@@ -1,0 +1,998 @@
+{
+  "article": [],
+  "blog": [],
+  "collection": [
+    {
+      "key": "mymetaimages",
+      "namespace": "custom",
+      "name": "mymetaimages",
+      "description": "",
+      "type": {
+        "name": "list.file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "banner",
+      "namespace": "image_break",
+      "name": "Banner",
+      "description": "Each banner requires an image to work properly",
+      "type": {
+        "name": "list.file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "header",
+      "namespace": "image_break",
+      "name": "Header",
+      "description": "Header text of each banner. Enter \"SKIP\" if you dont want the text to show",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "cta_text",
+      "namespace": "image_break",
+      "name": "CTA Text",
+      "description": "CTA text of each banner. Enter \"SKIP\" if the banner is not interactive",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "text_position",
+      "namespace": "image_break",
+      "name": "Text Position",
+      "description": "Position of the content enter one: \"Center-Left\", \"Center-Right\", \"Bottom-Left\", \"Bottom-Right\"",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "subcopy",
+      "namespace": "image_break",
+      "name": "Subcopy",
+      "description": "Subcopy text of each banner. Enter \"SKIP\" if you dont want the text to show",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "cta_action",
+      "namespace": "image_break",
+      "name": "CTA Action",
+      "description": "It's either a URL (https://domain.com) or Section ID (#section-id) or SKIP for non-interactive",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "text_color",
+      "namespace": "image_break",
+      "name": "Text Color",
+      "description": "The color of the text \"Dark\" or \"Light\" value",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "cta_color",
+      "namespace": "image_break",
+      "name": "CTA Color",
+      "description": "The color of the text \"Dark\" or \"Light\" or \"SKIP\" value",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    }
+  ],
+  "company": [],
+  "company_location": [],
+  "location": [],
+  "market": [],
+  "order": [],
+  "page": [
+    {
+      "key": "end_date",
+      "namespace": "event",
+      "name": "Event: End Date",
+      "description": "",
+      "type": {
+        "name": "date",
+        "category": "DATE_TIME"
+      }
+    },
+    {
+      "key": "start_date",
+      "namespace": "event",
+      "name": "Event: Start Date (Required)",
+      "description": "",
+      "type": {
+        "name": "date",
+        "category": "DATE_TIME"
+      }
+    },
+    {
+      "key": "stores",
+      "namespace": "event",
+      "name": "Event: Stores",
+      "description": "",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "image",
+      "namespace": "event",
+      "name": "Event: Image (Required)",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "store_experience",
+      "namespace": "event",
+      "name": "Event: What you'll find",
+      "description": "",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "store_hours",
+      "namespace": "event",
+      "name": "Event: Store Hours",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "store_address",
+      "namespace": "event",
+      "name": "Event: Store Address",
+      "description": "",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "store_button_text",
+      "namespace": "event",
+      "name": "Event: Store Button Text",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "store_button_link",
+      "namespace": "event",
+      "name": "Event: Store Button Link",
+      "description": "",
+      "type": {
+        "name": "url",
+        "category": "URL"
+      }
+    },
+    {
+      "key": "start_time",
+      "namespace": "event",
+      "name": "Event: Start Time",
+      "description": "24-hour format (HH:MM)",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "end_time",
+      "namespace": "event",
+      "name": "Event: End Time",
+      "description": "24-hour format (HH:MM)",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "is_store",
+      "namespace": "store",
+      "name": "Store",
+      "description": "",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "locations",
+      "namespace": "store",
+      "name": "Store: Full Address",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "opening",
+      "namespace": "store",
+      "name": "Store: Opening",
+      "description": "",
+      "type": {
+        "name": "date_time",
+        "category": "DATE_TIME"
+      }
+    },
+    {
+      "key": "closing",
+      "namespace": "store",
+      "name": "Store: Closing",
+      "description": "",
+      "type": {
+        "name": "date_time",
+        "category": "DATE_TIME"
+      }
+    },
+    {
+      "key": "brands",
+      "namespace": "store",
+      "name": "Store: Brands",
+      "description": "",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "region",
+      "namespace": "store",
+      "name": "Store: Region",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "store_data",
+      "namespace": "store",
+      "name": "Store Data(Store Page)",
+      "description": "",
+      "type": {
+        "name": "metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "list",
+      "namespace": "stores",
+      "name": "Store List(Store Locator Page)",
+      "description": "",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "event",
+      "namespace": "event",
+      "name": "Event(Calendar of Activities | Event Page)",
+      "description": "",
+      "type": {
+        "name": "metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "disable_sign_up",
+      "namespace": "event",
+      "name": "Event: Disable Sign Up",
+      "description": "",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "loading_text_vt",
+      "namespace": "custom",
+      "name": "Loading Text VT",
+      "description": "",
+      "type": {
+        "name": "rich_text_field",
+        "category": "TEXT"
+      }
+    }
+  ],
+  "product": [
+    {
+      "key": "frame_size",
+      "namespace": "custom",
+      "name": "Frame Size",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "more_details",
+      "namespace": "custom",
+      "name": "More details",
+      "description": "",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "hidden",
+      "namespace": "seo",
+      "name": "Hide From Search",
+      "description": "1=hide; 0=unhide",
+      "type": {
+        "name": "number_integer",
+        "category": "NUMBER"
+      }
+    },
+    {
+      "key": "group_variant_swatch",
+      "namespace": "variant_swatch",
+      "name": "Show Seasonal Variants",
+      "description": "",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "image_temple",
+      "namespace": "frame_measurement",
+      "name": "Frame Measurement: Image (Temple)",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "image_frame_front",
+      "namespace": "frame_measurement",
+      "name": "Frame Measurement: Image (Frame front)",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "bridge_width_eye_size_temple_length",
+      "namespace": "frame_measurement",
+      "name": "Frame Measurement: Bridge width, Eye size, Temple length",
+      "description": "Comma Separated Values in millimeter (e.g., 21, 52, 140)",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "extra_video",
+      "namespace": "media",
+      "name": "Extra Video",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "size_guide",
+      "namespace": "product",
+      "name": "Size Guide",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "extra_video_desktop_mobile",
+      "namespace": "media",
+      "name": "Extra Video (Desktop, Mobile)",
+      "description": "First file is for desktop and last file is for mobile",
+      "type": {
+        "name": "list.file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "flask_cap_component",
+      "namespace": "custom",
+      "name": "Flask Cap Component",
+      "description": "",
+      "type": {
+        "name": "product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "flask_boot_component",
+      "namespace": "custom",
+      "name": "Flask Boot Component",
+      "description": "",
+      "type": {
+        "name": "product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "flask_body_component",
+      "namespace": "custom",
+      "name": "Flask Body Component",
+      "description": "",
+      "type": {
+        "name": "product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "flask_loop_component",
+      "namespace": "custom",
+      "name": "Flask Loop Component",
+      "description": "",
+      "type": {
+        "name": "product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "main_flask_body_product",
+      "namespace": "custom",
+      "name": "Main Flask Body Product",
+      "description": "",
+      "type": {
+        "name": "product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "main_flask_loop_product",
+      "namespace": "custom",
+      "name": "Main Flask Loop Product",
+      "description": "",
+      "type": {
+        "name": "product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "main_flask_cap_product",
+      "namespace": "custom",
+      "name": "Main Flask Cap Product",
+      "description": "",
+      "type": {
+        "name": "product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "random_preset_colors",
+      "namespace": "custom",
+      "name": "Random Preset Colors",
+      "description": "",
+      "type": {
+        "name": "mixed_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "custom_product",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Custom Product",
+      "description": "Use to indicate whether or not the unique product identifiers (UPIs) GTIN, MPN, and brand are available for your product.",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "merch_fit_guide_bullet",
+      "namespace": "custom",
+      "name": "Merch Fit Guide Bullet",
+      "description": "",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "merch_fit_guide_image",
+      "namespace": "custom",
+      "name": "Merch Fit Guide Image",
+      "description": "",
+      "type": {
+        "name": "url",
+        "category": "URL"
+      }
+    },
+    {
+      "key": "merch_fit_guide_table_values",
+      "namespace": "custom",
+      "name": "Merch Fit Guide Table Values",
+      "description": "Inch value in a row, separated by comma (,) (e.g: 21, 22, 23)",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "merch_fit_guide_table_rows",
+      "namespace": "custom",
+      "name": "Merch Fit Guide Table Rows",
+      "description": "",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "merch_fit_guide_table_columns",
+      "namespace": "custom",
+      "name": "Merch Fit Guide Table Columns",
+      "description": "",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "color-pattern",
+      "namespace": "shopify",
+      "name": "Color",
+      "description": "Defines the primary color or pattern, such as blue or striped",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "jewelry-type",
+      "namespace": "shopify",
+      "name": "Jewelry type",
+      "description": "Distinguishes between types of jewelry, such as fine or imitation jewelry",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "eyewear-frame-color",
+      "namespace": "shopify",
+      "name": "Eyewear frame color",
+      "description": "Identifies the color of the eyewear's frame, such as black or gold",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "flask_robocap_component",
+      "namespace": "custom",
+      "name": "Flask Robo Cap Component",
+      "description": "",
+      "type": {
+        "name": "product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "flask_connector_component",
+      "namespace": "custom",
+      "name": "Flask Connector Component",
+      "description": "",
+      "type": {
+        "name": "product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "lens-color",
+      "namespace": "shopify",
+      "name": "Lens color",
+      "description": "Specifies the color of eyewear lenses, such as yellow or black",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "flask_bubblecap_component",
+      "namespace": "custom",
+      "name": "Flask Bubble Cap Component",
+      "description": "",
+      "type": {
+        "name": "product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "flask_band_component",
+      "namespace": "custom",
+      "name": "Flask Band Component",
+      "description": "",
+      "type": {
+        "name": "product_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "default_cap_type",
+      "namespace": "custom",
+      "name": "Default Cap Type",
+      "description": "Value should be only one of the choices \"robo\", \"pebble\", \"bubble\"",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    }
+  ],
+  "variant": [
+    {
+      "key": "made_with",
+      "namespace": "description",
+      "name": "Description: Made with",
+      "description": "",
+      "type": {
+        "name": "list.single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "is_seasonal",
+      "namespace": "variant_swatch",
+      "name": "Seasonal",
+      "description": "",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "swatch_color",
+      "namespace": "custom",
+      "name": "Swatch Color",
+      "description": "Color shown in the cap customizer of Sunnies Flask",
+      "type": {
+        "name": "color",
+        "category": "COLOR"
+      }
+    },
+    {
+      "key": "preview_image",
+      "namespace": "custom",
+      "name": "Preview Image",
+      "description": "Image for preview section, use this for front image of The Connector",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "customization_page_background_color",
+      "namespace": "custom",
+      "name": "Customization Page Background Color",
+      "description": "Used for bottle component only. To change the customization page's background color",
+      "type": {
+        "name": "color",
+        "category": "COLOR"
+      }
+    },
+    {
+      "key": "customization_dark_mode",
+      "namespace": "custom",
+      "name": "Dark Engraving Text Color",
+      "description": "Used for bottle component only. To make the engraving color dark or light",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "limited",
+      "namespace": "custom",
+      "name": "Limited",
+      "description": "Choice of Classic or Limited colors",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "custom_label_4",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Custom Label 4",
+      "description": "Label that you assign to a product to help organize bidding and reporting in Shopping campaigns",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "custom_label_3",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Custom Label 3",
+      "description": "Label that you assign to a product to help organize bidding and reporting in Shopping campaigns",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "custom_label_2",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Custom Label 2",
+      "description": "Label that you assign to a product to help organize bidding and reporting in Shopping campaigns",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "custom_label_1",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Custom Label 1",
+      "description": "Label that you assign to a product to help organize bidding and reporting in Shopping campaigns",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "custom_label_0",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Custom Label 0",
+      "description": "Label that you assign to a product to help organize bidding and reporting in Shopping campaigns",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "size_system",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Size System",
+      "description": "The country of the size system used by your product.",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "size_type",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Size Type",
+      "description": "Your apparel product’s cut.",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "mpn",
+      "namespace": "mm-google-shopping",
+      "name": "Google: MPN",
+      "description": "Your product’s Manufacturer Part Number (MPN).",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "gender",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Gender",
+      "description": "The gender for which your product is intended.",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "condition",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Condition",
+      "description": "The condition of your product at time of sale.",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "age_group",
+      "namespace": "mm-google-shopping",
+      "name": "Google: Age Group",
+      "description": "The demographic for which your product is intended.",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "antirad_kids_optical",
+      "namespace": "custom",
+      "name": "Anti-Rad Kids Optical",
+      "description": "",
+      "type": {
+        "name": "variant_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "preview_image_32oz",
+      "namespace": "custom",
+      "name": "Preview Image 32oz",
+      "description": "To be used for Cap and Loop components in Flask Customization Page, front image for The Connector",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "with_charm",
+      "namespace": "custom",
+      "name": "Loop with charm",
+      "description": "Loop charm option",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "preview_image_16oz",
+      "namespace": "custom",
+      "name": "Preview Image 16oz",
+      "description": "To be used for Cap and Loop components in Flask Customization Page, front image for The Connector",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "custom_description",
+      "namespace": "custom",
+      "name": "Custom Description",
+      "description": "",
+      "type": {
+        "name": "multi_line_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "kids_color",
+      "namespace": "custom",
+      "name": "Kids Color",
+      "description": "",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "kids_color_icon",
+      "namespace": "custom",
+      "name": "Kids Color Icon",
+      "description": "",
+      "type": {
+        "name": "url",
+        "category": "URL"
+      }
+    },
+    {
+      "key": "featherlight",
+      "namespace": "custom",
+      "name": "Featherlight Technology",
+      "description": "",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "candy_boot",
+      "namespace": "custom",
+      "name": "Candy Boot",
+      "description": "",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "swatch_background_image",
+      "namespace": "custom",
+      "name": "Swatch Background Image",
+      "description": ".png file",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "animal_border_color",
+      "namespace": "custom",
+      "name": "Animal Observatory Border Color",
+      "description": "",
+      "type": {
+        "name": "color",
+        "category": "COLOR"
+      }
+    },
+    {
+      "key": "animal_observatory_color",
+      "namespace": "custom",
+      "name": "Animal Observatory Color",
+      "description": "",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    },
+    {
+      "key": "animal_observatory_icon",
+      "namespace": "custom",
+      "name": "Animal Observatory Icon",
+      "description": "",
+      "type": {
+        "name": "url",
+        "category": "URL"
+      }
+    },
+    {
+      "key": "ready_made_flask_redirection",
+      "namespace": "custom",
+      "name": "Ready-Made Flask Redirection",
+      "description": "Flask customization page redirection",
+      "type": {
+        "name": "json",
+        "category": "JSON"
+      }
+    },
+    {
+      "key": "preview_image_30oz",
+      "namespace": "custom",
+      "name": "Preview Image 30oz Lite",
+      "description": "To be used for Cap and Loop components in Flask Customization Page, front image for The Connector",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "disable_engraving",
+      "namespace": "custom",
+      "name": "Disable Engraving",
+      "description": "Disable engraving option for bottle in customization page",
+      "type": {
+        "name": "boolean",
+        "category": "TRUE_FALSE"
+      }
+    }
+  ],
+  "shop": []
+}

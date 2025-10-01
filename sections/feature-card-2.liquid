@@ -1,0 +1,121 @@
+{{ 'collections-group.css' | asset_url | stylesheet_tag }}
+
+
+
+<div class="collection-grid">
+  <div class="collections">
+    {% for block in section.blocks %}
+      
+        <div class="collection-block_wf">
+          <div class="collection-details-image-container" style="background-image: url({{ block.settings.collection_image.src | image_url }})">
+            <div class="collection-details">
+      {% if block.settings.collection_title != empty %}
+              <h5 style="color: {{ block.settings.text_color }}">{{ block.settings.collection_title }}</h5>
+              {% endif %}
+            </div>
+          </div>
+          <div class="collection-details-footer" style="background-color: {{ block.settings.footer_color }}">
+            <div class="collection-details">
+            {% if block.settings.description != empty %}
+              <p style="color: {{ block.settings.text_color }}">{{ block.settings.description }}</p>
+            {% endif %}
+              <div class="cta-container">
+              {% if block.settings.button_text != empty %}
+                  <a class="collection-link--cta" href="{{ block.settings.button_url }}" target="_blank" style="background-color: {{ block.settings.button_background_color }}; color: {{ block.settings.button_text_color }}; --main-color: {{ block.settings.button_text_color }}">{{ block.settings.button_text }}</a>
+              {% endif %}
+              {% if block.settings.button_text_2 != empty %}
+                  <a class="collection-link--cta" href="{{ block.settings.button_url_2 }}" target="_blank" style="background-color: {{ block.settings.button_background_color }}; color: {{ block.settings.button_text_color }}; --main-color: {{ block.settings.button_text_color }}">{{ block.settings.button_text_2 }}</a>
+              {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Feature Card 2",
+    
+      "blocks":[
+        {
+        "type":"feature-card",
+        "name":"Feature Card 2",
+          "settings":[
+            {
+              "type":"text",
+              "id":"collection_title",
+              "label":"Card Title"
+            },
+            {
+              "type":"color",
+              "id":"footer_color",
+              "label":"Footer Color",
+              "info":"Footer background color for Card Type 2"
+            },
+            {
+              "type":"color",
+              "id":"text_color",
+              "label":"Text Color",
+              "default":"#FFFFFF"
+            },
+            {
+              "type":"image_picker",
+              "id":"collection_image",
+              "label":"Block Image"
+            },
+            {
+              "type":"text",
+              "id":"description",
+              "label":"Card Description"
+            },
+            {
+              "type":"color",
+              "id":"button_text_color",
+              "label":"Button Text Color",
+              "default":"#000000"
+            },
+            {
+              "type":"color",
+              "id":"button_background_color",
+              "label":"Button Background Color",
+              "default":"#FFFFFF"
+            },
+            {
+              "type":"text",
+              "id":"button_text",
+              "label":"Button Text"
+            },
+            {
+              "type":"url",
+              "id":"button_url",
+              "label":"Button URL"
+            },
+            {
+              "type":"text",
+              "id":"button_text_2",
+              "label":"Button 2 Text"
+            },
+            {
+              "type":"url",
+              "id":"button_url_2",
+              "label":"Button 2 URL"
+            }
+          ]
+      }
+      ],
+      "presets": [
+    {
+    "name": "Feature Card 2"
+    }
+  ]
+    
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
