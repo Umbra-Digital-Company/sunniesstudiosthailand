@@ -13,7 +13,7 @@
 
 .scrolling-text {
   display: flex;
-  width: 200%;
+  width: fit-content;
   animation: scroll-right-to-left linear infinite;
 }
 
@@ -22,7 +22,7 @@
   flex: 1;
   align-items: center;
   white-space: nowrap;
-  width: 100%;
+  width: fit-content;
   justify-content: space-evenly;
 }
 
