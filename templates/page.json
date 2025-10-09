@@ -1,0 +1,24 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "86b4f3fc-9684-44fa-841d-877be5ba6262": {
+      "type": "space",
+      "disabled": true,
+      "settings": {
+        "desktop_height": "100",
+        "mobile_height": "60"
+      }
+    }
+  },
+  "order": [
+    "86b4f3fc-9684-44fa-841d-877be5ba6262",
+  ]
+}
