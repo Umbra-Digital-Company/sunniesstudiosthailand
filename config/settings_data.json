@@ -8805,15 +8805,15 @@
           "footer_link_BB8PMx": {
             "type": "footer_link",
             "settings": {
-              "link_text": "Terms & Conditions",
-              "link_url": ""
+              "link_text": "sunniesstudios.com",
+              "link_url": "https://sunniesstudios.com/"
             }
           },
           "footer_link_jUQBLh": {
             "type": "footer_link",
             "settings": {
-              "link_text": "Privacy Policy",
-              "link_url": ""
+              "link_text": "sunniesflask.com",
+              "link_url": "https://sunniesstudios.com/pages/sunnies-flask"
             }
           }
         },
