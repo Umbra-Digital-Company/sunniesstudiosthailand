@@ -70,8 +70,8 @@
       "settings": {
         "show_section": true,
         "scroll_text": "NEW STORE",
-        "background_color": "#d2b48c",
-        "text_color": "#b8860b",
+        "background_color": "#dad4a0",
+        "text_color": "#c68751",
         "scroll_speed": 20,
         "scroll_text_font_url": ""
       }
