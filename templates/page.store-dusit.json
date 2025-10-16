@@ -1,0 +1,877 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "store": {
+      "type": "store",
+      "settings": {}
+    },
+    "86b4f3fc-9684-44fa-841d-877be5ba6262": {
+      "type": "space",
+      "disabled": true,
+      "settings": {
+        "desktop_height": "100",
+        "mobile_height": "60"
+      }
+    },
+    "store-abouts": {
+      "type": "store-abouts",
+      "settings": {}
+    },
+    "e835f1c8-5e67-45ca-97ca-217f35e65604": {
+      "type": "space",
+      "settings": {
+        "desktop_height": "",
+        "mobile_height": "60"
+      }
+    },
+    "e0dc4cc9-14ba-4707-afc7-f0dc94e4291a": {
+      "type": "space",
+      "settings": {
+        "desktop_height": "60",
+        "mobile_height": "60"
+      }
+    },
+    "in-store-services": {
+      "type": "in-store-services",
+      "settings": {}
+    },
+    "1cabfdd8-db78-4df3-801e-8778ed439d8c": {
+      "type": "space",
+      "disabled": true,
+      "settings": {
+        "desktop_height": "",
+        "mobile_height": ""
+      }
+    },
+    "d92e91a7-258c-4b37-b8ac-cd6bba566c39": {
+      "type": "coa-in-store-promos",
+      "blocks": {
+        "promo_yC86ny": {
+          "type": "promo",
+          "settings": {
+            "page": "sunnies-world-bacolod",
+            "image": "shopify://shop_images/WEB_SunniesWorldBacolod_GiveawaysandPromos_Drink_1.jpg",
+            "title": "Full Size Summer Drink",
+            "details": "<p>Free drink with every optical purchase with lens upgrade from May 9-11, 2025. </p>"
+          }
+        },
+        "promo_XE7bty": {
+          "type": "promo",
+          "settings": {
+            "page": "sunnies-flask-sm-city-clark",
+            "image": "shopify://shop_images/WEB_SunniesWorldBacolod_GiveawaysandPromos_RedTote_1.jpg",
+            "title": "Sunnies Summer Club Tote",
+            "details": "<p>Free tote with every Sunnies Flask purchase with a min. purchase of P995 from June 18-20, 2025 or until supplies last</p>"
+          }
+        },
+        "641b3c84-74e9-4129-9bed-a7579d81d01d": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "kcc-mall-of-zamboanga",
+            "image": "shopify://shop_images/MicrosoftTeams-image_52.jpg",
+            "title": "Free 100 sunglasses daily",
+            "details": "<p>First 100 visitors per day will get free sunglasses until supplies last.​</p><p>Styles of sunglasses are pre-selected. ​</p><p>This promo is valid from July 12 - 14, 2025 only. </p>"
+          }
+        },
+        "4969ecce-d904-44b0-931a-cc66f04232c1": {
+          "type": "promo",
+          "settings": {
+            "page": "uptown-bgc-mall",
+            "image": "shopify://shop_images/MicrosoftTeams-image_53.jpg",
+            "title": "Free glasses",
+            "details": "<p>Free glasses for the first 100 customers from September 19 - 21, 2025</p>"
+          }
+        },
+        "promo_RnB8BA": {
+          "type": "promo",
+          "settings": {
+            "page": "uptown-bgc-mall",
+            "image": "shopify://shop_images/Rob_Manila-Eyewear_Kit.jpg",
+            "title": "Free Eyewear Kit",
+            "details": "<p>Free Eyewear Kit with every purchase of eyewear worth P1,595 from September 19 - 25, 2025. </p>"
+          }
+        },
+        "promo_CqxwAg": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-city-clark",
+            "image": "shopify://shop_images/Web_Store_Promos_Sunnies_Cap.png",
+            "title": "Free Cap",
+            "details": "<p>Free Sunnies World Cap for every flask purchase with min. spend of P995 from August 15 - 21, 2025 until supplies last.</p>"
+          }
+        },
+        "promo_H8iRkp": {
+          "type": "promo",
+          "settings": {
+            "page": "uptown-bgc-mall",
+            "image": "shopify://shop_images/Web_Store_Promos_Sunnies_B2S_Stickers.png",
+            "title": "Free stickers and engraving",
+            "details": "<p>with every purches from September 19- 25, 2025 until supplies last.</p>"
+          }
+        },
+        "promo_CyJ4a3": {
+          "type": "promo",
+          "settings": {
+            "page": "uptown-bgc-mall",
+            "image": "shopify://shop_images/Shop_Tote.jpg",
+            "title": "Free Shop Tote",
+            "details": "<p>Free Shop Tote with every flask bundle purchase with min. spend of P995 from September 19-25, 2025 only.​ </p>"
+          }
+        },
+        "4a38fa25-24e3-43a7-a4b3-98f694ba66dc": {
+          "type": "promo",
+          "settings": {
+            "page": "uptown-bgc-mall",
+            "image": "shopify://shop_images/Festival-Mall_05ee8ce3-302e-4c36-8414-0add37b51c8b.png",
+            "title": "Free Sunnies Coffee",
+            "details": "<p>Free Sunnies Coffee with every optical package with lens upgrade purchase from September 19-21, 2025.</p>"
+          }
+        },
+        "promo_DUf6qP": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-city-naga",
+            "image": "shopify://shop_images/WEB_SunniesWorldBacolod_GiveawaysandPromos_RedTote_1.jpg",
+            "title": "Sunnies Summer Club Tote",
+            "details": "<p>Get a free summer tote with every flask bundle purchase until supplies last. </p>"
+          }
+        },
+        "promo_CQdbMX": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-pampanga",
+            "image": "shopify://shop_images/Summer_Web_Activation_Page_Promo_Images-Fan.jpg",
+            "title": "Free Summer Fan",
+            "details": "<p>Get a free Sunnies summer fan for any purchase from April 30- May 6, 2025 until supplies last.</p>"
+          }
+        },
+        "promo_yXCKNY": {
+          "type": "promo",
+          "settings": {
+            "page": "ayala-malls-centrio",
+            "image": "shopify://shop_images/Rob_Manila-Eyewear_Kit.jpg",
+            "title": "Free Eyewear Kit",
+            "details": "<p>Free Eyewear Kit with P1,500 worth of eyewear from July 9-15, 2025 only. </p>"
+          }
+        },
+        "promo_zBFfcr": {
+          "type": "promo",
+          "settings": {
+            "page": "ayala-malls-centrio",
+            "image": "shopify://shop_images/MicrosoftTeams-image_53.jpg",
+            "title": "P500 off on glasses with lens upgrade",
+            "details": "<p>Get P500 off on glasses when you purchase with lens upgrade until September 15, 2025.</p>"
+          }
+        },
+        "promo_tbPtHM": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "ayala-malls-centrio",
+            "image": "shopify://shop_images/Summer_Web_Activation_Page_Promo_Images-Stickers.jpg",
+            "title": "Free Stickers",
+            "details": "<p>Get a free summer stickers for any eyewear purchase from July 9-15, 2025.</p>"
+          }
+        },
+        "promo_8ptpAB": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-cdo-downtown-premiere",
+            "image": "shopify://shop_images/Summer_Web_Activation_Page_Promo_Images-Stickers.jpg",
+            "title": "Free Stickers",
+            "details": "<p>Free stickers with every purchase from from June 28 - July 4, 2025.</p>"
+          }
+        },
+        "promo_7k9FcU": {
+          "type": "promo",
+          "settings": {
+            "page": "ayala-malls-centrio",
+            "image": "shopify://shop_images/June_BAU_Web_SS_Sticker_Image_Banner.jpg",
+            "title": "Sunnies Studios Sticker",
+            "details": "<p>Free Sunnies Studios Sticker with any eyewear purchase purchase from July 9-15, 2025 or until supplies last.</p>"
+          }
+        },
+        "bb7671c1-b7b4-4114-a2aa-f2bf278174b4": {
+          "type": "promo",
+          "settings": {
+            "page": "",
+            "image": "shopify://shop_images/Clean-Lens-Events-Page.png",
+            "title": "Free Clean Lens*",
+            "details": "<p>Free Clean Lens with with min. purchase of P1,995 from December 21-27, 2024.</p>"
+          }
+        },
+        "promo_AMRmLc": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-city-tarlac",
+            "image": "shopify://shop_images/Clean-Lens-Events-Page.png",
+            "title": "Free Clean Lens*",
+            "details": "<p>Free Clean Lens from August 2-8, 2024 until supplies last.</p><p>Freebie can be claimed as in-store transaction only.</p><p>*For existing Sunnies Club members - Get a free Clean Lens OR Keychain with Sunnies Studios Stickers </p><p>*For new Sunnies Club members - Get Clean Lens WITH Sunnies Club stickers and Sunnies Studios Stickers </p>"
+          }
+        },
+        "promo_A6kWHy": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-city-manila",
+            "image": "shopify://shop_images/MicrosoftTeams-image_52.jpg",
+            "title": "Free 100 sunglasses daily",
+            "details": "<p>First 100 visitors will get free sunglasses.​</p><p>Styles of sunglasses are pre-selected. ​</p><p>This promo is valid at SM City Manila from February 28, 2025 - March 6, 2025 only.</p>"
+          }
+        },
+        "promo_rV3cBH": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-city-manila",
+            "image": "shopify://shop_images/Store-Opening-Sticker-SM-Tugue.png",
+            "title": "Sunnies Studios Sticker",
+            "details": "<p>Free Sunnies Studios Sticker with any purchase until supplies last.</p><p>Freebie can be claimed as in-store transaction only.</p>"
+          }
+        },
+        "cd994b78-15c6-4dbb-92a3-2ef0f6517240": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-city-tarlac",
+            "image": "shopify://shop_images/Sunnies_Club_Keychain_1.jpg",
+            "title": "Free Keychain for Sunnies Club members",
+            "details": "<p>Free Keychain OR Clean Lens with every purchase from August 2-8 until supplies last.</p><p>Freebie can be claimed as in-store transaction only.</p>"
+          }
+        },
+        "ff252fdc-9030-4eee-a167-e7202ea6afe4": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-caloocan",
+            "image": "shopify://shop_images/MicrosoftTeams-image_53.jpg",
+            "title": "P200 off on prescription glasses package",
+            "details": "<p>200 off will be given for every prescription glasses package purchased.​</p><p>This store opening promo is valid SM City Caloocan from May 17 - June 16, 2024 only.</p><p>This promo is not applicable in conjunction with other discounts and special offers.</p>"
+          }
+        },
+        "261b5dd7-d3b0-4bbf-b742-315dd24e3b39": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "kcc-gensan",
+            "image": "shopify://shop_images/Clean-Lens-Events-Page.png",
+            "title": "Free mini Clean Lens",
+            "details": "<p>Free mini Clean Lens with any Sun or Anti-Rad purchase worth P995 from March 19-25, 2024 until supplies last.</p><p>Freebie can be claimed as in-store transaction only.</p>"
+          }
+        },
+        "promo_3bNJNQ": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-city-cebu",
+            "image": "shopify://shop_images/SM_Cebu_Dumpling.png",
+            "title": "Free Dumpling Pouch",
+            "details": "<p>Free Dumpling Pouch for every P1500 purchase.</p><p> This promo is valid at SM City Cebu from June 14-20, 2024 only.​ </p>"
+          }
+        },
+        "promo_HmLXjD": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-city-cebu",
+            "image": "shopify://shop_images/SM_Cebu_Mug.png",
+            "title": "Free Mug with Coaster",
+            "details": "<p>Free Mug with Coaster for every P1500 purchase.</p><p> This promo is valid at  SM City Cebu from June 14-20, 2024 only.​ </p>"
+          }
+        },
+        "5225e6cd-defb-4ee4-bed6-ebe9abdccf7c": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-city-cebu",
+            "image": "shopify://shop_images/SM_Cebu_Tote.png",
+            "title": "Free Sunnies World Tote",
+            "details": "<p>Free Sunnies World Tote for every P3500 purchase.</p><p> This promo is valid at SM City Cebu from June 14-20, 2024 only.​ </p>"
+          }
+        },
+        "promo_YnnGTk": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-city-cebu",
+            "image": "shopify://shop_images/SM_Cebu_Shop_Tote_and_Flask_Sticker.png",
+            "title": "Free Shop Tote and Sunnies Flask Sticker",
+            "details": "<p>Free Shop Tote and Sunnies Flask Sticker with every Sunnies Flask bundle purchase. </p><p>This promo is valid at SM City Cebu until June 20, 2024 only.​ </p>"
+          }
+        },
+        "324418a7-d9b8-4308-a21e-d1ab264b1bdc": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-city-cebu",
+            "image": "shopify://shop_images/SM_Cebu_Postcard_and_Sticker.png",
+            "title": "Free Sunnies World Sticker and Postcard",
+            "details": "<p>Free sticker and postcard with any purchase until supplies last.</p><p>Freebie can be claimed as in-store transaction only.</p>"
+          }
+        },
+        "promo_LDgWx6": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-city-cebu",
+            "image": "shopify://shop_images/SM_Cebu_Keychain_and_Sticker.png",
+            "title": "Exclusive merch for Sunnies Club Members",
+            "details": "<p>Free Sunnies Club Keychain and Stickers for every P995 purchase. </p><p>This promo is valid at SM City Cebu from June 14 - July 13, 2024 only.​ </p>"
+          }
+        },
+        "4958ca38-27df-4e58-ba05-4d16dbfee3f5": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "robinsons-magnolia",
+            "image": "shopify://shop_images/10_-off-Sunnies-Coffee.png",
+            "title": "10% off Sunnies Coffee",
+            "details": "<p>10% off on Sunnies Coffee from December 7, 2023 - January 6, 2024. </p><p>This store opening promo is only valid at Robinsons Magnolia. </p>"
+          }
+        },
+        "bd139dc4-8621-4303-9cd2-d5220b44b14a": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "robinsons-magnolia",
+            "image": "shopify://shop_images/Final-Final-Sunnies-Coffee-Sticker.png",
+            "title": "Sunnies Studios Sticker",
+            "details": "<p>Free Sunnies Studios Sticker with any purchase until supplies last.</p><p>Freebie can be claimed as in-store transaction only.</p>"
+          }
+        },
+        "promo_ccWR7n": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-mall-of-asia-sunnies-world",
+            "image": "shopify://shop_images/SunniesWorldMOA_Promos_Illustrations_EcommGray_Spanish_Latte.png",
+            "title": "Free Spanish Latte",
+            "details": "<p>with every optical purchase with lens upgrade on Sept 26 - 29</p>"
+          }
+        },
+        "promo_DcpeRy": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-mall-of-asia-sunnies-world",
+            "image": "shopify://shop_images/SunniesWorldMOA_Promos_Illustrations_EcommGray_Tote.png",
+            "title": "Free Tote",
+            "details": "<p>with min. purchase of P4,000</p>"
+          }
+        },
+        "promo_wygHaz": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-mall-of-asia-sunnies-world",
+            "image": "shopify://shop_images/SunniesWorldMOA_Promos_Illustrations_EcommGray_Pencil_and_Pencil_Case.png",
+            "title": "Free Pencils or Pencil Case",
+            "details": "<p>with min. purchase of P995</p>"
+          }
+        },
+        "promo_Y9jcc6": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-mall-of-asia-sunnies-world",
+            "image": "shopify://shop_images/SunniesWorldMOA_Promos_Illustrations_EcommGray_Boot_and_Sticker.png",
+            "title": "Free Boot and Sticker",
+            "details": "<p>with every purchase of 2 bundles on Sept 26 - 29</p>"
+          }
+        },
+        "promo_BMmx4F": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-mall-of-asia-sunnies-world",
+            "image": "shopify://shop_images/SunniesWorldMOA_Promos_Illustrations_EcommGray_Notepad_and_Keychain.png",
+            "title": "Free Notepad or Keychain",
+            "details": "<p>with every purchase on Sept 26 - 27</p>"
+          }
+        }
+      },
+      "block_order": [
+        "promo_yC86ny",
+        "promo_XE7bty",
+        "641b3c84-74e9-4129-9bed-a7579d81d01d",
+        "4969ecce-d904-44b0-931a-cc66f04232c1",
+        "promo_RnB8BA",
+        "promo_CqxwAg",
+        "promo_H8iRkp",
+        "promo_CyJ4a3",
+        "4a38fa25-24e3-43a7-a4b3-98f694ba66dc",
+        "promo_DUf6qP",
+        "promo_CQdbMX",
+        "promo_yXCKNY",
+        "promo_zBFfcr",
+        "promo_tbPtHM",
+        "promo_8ptpAB",
+        "promo_7k9FcU",
+        "bb7671c1-b7b4-4114-a2aa-f2bf278174b4",
+        "promo_AMRmLc",
+        "promo_A6kWHy",
+        "promo_rV3cBH",
+        "cd994b78-15c6-4dbb-92a3-2ef0f6517240",
+        "ff252fdc-9030-4eee-a167-e7202ea6afe4",
+        "261b5dd7-d3b0-4bbf-b742-315dd24e3b39",
+        "promo_3bNJNQ",
+        "promo_HmLXjD",
+        "5225e6cd-defb-4ee4-bed6-ebe9abdccf7c",
+        "promo_YnnGTk",
+        "324418a7-d9b8-4308-a21e-d1ab264b1bdc",
+        "promo_LDgWx6",
+        "4958ca38-27df-4e58-ba05-4d16dbfee3f5",
+        "bd139dc4-8621-4303-9cd2-d5220b44b14a",
+        "promo_ccWR7n",
+        "promo_DcpeRy",
+        "promo_wygHaz",
+        "promo_Y9jcc6",
+        "promo_BMmx4F"
+      ],
+      "settings": {
+        "heading": "Store Promos"
+      }
+    },
+    "e7204430-57c5-407d-b821-9a301de6700b": {
+      "type": "coa-in-store-promos",
+      "blocks": {
+        "ed5cb632-ee4d-4df2-b065-10889bf5d5a8": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "robinsons-place-manila",
+            "image": "shopify://shop_images/MicrosoftTeams-image_52.jpg",
+            "title": "Free 100 sunglasses daily",
+            "details": "<p>First 100 visitors will get free sunglasses.​</p><p>Styles of sunglasses are pre-selected. ​</p><p>This promo is valid at Robinsons Manila from February 21-27, 2025 only.</p>"
+          }
+        },
+        "promo_Yghqpy": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-city-east-ortigas",
+            "image": "shopify://shop_images/MicrosoftTeams-image_52.jpg",
+            "title": "Free 100 sunglasses daily",
+            "details": "<p>First 100 visitors per day will get free sunglasses until supplies last.​</p><p>Styles of sunglasses are pre-selected. ​</p><p>This promo is valid at SM City East Ortigas from July 4 - 6, 2025 only. </p>"
+          }
+        },
+        "b80259b7-17fc-44ce-acd2-5125e9b1884b": {
+          "type": "promo",
+          "settings": {
+            "page": "alabang-town-center",
+            "image": "shopify://shop_images/MicrosoftTeams-image_53.jpg",
+            "title": "P500 off optical promo",
+            "details": "<p>Get P500 off on glasses when you purchase with lens upgrade until September 15, 2025.</p>"
+          }
+        },
+        "promo_a79y3b": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-city-east-ortigas",
+            "image": "shopify://shop_images/BAU_Web_Eyewear_Kit_Image.jpg",
+            "title": "Free Eyewear Kit",
+            "details": "<p>Free Eyewear Kit with every purchase of eyewear worth P1,500 from July 4 - 10, 2025. </p>"
+          }
+        },
+        "promo_3UYjbD": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-city-east-ortigas",
+            "image": "shopify://shop_images/Store_Promo-Summer_Stickers.jpg",
+            "title": "Free stickers",
+            "details": "<p>Free summer stickers for any purchase from July 4 - 10, 2025 until supplies last.</p>"
+          }
+        },
+        "promo_Wc9f8D": {
+          "type": "promo",
+          "settings": {
+            "page": "",
+            "image": "shopify://shop_images/Summer_Web_Activation_Page_Promo_Images-Shop_tote.jpg",
+            "title": "Free Shop Tote",
+            "details": ""
+          }
+        },
+        "promo_UEaMHV": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-city-laoag",
+            "image": "shopify://shop_images/WEB_SunniesWorldBacolod_GiveawaysandPromos_RedTote_1.jpg",
+            "title": "Free Sunnies Summer Club Tote",
+            "details": "<p>Get a free summer tote with every flask bundle purchase from May 29 - June 4, 2025 until supplies last. </p>"
+          }
+        },
+        "promo_3dyWby": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-city-lipa",
+            "image": "shopify://shop_images/WEB_SunniesWorldBacolod_GiveawaysandPromos_RedTote_1.jpg",
+            "title": "Free Sunnies Summer Club Tote",
+            "details": "<p>Get a free summer tote with every flask bundle purchase  from May 29 - June 4, 2025 until supplies last. </p>"
+          }
+        },
+        "promo_eCabga": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-city-laoag",
+            "image": "shopify://shop_images/Summer_Web_Activation_Page_Promo_Images-Fan.jpg",
+            "title": "Free Summer Fan",
+            "details": "<p>Get a free Sunnies summer fan for any purchase from May 30 - June 5, 2025 until supplies last.</p>"
+          }
+        },
+        "promo_rXnczQ": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-city-lipa",
+            "image": "shopify://shop_images/Summer_Web_Activation_Page_Promo_Images-Fan.jpg",
+            "title": "Free Summer Fan",
+            "details": "<p>Get a free Sunnies summer fan for any purchase from  from May 29 - June 4, 2025, 2025 until supplies last.</p>"
+          }
+        },
+        "promo_Vk7TJY": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-city-lipa",
+            "image": "shopify://shop_images/Store_Promo-Summer_Stickers.jpg",
+            "title": "Free stickers",
+            "details": "<p>Free summer stickers for any purchase from  from May 29 - June 4, 2025 until supplies last.</p>"
+          }
+        },
+        "efe1bc3b-532d-4022-8b62-db632fa41d6e": {
+          "type": "promo",
+          "settings": {
+            "page": "alabang-town-center",
+            "image": "shopify://shop_images/Store_Promo-Summer_Stickers.jpg",
+            "title": "Free Sunnies Studios Sticker",
+            "details": "<p>Free Sunnies Studios Sticker with any purchase until supplies last. </p><p>Freebie can be claimed as in-store transaction only.</p>"
+          }
+        },
+        "b27b7a50-d553-4d95-86ab-3c4f468fe385": {
+          "type": "promo",
+          "settings": {
+            "page": "sunnies-flask-centrio",
+            "image": "shopify://shop_images/waffletoteside.jpg",
+            "title": "Free Shop Tote",
+            "details": "<p>Free Shop Tote for every flask purchase.</p><p>This promo is valid at SM City Laoag from May 30  – June 5, 2025 or until supplies last. </p><p>This promo can't be combined with other discounts. </p>"
+          }
+        },
+        "promo_dCgnQW": {
+          "type": "promo",
+          "settings": {
+            "page": "robinsons-place-manila",
+            "image": "shopify://shop_images/Rob_Manila-Flask_Sticker.jpg",
+            "title": "Free stickers and engraving",
+            "details": "<p>with every bundle purchase</p>"
+          }
+        },
+        "promo_86fDRK": {
+          "type": "promo",
+          "settings": {
+            "page": "sunnies-flask-sm-city-iloilo",
+            "image": "shopify://shop_images/Flask_In-store_Promo_Web_Charm.jpg",
+            "title": "Free charms",
+            "details": "<p>with every purchase of 2 bundles with the Charm Loop.</p>"
+          }
+        },
+        "promo_wdwzQF": {
+          "type": "promo",
+          "settings": {
+            "page": "sunnies-flask-sm-city-iloilo",
+            "image": "shopify://shop_images/Flask_In-store_Promo_Web_Flask_Cleaner.jpg",
+            "title": "Free Flask Cleaner",
+            "details": "<p>with a min. purchase of P2,000</p>"
+          }
+        },
+        "cf5554b9-54a8-49e8-b0ee-b5a7e3a8700f": {
+          "type": "promo",
+          "settings": {
+            "page": "sm-lanang",
+            "image": "shopify://shop_images/Clean-Lens-Events-Page.png",
+            "title": "Free mini Clean Lens",
+            "details": "<p>Free Clean Lens with with min. purchase of P1,995 from December 21-27, 2024 until supplies last.</p><p>Freebie can be claimed as in-store transaction only.</p>"
+          }
+        },
+        "promo_hGCjFR": {
+          "type": "promo",
+          "settings": {
+            "page": "greenhills",
+            "image": "shopify://shop_images/MicrosoftTeams-image_53.jpg",
+            "title": "P200 off on prescription glasses package",
+            "details": "<p>200 off will be given for every prescription glasses package purchased.​</p><p>This store opening promo is valid at Greenhills Mall from December 19, 2024 -January 18, 2025 only.​</p><p>This promo is not applicable in conjunction with other discounts and special offers.</p>"
+          }
+        },
+        "0b0f93f3-f69c-4ec2-ad92-574f2a3e901e": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sunnies-studios-flagship",
+            "image": "shopify://shop_images/tote.jpg",
+            "title": "Free Sunnies Studios Tote",
+            "details": "<p>Free Sunnies Studios Tote for every P995 purchase.</p><p> This promo is valid at Glorietta 2 from September 15 - September 21, 2023 only.​ </p>"
+          }
+        },
+        "53268a99-83da-4df8-9fcc-fdaf17005b08": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sunnies-studios-flagship",
+            "image": "shopify://shop_images/coaster.jpg",
+            "title": "Free Sunnies Studios Coaster",
+            "details": "<p>Free Sunnies Studios Coaster for every P2000 purchase.</p><p> This promo is valid at Glorietta 2 from September 15 - September 21, 2023 only.​ </p>"
+          }
+        },
+        "640a5415-b058-419f-80f6-b48282128801": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sunnies-studios-flagship",
+            "image": "shopify://shop_images/TRAY.jpg",
+            "title": "Free Sunnies Studios Desk Tray",
+            "details": "<p>Free Sunnies Studios Desk Tray for every P3000 purchase.</p><p> This promo is valid at Glorietta from September 15 - 21, 2023 only.​ </p>"
+          }
+        },
+        "dbe9add6-6c80-451c-92c1-5a922dfacaf6": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sunnies-studios-flagship",
+            "image": "shopify://shop_images/MicrosoftTeams-image_62.jpg",
+            "title": "Free Coffee Tasters",
+            "details": "<p>Visitors will get free Coffee Tasters until supplies last.</p><p>This promo is valid at Glorietta 2 from September 15 - September 21, 2023 only. </p>"
+          }
+        },
+        "f354c742-21a3-4bf0-9d30-241e3739096d": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sunnies-studios-flagship",
+            "image": "shopify://shop_images/DONUTS.jpg",
+            "title": "Free Mini Donuts",
+            "details": "<p>Visitors will get free mini donuts until supplies last.​</p><p>This promo is valid at Glorietta 2 from September 15-17 only. </p>"
+          }
+        },
+        "5014a115-0cee-4927-be0e-92bebd68e8ef": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "robinsons-iligan",
+            "image": "shopify://shop_images/Final-Final-Sunnies-Coffee-Sticker.png",
+            "title": "Free Sticker",
+            "details": "<p>Free Sticker with any purchase until supplies last.</p><p>Freebie can be claimed as in-store transaction only.</p>"
+          }
+        },
+        "9472d45b-3036-4593-8318-509bbd713417": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "sm-san-mateo",
+            "image": "shopify://shop_images/MicrosoftTeams-image_20_09b4bf66-cd56-4643-ae6a-7014a10b987e.jpg",
+            "title": "Free Sunnies Fan",
+            "details": "<p>Free Sunnies Fan for every P995 purchase.</p><p> This promo is valid at Marquee Mall from June 21, 2023 - June 27, 2023 only.​ </p>"
+          }
+        },
+        "c2bea967-1a8c-4823-8580-7519c5cedcdc": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "page": "festival-mall",
+            "image": "shopify://shop_images/KEYCHAIN.png",
+            "title": "Free Keychain",
+            "details": "<p>Free Keychain with every purchase from September 26, 2023 to October 2, 2023 until supplies last.</p><p>Freebie can be claimed as in-store transaction only.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ed5cb632-ee4d-4df2-b065-10889bf5d5a8",
+        "promo_Yghqpy",
+        "b80259b7-17fc-44ce-acd2-5125e9b1884b",
+        "promo_a79y3b",
+        "promo_3UYjbD",
+        "promo_Wc9f8D",
+        "promo_UEaMHV",
+        "promo_3dyWby",
+        "promo_eCabga",
+        "promo_rXnczQ",
+        "promo_Vk7TJY",
+        "efe1bc3b-532d-4022-8b62-db632fa41d6e",
+        "b27b7a50-d553-4d95-86ab-3c4f468fe385",
+        "promo_dCgnQW",
+        "promo_86fDRK",
+        "promo_wdwzQF",
+        "cf5554b9-54a8-49e8-b0ee-b5a7e3a8700f",
+        "promo_hGCjFR",
+        "0b0f93f3-f69c-4ec2-ad92-574f2a3e901e",
+        "53268a99-83da-4df8-9fcc-fdaf17005b08",
+        "640a5415-b058-419f-80f6-b48282128801",
+        "dbe9add6-6c80-451c-92c1-5a922dfacaf6",
+        "f354c742-21a3-4bf0-9d30-241e3739096d",
+        "5014a115-0cee-4927-be0e-92bebd68e8ef",
+        "9472d45b-3036-4593-8318-509bbd713417",
+        "c2bea967-1a8c-4823-8580-7519c5cedcdc"
+      ],
+      "settings": {
+        "heading": "Store Promos"
+      }
+    },
+    "2c719579-d862-4957-a73d-2eeab0bfb9cf": {
+      "type": "space",
+      "settings": {
+        "desktop_height": "60",
+        "mobile_height": "60"
+      }
+    },
+    "32d57360-bcc1-4451-b3b5-71b14f09f8ce": {
+      "type": "accordion-faq",
+      "blocks": {
+        "1acc559e-0394-497c-a1e2-80e5bcc8dce2": {
+          "type": "faq_item",
+          "settings": {
+            "faq_item_title": "What products do you offer?​",
+            "faq_item_content": "<p>We have Sun, Optical, Anti-Rad, Readers, Merch, and Sunnies Flask in select stores.</p>"
+          }
+        },
+        "7c682ad9-7947-43bc-a3c2-75e0dd09a6f6": {
+          "type": "faq_item",
+          "settings": {
+            "faq_item_title": "How much is an in-store eye exam?​",
+            "faq_item_content": "<p>Your eye exam is covered when you purchase any eyewear package.</p>"
+          }
+        },
+        "3d2717b3-35fc-4e76-b7f6-6979fc41ae61": {
+          "type": "faq_item",
+          "settings": {
+            "faq_item_title": "How can I pay at your stores? Can I pay cash at your stores?​",
+            "faq_item_content": "<p>You can purchase your new frames with credit (Visa, JCB and Mastercard) or debit cards, and you're also welcome to pay with Cash.​</p>"
+          }
+        },
+        "a2740ed3-fcb6-4561-8ee9-a35c76714779": {
+          "type": "faq_item",
+          "settings": {
+            "faq_item_title": "What are your warranty guidelines?​",
+            "faq_item_content": "<ul><li>We offer a 90-Day Guarantee on all Sunnies Studios products which allows you to exchange your item within 90 days.​ </li><li>Additionally, we offer an extended warranty from the day of purchase for all prescription eyewear purchases for any issues including manufacturing defects such as tarnishing and discoloration.​</li><li>Read our 90-day Guarantee and extended warranty policy <a href=\"/pages/sunnies-guarantee\" target=\"_blank\" title=\"Sunnies Guarantee\">here</a></li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "1acc559e-0394-497c-a1e2-80e5bcc8dce2",
+        "7c682ad9-7947-43bc-a3c2-75e0dd09a6f6",
+        "3d2717b3-35fc-4e76-b7f6-6979fc41ae61",
+        "a2740ed3-fcb6-4561-8ee9-a35c76714779"
+      ],
+      "settings": {
+        "faq_title": "Frequently Asked Questions"
+      }
+    },
+    "2ff759d4-f928-40e2-81be-ec3110678cfc": {
+      "type": "space",
+      "settings": {
+        "desktop_height": "60",
+        "mobile_height": "60"
+      }
+    },
+    "64f6563f-ccce-426e-a979-bc578b2d38bd": {
+      "type": "page-carousel",
+      "blocks": {
+        "1c0e76af-f524-4f4d-a43b-0ce93fdae8cd": {
+          "type": "page",
+          "settings": {
+            "page_url": "shopify://collections/optical-1",
+            "page_title": "",
+            "page_action_label": "Optical",
+            "page_image": "https://cdn.shopify.com/s/files/1/0172/4383/2374/files/000024380007_copya_copy_cropped.jpg?v=1718699971"
+          }
+        },
+        "555ea305-7a37-4a3e-aefd-cb4070952549": {
+          "type": "page",
+          "settings": {
+            "page_url": "shopify://collections/sun",
+            "page_title": "",
+            "page_action_label": "Sun",
+            "page_image": "https://cdn.shopify.com/s/files/1/0172/4383/2374/files/000024380007_copya_copy_sun.jpg?v=1718699971"
+          }
+        },
+        "8c57c27e-7d99-4dc1-8680-3e76e310f48f": {
+          "type": "page",
+          "settings": {
+            "page_url": "shopify://pages/anti-radiation-eyewear",
+            "page_title": "",
+            "page_action_label": "Anti-Rad",
+            "page_image": "https://cdn.shopify.com/s/files/1/0172/4383/2374/files/ar_store.webp?v=1746770195"
+          }
+        },
+        "b3e155d8-390f-4175-84bb-edab92854411": {
+          "type": "page",
+          "settings": {
+            "page_url": "shopify://pages/sunnies-flask",
+            "page_title": "",
+            "page_action_label": "Flask",
+            "page_image": "https://cdn.shopify.com/s/files/1/0172/4383/2374/files/000024380007_copya_copyaaa.jpg?v=1718699971"
+          }
+        }
+      },
+      "block_order": [
+        "1c0e76af-f524-4f4d-a43b-0ce93fdae8cd",
+        "555ea305-7a37-4a3e-aefd-cb4070952549",
+        "8c57c27e-7d99-4dc1-8680-3e76e310f48f",
+        "b3e155d8-390f-4175-84bb-edab92854411"
+      ],
+      "settings": {
+        "title": "Looking for more?",
+        "title_alignment": "left",
+        "is_dark_bg": false,
+        "desktop_shown_page_count": "4",
+        "mobile_shown_page_count": "2"
+      }
+    },
+    "1a96015f-417a-4379-b474-2d1e67086b93": {
+      "type": "space",
+      "settings": {
+        "desktop_height": "60",
+        "mobile_height": "60"
+      }
+    },
+    "f72a6318-e473-48e6-8e46-e0755e12c26d": {
+      "type": "coa-in-store-promos",
+      "blocks": {
+        "d8d2319b-2dfd-4f3b-8f78-798203e04ec1": {
+          "type": "promo",
+          "settings": {
+            "page": "sunnies-studios-flagship",
+            "title": "",
+            "details": ""
+          }
+        }
+      },
+      "block_order": [
+        "d8d2319b-2dfd-4f3b-8f78-798203e04ec1"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading": "Store Promos"
+      }
+    }
+  },
+  "order": [
+    "store",
+    "86b4f3fc-9684-44fa-841d-877be5ba6262",
+    "store-abouts",
+    "e835f1c8-5e67-45ca-97ca-217f35e65604",
+    "e0dc4cc9-14ba-4707-afc7-f0dc94e4291a",
+    "in-store-services",
+    "1cabfdd8-db78-4df3-801e-8778ed439d8c",
+    "d92e91a7-258c-4b37-b8ac-cd6bba566c39",
+    "e7204430-57c5-407d-b821-9a301de6700b",
+    "2c719579-d862-4957-a73d-2eeab0bfb9cf",
+    "32d57360-bcc1-4451-b3b5-71b14f09f8ce",
+    "2ff759d4-f928-40e2-81be-ec3110678cfc",
+    "64f6563f-ccce-426e-a979-bc578b2d38bd",
+    "1a96015f-417a-4379-b474-2d1e67086b93",
+    "f72a6318-e473-48e6-8e46-e0755e12c26d"
+  ]
+}
