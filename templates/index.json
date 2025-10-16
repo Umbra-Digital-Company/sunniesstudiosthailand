@@ -92,28 +92,28 @@
     "sunnies_world_slideshow_NjtT8n": {
       "type": "sunnies-world-slideshow",
       "blocks": {
-        "slide_6PWUTJ": {
+        "slide_BkiGy6": {
           "type": "slide",
           "settings": {
-            "slide_image": "shopify://shop_images/Sunnies_TH_Store_Images_01.png",
+            "slide_image": "shopify://shop_images/storefront-desktop-100.jpg",
             "slide_alt": "",
             "slide_title": "",
             "slide_description": ""
           }
         },
-        "slide_JnRRTK": {
+        "slide_ycdpnK": {
           "type": "slide",
           "settings": {
-            "slide_image": "shopify://shop_images/Sunnies_TH_Store_Images_02.png",
+            "slide_image": "shopify://shop_images/close_up_storefront-desktop-100.jpg",
             "slide_alt": "",
             "slide_title": "",
             "slide_description": ""
           }
         },
-        "slide_aabRXE": {
+        "slide_Fw79Hj": {
           "type": "slide",
           "settings": {
-            "slide_image": "shopify://shop_images/Sunnies_TH_Store_Images_03.png",
+            "slide_image": "shopify://shop_images/flask_wall_eye_exam_room-desktop-100.jpg",
             "slide_alt": "",
             "slide_title": "",
             "slide_description": ""
@@ -128,8 +128,48 @@
             "slide_description": ""
           }
         },
+        "slide_CYrEyV": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/coffee-desktop-100.jpg",
+            "slide_alt": "",
+            "slide_title": "",
+            "slide_description": ""
+          }
+        },
+        "slide_6PWUTJ": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "slide_image": "shopify://shop_images/Sunnies_TH_Store_Images_01.png",
+            "slide_alt": "",
+            "slide_title": "",
+            "slide_description": ""
+          }
+        },
+        "slide_JnRRTK": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "slide_image": "shopify://shop_images/Sunnies_TH_Store_Images_02.png",
+            "slide_alt": "",
+            "slide_title": "",
+            "slide_description": ""
+          }
+        },
+        "slide_aabRXE": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "slide_image": "shopify://shop_images/Sunnies_TH_Store_Images_03.png",
+            "slide_alt": "",
+            "slide_title": "",
+            "slide_description": ""
+          }
+        },
         "slide_Nz4YTy": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "slide_image": "shopify://shop_images/Sunnies_TH_Store_Images_05.png",
             "slide_alt": "",
@@ -139,17 +179,9 @@
         },
         "slide_BMwfFR": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "slide_image": "shopify://shop_images/Sunnies_TH_Store_Images_06.png",
-            "slide_alt": "",
-            "slide_title": "",
-            "slide_description": ""
-          }
-        },
-        "slide_3emCbE": {
-          "type": "slide",
-          "settings": {
-            "slide_image": "shopify://shop_images/Sunnies_TH_Store_Images_07.png",
             "slide_alt": "",
             "slide_title": "",
             "slide_description": ""
@@ -157,13 +189,16 @@
         }
       },
       "block_order": [
+        "slide_BkiGy6",
+        "slide_ycdpnK",
+        "slide_Fw79Hj",
+        "slide_gyHhyA",
+        "slide_CYrEyV",
         "slide_6PWUTJ",
         "slide_JnRRTK",
         "slide_aabRXE",
-        "slide_gyHhyA",
         "slide_Nz4YTy",
-        "slide_BMwfFR",
-        "slide_3emCbE"
+        "slide_BMwfFR"
       ],
       "name": "Sunnies World Slideshow",
       "settings": {
