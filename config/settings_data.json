@@ -8785,7 +8785,7 @@
         "settings": {
           "show_section": true,
           "news_text": "Now open: Sunnies World in Central Park Bangkok.",
-          "news_url": "shopify://pages/dusit-central-park-mall",
+          "news_url": "https://www.sunniesworld.com/",
           "background_color": "#dad4a0",
           "text_color": "#c68751"
         }
