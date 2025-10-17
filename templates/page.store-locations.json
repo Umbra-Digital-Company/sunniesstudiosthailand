@@ -16,9 +16,19 @@
         "desktop_height": "100",
         "mobile_height": "60"
       }
+    },
+    "store_locations_3WpACr": {
+      "type": "store-locations",
+      "name": "Store Locations",
+      "settings": {
+        "products_filters": "Sun, Optical, Anti-Rad Eyewear, Readers, Sunnies Flask, Sunnies Coffee, Sunnies Face, Merch",
+        "services_filters": "Free eye exam, 19-minute glasses, Sunnies Guarantee, Lifetime upkeep of frames, Customize your merch, Free Sunnies Flask engraving",
+        "store_type_filters": "Sunnies Studios Stores, Department Stores, Kiosk, Distributor"
+      }
     }
   },
   "order": [
-    "86b4f3fc-9684-44fa-841d-877be5ba6262"
+    "86b4f3fc-9684-44fa-841d-877be5ba6262",
+    "store_locations_3WpACr"
   ]
 }
