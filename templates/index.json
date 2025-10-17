@@ -32,32 +32,32 @@
             "category_url": "https://sunniesstudios.com/pages/sunnies-flask"
           }
         },
-        "product_category_HkziFW": {
-          "type": "product_category",
-          "settings": {
-            "category_image": "shopify://shop_images/coffee.png",
-            "category_content_image": "shopify://shop_images/Sunnies_Coffee_logo_linear_1.svg",
-            "category_title": "",
-            "category_tagline": "The most customizable flask ever",
-            "category_url": ""
-          }
-        },
         "product_category_RyqRkA": {
           "type": "product_category",
           "settings": {
             "category_image": "shopify://shop_images/face.png",
             "category_content_image": "shopify://shop_images/Sunnies_Face_logo_linear.svg",
             "category_title": "",
+            "category_tagline": "Beauty that gets you",
+            "category_url": "https://sunniesface.com"
+          }
+        },
+        "product_category_HkziFW": {
+          "type": "product_category",
+          "settings": {
+            "category_image": "shopify://shop_images/coffee.png",
+            "category_content_image": "shopify://shop_images/Sunnies_Coffee_logo_linear_1.svg",
+            "category_title": "",
             "category_tagline": "Your daily dose of good stuff",
-            "category_url": ""
+            "category_url": "https://www.instagram.com/sunniescoffee/"
           }
         }
       },
       "block_order": [
         "product_category_MRe6hr",
         "product_category_mTzzF3",
-        "product_category_HkziFW",
-        "product_category_RyqRkA"
+        "product_category_RyqRkA",
+        "product_category_HkziFW"
       ],
       "name": "Sunnies World Hero",
       "settings": {
