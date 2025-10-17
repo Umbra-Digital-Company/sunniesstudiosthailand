@@ -15,7 +15,7 @@
         "product_category_MRe6hr": {
           "type": "product_category",
           "settings": {
-            "category_image": "shopify://shop_images/studios.png",
+            "category_image": "shopify://shop_images/Sunnies_World_Thailand_Web_Brand_Images-Mobile_Sun.jpg",
             "category_content_image": "shopify://shop_images/Sunnies_Studios_logo_linear.svg",
             "category_title": "",
             "category_tagline": "Eyewear you live in",
@@ -25,7 +25,7 @@
         "product_category_mTzzF3": {
           "type": "product_category",
           "settings": {
-            "category_image": "shopify://shop_images/flask.png",
+            "category_image": "shopify://shop_images/Sunnies_World_Thailand_Web_Brand_Images-Mobile_Flask.jpg",
             "category_content_image": "shopify://shop_images/Sunnies_Flask_logo_linear.svg",
             "category_title": "",
             "category_tagline": "The most customizable flask ever",
@@ -35,7 +35,7 @@
         "product_category_RyqRkA": {
           "type": "product_category",
           "settings": {
-            "category_image": "shopify://shop_images/face.png",
+            "category_image": "shopify://shop_images/Sunnies_World_Thailand_Web_Brand_Images-Desktop_Face.jpg",
             "category_content_image": "shopify://shop_images/Sunnies_Face_logo_linear.svg",
             "category_title": "",
             "category_tagline": "Beauty that gets you",
@@ -45,7 +45,7 @@
         "product_category_HkziFW": {
           "type": "product_category",
           "settings": {
-            "category_image": "shopify://shop_images/coffee.png",
+            "category_image": "shopify://shop_images/coffee_2bbef72c-eaeb-4fd5-99fe-e00c589cff4d.png",
             "category_content_image": "shopify://shop_images/Sunnies_Coffee_logo_linear_1.svg",
             "category_title": "",
             "category_tagline": "Your daily dose of good stuff",
